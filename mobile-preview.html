@@ -1,0 +1,1610 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>리니지클래식 시세 모바일</title>
+    <script>
+      if (location.protocol === "file:") {
+        location.replace("http://127.0.0.1:4179/mobile-preview.html");
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #060913;
+        --panel: rgba(14, 21, 38, 0.82);
+        --panel-2: rgba(26, 36, 60, 0.86);
+        --line: rgba(139, 166, 214, 0.16);
+        --line-strong: rgba(110, 231, 255, 0.34);
+        --text: #f6f9ff;
+        --muted: #93a4bd;
+        --blue: #48c6ff;
+        --green: #7cffb2;
+        --red: #ff6d8a;
+        --yellow: #ffd166;
+        --violet: #9b8cff;
+        --soft-red: rgba(255, 109, 138, 0.14);
+        --soft-green: rgba(124, 255, 178, 0.13);
+        --shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 50% -140px, rgba(72, 198, 255, 0.26), transparent 38%),
+          radial-gradient(circle at 100% 180px, rgba(155, 140, 255, 0.16), transparent 34%),
+          var(--bg);
+        color: var(--text);
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      .app {
+        max-width: 430px;
+        min-height: 100dvh;
+        margin: 0 auto;
+        background:
+          linear-gradient(180deg, rgba(12, 19, 37, 0.92) 0, rgba(6, 9, 19, 0.98) 330px),
+          var(--bg);
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 13px 16px 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        background: rgba(6, 9, 19, 0.78);
+        backdrop-filter: blur(20px);
+      }
+
+      .brand {
+        min-width: 0;
+      }
+
+      .brand strong {
+        display: block;
+        font-size: 18px;
+        line-height: 1.1;
+        letter-spacing: -0.2px;
+      }
+
+      .brand span {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .live {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 10px;
+        border: 1px solid rgba(124, 255, 178, 0.4);
+        border-radius: 999px;
+        background: rgba(124, 255, 178, 0.08);
+        color: var(--green);
+        box-shadow: 0 0 24px rgba(124, 255, 178, 0.12);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .live::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--green);
+        animation: livePulse 1.4s ease-in-out infinite;
+      }
+
+      @keyframes livePulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(124, 255, 178, 0.38);
+        }
+
+        50% {
+          box-shadow: 0 0 0 6px rgba(124, 255, 178, 0);
+        }
+      }
+
+      .refresh {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        margin: 14px 16px 10px;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: linear-gradient(180deg, rgba(18, 28, 51, 0.86), rgba(10, 16, 31, 0.84));
+        box-shadow: var(--shadow);
+      }
+
+      .market-brief {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 14px 16px 10px;
+      }
+
+      .brief-card {
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background:
+          radial-gradient(circle at 82% 0, rgba(72, 198, 255, 0.13), transparent 36%),
+          linear-gradient(180deg, rgba(18, 28, 51, 0.78), rgba(10, 16, 31, 0.78));
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+      }
+
+      .brief-card span {
+        display: block;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 800;
+      }
+
+      .brief-card strong {
+        display: block;
+        margin-top: 6px;
+        font-size: 18px;
+        letter-spacing: -0.2px;
+      }
+
+      .brief-card.up strong {
+        color: var(--green);
+      }
+
+      .brief-card.down strong {
+        color: var(--red);
+      }
+
+      .refresh strong {
+        display: block;
+        font-size: 13px;
+      }
+
+      .refresh span {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .refresh button {
+        height: 32px;
+        padding: 0 10px;
+        border: 1px solid rgba(72, 198, 255, 0.48);
+        border-radius: 8px;
+        background: linear-gradient(135deg, rgba(72, 198, 255, 0.22), rgba(155, 140, 255, 0.18));
+        color: var(--text);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .notice {
+        display: none;
+        margin: 0 16px 10px;
+        padding: 11px 12px;
+        border: 1px solid rgba(72, 198, 255, 0.2);
+        border-radius: 10px;
+        background: rgba(72, 198, 255, 0.07);
+        color: #c9eaff;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .summary {
+        display: none;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        padding: 0 16px 12px;
+      }
+
+      .metric {
+        min-width: 0;
+        padding: 11px 10px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: rgba(14, 21, 38, 0.68);
+      }
+
+      .metric span {
+        display: block;
+        color: var(--muted);
+        font-size: 10px;
+      }
+
+      .metric strong {
+        display: block;
+        margin-top: 5px;
+        overflow: hidden;
+        font-size: 15px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .source-strip {
+        display: none;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        padding: 0 16px 14px;
+      }
+
+      .source-card {
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: rgba(14, 21, 38, 0.68);
+      }
+
+      .source-card strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 12px;
+      }
+
+      .status {
+        display: inline-flex;
+        padding: 3px 6px;
+        border-radius: 999px;
+        background: rgba(147, 164, 189, 0.1);
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 800;
+      }
+
+      .status.ok {
+        color: var(--green);
+      }
+
+      .status.wait {
+        color: var(--yellow);
+      }
+
+      .ticker {
+        overflow: hidden;
+        margin: 0 16px 12px;
+        border: 1px solid rgba(72, 198, 255, 0.24);
+        border-radius: 10px;
+        background: linear-gradient(90deg, rgba(72, 198, 255, 0.08), rgba(124, 255, 178, 0.06));
+        box-shadow: inset 0 0 24px rgba(72, 198, 255, 0.05);
+      }
+
+      .ticker-track {
+        display: flex;
+        width: max-content;
+        animation: tickerMove 26s linear infinite;
+      }
+
+      .ticker-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        min-width: max-content;
+        padding: 10px 14px;
+        color: #dceaff;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .ticker-item span {
+        color: var(--green);
+      }
+
+      .ticker-item b {
+        color: var(--yellow);
+        font-weight: 900;
+      }
+
+      @keyframes tickerMove {
+        from {
+          transform: translateX(0);
+        }
+
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .chart-panel {
+        margin: 0 16px 12px;
+        padding: 16px;
+        border: 1px solid var(--line-strong);
+        border-radius: 14px;
+        background:
+          radial-gradient(circle at 16% -14%, rgba(72, 198, 255, 0.35), transparent 34%),
+          radial-gradient(circle at 96% 20%, rgba(124, 255, 178, 0.16), transparent 30%),
+          linear-gradient(180deg, rgba(18, 29, 54, 0.95) 0, rgba(9, 15, 29, 0.95) 100%);
+        box-shadow:
+          0 24px 70px rgba(0, 0, 0, 0.42),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+
+      .chart-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .chart-head strong {
+        font-size: 15px;
+        letter-spacing: -0.1px;
+      }
+
+      .chart-head span {
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .main-price {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        align-items: end;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .spark {
+        height: 54px;
+        margin: 0 0 12px;
+        border-bottom: 1px solid rgba(139, 166, 214, 0.12);
+      }
+
+      .spark svg {
+        display: block;
+        width: 100%;
+        height: 54px;
+        overflow: visible;
+      }
+
+      .spark path.area {
+        fill: rgba(124, 255, 178, 0.12);
+      }
+
+      .spark path.line {
+        fill: none;
+        stroke: var(--green);
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        filter: drop-shadow(0 0 8px rgba(124, 255, 178, 0.22));
+      }
+
+      .main-price span {
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .main-price strong {
+        display: block;
+        margin-top: 4px;
+        font-size: 42px;
+        line-height: 1;
+        letter-spacing: -1.1px;
+        text-shadow: 0 0 24px rgba(72, 198, 255, 0.18);
+        transition:
+          color 240ms ease,
+          transform 240ms ease;
+      }
+
+      .main-price strong.flash {
+        color: var(--green);
+        transform: translateY(-1px);
+      }
+
+      .main-price em {
+        color: var(--green);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 900;
+      }
+
+      .best-source {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 10px;
+        padding: 6px 8px;
+        border-radius: 999px;
+        background: rgba(124, 255, 178, 0.12);
+        color: var(--green);
+        font-size: 11px;
+        font-weight: 900;
+      }
+
+      .best-source::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+
+      .change-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+        min-width: 84px;
+        margin-top: 8px;
+        padding: 6px 8px;
+        border-radius: 999px;
+        background: rgba(147, 164, 189, 0.1);
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .change-pill.up {
+        background: var(--soft-green);
+        color: var(--green);
+      }
+
+      .change-pill.down {
+        background: var(--soft-red);
+        color: var(--red);
+      }
+
+      .baseline {
+        margin-top: 5px;
+        color: var(--muted);
+        font-size: 10px;
+        text-align: right;
+      }
+
+      .chart {
+        display: grid;
+        gap: 9px;
+      }
+
+      .compare-row {
+        display: grid;
+        grid-template-columns: 76px 1fr 70px;
+        gap: 9px;
+        align-items: center;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .compare-row strong {
+        color: var(--text);
+        font-size: 12px;
+        font-variant-numeric: tabular-nums;
+        text-align: right;
+      }
+
+      .compare-track {
+        overflow: hidden;
+        height: 9px;
+        border-radius: 999px;
+        background: rgba(147, 164, 189, 0.12);
+      }
+
+      .compare-fill {
+        height: 100%;
+        width: var(--w);
+        min-width: 10px;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--blue), var(--violet));
+        animation: fillIn 650ms ease both;
+      }
+
+      .compare-fill.best {
+        background: linear-gradient(90deg, var(--green), #d8ff7a);
+        box-shadow: 0 0 18px rgba(124, 255, 178, 0.25);
+      }
+
+      .compare-fill.waiting {
+        width: 14px;
+        min-width: 14px;
+        background: #3a4352;
+      }
+
+      @keyframes fillIn {
+        from {
+          transform: scaleX(0.15);
+          transform-origin: left;
+          opacity: 0.45;
+        }
+
+        to {
+          transform: scaleX(1);
+          opacity: 1;
+        }
+      }
+
+      .chart-note {
+        display: none;
+        margin-top: 9px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .list {
+        padding: 0 16px 24px;
+      }
+
+      .head,
+      .row {
+        display: grid;
+        grid-template-columns: 30px 1fr 88px 58px;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .head {
+        padding: 6px 4px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .row {
+        width: 100%;
+        min-height: 42px;
+        margin-bottom: 4px;
+        padding: 7px 9px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: rgba(14, 21, 38, 0.72);
+        color: inherit;
+        text-align: left;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+        transition:
+          border-color 180ms ease,
+          background 180ms ease,
+          transform 180ms ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .row::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: var(--heat, 0%);
+        background: linear-gradient(90deg, rgba(72, 198, 255, 0.14), transparent);
+        pointer-events: none;
+      }
+
+      .row > span {
+        position: relative;
+        z-index: 1;
+      }
+
+      .row:active {
+        transform: scale(0.992);
+      }
+
+      .row.active {
+        border-color: rgba(72, 198, 255, 0.58);
+        background: linear-gradient(90deg, rgba(72, 198, 255, 0.16), rgba(14, 21, 38, 0.78));
+        box-shadow:
+          0 12px 32px rgba(0, 0, 0, 0.28),
+          inset 3px 0 0 var(--blue);
+      }
+
+      .rank {
+        display: grid;
+        width: 24px;
+        height: 24px;
+        place-items: center;
+        border-radius: 8px;
+        background: rgba(147, 164, 189, 0.11);
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 900;
+      }
+
+      .row:nth-child(-n + 3) .rank {
+        background: rgba(255, 209, 102, 0.16);
+        color: var(--yellow);
+      }
+
+      .server {
+        min-width: 0;
+      }
+
+      .server strong {
+        display: block;
+        overflow: hidden;
+        font-size: 14px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .chips {
+        display: none;
+        gap: 4px;
+        margin-top: 7px;
+      }
+
+      .chip {
+        padding: 2px 5px;
+        border-radius: 999px;
+        background: rgba(147, 164, 189, 0.1);
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 800;
+      }
+
+      .chip.best {
+        background: rgba(124, 255, 178, 0.12);
+        color: var(--green);
+      }
+
+      .chip.on {
+        color: var(--green);
+      }
+
+      .chip.wait {
+        color: var(--muted);
+      }
+
+      .value {
+        text-align: right;
+      }
+
+      .value strong {
+        display: block;
+        font-size: 15px;
+        color: var(--text);
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.25px;
+      }
+
+      .value span {
+        display: none;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 10px;
+      }
+
+      .row-change {
+        display: inline-block;
+        margin-top: 0;
+        padding: 3px 5px;
+        border-radius: 999px;
+        background: rgba(147, 164, 189, 0.1);
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 900;
+      }
+
+      .compact-change {
+        text-align: right;
+      }
+
+      .row-change.up {
+        background: var(--soft-green);
+        color: var(--green);
+      }
+
+      .row-change.down {
+        background: var(--soft-red);
+        color: var(--red);
+      }
+
+      .empty {
+        padding: 28px 10px;
+        color: var(--muted);
+        text-align: center;
+        font-size: 13px;
+      }
+
+      .channels {
+        padding: 0 16px 30px;
+      }
+
+      .ad-slot {
+        margin: 0 16px 12px;
+        padding: 12px;
+        border: 1px solid rgba(255, 209, 102, 0.24);
+        border-radius: 12px;
+        background:
+          radial-gradient(circle at 88% 0, rgba(255, 209, 102, 0.18), transparent 36%),
+          linear-gradient(135deg, rgba(24, 34, 58, 0.9), rgba(12, 19, 37, 0.88));
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.24);
+      }
+
+      .ad-slot a {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        align-items: center;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .ad-slot span {
+        display: inline-flex;
+        width: fit-content;
+        padding: 3px 7px;
+        border-radius: 999px;
+        background: rgba(255, 209, 102, 0.14);
+        color: var(--yellow);
+        font-size: 10px;
+        font-weight: 900;
+      }
+
+      .ad-slot strong {
+        display: block;
+        margin-top: 7px;
+        font-size: 14px;
+      }
+
+      .ad-slot small {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .ad-cta {
+        padding: 8px 10px;
+        border-radius: 9px;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        font-size: 11px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 4px 8px;
+      }
+
+      .section-title strong {
+        font-size: 13px;
+      }
+
+      .section-title span {
+        color: var(--muted);
+        font-size: 10px;
+      }
+
+      .shorts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .feed-empty {
+        grid-column: 1 / -1;
+        padding: 18px 12px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(14, 21, 38, 0.72);
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+        text-align: center;
+      }
+
+      .channel-tabs {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        margin: -2px 0 9px;
+        padding: 0 2px 2px;
+        scrollbar-width: none;
+      }
+
+      .channel-tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      .channel-tab {
+        flex: 0 0 auto;
+        padding: 6px 9px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(14, 21, 38, 0.72);
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 900;
+      }
+
+      .channel-tab.active {
+        border-color: rgba(72, 198, 255, 0.45);
+        background: rgba(72, 198, 255, 0.12);
+        color: var(--text);
+      }
+
+      .feed-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        margin: -2px 0 8px;
+      }
+
+      .feed-tab {
+        height: 30px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: rgba(14, 21, 38, 0.72);
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 900;
+      }
+
+      .feed-tab.active {
+        border-color: rgba(124, 255, 178, 0.4);
+        background: rgba(124, 255, 178, 0.1);
+        color: var(--green);
+      }
+
+      .short-card {
+        min-height: 92px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background:
+          radial-gradient(circle at 80% 0, rgba(155, 140, 255, 0.18), transparent 42%),
+          rgba(14, 21, 38, 0.72);
+        color: inherit;
+        text-decoration: none;
+        overflow: hidden;
+      }
+
+      .short-card.shorts-kind {
+        min-height: 118px;
+      }
+
+      .short-card span {
+        display: inline-flex;
+        padding: 3px 6px;
+        border-radius: 999px;
+        background: rgba(72, 198, 255, 0.1);
+        color: var(--blue);
+        font-size: 10px;
+        font-weight: 900;
+      }
+
+      .short-card strong {
+        display: block;
+        margin-top: 10px;
+        font-size: 12px;
+        line-height: 1.3;
+      }
+
+      .short-card small {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 10px;
+        line-height: 1.25;
+      }
+
+      .thumb {
+        height: 58px;
+        margin: -10px -10px 8px;
+        background:
+          linear-gradient(135deg, rgba(72, 198, 255, 0.18), rgba(155, 140, 255, 0.16)),
+          rgba(255, 255, 255, 0.04);
+        background-position: center;
+        background-size: cover;
+      }
+
+      .video-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: none;
+        align-items: end;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.68);
+        backdrop-filter: blur(10px);
+      }
+
+      .video-modal.open {
+        display: flex;
+      }
+
+      .video-sheet {
+        width: min(430px, 100%);
+        padding: 12px 12px 16px;
+        border: 1px solid var(--line);
+        border-radius: 16px 16px 0 0;
+        background: #070b15;
+        box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.46);
+      }
+
+      .video-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+
+      .video-top strong {
+        overflow: hidden;
+        font-size: 13px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .video-top button {
+        width: 30px;
+        height: 30px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        color: var(--text);
+        font-size: 18px;
+        line-height: 1;
+      }
+
+      .player {
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+        border-radius: 10px;
+        background: #000;
+      }
+
+      .player iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      .player-fallback {
+        display: grid;
+        min-height: 100%;
+        place-items: end stretch;
+        padding: 12px;
+        background-position: center;
+        background-size: cover;
+      }
+
+      .player-fallback div {
+        padding: 12px;
+        border-radius: 10px;
+        background: rgba(6, 9, 19, 0.78);
+        backdrop-filter: blur(10px);
+      }
+
+      .player-fallback p {
+        margin: 0 0 10px;
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .player-fallback a {
+        display: inline-flex;
+        padding: 8px 10px;
+        border-radius: 8px;
+        background: rgba(72, 198, 255, 0.18);
+        color: var(--text);
+        font-size: 12px;
+        font-weight: 900;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <div class="brand">
+          <strong>리니지클래식 시세</strong>
+          <span>ADENA/W MARKET</span>
+        </div>
+        <div class="live">LIVE</div>
+      </header>
+
+      <section class="market-brief" aria-label="시장 요약">
+        <div class="brief-card up">
+          <span>전일 12시 대비 상승</span>
+          <strong id="upCount">-</strong>
+        </div>
+        <div class="brief-card down">
+          <span>전일 12시 대비 하락</span>
+          <strong id="downCount">-</strong>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="실시간 순위 흐름">
+        <div class="ticker-track" id="tickerTrack"></div>
+      </section>
+
+      <section class="chart-panel" aria-label="거래소 비교">
+        <div class="chart-head">
+          <strong id="chartTitle">서버 시세</strong>
+          <span>ADENA/W</span>
+        </div>
+        <div class="main-price">
+          <div>
+            <span>현재가</span>
+            <strong id="mainPrice">-</strong>
+            <div class="best-source" id="bestSource">최저 출처 확인중</div>
+          </div>
+          <div>
+            <em id="mainSources">MARKET</em>
+            <div class="change-pill" id="mainChange">기준 대기</div>
+            <div class="baseline" id="baselineText">전일 12시</div>
+          </div>
+        </div>
+        <div class="spark" id="spark"></div>
+        <div class="chart" id="chart"></div>
+        <p class="chart-note" id="chartNote">수집 데이터가 아직 없습니다.</p>
+      </section>
+
+      <section class="ad-slot" aria-label="광고">
+        <a href="#" onclick="return false;">
+          <div>
+            <span>AD</span>
+            <strong>광고 문의 · 서버 홍보 · 채널 제휴</strong>
+            <small>시세 이용자가 가장 많이 보는 위치입니다.</small>
+          </div>
+          <div class="ad-cta">문의하기</div>
+        </a>
+      </section>
+
+      <section class="channels" aria-label="추천 콘텐츠">
+        <div class="section-title">
+          <strong>크리에이터 피드</strong>
+          <span>추천 · 최신순</span>
+        </div>
+        <div class="feed-tabs" id="feedTabs">
+          <button class="feed-tab active" type="button" data-kind="all">전체</button>
+          <button class="feed-tab" type="button" data-kind="shorts">쇼츠</button>
+          <button class="feed-tab" type="button" data-kind="video">영상</button>
+        </div>
+        <div class="channel-tabs" id="channelTabs"></div>
+        <div class="shorts" id="youtubeVideos"></div>
+      </section>
+
+      <section class="list">
+        <div class="head">
+          <span>순위</span>
+          <span>서버</span>
+          <span style="text-align: right">현재가</span>
+          <span style="text-align: right">전일</span>
+        </div>
+        <div id="rows"></div>
+      </section>
+
+      <div class="video-modal" id="videoModal" aria-hidden="true">
+        <div class="video-sheet">
+          <div class="video-top">
+            <strong id="videoTitle">영상</strong>
+            <button type="button" id="videoClose" aria-label="닫기">×</button>
+          </div>
+          <div class="player" id="videoPlayer"></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="data/market-data.js"></script>
+    <script src="data/youtube-data.js"></script>
+    <script>
+      let marketData = window.MARKET_DATA || { servers: [] };
+      let servers = marketData.servers || [];
+
+      const rows = document.querySelector("#rows");
+      const chart = document.querySelector("#chart");
+      const chartTitle = document.querySelector("#chartTitle");
+      const chartNote = document.querySelector("#chartNote");
+      const spark = document.querySelector("#spark");
+      const tickerTrack = document.querySelector("#tickerTrack");
+      const mainPrice = document.querySelector("#mainPrice");
+      const mainSources = document.querySelector("#mainSources");
+      const bestSource = document.querySelector("#bestSource");
+      const mainChange = document.querySelector("#mainChange");
+      const baselineText = document.querySelector("#baselineText");
+      const upCount = document.querySelector("#upCount");
+      const downCount = document.querySelector("#downCount");
+      const youtubeVideos = document.querySelector("#youtubeVideos");
+      const channelTabs = document.querySelector("#channelTabs");
+      const feedTabs = document.querySelector("#feedTabs");
+      const videoModal = document.querySelector("#videoModal");
+      const videoTitle = document.querySelector("#videoTitle");
+      const videoPlayer = document.querySelector("#videoPlayer");
+      const videoClose = document.querySelector("#videoClose");
+      let selectedServerName = getRankedServers()[0]?.name || "";
+      let selectedChannel = "전체";
+      let selectedKind = "all";
+      let refreshLeft = 30;
+      let liveCursor = 0;
+
+      updateHeaderState();
+
+      function renderChart(server) {
+        if (!server) {
+          chartTitle.textContent = "서버 시세 비교";
+          chart.innerHTML = "";
+          chartNote.textContent = "수집 데이터가 아직 없습니다.";
+          return;
+        }
+
+        chartTitle.textContent = `${server.name} 시세`;
+        mainPrice.textContent = server.currentPrice
+          ? server.currentPrice.toLocaleString("ko-KR")
+          : "-";
+        flashMainPrice();
+        mainSources.textContent = `검증 ${server.verifiedSources?.length || 0}/3`;
+        bestSource.textContent = `${getBestSource(server).label} 최저가`;
+        mainChange.textContent = formatChange(server);
+        mainChange.className = `change-pill ${getChangeClass(server)}`;
+        baselineText.textContent = server.previousNoonPrice
+          ? `${server.baselineLabel} ${formatPrice(server.previousNoonPrice)}`
+          : "전일 12시 기준 대기";
+        renderSpark(server);
+        const sourceRows = [
+          ["아이템베이", server.itemBay?.min, `${server.itemBay?.count || 0}건`, "베이"],
+          ["바로템", server.barotem?.min, `${server.barotem?.count || 0}건`, "바로"],
+          ["매니아", server.itemMania?.min, `${server.itemMania?.count || 0}건`, "매니아"],
+        ].filter((row) => isVerifiedSource(server, row[3]));
+        const rows = [["대표", server.currentPrice, "최저", "대표"], ...sourceRows];
+        const max = Math.max(...rows.map((row) => row[1] || 0), 1);
+        const best = getBestSource(server);
+
+        chart.innerHTML = rows
+          .map(([label, value, meta, sourceLabel]) => {
+            const width = value ? Math.max(18, Math.round((value / max) * 100)) : 0;
+            const shown = value ? formatPrice(value) : meta === "0건" ? "수집대기" : meta;
+            const waiting = value ? "" : " waiting";
+            const bestClass = sourceLabel === best.short || sourceLabel === "대표" ? " best" : "";
+
+            return `
+              <div class="compare-row">
+                <span>${label}</span>
+                <span class="compare-track">
+                  <span class="compare-fill${waiting}${bestClass}" style="--w:${width}%"></span>
+                </span>
+                <strong>${shown}</strong>
+              </div>
+            `;
+          })
+          .join("");
+
+        chartNote.textContent =
+          "대표가는 베이/바로템/매니아 판매목록의 1만당 최저가 중 가장 낮은 값입니다.";
+      }
+
+      function renderTicker() {
+        const ranked = servers
+          .filter((server) => server.currentPrice)
+          .slice()
+          .sort((a, b) => b.currentPrice - a.currentPrice)
+          .slice(0, 10);
+
+        const items = ranked
+          .map(
+            (server, index) =>
+              `<span class="ticker-item"><b>${index + 1}</b> ${server.name} <span>${formatPrice(server.currentPrice)}</span></span>`,
+          )
+          .join("");
+
+        tickerTrack.innerHTML = items + items;
+      }
+
+      function renderYoutubeVideos() {
+        renderChannelTabs();
+        const allVideos = window.YOUTUBE_DATA?.videos || [];
+        const filteredVideos = allVideos
+          .filter((video) => selectedChannel === "전체" || video.channelTitle === selectedChannel)
+          .filter((video) => selectedKind === "all" || video.kind === selectedKind);
+        const videos = pickFeedVideos(filteredVideos);
+
+        if (!videos.length) {
+          youtubeVideos.innerHTML = `<div class="feed-empty">표시할 ${selectedKind === "shorts" ? "쇼츠" : "영상"}이 아직 없습니다.</div>`;
+          return;
+        }
+
+        youtubeVideos.innerHTML = videos
+          .map((video) => {
+            const style = video.thumbnail
+              ? ` style="background-image: linear-gradient(180deg, rgba(6,9,19,0), rgba(6,9,19,0.58)), url('${video.thumbnail}')"`
+              : "";
+            return `
+              <button class="short-card ${video.kind === "shorts" ? "shorts-kind" : ""}" type="button" data-video-id="${video.id}" data-title="${escapeAttr(video.title || "영상")}" data-thumbnail="${escapeAttr(video.thumbnail || "")}" data-url="${escapeAttr(video.url || "#")}">
+                <div class="thumb"${style}></div>
+                <span>${video.kind === "shorts" ? "쇼츠" : video.tag || "영상"}</span>
+                <strong>${escapeHtml(video.title || "영상 제목")}</strong>
+                <small>${escapeHtml(video.channelTitle || "채널")} · ${formatRelativeTime(video.publishedAt)}</small>
+              </button>
+            `;
+          })
+          .join("");
+
+        document.querySelectorAll(".short-card[data-video-id]").forEach((card) => {
+          card.addEventListener("click", () => openVideo(card.dataset));
+        });
+      }
+
+      function pickFeedVideos(videos) {
+        if (selectedKind !== "all") return videos.slice(0, 6);
+
+        const longForms = videos.filter((video) => video.kind !== "shorts");
+        const shorts = videos.filter((video) => video.kind === "shorts");
+        const mixed = [];
+        const max = Math.max(longForms.length, shorts.length);
+
+        for (let index = 0; index < max && mixed.length < 6; index += 1) {
+          if (longForms[index]) mixed.push(longForms[index]);
+          if (shorts[index] && mixed.length < 6) mixed.push(shorts[index]);
+        }
+
+        return mixed;
+      }
+
+      function renderChannelTabs() {
+        const channels = [
+          "전체",
+          ...[...new Map(
+            (window.YOUTUBE_DATA?.videos || [])
+              .filter((video) => video.channelTitle)
+              .sort((a, b) => (a.subscriberRank || 999) - (b.subscriberRank || 999))
+              .map((video) => [video.channelTitle, video.channelTitle]),
+          ).values()],
+        ];
+        channelTabs.innerHTML = channels
+          .map((channel) => `<button class="channel-tab ${channel === selectedChannel ? "active" : ""}" type="button" data-channel="${escapeAttr(channel)}">${escapeHtml(channel)}</button>`)
+          .join("");
+
+        document.querySelectorAll(".channel-tab").forEach((tab) => {
+          tab.addEventListener("click", () => {
+            selectedChannel = tab.dataset.channel;
+            renderYoutubeVideos();
+          });
+        });
+      }
+
+      feedTabs.querySelectorAll(".feed-tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          selectedKind = tab.dataset.kind;
+          feedTabs.querySelectorAll(".feed-tab").forEach((button) => {
+            button.classList.toggle("active", button === tab);
+          });
+          renderYoutubeVideos();
+        });
+      });
+
+      function openVideo(video) {
+        const videoId = video.videoId;
+        const title = video.title || "영상";
+        const thumbnail = video.thumbnail || `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`;
+        const url = video.url || `https://www.youtube.com/watch?v=${videoId}`;
+        if (!videoId || videoId.startsWith("demo-")) return;
+        videoTitle.textContent = title;
+
+        if (location.protocol === "file:") {
+          videoPlayer.innerHTML = `
+            <div class="player-fallback" style="background-image: linear-gradient(180deg, rgba(6,9,19,0.08), rgba(6,9,19,0.86)), url('${thumbnail}')">
+              <div>
+                <p>로컬 미리보기에서는 YouTube 플레이어가 제한될 수 있습니다.</p>
+                <a href="${url}" target="_blank" rel="noopener noreferrer">YouTube에서 보기</a>
+              </div>
+            </div>
+          `;
+        } else {
+          const origin = encodeURIComponent(location.origin);
+          videoPlayer.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1&playsinline=1&rel=0&origin=${origin}" title="${escapeAttr(title)}" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+        }
+        videoModal.classList.add("open");
+        videoModal.setAttribute("aria-hidden", "false");
+      }
+
+      function closeVideo() {
+        videoModal.classList.remove("open");
+        videoModal.setAttribute("aria-hidden", "true");
+        videoPlayer.innerHTML = "";
+      }
+
+      function renderSpark(server) {
+        const points = buildSparkPoints(server);
+        if (points.length < 2) {
+          spark.innerHTML = "";
+          return;
+        }
+
+        const min = Math.min(...points);
+        const max = Math.max(...points);
+        const range = Math.max(max - min, 1);
+        const width = 360;
+        const height = 52;
+        const coords = points.map((price, index) => {
+          const x = (index / (points.length - 1)) * width;
+          const y = height - ((price - min) / range) * 38 - 7;
+          return [x, y];
+        });
+        const line = coords.map(([x, y], index) => `${index ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
+        const area = `${line} L${width},${height} L0,${height} Z`;
+
+        spark.innerHTML = `
+          <svg viewBox="0 0 ${width} ${height}" aria-hidden="true">
+            <path class="area" d="${area}"></path>
+            <path class="line" d="${line}"></path>
+          </svg>
+        `;
+      }
+
+      function buildSparkPoints(server) {
+        const history = (server.history || []).map((point) => point.price).filter(Number.isFinite);
+        const base = Number.isFinite(server.previousNoonPrice) ? [server.previousNoonPrice] : [];
+        const current = Number.isFinite(server.currentPrice) ? [server.currentPrice] : [];
+        const combined = [...base, ...history, ...current];
+        return combined.length >= 2 ? combined.slice(-8) : combined;
+      }
+
+      function rotateLiveFocus() {
+        const ranked = getRankedServers().slice(0, 8);
+        if (!ranked.length) return;
+        const next = ranked[liveCursor % ranked.length];
+        selectedServerName = next.name;
+        renderChart(next);
+        renderRows();
+      }
+
+      function flashMainPrice() {
+        mainPrice.classList.remove("flash");
+        window.requestAnimationFrame(() => {
+          mainPrice.classList.add("flash");
+          window.setTimeout(() => mainPrice.classList.remove("flash"), 260);
+        });
+      }
+
+      async function reloadMarketData() {
+        try {
+          await new Promise((resolve, reject) => {
+            const oldScript = document.querySelector("script[data-market-reload]");
+            if (oldScript) oldScript.remove();
+
+            const script = document.createElement("script");
+            script.src = `data/market-data.js?t=${Date.now()}`;
+            script.dataset.marketReload = "true";
+            script.onload = resolve;
+            script.onerror = reject;
+            document.body.appendChild(script);
+          });
+
+          marketData = window.MARKET_DATA || { servers: [] };
+          servers = marketData.servers || [];
+          if (!servers.some((server) => server.name === selectedServerName)) {
+            selectedServerName = getRankedServers()[0]?.name || "";
+          }
+
+          updateHeaderState();
+          renderTicker();
+          renderChart(servers.find((server) => server.name === selectedServerName) || getRankedServers()[0]);
+          renderRows();
+        } catch {
+          console.warn("market data reload failed");
+        }
+
+        refreshLeft = 30;
+      }
+
+      function updateHeaderState() {
+        const changed = servers.filter((server) => Number.isFinite(server.change));
+        upCount.textContent = changed.length ? `${changed.filter((server) => server.change > 0).length}개` : "대기";
+        downCount.textContent = changed.length ? `${changed.filter((server) => server.change < 0).length}개` : "대기";
+      }
+
+      function renderRows() {
+        const list = getRankedServers();
+
+        if (!list.length) {
+          rows.innerHTML = `<div class="empty">수집된 서버가 없습니다.</div>`;
+          return;
+        }
+
+        rows.innerHTML = list
+          .map((server, index) => {
+            const chips = [
+              ["bay", "베이", `베이 ${formatShort(server.itemBay?.min)}`],
+              ["baro", "바로", `바로 ${formatShort(server.barotem?.min)}`],
+              ["mania", "매니아", `매니아 ${formatShort(server.itemMania?.min)}`],
+            ]
+              .map(([key, short, label]) => {
+                const state = hasSource(server, key) ? "on" : "wait";
+                const bestClass = getBestSource(server).short === short ? " best" : "";
+                return `<span class="chip ${state}${bestClass}">${label}</span>`;
+              })
+              .join("");
+
+            const price = server.currentPrice ? `${server.currentPrice.toLocaleString("ko-KR")}` : "수집전";
+            const active = server.name === selectedServerName ? " active" : "";
+            const heat = getHeat(server);
+
+            return `
+              <button class="row${active}" type="button" data-server="${server.name}" style="--heat:${heat}%">
+                <span class="rank">${index + 1}</span>
+                <span class="server">
+                  <strong>${server.name}</strong>
+                  <span class="chips">${chips}</span>
+                </span>
+                <span class="value">
+                  <strong>${price}</strong>
+                  <span>ADENA/W</span>
+                </span>
+                <span class="compact-change">
+                  <span class="row-change ${getChangeClass(server)}">${formatChangeCompact(server)}</span>
+                </span>
+              </button>
+            `;
+          })
+          .join("");
+
+        document.querySelectorAll(".row").forEach((row) => {
+          row.addEventListener("click", () => {
+            const selected = servers.find((server) => server.name === row.dataset.server);
+            selectedServerName = selected.name;
+            renderChart(selected);
+            renderRows();
+          });
+        });
+      }
+
+      function sourceCount(server) {
+        return ["bay", "mania", "baro"].filter((source) => hasSource(server, source)).length;
+      }
+
+      function hasSource(server, source) {
+        if (source === "bay") return Boolean(server.itemBay?.count);
+        if (source === "mania") return Boolean(server.itemMania?.count);
+        if (source === "baro") return Boolean(server.barotem?.count);
+        return false;
+      }
+
+      function formatPrice(value) {
+        return value ? `${value.toLocaleString("ko-KR")}원` : "수집전";
+      }
+
+      function formatShort(value) {
+        return value ? value.toLocaleString("ko-KR") : "-";
+      }
+
+      function getBestSource(server) {
+        const map = {
+          itemBay: { short: "베이", label: "아이템베이" },
+          barotem: { short: "바로", label: "바로템" },
+          itemMania: { short: "매니아", label: "아이템매니아" },
+        };
+        const options = (server.verifiedSources || [])
+          .map((source) => ({
+            short: map[source.key]?.short || "",
+            label: map[source.key]?.label || source.label,
+            value: source.price,
+          }))
+          .filter((item) => Number.isFinite(item.value));
+
+        return options.sort((a, b) => a.value - b.value)[0] || {
+          key: "",
+          short: "",
+          label: "수집대기",
+          value: null,
+        };
+      }
+
+      function isVerifiedSource(server, sourceLabel) {
+        const sourceMap = {
+          "베이": "itemBay",
+          "바로": "barotem",
+          "매니아": "itemMania",
+        };
+        const key = sourceMap[sourceLabel];
+        return Boolean((server.verifiedSources || []).some((source) => source.key === key));
+      }
+
+      function formatChange(server) {
+        if (!Number.isFinite(server.change) || !Number.isFinite(server.changeRate)) return "기준 대기";
+        const sign = server.change > 0 ? "+" : "";
+        return `${sign}${server.change.toLocaleString("ko-KR")} (${sign}${server.changeRate}%)`;
+      }
+
+      function formatChangeCompact(server) {
+        if (!Number.isFinite(server.changeRate)) return "-";
+        const sign = server.changeRate > 0 ? "+" : "";
+        return `${sign}${server.changeRate}%`;
+      }
+
+      function getChangeClass(server) {
+        if (!Number.isFinite(server.change) || server.change === 0) return "";
+        return server.change > 0 ? "up" : "down";
+      }
+
+      function formatDate(value) {
+        if (!value) return "";
+        return new Intl.DateTimeFormat("ko-KR", {
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+        }).format(new Date(value));
+      }
+
+      function formatRelativeTime(value) {
+        if (!value) return "업데이트 예정";
+        const diff = Date.now() - new Date(value).getTime();
+        const minutes = Math.max(1, Math.floor(diff / 60000));
+        if (minutes < 60) return `${minutes}분 전`;
+        const hours = Math.floor(minutes / 60);
+        if (hours < 24) return `${hours}시간 전`;
+        return `${Math.floor(hours / 24)}일 전`;
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function escapeAttr(value) {
+        return escapeHtml(value).replace(/`/g, "&#096;");
+      }
+
+      function setSourceStatus(element, ok, okText, waitText) {
+        element.textContent = ok ? okText : waitText;
+        element.classList.toggle("ok", ok);
+        element.classList.toggle("wait", !ok);
+      }
+
+      setInterval(() => {
+        refreshLeft -= 1;
+        if (refreshLeft <= 0) {
+          reloadMarketData();
+          return;
+        }
+      }, 1000);
+
+      renderTicker();
+      renderYoutubeVideos();
+      renderChart(getRankedServers()[0]);
+      renderRows();
+
+      setInterval(rotateLiveFocus, 4200);
+      videoClose.addEventListener("click", closeVideo);
+      videoModal.addEventListener("click", (event) => {
+        if (event.target === videoModal) closeVideo();
+      });
+
+      function getRankedServers() {
+        return servers
+          .filter((server) => server.currentPrice)
+          .slice()
+          .sort((a, b) => b.currentPrice - a.currentPrice);
+      }
+
+      function getHeat(server) {
+        const ranked = getRankedServers();
+        const max = ranked[0]?.currentPrice || 1;
+        const min = ranked.at(-1)?.currentPrice || 0;
+        const range = Math.max(max - min, 1);
+        return Math.round(((server.currentPrice - min) / range) * 72 + 10);
+      }
+    </script>
+  </body>
+</html>
