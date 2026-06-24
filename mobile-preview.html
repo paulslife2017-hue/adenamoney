@@ -789,6 +789,63 @@
         font-size: 10px;
       }
 
+      .shorts-rail {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        margin: -2px 0 10px;
+        padding: 0 2px 4px;
+        scrollbar-width: none;
+      }
+
+      .shorts-rail::-webkit-scrollbar {
+        display: none;
+      }
+
+      .rail-card {
+        flex: 0 0 118px;
+        min-height: 154px;
+        padding: 8px;
+        border: 1px solid rgba(124, 255, 178, 0.22);
+        border-radius: 12px;
+        background:
+          linear-gradient(180deg, rgba(6, 9, 19, 0.02), rgba(6, 9, 19, 0.74)),
+          rgba(14, 21, 38, 0.78);
+        color: inherit;
+        overflow: hidden;
+        text-align: left;
+      }
+
+      .rail-thumb {
+        height: 100px;
+        margin: -8px -8px 8px;
+        background:
+          linear-gradient(135deg, rgba(124, 255, 178, 0.18), rgba(72, 198, 255, 0.16)),
+          rgba(255, 255, 255, 0.04);
+        background-position: center;
+        background-size: cover;
+      }
+
+      .rail-card span {
+        display: inline-flex;
+        padding: 3px 6px;
+        border-radius: 999px;
+        background: rgba(124, 255, 178, 0.1);
+        color: var(--green);
+        font-size: 10px;
+        font-weight: 900;
+      }
+
+      .rail-card strong {
+        display: -webkit-box;
+        margin-top: 7px;
+        overflow: hidden;
+        font-size: 11px;
+        line-height: 1.3;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
+
       .shorts {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -835,6 +892,12 @@
         border-color: rgba(72, 198, 255, 0.45);
         background: rgba(72, 198, 255, 0.12);
         color: var(--text);
+      }
+
+      .channel-tab small {
+        margin-right: 4px;
+        color: var(--green);
+        font-size: 10px;
       }
 
       .feed-tabs {
@@ -1071,8 +1134,9 @@
       <section class="channels" aria-label="추천 콘텐츠">
         <div class="section-title">
           <strong>크리에이터 피드</strong>
-          <span>추천 · 최신순</span>
+          <span>채널 구독자순 · 콘텐츠 최신순</span>
         </div>
+        <div class="shorts-rail" id="shortsRail"></div>
         <div class="feed-tabs" id="feedTabs">
           <button class="feed-tab active" type="button" data-kind="all">전체</button>
           <button class="feed-tab" type="button" data-kind="shorts">쇼츠</button>
@@ -1122,6 +1186,7 @@
       const baselineText = document.querySelector("#baselineText");
       const upCount = document.querySelector("#upCount");
       const downCount = document.querySelector("#downCount");
+      const shortsRail = document.querySelector("#shortsRail");
       const youtubeVideos = document.querySelector("#youtubeVideos");
       const channelTabs = document.querySelector("#channelTabs");
       const feedTabs = document.querySelector("#feedTabs");
@@ -1209,6 +1274,7 @@
 
       function renderYoutubeVideos() {
         renderChannelTabs();
+        renderShortsRail();
         const allVideos = window.YOUTUBE_DATA?.videos || [];
         const filteredVideos = allVideos
           .filter((video) => selectedChannel === "전체" || video.channelTitle === selectedChannel)
@@ -1241,6 +1307,37 @@
         });
       }
 
+      function renderShortsRail() {
+        const shorts = (window.YOUTUBE_DATA?.videos || [])
+          .filter((video) => video.kind === "shorts")
+          .sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0))
+          .slice(0, 6);
+
+        if (!shorts.length) {
+          shortsRail.innerHTML = `<div class="feed-empty">쇼츠 수집 대기중입니다.</div>`;
+          return;
+        }
+
+        shortsRail.innerHTML = shorts
+          .map((video) => {
+            const style = video.thumbnail
+              ? ` style="background-image: linear-gradient(180deg, rgba(6,9,19,0), rgba(6,9,19,0.62)), url('${video.thumbnail}')"`
+              : "";
+            return `
+              <button class="rail-card" type="button" data-video-id="${video.id}" data-title="${escapeAttr(video.title || "쇼츠")}" data-thumbnail="${escapeAttr(video.thumbnail || "")}" data-url="${escapeAttr(video.url || "#")}">
+                <div class="rail-thumb"${style}></div>
+                <span>쇼츠</span>
+                <strong>${escapeHtml(video.title || "쇼츠")}</strong>
+              </button>
+            `;
+          })
+          .join("");
+
+        document.querySelectorAll(".rail-card[data-video-id]").forEach((card) => {
+          card.addEventListener("click", () => openVideo(card.dataset));
+        });
+      }
+
       function pickFeedVideos(videos) {
         if (selectedKind !== "all") return videos.slice(0, 6);
 
@@ -1258,17 +1355,9 @@
       }
 
       function renderChannelTabs() {
-        const channels = [
-          "전체",
-          ...[...new Map(
-            (window.YOUTUBE_DATA?.videos || [])
-              .filter((video) => video.channelTitle)
-              .sort((a, b) => (a.subscriberRank || 999) - (b.subscriberRank || 999))
-              .map((video) => [video.channelTitle, video.channelTitle]),
-          ).values()],
-        ];
+        const channels = getRankedChannels();
         channelTabs.innerHTML = channels
-          .map((channel) => `<button class="channel-tab ${channel === selectedChannel ? "active" : ""}" type="button" data-channel="${escapeAttr(channel)}">${escapeHtml(channel)}</button>`)
+          .map((channel) => `<button class="channel-tab ${channel.name === selectedChannel ? "active" : ""}" type="button" data-channel="${escapeAttr(channel.name)}">${channel.rank ? `<small>#${channel.rank}</small> ` : ""}${escapeHtml(channel.name)}</button>`)
           .join("");
 
         document.querySelectorAll(".channel-tab").forEach((tab) => {
@@ -1277,6 +1366,22 @@
             renderYoutubeVideos();
           });
         });
+      }
+
+      function getRankedChannels() {
+        const ranks = new Map();
+        (window.YOUTUBE_DATA?.videos || []).forEach((video) => {
+          if (!video.channelTitle) return;
+          const current = ranks.get(video.channelTitle) || 999;
+          ranks.set(video.channelTitle, Math.min(current, video.subscriberRank || 999));
+        });
+
+        return [
+          { name: "전체", rank: 0 },
+          ...[...ranks.entries()]
+            .sort((a, b) => a[1] - b[1] || a[0].localeCompare(b[0], "ko-KR"))
+            .map(([name, rank]) => ({ name, rank })),
+        ];
       }
 
       feedTabs.querySelectorAll(".feed-tab").forEach((tab) => {
