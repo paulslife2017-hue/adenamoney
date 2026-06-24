@@ -10,7 +10,14 @@ const SHORTS_MAX_SECONDS = 180;
 const API_KEY = typeof process !== "undefined" ? process.env.YOUTUBE_API_KEY : "";
 const CHANNELS = JSON.parse(await readFile(CHANNELS_FILE, "utf8"));
 const PINNED = await readOptionalJson(PINNED_FILE, []);
-const EXCLUDE_KEYWORDS = ["솔인챈트", "솔 인챈트", "솔인첸트", "솔 인첸트"];
+const EXCLUDE_KEYWORDS = [
+  "솔인챈트",
+  "솔 인챈트",
+  "솔인첸트",
+  "솔 인첸트",
+  "그라나도",
+  "로드나인",
+];
 
 const videos = [];
 
@@ -79,7 +86,7 @@ async function fetchWithApi(channelId, channel) {
   searchUrl.searchParams.set("part", "snippet");
   searchUrl.searchParams.set("order", "date");
   searchUrl.searchParams.set("type", "video");
-  searchUrl.searchParams.set("maxResults", "5");
+  searchUrl.searchParams.set("maxResults", "20");
 
   const response = await fetch(searchUrl);
   if (!response.ok) {
@@ -160,7 +167,7 @@ async function fetchWithRss(channelId, channel) {
   const entries = xml.match(/<entry>[\s\S]*?<\/entry>/g) || [];
   const videos = [];
 
-  for (const entry of entries.slice(0, 5)) {
+  for (const entry of entries.slice(0, 15)) {
     const id = textBetween(entry, "<yt:videoId>", "</yt:videoId>");
     const details = await fetchVideoPageDetails(id);
     const kind = isShortsVideo(entry, details) ? "shorts" : "video";
