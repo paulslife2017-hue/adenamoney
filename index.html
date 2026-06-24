@@ -1172,6 +1172,108 @@
         font-weight: 900;
         text-decoration: none;
       }
+
+      @media (min-width: 900px) {
+        body {
+          padding: 24px;
+        }
+
+        .app {
+          display: grid;
+          grid-template-columns: minmax(320px, 370px) minmax(430px, 1fr) minmax(280px, 340px);
+          grid-template-areas:
+            "topbar topbar topbar"
+            "intro intro intro"
+            "brief chart ad"
+            "ticker chart channels"
+            "list chart channels"
+            "list footer channels";
+          gap: 14px;
+          max-width: 1180px;
+          min-height: calc(100dvh - 48px);
+          padding: 0 0 18px;
+          border: 1px solid rgba(139, 166, 214, 0.12);
+          border-radius: 18px;
+          box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
+          overflow: hidden;
+        }
+
+        .topbar {
+          grid-area: topbar;
+          position: sticky;
+        }
+
+        .seo-intro {
+          grid-area: intro;
+          padding: 18px 24px 0;
+        }
+
+        .seo-intro h1 {
+          font-size: 24px;
+        }
+
+        .market-brief {
+          grid-area: brief;
+          padding: 0 0 0 24px;
+        }
+
+        .ticker {
+          grid-area: ticker;
+          margin: 0 0 0 24px;
+        }
+
+        .chart-panel {
+          grid-area: chart;
+          position: sticky;
+          top: 76px;
+          align-self: start;
+          margin: 0;
+          min-height: 520px;
+        }
+
+        .main-price strong {
+          font-size: 54px;
+        }
+
+        .ad-slot {
+          grid-area: ad;
+          margin: 0 24px 0 0;
+          align-self: start;
+        }
+
+        .list {
+          grid-area: list;
+          padding: 0 0 0 24px;
+        }
+
+        #rows {
+          max-height: 520px;
+        }
+
+        .channels {
+          grid-area: channels;
+          padding: 0 24px 0 0;
+          align-self: start;
+        }
+
+        .shorts {
+          grid-template-columns: 1fr;
+        }
+
+        .short-card {
+          min-height: 106px;
+        }
+
+        .thumb {
+          height: 68px;
+        }
+
+        .seo-footer {
+          grid-area: footer;
+          margin: 0;
+          padding: 14px 0 0;
+        }
+      }
     </style>
   </head>
   <body>
