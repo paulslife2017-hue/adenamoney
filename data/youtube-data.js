@@ -1,5 +1,5 @@
 window.YOUTUBE_DATA = {
-  "updatedAt": "2026-06-24T16:15:40.141Z",
+  "updatedAt": "2026-06-24T16:23:29.744Z",
   "videos": [
     {
       "id": "uPgnXmWUwm8",
@@ -52,6 +52,18 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 2
     },
     {
+      "id": "B3xCTZcge-Q",
+      "title": "쌍민첩가시나요? 민첩과 완력의 반지가 나왔습니다! 리니지 클래식",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-24T10:00:15+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/B3xCTZcge-Q/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=B3xCTZcge-Q",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 35,
+      "subscriberRank": 6
+    },
+    {
       "id": "0KOBxsjDOrs",
       "title": "전 서버 최초 블레싱 요정을 뵙습니다 ⚔️리니지 클래식",
       "channelTitle": "김팥순",
@@ -62,6 +74,18 @@ window.YOUTUBE_DATA = {
       "kind": "shorts",
       "durationSeconds": 52,
       "subscriberRank": 3
+    },
+    {
+      "id": "A_VeXtqOEF0",
+      "title": "캐시템 효율분석! 데몬 큐브, 살까? 말까?? 고민이라면!  리니지 클래식",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-24T06:55:01+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/A_VeXtqOEF0/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=A_VeXtqOEF0",
+      "tag": "리니지클래식",
+      "kind": "video",
+      "durationSeconds": 693,
+      "subscriberRank": 6
     },
     {
       "id": "P1E_o8-SSlQ",
@@ -112,6 +136,18 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 1
     },
     {
+      "id": "2782i6CeNIY",
+      "title": "이 혈맹이 성을 먹었다고? 첫 공성전 반전! 전서버 이슈 TOP 5! 리니지 클래식",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-23T22:00:06+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/2782i6CeNIY/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=2782i6CeNIY",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 74,
+      "subscriberRank": 6
+    },
+    {
       "id": "k1LMhNBiX80",
       "title": "⚔️리니지 클래식 데포로쥬서버 김팥순 ❤️",
       "channelTitle": "김팥순",
@@ -122,6 +158,18 @@ window.YOUTUBE_DATA = {
       "kind": "video",
       "durationSeconds": 17338,
       "subscriberRank": 3
+    },
+    {
+      "id": "1eUwdbE0C1g",
+      "title": "윈성에서 보스몹, 베레스 잡으면 어떤 아이템을 줄까요? 리니지 클래식!",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-23T10:00:02+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/1eUwdbE0C1g/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=1eUwdbE0C1g",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 35,
+      "subscriberRank": 6
     },
     {
       "id": "ZisFV3h8Qr8",
@@ -148,6 +196,18 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 3
     },
     {
+      "id": "kK1FUdW0vGY",
+      "title": "질리언 서버 최초! 3성 통일 성공한 \"무적연합\", 첫 공성전 내용 및 서버 구도 요약! 리니지 클래식!",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-23T07:05:18+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/kK1FUdW0vGY/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=kK1FUdW0vGY",
+      "tag": "리니지클래식",
+      "kind": "video",
+      "durationSeconds": 505,
+      "subscriberRank": 6
+    },
+    {
       "id": "shtg3NFSel8",
       "title": "🔴\"면류관 너무 크다...\" 축 9일도 49레벨 군주 | 리니지 클래식 6월 22일",
       "channelTitle": "태산군주 TV",
@@ -170,6 +230,18 @@ window.YOUTUBE_DATA = {
       "kind": "video",
       "durationSeconds": 767,
       "subscriberRank": 1
+    },
+    {
+      "id": "8InLZviDA1s",
+      "title": "얼음여왕 잡으면 어떤 아이템이 나올까요? 리니지 클래식!",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-22T10:00:39+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/8InLZviDA1s/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=8InLZviDA1s",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 24,
+      "subscriberRank": 6
     },
     {
       "id": "4KMPNClskKM",
@@ -230,6 +302,30 @@ window.YOUTUBE_DATA = {
       "kind": "video",
       "durationSeconds": 305,
       "subscriberRank": 4
+    },
+    {
+      "id": "nwL_IOVts1A",
+      "title": "오렌의 행운상자 까보겠습니다! 리니지 클래식",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-21T10:00:11+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/nwL_IOVts1A/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=nwL_IOVts1A",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 43,
+      "subscriberRank": 6
+    },
+    {
+      "id": "leRUdw_hLQM",
+      "title": "공성전, 모르면 손해보는 것들! 리니지 클래식",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-21T02:00:20+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/leRUdw_hLQM/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=leRUdw_hLQM",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 55,
+      "subscriberRank": 6
     },
     {
       "id": "qdvwhKbxTL8",
@@ -304,6 +400,18 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 1
     },
     {
+      "id": "8Q7T8-u50nk",
+      "title": "피닉스를 잡으니 마법서 \"이뮨 투 함\"을 주네요! 리니지 클래식",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-20T10:00:21+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/8Q7T8-u50nk/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=8Q7T8-u50nk",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 20,
+      "subscriberRank": 6
+    },
+    {
       "id": "x_1yk1ADKgc",
       "title": "처음으로 받아본 이뮨 .. 성능 미쳤네? ⚔️리니지 클래식",
       "channelTitle": "김팥순",
@@ -314,6 +422,18 @@ window.YOUTUBE_DATA = {
       "kind": "video",
       "durationSeconds": 680,
       "subscriberRank": 3
+    },
+    {
+      "id": "R-Yh2qnZbME",
+      "title": "콘기사에서 힘기사로 스탯 변경완료! 스탯초기화(스초), 아직 고민이라면? 리니지 클래식!",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-20T06:55:10+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/R-Yh2qnZbME/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=R-Yh2qnZbME",
+      "tag": "리니지클래식",
+      "kind": "video",
+      "durationSeconds": 1246,
+      "subscriberRank": 6
     },
     {
       "id": "RGArcnUViN4",
@@ -364,6 +484,18 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 2
     },
     {
+      "id": "l2bIy_Ztmt4",
+      "title": "[26/06/19]리니지 클래식, 현재 전서버 아데나 시세는?",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-19T10:00:34+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/l2bIy_Ztmt4/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=l2bIy_Ztmt4",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 52,
+      "subscriberRank": 6
+    },
+    {
       "id": "1vGd_Zk0Rvw",
       "title": "리니지클래식 이거 복구 가능할까요?? ㄷㄷ",
       "channelTitle": "카라",
@@ -374,6 +506,18 @@ window.YOUTUBE_DATA = {
       "kind": "shorts",
       "durationSeconds": 20,
       "subscriberRank": 5
+    },
+    {
+      "id": "FiPAKSkHRuw",
+      "title": "사던에서 다굴맞다가 친구들과 이겼습니다! 리니지 클래식",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-19T03:30:23+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/FiPAKSkHRuw/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=FiPAKSkHRuw",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 81,
+      "subscriberRank": 6
     },
     {
       "id": "LVI2K5DNzUw",
@@ -400,6 +544,18 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 2
     },
     {
+      "id": "vRaPP8CD9Zs",
+      "title": "질리언서버 콘기사, 드디어 렙40 되었습니다. 리니지 클래식!",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-18T10:00:27+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/vRaPP8CD9Zs/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=vRaPP8CD9Zs",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 19,
+      "subscriberRank": 6
+    },
+    {
       "id": "0p_inIXq9AM",
       "title": "팥라인 최초 10크로 ㄷㄷ ⚔️리니지 클래식",
       "channelTitle": "김팥순",
@@ -424,15 +580,27 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 5
     },
     {
-      "id": "cg7SI9g76_k",
-      "title": "리니지 클래식 카즈야 대기방 투망최고가삼 7셋 200 올매입중",
-      "channelTitle": "이문주",
-      "publishedAt": "2026-06-18T02:18:57+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/cg7SI9g76_k/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=cg7SI9g76_k",
-      "tag": "리니지클래식",
-      "kind": "video",
-      "durationSeconds": 10282,
+      "id": "xY-OWC2aCyE",
+      "title": "엔씨가 아이템 막 풀기 시작하세요! 리니지 클래식",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-18T02:45:26+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/xY-OWC2aCyE/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=xY-OWC2aCyE",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 22,
+      "subscriberRank": 6
+    },
+    {
+      "id": "_qlB5DsipHY",
+      "title": "붉은오크 나오는 이벤트 던전 효율 미쳤습니다! 리니지 클래식!",
+      "channelTitle": "아덴은지금 (리니지 클래식)",
+      "publishedAt": "2026-06-17T22:00:16+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/_qlB5DsipHY/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=_qlB5DsipHY",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 37,
       "subscriberRank": 6
     },
     {
@@ -508,18 +676,6 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 4
     },
     {
-      "id": "LBMWKTg0ThE",
-      "title": "리니지 클래식 / 아 진짜 게임 할 맛 안난다.. ㅋㅋㅋㅋㅋㅋㅋㅋㅋ 아이템 살인마의 최후",
-      "channelTitle": "이문주",
-      "publishedAt": "2026-06-17T04:04:34+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/LBMWKTg0ThE/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=LBMWKTg0ThE",
-      "tag": "리니지클래식",
-      "kind": "video",
-      "durationSeconds": 920,
-      "subscriberRank": 6
-    },
-    {
       "id": "kFgkcGkfwos",
       "title": "급낮방🔴\"스초 오픈런ㅋ\" 축 9일도 군주 | 리니지 클래식 6월 17일",
       "channelTitle": "태산군주 TV",
@@ -568,18 +724,6 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 2
     },
     {
-      "id": "jExqk0zghAc",
-      "title": "리니지 클래식 9싸 올8셋 카다전 뜰놈 있냐?",
-      "channelTitle": "이문주",
-      "publishedAt": "2026-06-16T09:48:18+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/jExqk0zghAc/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=jExqk0zghAc",
-      "tag": "리니지클래식",
-      "kind": "video",
-      "durationSeconds": 6501,
-      "subscriberRank": 6
-    },
-    {
       "id": "oJqqMDlHA7U",
       "title": "긴급🔥리니지 클래식 \"두개의 신규 클래스\"",
       "channelTitle": "태산군주 TV",
@@ -590,18 +734,6 @@ window.YOUTUBE_DATA = {
       "kind": "video",
       "durationSeconds": 1037,
       "subscriberRank": 2
-    },
-    {
-      "id": "N4xBBJSkSk8",
-      "title": "여친만들어봅니다 돌싱 37세남 빚10억 전재산 장비 도박전과있음 리니지 클래식",
-      "channelTitle": "이문주",
-      "publishedAt": "2026-06-16T02:05:13+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/N4xBBJSkSk8/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=N4xBBJSkSk8",
-      "tag": "리니지클래식",
-      "kind": "video",
-      "durationSeconds": 7637,
-      "subscriberRank": 6
     },
     {
       "id": "H59LmRTgvDs",
@@ -628,30 +760,6 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 5
     },
     {
-      "id": "3Vuj8Denllo",
-      "title": "리니지 클래식 수장 축젤삽니다........................",
-      "channelTitle": "이문주",
-      "publishedAt": "2026-06-14T12:03:26+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/3Vuj8Denllo/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=3Vuj8Denllo",
-      "tag": "리니지클래식",
-      "kind": "video",
-      "durationSeconds": 10936,
-      "subscriberRank": 6
-    },
-    {
-      "id": "JFd5d-xBGss",
-      "title": "리니지 클래식 / 이제 뜰 때 됐다.",
-      "channelTitle": "이문주",
-      "publishedAt": "2026-06-14T06:42:00+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/JFd5d-xBGss/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=JFd5d-xBGss",
-      "tag": "리니지클래식",
-      "kind": "video",
-      "durationSeconds": 663,
-      "subscriberRank": 6
-    },
-    {
       "id": "xqRKZQp_mxU",
       "title": "뮨법으로 3대1 가지고 놀아버리기ㅋ 리니지클래식【 똘끼 】",
       "channelTitle": "똘끼100%",
@@ -662,30 +770,6 @@ window.YOUTUBE_DATA = {
       "kind": "shorts",
       "durationSeconds": 54,
       "subscriberRank": 1
-    },
-    {
-      "id": "BrA_WK71P-4",
-      "title": "리니지 클래식 밥먹자~",
-      "channelTitle": "이문주",
-      "publishedAt": "2026-06-13T23:06:33+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/BrA_WK71P-4/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=BrA_WK71P-4",
-      "tag": "리니지클래식",
-      "kind": "video",
-      "durationSeconds": 3400,
-      "subscriberRank": 6
-    },
-    {
-      "id": "8ZgaN7chTSo",
-      "title": "리니지 클래식 기사 오랜만에 접속합니다 수장 축젤삼",
-      "channelTitle": "이문주",
-      "publishedAt": "2026-06-13T14:43:54+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/8ZgaN7chTSo/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=8ZgaN7chTSo",
-      "tag": "리니지클래식",
-      "kind": "video",
-      "durationSeconds": 8702,
-      "subscriberRank": 6
     },
     {
       "id": "pf71h3fCOc0",
@@ -734,18 +818,6 @@ window.YOUTUBE_DATA = {
       "kind": "shorts",
       "durationSeconds": 49,
       "subscriberRank": 3
-    },
-    {
-      "id": "dJpfiE9v51k",
-      "title": "리니지 클래식 본케 랩업중 마을이장 갑니다",
-      "channelTitle": "이문주",
-      "publishedAt": "2026-06-12T02:20:56+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/dJpfiE9v51k/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=dJpfiE9v51k",
-      "tag": "리니지클래식",
-      "kind": "video",
-      "durationSeconds": 5342,
-      "subscriberRank": 6
     },
     {
       "id": "m_CGHeMhqYg",
@@ -868,18 +940,6 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 4
     },
     {
-      "id": "x4SqIP0mDaY",
-      "title": "리니지 클래식 / to.. 밀양 아저씨",
-      "channelTitle": "이문주",
-      "publishedAt": "2026-05-26T06:29:08-07:00",
-      "thumbnail": "https://i.ytimg.com/vi/x4SqIP0mDaY/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AG2CIACgA-KAgwIABABGGUgWChVMA8=&rs=AOn4CLAMLeJUWucae3dj6_PdoNt83CMjOw",
-      "url": "https://www.youtube.com/shorts/x4SqIP0mDaY",
-      "tag": "쇼츠",
-      "kind": "shorts",
-      "durationSeconds": 169,
-      "subscriberRank": 6
-    },
-    {
       "id": "xMSti-hKqMQ",
       "title": "지팡이로 뚝배기 다 날려버리는 '불빠따' 마법사 등장 ㅋㅋ",
       "channelTitle": "린친놈",
@@ -902,66 +962,6 @@ window.YOUTUBE_DATA = {
       "kind": "shorts",
       "durationSeconds": 26,
       "subscriberRank": 5
-    },
-    {
-      "id": "Uma90B8nSao",
-      "title": "자동이 반격을? ㄷㄷ",
-      "channelTitle": "린친놈",
-      "publishedAt": "2026-05-21T13:45:37+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/Uma90B8nSao/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=Uma90B8nSao",
-      "tag": "쇼츠",
-      "kind": "shorts",
-      "durationSeconds": 46,
-      "subscriberRank": 4
-    },
-    {
-      "id": "2hkBPQtfkwc",
-      "title": "진짜 '리니지' 근황 ㅋㅋㅋ",
-      "channelTitle": "린친놈",
-      "publishedAt": "2026-05-21T03:00:20+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/2hkBPQtfkwc/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=2hkBPQtfkwc",
-      "tag": "쇼츠",
-      "kind": "shorts",
-      "durationSeconds": 164,
-      "subscriberRank": 4
-    },
-    {
-      "id": "16Zv9Rz2LcQ",
-      "title": "추억의 몽환의 섬 등장!",
-      "channelTitle": "린친놈",
-      "publishedAt": "2026-05-20T21:18:46+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/16Zv9Rz2LcQ/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=16Zv9Rz2LcQ",
-      "tag": "쇼츠",
-      "kind": "shorts",
-      "durationSeconds": 47,
-      "subscriberRank": 4
-    },
-    {
-      "id": "kEgfP17Yv-I",
-      "title": "뜬금없이 나와버린 추억의 사냥터 '몽환의 섬' ㅋㅋㅋ",
-      "channelTitle": "린친놈",
-      "publishedAt": "2026-05-20T07:13:55+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/kEgfP17Yv-I/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=kEgfP17Yv-I",
-      "tag": "리니지클래식",
-      "kind": "video",
-      "durationSeconds": 391,
-      "subscriberRank": 4
-    },
-    {
-      "id": "hDHegCpxSJw",
-      "title": "용계까지 진출을 시작했다고..?ㄷㄷ",
-      "channelTitle": "린친놈",
-      "publishedAt": "2026-05-17T15:50:28-07:00",
-      "thumbnail": "https://i.ytimg.com/vi/hDHegCpxSJw/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBWKEkwDw==&rs=AOn4CLBVj6o1uhbbLxqeZ67cbSPWrj7COA",
-      "url": "https://www.youtube.com/shorts/hDHegCpxSJw",
-      "tag": "쇼츠",
-      "kind": "shorts",
-      "durationSeconds": 31,
-      "subscriberRank": 4
     }
   ]
 };
