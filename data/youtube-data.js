@@ -1,5 +1,5 @@
 window.YOUTUBE_DATA = {
-  "updatedAt": "2026-06-24T15:24:34.471Z",
+  "updatedAt": "2026-06-24T15:55:59.227Z",
   "videos": [
     {
       "id": "uPgnXmWUwm8",
@@ -28,6 +28,18 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 3
     },
     {
+      "id": "X0fgHG-Ciik",
+      "title": "오늘도 역사를 만듭니다... 전섭최초!! 9달의장궁  리니지클래식【 똘끼 】",
+      "channelTitle": "똘끼100%",
+      "publishedAt": "2026-06-24T15:49:06+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/X0fgHG-Ciik/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=X0fgHG-Ciik",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 117,
+      "subscriberRank": 1
+    },
+    {
       "id": "enQ3yyG-02k",
       "title": "🔴\"신규 아이템 제작 갑시다\" 축 9일도 49레벨 군주 | 리니지 클래식 6월 24일",
       "channelTitle": "태산군주 TV",
@@ -38,42 +50,6 @@ window.YOUTUBE_DATA = {
       "kind": "video",
       "durationSeconds": 15478,
       "subscriberRank": 2
-    },
-    {
-      "id": "Ln-Dv0shXZg",
-      "title": "똘끼 리니지클래식 공성후기 너무 고생하셨습니다! 0624업데이트 확인!               #솔인챈트",
-      "channelTitle": "똘끼100%",
-      "publishedAt": "2026-06-24T15:00:29+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/Ln-Dv0shXZg/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=Ln-Dv0shXZg",
-      "tag": "리니지",
-      "kind": "video",
-      "durationSeconds": 13259,
-      "subscriberRank": 1
-    },
-    {
-      "id": "11knjNsYmr8",
-      "title": "솔 인챈트 칼데온1 신문주가 되볼가 심하게 고민해본다",
-      "channelTitle": "이문주",
-      "publishedAt": "2026-06-24T10:30:50+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/11knjNsYmr8/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=11knjNsYmr8",
-      "tag": "리니지클래식",
-      "kind": "video",
-      "durationSeconds": 6796,
-      "subscriberRank": 6
-    },
-    {
-      "id": "nAiaUQLvR6w",
-      "title": "솔 인챈트 칼데온1 신문주가 되볼가 심하게 고민해본다",
-      "channelTitle": "이문주",
-      "publishedAt": "2026-06-24T10:22:28+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/nAiaUQLvR6w/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=nAiaUQLvR6w",
-      "tag": "리니지클래식",
-      "kind": "video",
-      "durationSeconds": null,
-      "subscriberRank": 6
     },
     {
       "id": "P1E_o8-SSlQ",
@@ -124,18 +100,6 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 1
     },
     {
-      "id": "_cbJpxzblRM",
-      "title": "똘끼 로드나인 2주년 공방 미러링! 마지막방송 그동안 감사했습니다                    #리니지클래식#솔인챈트",
-      "channelTitle": "똘끼100%",
-      "publishedAt": "2026-06-23T12:35:28+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/_cbJpxzblRM/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=_cbJpxzblRM",
-      "tag": "리니지",
-      "kind": "video",
-      "durationSeconds": 8071,
-      "subscriberRank": 1
-    },
-    {
       "id": "ZisFV3h8Qr8",
       "title": "🔥리니지 클래식 첫 \"면류관\" 역대급! 세금 \"현금 7700만원\"",
       "channelTitle": "태산군주 TV",
@@ -148,30 +112,6 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 2
     },
     {
-      "id": "Tj6bfFLIW7U",
-      "title": "솔 인챈트 칼데온1 신문주가 되볼가 심하게 고민해본다",
-      "channelTitle": "이문주",
-      "publishedAt": "2026-06-23T06:25:27+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/Tj6bfFLIW7U/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=Tj6bfFLIW7U",
-      "tag": "리니지클래식",
-      "kind": "video",
-      "durationSeconds": 5627,
-      "subscriberRank": 6
-    },
-    {
-      "id": "tZ9-askeSmY",
-      "title": "똘끼 솔인챈트 린델1 오 빠른 피드백 조쿠요 빡겜 갑니다!                   #리니지클래식#로드나인",
-      "channelTitle": "똘끼100%",
-      "publishedAt": "2026-06-22T19:59:26+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/tZ9-askeSmY/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=tZ9-askeSmY",
-      "tag": "리니지",
-      "kind": "video",
-      "durationSeconds": 36734,
-      "subscriberRank": 1
-    },
-    {
       "id": "shtg3NFSel8",
       "title": "🔴\"면류관 너무 크다...\" 축 9일도 49레벨 군주 | 리니지 클래식 6월 22일",
       "channelTitle": "태산군주 TV",
@@ -182,30 +122,6 @@ window.YOUTUBE_DATA = {
       "kind": "video",
       "durationSeconds": 14833,
       "subscriberRank": 2
-    },
-    {
-      "id": "UT05GQgGWy8",
-      "title": "야 어떤 놈이 이문주한테 ㄷ지냐...  리니지클래식【 똘끼 】",
-      "channelTitle": "똘끼100%",
-      "publishedAt": "2026-06-22T13:28:39+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/UT05GQgGWy8/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=UT05GQgGWy8",
-      "tag": "리니지",
-      "kind": "video",
-      "durationSeconds": 767,
-      "subscriberRank": 1
-    },
-    {
-      "id": "-bQJoTe-bss",
-      "title": "솔 인챈트 / 소비자보호원에 연락해 안되겠다!!",
-      "channelTitle": "이문주",
-      "publishedAt": "2026-06-21T17:08:54+00:00",
-      "thumbnail": "https://i.ytimg.com/vi/-bQJoTe-bss/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=-bQJoTe-bss",
-      "tag": "리니지클래식",
-      "kind": "video",
-      "durationSeconds": 528,
-      "subscriberRank": 6
     },
     {
       "id": "T5UToCgzZtE",
@@ -340,18 +256,6 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 5
     },
     {
-      "id": "9NH9-mj5OGM",
-      "title": "보똘단이 미래다  리니지클래식【 똘끼 】",
-      "channelTitle": "똘끼100%",
-      "publishedAt": "2026-06-10T16:00:38-07:00",
-      "thumbnail": "https://i.ytimg.com/vi/9NH9-mj5OGM/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AG2CIACgA-KAgwIABABGGUgVChTMA8=&rs=AOn4CLB1VF27O5bgTUKzxX27LFcTu3eVsw",
-      "url": "https://www.youtube.com/shorts/9NH9-mj5OGM",
-      "tag": "쇼츠",
-      "kind": "shorts",
-      "durationSeconds": 97,
-      "subscriberRank": 1
-    },
-    {
       "id": "xuC5t7vof-w",
       "title": "리니지클래식 황금깃털 상자ㄷㄷ",
       "channelTitle": "카라",
@@ -434,6 +338,102 @@ window.YOUTUBE_DATA = {
       "kind": "shorts",
       "durationSeconds": 143,
       "subscriberRank": 6
+    },
+    {
+      "id": "kJg92SIHTZU",
+      "title": "리니지 클래식 / 프리서버 하는 거 같아 느낌이",
+      "channelTitle": "이문주",
+      "publishedAt": "2026-03-09T02:11:52-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/kJg92SIHTZU/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYSCBZKGUwDw==&rs=AOn4CLDtsJds4pLC6x-MHydIfdhN5ViDLw",
+      "url": "https://www.youtube.com/shorts/kJg92SIHTZU",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 57,
+      "subscriberRank": 6
+    },
+    {
+      "id": "4l4fZbTIN0c",
+      "title": "🔥드디어 리니지 \"새로운 변신\" 공개! #shorts",
+      "channelTitle": "태산군주 TV",
+      "publishedAt": "2025-12-31T01:39:48-08:00",
+      "thumbnail": "https://i.ytimg.com/vi/4l4fZbTIN0c/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBXKEEwDw==&rs=AOn4CLDBGBgYqrvrYgbTEaaLYMkonFJxkA",
+      "url": "https://www.youtube.com/shorts/4l4fZbTIN0c",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 59,
+      "subscriberRank": 2
+    },
+    {
+      "id": "hyuDNiF1ffE",
+      "title": "🔥집행검 러쉬 \"뜰놈은 뜬디\"  #리니지 #shorts",
+      "channelTitle": "태산군주 TV",
+      "publishedAt": "2025-12-19T02:33:03-08:00",
+      "thumbnail": "https://i.ytimg.com/vi/hyuDNiF1ffE/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AG2CIACgA-KAgwIABABGHIgXihBMA8=&rs=AOn4CLAL6euD695RYaBvZMdXvUTurorphQ",
+      "url": "https://www.youtube.com/shorts/hyuDNiF1ffE",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 67,
+      "subscriberRank": 2
+    },
+    {
+      "id": "SM9nveaI7-Q",
+      "title": "최초공개! 리니지 \"전서버 1위\" 특수 아이템! #shorts #리니지",
+      "channelTitle": "태산군주 TV",
+      "publishedAt": "2025-12-09T01:56:37-08:00",
+      "thumbnail": "https://i.ytimg.com/vi/SM9nveaI7-Q/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYciBWKEEwDw==&rs=AOn4CLB-3lfmq81AAAfqFsIoxOSK4nLRiw",
+      "url": "https://www.youtube.com/shorts/SM9nveaI7-Q",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 59,
+      "subscriberRank": 2
+    },
+    {
+      "id": "tFQ-iGROAHs",
+      "title": "\"가격 측정 불가\" 역대급 득템! #shorts #리니지",
+      "channelTitle": "태산군주 TV",
+      "publishedAt": "2025-11-27T02:46:25-08:00",
+      "thumbnail": "https://i.ytimg.com/vi/tFQ-iGROAHs/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYfyA1KCowDw==&rs=AOn4CLBJbWF9lxBs-z5IX63KVl5FhgjiDw",
+      "url": "https://www.youtube.com/shorts/tFQ-iGROAHs",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 52,
+      "subscriberRank": 2
+    },
+    {
+      "id": "JpIcgMvp6YI",
+      "title": "대박! 현금 천만원짜리 \"역대급 득템\" #shorts #리니지",
+      "channelTitle": "태산군주 TV",
+      "publishedAt": "2025-11-24T01:28:48-08:00",
+      "thumbnail": "https://i.ytimg.com/vi/JpIcgMvp6YI/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYciBeKEcwDw==&rs=AOn4CLAILLeK7ry3fv9l-yIXzLK8B3KYbQ",
+      "url": "https://www.youtube.com/shorts/JpIcgMvp6YI",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 52,
+      "subscriberRank": 2
+    },
+    {
+      "id": "t04SZs10oXE",
+      "title": "대박! 말도 안되게 \"한방에 떴다\" #리니지 #shorts",
+      "channelTitle": "태산군주 TV",
+      "publishedAt": "2025-11-02T00:39:59-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/t04SZs10oXE/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBbKEswDw==&rs=AOn4CLBMNMQVJcqDxpCi-KhHqwQ3i3znzQ",
+      "url": "https://www.youtube.com/shorts/t04SZs10oXE",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 52,
+      "subscriberRank": 2
+    },
+    {
+      "id": "iyjRhw0XQfY",
+      "title": "긴급] 리니지 \"역사상 최고 레벨\" 탄생!",
+      "channelTitle": "태산군주 TV",
+      "publishedAt": "2025-10-24T02:24:21-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/iyjRhw0XQfY/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBgKFUwDw==&rs=AOn4CLDb7IbdKXTD8erDw1_GImSkNazucw",
+      "url": "https://www.youtube.com/shorts/iyjRhw0XQfY",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 54,
+      "subscriberRank": 2
     }
   ]
 };

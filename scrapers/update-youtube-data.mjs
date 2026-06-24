@@ -10,6 +10,7 @@ const SHORTS_MAX_SECONDS = 180;
 const API_KEY = typeof process !== "undefined" ? process.env.YOUTUBE_API_KEY : "";
 const CHANNELS = JSON.parse(await readFile(CHANNELS_FILE, "utf8"));
 const PINNED = await readOptionalJson(PINNED_FILE, []);
+const EXCLUDE_KEYWORDS = ["솔인챈트", "솔 인챈트", "솔인첸트", "솔 인첸트"];
 
 const videos = [];
 
@@ -232,10 +233,14 @@ async function fetchChannelShorts(channel, channelId) {
 }
 
 function matchesChannelFilter(video, channel) {
+  const title = normalizeKoreanKeyword(video.title);
+  if (EXCLUDE_KEYWORDS.some((keyword) => title.includes(normalizeKoreanKeyword(keyword)))) {
+    return false;
+  }
+
   const keywords = channel.includeKeywords || [];
   if (!keywords.length) return true;
 
-  const title = normalizeKoreanKeyword(video.title);
   return keywords.some((keyword) => {
     const normalizedKeyword = normalizeKoreanKeyword(keyword);
     return title.includes(normalizedKeyword);
