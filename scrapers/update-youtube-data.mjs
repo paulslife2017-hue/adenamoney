@@ -207,7 +207,10 @@ async function fetchChannelShorts(channel, channelId) {
     }
 
     const html = await response.text();
-    const ids = uniqueVideoIds([...html.matchAll(/"videoId":"([\w-]{11})"/g)].map((match) => match[1]));
+    js    const ids = uniqueVideoIds([
+      ...[...html.matchAll(/"videoId":"([\w-]{11})"/g)].map((match) => match[1]),
+      ...[...html.matchAll(/\/shorts\/([\w-]{11})/g)].map((match) => match[1]),
+    ]);
     const shorts = [];
 
     for (const id of ids.slice(0, 8)) {
