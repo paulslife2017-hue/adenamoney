@@ -427,7 +427,7 @@
 
       .spark {
         height: 54px;
-        margin: 0 0 12px;
+        margin: 0 0 4px;
         border-bottom: 1px solid rgba(139, 166, 214, 0.12);
       }
 
@@ -449,6 +449,15 @@
         stroke-linecap: round;
         stroke-linejoin: round;
         filter: drop-shadow(0 0 8px rgba(124, 255, 178, 0.22));
+      }
+
+      .spark-labels {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 2px;
+        margin-bottom: 10px;
+        color: var(--muted);
+        font-size: 10px;
       }
 
       .main-price span {
@@ -1436,6 +1445,7 @@
           </div>
         </div>
         <div class="spark" id="spark"></div>
+        <div class="spark-labels" id="sparkLabels"></div>
         <div class="source-diff" id="sourceDiff"></div>
         <div class="chart" id="chart"></div>
         <p class="chart-note" id="chartNote">수집 데이터가 아직 없습니다.</p>
@@ -1508,6 +1518,7 @@
       const chartTitle = document.querySelector("#chartTitle");
       const chartNote = document.querySelector("#chartNote");
       const spark = document.querySelector("#spark");
+      const sparkLabels = document.querySelector("#sparkLabels");
       const tickerTrack = document.querySelector("#tickerTrack");
       const mainPrice = document.querySelector("#mainPrice");
       const mainSources = document.querySelector("#mainSources");
@@ -1528,7 +1539,6 @@
       let selectedChannel = "전체";
       let selectedKind = "all";
       let refreshLeft = 30;
-      let liveCursor = 0;
 
       applySiteConfig();
       updateHeaderState();
@@ -1761,9 +1771,11 @@
       }
 
       function renderSpark(server) {
-        const points = buildSparkPoints(server);
+        const data = buildSparkData(server);
+        const points = data.map((d) => d.price);
         if (points.length < 2) {
           spark.innerHTML = "";
+          sparkLabels.innerHTML = "";
           return;
         }
 
@@ -1786,23 +1798,33 @@
             <path class="line" d="${line}"></path>
           </svg>
         `;
+
+        const mid = Math.floor((data.length - 1) / 2);
+        const labelLeft = formatSparkDate(data[0]?.collectedAt);
+        const labelMid = data.length > 2 ? formatSparkDate(data[mid]?.collectedAt) : "";
+        const labelRight = formatSparkDate(data[data.length - 1]?.collectedAt);
+        sparkLabels.innerHTML = `<span>${labelLeft}</span><span>${labelMid}</span><span>${labelRight}</span>`;
       }
 
-      function buildSparkPoints(server) {
-        const history = (server.history || []).map((point) => point.price).filter(Number.isFinite);
-        const base = Number.isFinite(server.previousNoonPrice) ? [server.previousNoonPrice] : [];
-        const current = Number.isFinite(server.currentPrice) ? [server.currentPrice] : [];
-        const combined = [...base, ...history, ...current];
-        return combined.length >= 2 ? combined.slice(-8) : combined;
+      function buildSparkData(server) {
+        const historyPoints = (server.history || [])
+          .filter((point) => Number.isFinite(point.price))
+          .map((point) => ({ price: point.price, collectedAt: point.collectedAt || null }));
+        const base = Number.isFinite(server.previousNoonPrice)
+          ? [{ price: server.previousNoonPrice, collectedAt: server.previousNoonAt || null }]
+          : [];
+        const current = Number.isFinite(server.currentPrice)
+          ? [{ price: server.currentPrice, collectedAt: new Date().toISOString() }]
+          : [];
+        const combined = [...base, ...historyPoints, ...current];
+        return combined.length >= 2 ? combined.slice(-12) : combined;
       }
 
-      function rotateLiveFocus() {
-        const ranked = getRankedServers().slice(0, 8);
-        if (!ranked.length) return;
-        const next = ranked[liveCursor % ranked.length];
-        selectedServerName = next.name;
-        renderChart(next);
-        renderRows();
+      function formatSparkDate(value) {
+        if (!value) return "";
+        const d = new Date(value);
+        if (isNaN(d.getTime())) return "";
+        return `${d.getMonth() + 1}월 ${d.getDate()}일`;
       }
 
       function flashMainPrice() {
@@ -1934,16 +1956,6 @@
         };
       }
 
-      function isVerifiedSource(server, sourceLabel) {
-        const sourceMap = {
-          "베이": "itemBay",
-          "바로": "barotem",
-          "매니아": "itemMania",
-        };
-        const key = sourceMap[sourceLabel];
-        return Boolean((server.verifiedSources || []).some((source) => source.key === key));
-      }
-
       function formatChange(server) {
         if (!Number.isFinite(server.change) || !Number.isFinite(server.changeRate)) return "기준 대기";
         const sign = server.change > 0 ? "+" : "";
@@ -2013,7 +2025,6 @@
       renderChart(getRankedServers()[0]);
       renderRows();
 
-      setInterval(rotateLiveFocus, 4200);
       videoClose.addEventListener("click", closeVideo);
       videoModal.addEventListener("click", (event) => {
         if (event.target === videoModal) closeVideo();
