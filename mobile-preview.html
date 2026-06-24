@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>리니지클래식 시세 모바일</title>
+    <title>아데나머니</title>
     <script>
       if (location.protocol === "file:") {
         location.replace("http://127.0.0.1:4179/mobile-preview.html");
@@ -763,6 +763,21 @@
         font-size: 11px;
       }
 
+      .ad-products {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 8px;
+      }
+
+      .ad-products b {
+        padding: 4px 6px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.07);
+        color: #fff4cf;
+        font-size: 10px;
+      }
+
       .ad-cta {
         padding: 8px 10px;
         border-radius: 9px;
@@ -789,63 +804,6 @@
         font-size: 10px;
       }
 
-      .shorts-rail {
-        display: flex;
-        gap: 8px;
-        overflow-x: auto;
-        margin: -2px 0 10px;
-        padding: 0 2px 4px;
-        scrollbar-width: none;
-      }
-
-      .shorts-rail::-webkit-scrollbar {
-        display: none;
-      }
-
-      .rail-card {
-        flex: 0 0 118px;
-        min-height: 154px;
-        padding: 8px;
-        border: 1px solid rgba(124, 255, 178, 0.22);
-        border-radius: 12px;
-        background:
-          linear-gradient(180deg, rgba(6, 9, 19, 0.02), rgba(6, 9, 19, 0.74)),
-          rgba(14, 21, 38, 0.78);
-        color: inherit;
-        overflow: hidden;
-        text-align: left;
-      }
-
-      .rail-thumb {
-        height: 100px;
-        margin: -8px -8px 8px;
-        background:
-          linear-gradient(135deg, rgba(124, 255, 178, 0.18), rgba(72, 198, 255, 0.16)),
-          rgba(255, 255, 255, 0.04);
-        background-position: center;
-        background-size: cover;
-      }
-
-      .rail-card span {
-        display: inline-flex;
-        padding: 3px 6px;
-        border-radius: 999px;
-        background: rgba(124, 255, 178, 0.1);
-        color: var(--green);
-        font-size: 10px;
-        font-weight: 900;
-      }
-
-      .rail-card strong {
-        display: -webkit-box;
-        margin-top: 7px;
-        overflow: hidden;
-        font-size: 11px;
-        line-height: 1.3;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-      }
-
       .shorts {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -862,6 +820,46 @@
         font-size: 12px;
         font-weight: 800;
         text-align: center;
+      }
+
+      .source-diff {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        margin: -2px 0 12px;
+      }
+
+      .diff-card {
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: rgba(6, 9, 19, 0.22);
+      }
+
+      .diff-card span {
+        display: block;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 900;
+      }
+
+      .diff-card strong {
+        display: block;
+        margin-top: 4px;
+        font-size: 12px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .diff-card small {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 10px;
+      }
+
+      .diff-card.adjusted strong,
+      .diff-card.adjusted small {
+        color: var(--yellow);
       }
 
       .channel-tabs {
@@ -1077,8 +1075,8 @@
     <main class="app">
       <header class="topbar">
         <div class="brand">
-          <strong>리니지클래식 시세</strong>
-          <span>ADENA/W MARKET</span>
+          <strong id="brandName">아데나머니</strong>
+          <span id="brandTagline">리니지클래식 ADENA/W 시세</span>
         </div>
         <div class="live">LIVE</div>
       </header>
@@ -1107,7 +1105,7 @@
           <div>
             <span>현재가</span>
             <strong id="mainPrice">-</strong>
-            <div class="best-source" id="bestSource">최저 출처 확인중</div>
+            <div class="best-source" id="bestSource">기준가 산정중</div>
           </div>
           <div>
             <em id="mainSources">MARKET</em>
@@ -1116,6 +1114,7 @@
           </div>
         </div>
         <div class="spark" id="spark"></div>
+        <div class="source-diff" id="sourceDiff"></div>
         <div class="chart" id="chart"></div>
         <p class="chart-note" id="chartNote">수집 데이터가 아직 없습니다.</p>
       </section>
@@ -1123,9 +1122,10 @@
       <section class="ad-slot" aria-label="광고">
         <a href="#" onclick="return false;">
           <div>
-            <span>AD</span>
-            <strong>내 서버 · 방송 홍보하기</strong>
-            <small>리니지클래식 유저가 시세 확인 후 바로 보는 자리</small>
+            <span>PROMOTION</span>
+            <strong>아데나머니에 홍보하기</strong>
+            <small>시세 확인 직후 보이는 핵심 위치</small>
+            <div class="ad-products" id="promotionProducts"></div>
           </div>
           <div class="ad-cta">홍보하기</div>
         </a>
@@ -1134,9 +1134,8 @@
       <section class="channels" aria-label="추천 콘텐츠">
         <div class="section-title">
           <strong>크리에이터 피드</strong>
-          <span>채널 구독자순 · 콘텐츠 최신순</span>
+          <span id="creatorLabel">채널 구독자순 · 콘텐츠 최신순</span>
         </div>
-        <div class="shorts-rail" id="shortsRail"></div>
         <div class="feed-tabs" id="feedTabs">
           <button class="feed-tab active" type="button" data-kind="all">전체</button>
           <button class="feed-tab" type="button" data-kind="shorts">쇼츠</button>
@@ -1169,6 +1168,7 @@
 
     <script src="data/market-data.js"></script>
     <script src="data/youtube-data.js"></script>
+    <script src="data/site-config.js"></script>
     <script>
       let marketData = window.MARKET_DATA || { servers: [] };
       let servers = marketData.servers || [];
@@ -1186,7 +1186,7 @@
       const baselineText = document.querySelector("#baselineText");
       const upCount = document.querySelector("#upCount");
       const downCount = document.querySelector("#downCount");
-      const shortsRail = document.querySelector("#shortsRail");
+      const sourceDiff = document.querySelector("#sourceDiff");
       const youtubeVideos = document.querySelector("#youtubeVideos");
       const channelTabs = document.querySelector("#channelTabs");
       const feedTabs = document.querySelector("#feedTabs");
@@ -1200,7 +1200,24 @@
       let refreshLeft = 30;
       let liveCursor = 0;
 
+      applySiteConfig();
       updateHeaderState();
+
+      function applySiteConfig() {
+        const config = window.SITE_CONFIG || {};
+        document.title = config.brandName || "아데나머니";
+        document.querySelector("#brandName").textContent = config.brandName || "아데나머니";
+        document.querySelector("#brandTagline").textContent =
+          config.tagline || "리니지클래식 ADENA/W 시세";
+        document.querySelector("#creatorLabel").textContent =
+          config.creatorChannelsLabel || "채널 구독자순 · 콘텐츠 최신순";
+
+        const products = config.promotionProducts || ["서버 홍보", "방송 홍보", "거래소 배너"];
+        const productWrap = document.querySelector("#promotionProducts");
+        if (productWrap) {
+          productWrap.innerHTML = products.map((product) => `<b>${escapeHtml(product)}</b>`).join("");
+        }
+      }
 
       function renderChart(server) {
         if (!server) {
@@ -1216,43 +1233,16 @@
           : "-";
         flashMainPrice();
         mainSources.textContent = `검증 ${server.verifiedSources?.length || 0}/3`;
-        bestSource.textContent = `${getBestSource(server).label} 최저가`;
+        bestSource.textContent = `${getBestSource(server).label} 기준 산정`;
         mainChange.textContent = formatChange(server);
         mainChange.className = `change-pill ${getChangeClass(server)}`;
         baselineText.textContent = server.previousNoonPrice
           ? `${server.baselineLabel} ${formatPrice(server.previousNoonPrice)}`
           : "전일 12시 기준 대기";
         renderSpark(server);
-        const sourceRows = [
-          ["아이템베이", server.itemBay?.min, `${server.itemBay?.count || 0}건`, "베이"],
-          ["바로템", server.barotem?.min, `${server.barotem?.count || 0}건`, "바로"],
-          ["매니아", server.itemMania?.min, `${server.itemMania?.count || 0}건`, "매니아"],
-        ].filter((row) => isVerifiedSource(server, row[3]));
-        const rows = [["대표", server.currentPrice, "최저", "대표"], ...sourceRows];
-        const max = Math.max(...rows.map((row) => row[1] || 0), 1);
-        const best = getBestSource(server);
-
-        chart.innerHTML = rows
-          .map(([label, value, meta, sourceLabel]) => {
-            const width = value ? Math.max(18, Math.round((value / max) * 100)) : 0;
-            const shown = value ? formatPrice(value) : meta === "0건" ? "수집대기" : meta;
-            const waiting = value ? "" : " waiting";
-            const bestClass = sourceLabel === best.short || sourceLabel === "대표" ? " best" : "";
-
-            return `
-              <div class="compare-row">
-                <span>${label}</span>
-                <span class="compare-track">
-                  <span class="compare-fill${waiting}${bestClass}" style="--w:${width}%"></span>
-                </span>
-                <strong>${shown}</strong>
-              </div>
-            `;
-          })
-          .join("");
-
-        chartNote.textContent =
-          "대표가는 베이/바로템/매니아 판매목록의 1만당 최저가 중 가장 낮은 값입니다.";
+        renderSourceDiff(server);
+        chart.innerHTML = "";
+        chartNote.textContent = "대표가는 출처별 수집 가격에서 과도하게 튀는 값을 보정해 산정합니다.";
       }
 
       function renderTicker() {
@@ -1272,10 +1262,40 @@
         tickerTrack.innerHTML = items + items;
       }
 
+      function renderSourceDiff(server) {
+        const representative = server.currentPrice || null;
+        const sources = [
+          ["베이", server.itemBay?.min],
+          ["매니아", server.itemMania?.min],
+          ["바로템", server.barotem?.min],
+        ];
+
+        sourceDiff.innerHTML = sources
+          .map(([label, value]) => {
+            const hasValue = Number.isFinite(value);
+            const diff = hasValue && representative ? value - representative : null;
+            const rate = diff !== null && representative ? Math.round((diff / representative) * 100) : null;
+            const adjusted = rate !== null && Math.abs(rate) >= 18;
+            const meta = !hasValue
+              ? "수집대기"
+              : diff === 0
+                ? "대표가"
+                : `${diff > 0 ? "+" : ""}${diff.toLocaleString("ko-KR")}원`;
+
+            return `
+              <div class="diff-card ${adjusted ? "adjusted" : ""}">
+                <span>${label}</span>
+                <strong>${hasValue ? formatPrice(value) : "-"}</strong>
+                <small>${adjusted ? "보정됨" : meta}</small>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
       function renderYoutubeVideos() {
         normalizeCreatorSelection();
         renderChannelTabs();
-        renderShortsRail();
         const allVideos = window.YOUTUBE_DATA?.videos || [];
         const filteredVideos = allVideos
           .filter((video) => selectedChannel === "전체" || video.channelTitle === selectedChannel)
@@ -1304,37 +1324,6 @@
           .join("");
 
         document.querySelectorAll(".short-card[data-video-id]").forEach((card) => {
-          card.addEventListener("click", () => openVideo(card.dataset));
-        });
-      }
-
-      function renderShortsRail() {
-        const shorts = (window.YOUTUBE_DATA?.videos || [])
-          .filter((video) => video.kind === "shorts")
-          .sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0))
-          .slice(0, 6);
-
-        if (!shorts.length) {
-          shortsRail.innerHTML = `<div class="feed-empty">쇼츠 수집 대기중입니다.</div>`;
-          return;
-        }
-
-        shortsRail.innerHTML = shorts
-          .map((video) => {
-            const style = video.thumbnail
-              ? ` style="background-image: linear-gradient(180deg, rgba(6,9,19,0), rgba(6,9,19,0.62)), url('${video.thumbnail}')"`
-              : "";
-            return `
-              <button class="rail-card" type="button" data-video-id="${video.id}" data-title="${escapeAttr(video.title || "쇼츠")}" data-thumbnail="${escapeAttr(video.thumbnail || "")}" data-url="${escapeAttr(video.url || "#")}">
-                <div class="rail-thumb"${style}></div>
-                <span>쇼츠</span>
-                <strong>${escapeHtml(video.title || "쇼츠")}</strong>
-              </button>
-            `;
-          })
-          .join("");
-
-        document.querySelectorAll(".rail-card[data-video-id]").forEach((card) => {
           card.addEventListener("click", () => openVideo(card.dataset));
         });
       }
@@ -1538,18 +1527,6 @@
 
         rows.innerHTML = list
           .map((server, index) => {
-            const chips = [
-              ["bay", "베이", `베이 ${formatShort(server.itemBay?.min)}`],
-              ["baro", "바로", `바로 ${formatShort(server.barotem?.min)}`],
-              ["mania", "매니아", `매니아 ${formatShort(server.itemMania?.min)}`],
-            ]
-              .map(([key, short, label]) => {
-                const state = hasSource(server, key) ? "on" : "wait";
-                const bestClass = getBestSource(server).short === short ? " best" : "";
-                return `<span class="chip ${state}${bestClass}">${label}</span>`;
-              })
-              .join("");
-
             const price = server.currentPrice ? `${server.currentPrice.toLocaleString("ko-KR")}` : "수집전";
             const active = server.name === selectedServerName ? " active" : "";
             const heat = getHeat(server);
@@ -1559,7 +1536,6 @@
                 <span class="rank">${index + 1}</span>
                 <span class="server">
                   <strong>${server.name}</strong>
-                  <span class="chips">${chips}</span>
                 </span>
                 <span class="value">
                   <strong>${price}</strong>
