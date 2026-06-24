@@ -1220,8 +1220,8 @@
         </div>
         <div class="feed-tabs" id="feedTabs">
           <button class="feed-tab active" type="button" data-kind="all">전체</button>
-          <button class="feed-tab" type="button" data-kind="shorts">쇼츠</button>
           <button class="feed-tab" type="button" data-kind="video">영상</button>
+          <button class="feed-tab" type="button" data-kind="shorts">쇼츠</button>
         </div>
         <div class="channel-tabs" id="channelTabs"></div>
         <div class="shorts" id="youtubeVideos"></div>
@@ -1385,11 +1385,13 @@
 
       function renderYoutubeVideos() {
         normalizeCreatorSelection();
+        updateFeedTabCounts();
         renderChannelTabs();
         const allVideos = window.YOUTUBE_DATA?.videos || [];
         const filteredVideos = allVideos
           .filter((video) => selectedChannel === "전체" || video.channelTitle === selectedChannel)
-          .filter((video) => selectedKind === "all" || video.kind === selectedKind);
+          .filter((video) => selectedKind === "all" || video.kind === selectedKind)
+          .sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0));
         const videos = pickFeedVideos(filteredVideos);
 
         if (!videos.length) {
@@ -1419,19 +1421,39 @@
       }
 
       function pickFeedVideos(videos) {
-        if (selectedKind !== "all") return videos.slice(0, 6);
+        if (selectedKind !== "all") return videos.slice(0, 9);
 
-        const longForms = videos.filter((video) => video.kind !== "shorts");
-        const shorts = videos.filter((video) => video.kind === "shorts");
-        const mixed = [];
-        const max = Math.max(longForms.length, shorts.length);
+        const latest = videos.slice(0, 7);
+        const latestShorts = videos.filter((video) => video.kind === "shorts").slice(0, 3);
+        const latestVideos = videos.filter((video) => video.kind !== "shorts").slice(0, 3);
+        const picked = dedupeById([...latest, ...latestShorts, ...latestVideos]);
+        return picked.slice(0, 9);
+      }
 
-        for (let index = 0; index < max && mixed.length < 6; index += 1) {
-          if (longForms[index]) mixed.push(longForms[index]);
-          if (shorts[index] && mixed.length < 6) mixed.push(shorts[index]);
-        }
+      function dedupeById(videos) {
+        const seen = new Set();
+        return videos.filter((video) => {
+          if (!video.id || seen.has(video.id)) return false;
+          seen.add(video.id);
+          return true;
+        });
+      }
 
-        return mixed;
+      function updateFeedTabCounts() {
+        const videos = window.YOUTUBE_DATA?.videos || [];
+        const counts = videos.reduce(
+          (acc, video) => {
+            acc.all += 1;
+            if (video.kind === "video") acc.video += 1;
+            if (video.kind === "shorts") acc.shorts += 1;
+            return acc;
+          },
+          { all: 0, video: 0, shorts: 0 },
+        );
+
+        feedTabs.querySelector('[data-kind="all"]').textContent = `전체 ${counts.all}`;
+        feedTabs.querySelector('[data-kind="video"]').textContent = `영상 ${counts.video}`;
+        feedTabs.querySelector('[data-kind="shorts"]').textContent = `쇼츠 ${counts.shorts}`;
       }
 
       function renderChannelTabs() {
@@ -1479,6 +1501,7 @@
       feedTabs.querySelectorAll(".feed-tab").forEach((tab) => {
         tab.addEventListener("click", () => {
           selectedKind = tab.dataset.kind;
+          selectedChannel = "전체";
           feedTabs.querySelectorAll(".feed-tab").forEach((button) => {
             button.classList.toggle("active", button === tab);
           });
