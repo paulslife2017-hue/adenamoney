@@ -883,7 +883,7 @@
 
       .shorts {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px;
       }
 
@@ -941,15 +941,10 @@
 
       .channel-tabs {
         display: flex;
+        flex-wrap: wrap;
         gap: 6px;
-        overflow-x: auto;
         margin: -2px 0 9px;
         padding: 0 2px 2px;
-        scrollbar-width: none;
-      }
-
-      .channel-tabs::-webkit-scrollbar {
-        display: none;
       }
 
       .channel-tab {
@@ -999,7 +994,7 @@
       }
 
       .short-card {
-        min-height: 92px;
+        min-height: 116px;
         padding: 10px;
         border: 1px solid var(--line);
         border-radius: 12px;
@@ -1041,7 +1036,7 @@
       }
 
       .thumb {
-        height: 58px;
+        height: 76px;
         margin: -10px -10px 8px;
         background:
           linear-gradient(135deg, rgba(72, 198, 255, 0.18), rgba(155, 140, 255, 0.16)),
@@ -1474,7 +1469,6 @@
         const ranks = new Map();
         (window.YOUTUBE_DATA?.videos || []).forEach((video) => {
           if (!video.channelTitle) return;
-          if (selectedKind !== "all" && video.kind !== selectedKind) return;
           const current = ranks.get(video.channelTitle) || 999;
           ranks.set(video.channelTitle, Math.min(current, video.subscriberRank || 999));
         });
@@ -1488,14 +1482,8 @@
       }
 
       function normalizeCreatorSelection() {
-        if (selectedChannel === "전체") return;
-        const hasContent = (window.YOUTUBE_DATA?.videos || []).some((video) => {
-          const channelMatches = video.channelTitle === selectedChannel;
-          const kindMatches = selectedKind === "all" || video.kind === selectedKind;
-          return channelMatches && kindMatches;
-        });
-
-        if (!hasContent) selectedChannel = "전체";
+        const channels = new Set((window.YOUTUBE_DATA?.videos || []).map((video) => video.channelTitle));
+        if (selectedChannel !== "전체" && !channels.has(selectedChannel)) selectedChannel = "전체";
       }
 
       feedTabs.querySelectorAll(".feed-tab").forEach((tab) => {
