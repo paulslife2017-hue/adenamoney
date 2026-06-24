@@ -994,6 +994,7 @@
       }
 
       .short-card {
+        position: relative;
         min-height: 116px;
         padding: 10px;
         border: 1px solid var(--line);
@@ -1011,18 +1012,22 @@
       }
 
       .short-card span {
+        position: absolute;
+        top: 8px;
+        right: 8px;
         display: inline-flex;
         padding: 3px 6px;
         border-radius: 999px;
-        background: rgba(72, 198, 255, 0.1);
-        color: var(--blue);
+        background: rgba(6, 9, 19, 0.72);
+        color: #eaf8ff;
         font-size: 10px;
         font-weight: 900;
+        backdrop-filter: blur(8px);
       }
 
       .short-card strong {
         display: block;
-        margin-top: 10px;
+        margin-top: 0;
         font-size: 12px;
         line-height: 1.3;
       }
@@ -1402,7 +1407,7 @@
             return `
               <button class="short-card ${video.kind === "shorts" ? "shorts-kind" : ""}" type="button" data-video-id="${video.id}" data-title="${escapeAttr(video.title || "영상")}" data-thumbnail="${escapeAttr(video.thumbnail || "")}" data-url="${escapeAttr(video.url || "#")}">
                 <div class="thumb"${style}></div>
-                <span>${video.kind === "shorts" ? "쇼츠" : video.tag || "영상"}</span>
+                <span>${video.kind === "shorts" ? "쇼츠" : "영상"}</span>
                 <strong>${escapeHtml(video.title || "영상 제목")}</strong>
                 <small>${escapeHtml(video.channelTitle || "채널")} · ${formatRelativeTime(video.publishedAt)}</small>
               </button>
