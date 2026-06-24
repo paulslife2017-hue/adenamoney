@@ -604,6 +604,32 @@
         padding: 0 16px 24px;
       }
 
+      #rows {
+        max-height: 372px;
+        overflow-y: auto;
+        padding-right: 2px;
+        overscroll-behavior: contain;
+        scrollbar-width: thin;
+      }
+
+      #rows::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      #rows::-webkit-scrollbar-thumb {
+        border-radius: 999px;
+        background: rgba(147, 164, 189, 0.35);
+      }
+
+      .list::after {
+        content: "아래로 밀어 전체 서버 보기";
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 10px;
+        text-align: center;
+      }
+
       .head,
       .row {
         display: grid;
@@ -1213,6 +1239,16 @@
         </a>
       </section>
 
+      <section class="list">
+        <div class="head">
+          <span>순위</span>
+          <span>서버</span>
+          <span style="text-align: right">현재가</span>
+          <span style="text-align: right">전일</span>
+        </div>
+        <div id="rows"></div>
+      </section>
+
       <section class="channels" aria-label="추천 콘텐츠">
         <div class="section-title">
           <strong>크리에이터 피드</strong>
@@ -1225,16 +1261,6 @@
         </div>
         <div class="channel-tabs" id="channelTabs"></div>
         <div class="shorts" id="youtubeVideos"></div>
-      </section>
-
-      <section class="list">
-        <div class="head">
-          <span>순위</span>
-          <span>서버</span>
-          <span style="text-align: right">현재가</span>
-          <span style="text-align: right">전일</span>
-        </div>
-        <div id="rows"></div>
       </section>
 
       <footer class="seo-footer">
