@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>아데나머니 | 리니지 클래식 아데나 시세 · 서버별 ADENA/W 가격</title>
+    <title>아데나머니 | 리니지 클래식 서버별 아데나 현재가</title>
     <meta
       name="description"
-      content="아데나머니에서 리니지 클래식 아데나 시세를 서버별로 확인하세요. 오렌, 데포로쥬, 발라카스 등 ADENA/W 현재가, 전일 대비 등락률, 베이·매니아·바로템 수집 가격을 한눈에 비교합니다."
+      content="아데나머니에서 리니지 클래식 서버별 아데나 현재가를 확인하세요. 오렌, 데포로쥬, 발라카스 등 ADENA/W 시세, 전일 대비 흐름, 베이·매니아·바로템 수집 가격을 한눈에 비교합니다."
     />
     <meta
       name="keywords"
@@ -17,13 +17,13 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ko_KR" />
     <meta property="og:site_name" content="아데나머니" />
-    <meta property="og:title" content="아데나머니 | 리니지 클래식 아데나 시세" />
+    <meta property="og:title" content="아데나머니 | 리니지 클래식 서버별 아데나 현재가" />
     <meta
       property="og:description"
-      content="리니지 클래식 서버별 아데나 시세, ADENA/W 현재가, 전일 대비 등락률, 출처별 수집 가격을 모바일에서 빠르게 확인하세요."
+      content="리니지 클래식 서버별 아데나 현재가와 ADENA/W 시세 흐름을 모바일에서 빠르게 확인하세요."
     />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="아데나머니 | 리니지 클래식 아데나 시세" />
+    <meta name="twitter:title" content="아데나머니 | 리니지 클래식 서버별 아데나 현재가" />
     <meta
       name="twitter:description"
       content="서버별 리니지 클래식 아데나 가격과 전일 대비 흐름을 빠르게 확인하는 모바일 시세 화면입니다."
@@ -1153,14 +1153,14 @@
       <header class="topbar">
         <div class="brand">
           <strong id="brandName">아데나머니</strong>
-          <span id="brandTagline">리니지클래식 ADENA/W 시세</span>
+          <span id="brandTagline">리니지 클래식 서버별 아데나 현재가</span>
         </div>
         <div class="live">LIVE</div>
       </header>
 
       <section class="seo-intro" aria-label="리니지 클래식 아데나 시세 안내">
-        <h1>리니지 클래식 아데나 시세 · 서버별 ADENA/W 가격</h1>
-        <p>오렌, 데포로쥬, 발라카스 등 주요 서버의 현재가와 전일 대비 흐름을 베이·매니아·바로템 수집 가격 기준으로 확인합니다.</p>
+        <h1>리니지 클래식 서버별 아데나 현재가</h1>
+        <p>오렌, 데포로쥬, 발라카스 등 주요 서버의 ADENA/W 시세와 전일 대비 흐름을 한눈에 확인합니다.</p>
       </section>
 
       <section class="market-brief" aria-label="시장 요약">
@@ -1298,7 +1298,7 @@
         document.title = config.brandName || "아데나머니";
         document.querySelector("#brandName").textContent = config.brandName || "아데나머니";
         document.querySelector("#brandTagline").textContent =
-          config.tagline || "리니지클래식 ADENA/W 시세";
+          config.tagline || "리니지 클래식 서버별 아데나 현재가";
         document.querySelector("#creatorLabel").textContent =
           config.creatorChannelsLabel || "채널 구독자순 · 콘텐츠 최신순";
 
@@ -1421,13 +1421,13 @@
       }
 
       function pickFeedVideos(videos) {
-        if (selectedKind !== "all") return videos.slice(0, 9);
+        if (selectedKind !== "all") return videos.slice(0, 6);
 
-        const latest = videos.slice(0, 7);
-        const latestShorts = videos.filter((video) => video.kind === "shorts").slice(0, 3);
-        const latestVideos = videos.filter((video) => video.kind !== "shorts").slice(0, 3);
+        const latest = videos.slice(0, 5);
+        const latestShorts = videos.filter((video) => video.kind === "shorts").slice(0, 2);
+        const latestVideos = videos.filter((video) => video.kind !== "shorts").slice(0, 2);
         const picked = dedupeById([...latest, ...latestShorts, ...latestVideos]);
-        return picked.slice(0, 9);
+        return picked.slice(0, 6);
       }
 
       function dedupeById(videos) {
