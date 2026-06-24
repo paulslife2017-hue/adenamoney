@@ -1273,6 +1273,7 @@
       }
 
       function renderYoutubeVideos() {
+        normalizeCreatorSelection();
         renderChannelTabs();
         renderShortsRail();
         const allVideos = window.YOUTUBE_DATA?.videos || [];
@@ -1282,7 +1283,7 @@
         const videos = pickFeedVideos(filteredVideos);
 
         if (!videos.length) {
-          youtubeVideos.innerHTML = `<div class="feed-empty">표시할 ${selectedKind === "shorts" ? "쇼츠" : "영상"}이 아직 없습니다.</div>`;
+          youtubeVideos.innerHTML = `<div class="feed-empty">${selectedKind === "shorts" ? "선택한 채널에는 쇼츠가 아직 없습니다." : "표시할 영상이 아직 없습니다."}</div>`;
           return;
         }
 
@@ -1372,6 +1373,7 @@
         const ranks = new Map();
         (window.YOUTUBE_DATA?.videos || []).forEach((video) => {
           if (!video.channelTitle) return;
+          if (selectedKind !== "all" && video.kind !== selectedKind) return;
           const current = ranks.get(video.channelTitle) || 999;
           ranks.set(video.channelTitle, Math.min(current, video.subscriberRank || 999));
         });
@@ -1382,6 +1384,17 @@
             .sort((a, b) => a[1] - b[1] || a[0].localeCompare(b[0], "ko-KR"))
             .map(([name, rank]) => ({ name, rank })),
         ];
+      }
+
+      function normalizeCreatorSelection() {
+        if (selectedChannel === "전체") return;
+        const hasContent = (window.YOUTUBE_DATA?.videos || []).some((video) => {
+          const channelMatches = video.channelTitle === selectedChannel;
+          const kindMatches = selectedKind === "all" || video.kind === selectedKind;
+          return channelMatches && kindMatches;
+        });
+
+        if (!hasContent) selectedChannel = "전체";
       }
 
       feedTabs.querySelectorAll(".feed-tab").forEach((tab) => {
