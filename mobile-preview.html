@@ -1385,7 +1385,6 @@
 
       function renderYoutubeVideos() {
         normalizeCreatorSelection();
-        updateFeedTabCounts();
         renderChannelTabs();
         const allVideos = window.YOUTUBE_DATA?.videos || [];
         const filteredVideos = allVideos
@@ -1423,11 +1422,15 @@
       function pickFeedVideos(videos) {
         if (selectedKind !== "all") return videos.slice(0, 6);
 
-        const latest = videos.slice(0, 5);
-        const latestShorts = videos.filter((video) => video.kind === "shorts").slice(0, 2);
-        const latestVideos = videos.filter((video) => video.kind !== "shorts").slice(0, 2);
-        const picked = dedupeById([...latest, ...latestShorts, ...latestVideos]);
-        return picked.slice(0, 6);
+        const byChannel = new Map();
+        videos.forEach((video) => {
+          if (!video.channelTitle || byChannel.has(video.channelTitle)) return;
+          byChannel.set(video.channelTitle, video);
+        });
+
+        return [...byChannel.values()]
+          .sort((a, b) => (a.subscriberRank || 999) - (b.subscriberRank || 999))
+          .slice(0, 6);
       }
 
       function dedupeById(videos) {
@@ -1437,23 +1440,6 @@
           seen.add(video.id);
           return true;
         });
-      }
-
-      function updateFeedTabCounts() {
-        const videos = window.YOUTUBE_DATA?.videos || [];
-        const counts = videos.reduce(
-          (acc, video) => {
-            acc.all += 1;
-            if (video.kind === "video") acc.video += 1;
-            if (video.kind === "shorts") acc.shorts += 1;
-            return acc;
-          },
-          { all: 0, video: 0, shorts: 0 },
-        );
-
-        feedTabs.querySelector('[data-kind="all"]').textContent = `전체 ${counts.all}`;
-        feedTabs.querySelector('[data-kind="video"]').textContent = `영상 ${counts.video}`;
-        feedTabs.querySelector('[data-kind="shorts"]').textContent = `쇼츠 ${counts.shorts}`;
       }
 
       function renderChannelTabs() {

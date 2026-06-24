@@ -43,7 +43,7 @@ merged.sort((a, b) => {
 
 const payload = {
   updatedAt: new Date().toISOString(),
-  videos: merged.slice(0, 36),
+  videos: merged.slice(0, 80),
 };
 
 await mkdir(dirname(OUT_FILE), { recursive: true });

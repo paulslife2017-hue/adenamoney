@@ -1,5 +1,5 @@
 window.YOUTUBE_DATA = {
-  "updatedAt": "2026-06-24T15:55:59.227Z",
+  "updatedAt": "2026-06-24T16:08:49.516Z",
   "videos": [
     {
       "id": "uPgnXmWUwm8",
@@ -52,6 +52,18 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 2
     },
     {
+      "id": "0KOBxsjDOrs",
+      "title": "전 서버 최초 블레싱 요정을 뵙습니다 ⚔️리니지 클래식",
+      "channelTitle": "김팥순",
+      "publishedAt": "2026-06-24T07:00:39+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/0KOBxsjDOrs/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=0KOBxsjDOrs",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 52,
+      "subscriberRank": 3
+    },
+    {
       "id": "P1E_o8-SSlQ",
       "title": "긴급🔥엔씨! 이걸 이렇게 판다고?! \"신규 아이템 공개\" [리니지 클래식]",
       "channelTitle": "태산군주 TV",
@@ -100,6 +112,18 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 1
     },
     {
+      "id": "k1LMhNBiX80",
+      "title": "⚔️리니지 클래식 데포로쥬서버 김팥순 ❤️",
+      "channelTitle": "김팥순",
+      "publishedAt": "2026-06-23T16:19:02+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/k1LMhNBiX80/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=k1LMhNBiX80",
+      "tag": "리니지클래식",
+      "kind": "video",
+      "durationSeconds": 17338,
+      "subscriberRank": 3
+    },
+    {
       "id": "ZisFV3h8Qr8",
       "title": "🔥리니지 클래식 첫 \"면류관\" 역대급! 세금 \"현금 7700만원\"",
       "channelTitle": "태산군주 TV",
@@ -112,6 +136,18 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 2
     },
     {
+      "id": "Tq9E3OR-yL8",
+      "title": "힘이 곧 법이다! 꼬우면 강해지던가 ⚔️리니지 클래식",
+      "channelTitle": "김팥순",
+      "publishedAt": "2026-06-23T08:00:32+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/Tq9E3OR-yL8/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=Tq9E3OR-yL8",
+      "tag": "리니지클래식",
+      "kind": "video",
+      "durationSeconds": 687,
+      "subscriberRank": 3
+    },
+    {
       "id": "shtg3NFSel8",
       "title": "🔴\"면류관 너무 크다...\" 축 9일도 49레벨 군주 | 리니지 클래식 6월 22일",
       "channelTitle": "태산군주 TV",
@@ -122,6 +158,30 @@ window.YOUTUBE_DATA = {
       "kind": "video",
       "durationSeconds": 14833,
       "subscriberRank": 2
+    },
+    {
+      "id": "4KMPNClskKM",
+      "title": "군주님을 따라간 운명적인 스탯 초기화;;; #리니지 클래식",
+      "channelTitle": "김팥순",
+      "publishedAt": "2026-06-22T05:00:11+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/4KMPNClskKM/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=4KMPNClskKM",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 84,
+      "subscriberRank": 3
+    },
+    {
+      "id": "PEKNuypUyzg",
+      "title": "리니지 클래식 최초 '공성전' 상황 ㄷㄷ",
+      "channelTitle": "린친놈",
+      "publishedAt": "2026-06-21T14:35:34+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/PEKNuypUyzg/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=PEKNuypUyzg",
+      "tag": "리니지클래식",
+      "kind": "video",
+      "durationSeconds": 305,
+      "subscriberRank": 4
     },
     {
       "id": "T5UToCgzZtE",
@@ -196,6 +256,30 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 1
     },
     {
+      "id": "10syQgK0z94",
+      "title": "서민 엔드템 달의 장궁을 뵙습니다 #리니지 클래식",
+      "channelTitle": "김팥순",
+      "publishedAt": "2026-06-17T00:10:15-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/10syQgK0z94/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYXyBfKF8wDw==&rs=AOn4CLDPVc5Zw_0LavIMc7FVGCAHqxMKgA",
+      "url": "https://www.youtube.com/shorts/10syQgK0z94",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 37,
+      "subscriberRank": 3
+    },
+    {
+      "id": "5Yc71G7y8LY",
+      "title": "리니지 근본 마법 '서먼 몬스터' 상향 ㄷㄷ",
+      "channelTitle": "린친놈",
+      "publishedAt": "2026-06-17T06:52:09+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/5Yc71G7y8LY/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=5Yc71G7y8LY",
+      "tag": "리니지클래식",
+      "kind": "video",
+      "durationSeconds": 421,
+      "subscriberRank": 4
+    },
+    {
       "id": "nNJLwwuUOT8",
       "title": "리니지클래식 충격적인 요즘 근황",
       "channelTitle": "카라",
@@ -256,6 +340,30 @@ window.YOUTUBE_DATA = {
       "subscriberRank": 5
     },
     {
+      "id": "HIe6wQOineI",
+      "title": "도파민중독이 위험한 이유.. #리니지클래식",
+      "channelTitle": "김팥순",
+      "publishedAt": "2026-06-12T00:00:29-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/HIe6wQOineI/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBkKFowDw==&rs=AOn4CLCh7mgbhU2S8yn0kDve6pyAWvz6PQ",
+      "url": "https://www.youtube.com/shorts/HIe6wQOineI",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 49,
+      "subscriberRank": 3
+    },
+    {
+      "id": "m_CGHeMhqYg",
+      "title": "현재 리니지 자동 심각한 상황 ㄷㄷ.. #리니지클래식",
+      "channelTitle": "김팥순",
+      "publishedAt": "2026-06-11T00:18:24-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/m_CGHeMhqYg/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBdKDwwDw==&rs=AOn4CLDw1MNWmoDZuk8LzQiC7D3y-BtDqQ",
+      "url": "https://www.youtube.com/shorts/m_CGHeMhqYg",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 54,
+      "subscriberRank": 3
+    },
+    {
       "id": "xuC5t7vof-w",
       "title": "리니지클래식 황금깃털 상자ㄷㄷ",
       "channelTitle": "카라",
@@ -266,6 +374,102 @@ window.YOUTUBE_DATA = {
       "kind": "shorts",
       "durationSeconds": 28,
       "subscriberRank": 5
+    },
+    {
+      "id": "Wue2fOK013I",
+      "title": "현상금 걸려서 환장한 팥라인 .. 개철혈 따잇 #리니지클래식",
+      "channelTitle": "김팥순",
+      "publishedAt": "2026-06-10T00:00:40-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/Wue2fOK013I/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AG2CIACgA-KAgwIABABGEcgTyhlMA8=&rs=AOn4CLBJrGisy_vQBzdQL0BCX5KxE0uZhQ",
+      "url": "https://www.youtube.com/shorts/Wue2fOK013I",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 67,
+      "subscriberRank": 3
+    },
+    {
+      "id": "RhNi5WIH1sU",
+      "title": "유저들의 4개월 치 노력이 삭제되는 순간. 스탯 초기화 도입 ㄷㄷ",
+      "channelTitle": "린친놈",
+      "publishedAt": "2026-06-09T08:16:28+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/RhNi5WIH1sU/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=RhNi5WIH1sU",
+      "tag": "리니지클래식",
+      "kind": "video",
+      "durationSeconds": 227,
+      "subscriberRank": 4
+    },
+    {
+      "id": "S9d_eEuPT4U",
+      "title": "접어가는 마법사들의 마지막 희망, 신규 지역 '오렌' 등장",
+      "channelTitle": "린친놈",
+      "publishedAt": "2026-06-04T07:57:58+00:00",
+      "thumbnail": "https://i.ytimg.com/vi/S9d_eEuPT4U/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=S9d_eEuPT4U",
+      "tag": "리니지클래식",
+      "kind": "video",
+      "durationSeconds": 392,
+      "subscriberRank": 4
+    },
+    {
+      "id": "pHpSix38OUQ",
+      "title": "전 모르는 일입니다.. #리니지클래식",
+      "channelTitle": "김팥순",
+      "publishedAt": "2026-06-01T21:27:12-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/pHpSix38OUQ/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBbKGMwDw==&rs=AOn4CLDRSO9M6TDhkgj7ZU9FHslLnTDFjA",
+      "url": "https://www.youtube.com/shorts/pHpSix38OUQ",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 51,
+      "subscriberRank": 3
+    },
+    {
+      "id": "ySyTS5x1pfo",
+      "title": "보석깡으로 '홀리 워크'를 먹어버렸습니다...ㄷㄷ",
+      "channelTitle": "린친놈",
+      "publishedAt": "2026-05-31T05:11:02-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/ySyTS5x1pfo/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBaKEwwDw==&rs=AOn4CLAYGb123cDciqU73LwMLhTVCB-ZEw",
+      "url": "https://www.youtube.com/shorts/ySyTS5x1pfo",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 52,
+      "subscriberRank": 4
+    },
+    {
+      "id": "8F23Gm2u36g",
+      "title": "그라나도 에스파타m 탐방",
+      "channelTitle": "린친놈",
+      "publishedAt": "2026-05-31T04:48:30-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/8F23Gm2u36g/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AG2CIACgA-KAgwIABABGGUgWyhHMA8=&rs=AOn4CLDdc4E-11HXeKL4M266YuRoE9amBQ",
+      "url": "https://www.youtube.com/shorts/8F23Gm2u36g",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 124,
+      "subscriberRank": 4
+    },
+    {
+      "id": "xASJHp4T1vg",
+      "title": "3인 파티 사냥의 추억 게임",
+      "channelTitle": "린친놈",
+      "publishedAt": "2026-05-31T00:57:06-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/xASJHp4T1vg/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYTSBEKH8wDw==&rs=AOn4CLBbDqEqzP7xi3Lv1_lraxu3x8po1g",
+      "url": "https://www.youtube.com/shorts/xASJHp4T1vg",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 58,
+      "subscriberRank": 4
+    },
+    {
+      "id": "OpLCAnRstkg",
+      "title": "호렙기념 역대급 스탯 뻥튀기ㄷㄷ #리니지클래식",
+      "channelTitle": "김팥순",
+      "publishedAt": "2026-05-29T23:00:08-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/OpLCAnRstkg/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBaKFMwDw==&rs=AOn4CLApA2u8sXsE-BCFLT17AK7G2iUZhw",
+      "url": "https://www.youtube.com/shorts/OpLCAnRstkg",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 24,
+      "subscriberRank": 3
     },
     {
       "id": "x4SqIP0mDaY",
@@ -290,6 +494,66 @@ window.YOUTUBE_DATA = {
       "kind": "shorts",
       "durationSeconds": 26,
       "subscriberRank": 5
+    },
+    {
+      "id": "Uma90B8nSao",
+      "title": "자동이 반격을? ㄷㄷ",
+      "channelTitle": "린친놈",
+      "publishedAt": "2026-05-21T06:45:37-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/Uma90B8nSao/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBUKEYwDw==&rs=AOn4CLBVH2-_Le0-VQIQI0MyLhbpFrh4mQ",
+      "url": "https://www.youtube.com/shorts/Uma90B8nSao",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 46,
+      "subscriberRank": 4
+    },
+    {
+      "id": "2hkBPQtfkwc",
+      "title": "진짜 '리니지' 근황 ㅋㅋㅋ",
+      "channelTitle": "린친놈",
+      "publishedAt": "2026-05-20T20:00:20-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/2hkBPQtfkwc/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AG2CIACgA-KAgwIABABGFogZSgvMA8=&rs=AOn4CLAlraWKLgy2DD5kFN1ldXbZYTBQkw",
+      "url": "https://www.youtube.com/shorts/2hkBPQtfkwc",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 164,
+      "subscriberRank": 4
+    },
+    {
+      "id": "16Zv9Rz2LcQ",
+      "title": "추억의 몽환의 섬 등장!",
+      "channelTitle": "린친놈",
+      "publishedAt": "2026-05-20T14:18:46-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/16Zv9Rz2LcQ/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBXKEUwDw==&rs=AOn4CLBgQqkdYN-tioSaWaWWqXRZ2vy4fg",
+      "url": "https://www.youtube.com/shorts/16Zv9Rz2LcQ",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 47,
+      "subscriberRank": 4
+    },
+    {
+      "id": "hDHegCpxSJw",
+      "title": "용계까지 진출을 시작했다고..?ㄷㄷ",
+      "channelTitle": "린친놈",
+      "publishedAt": "2026-05-17T15:50:28-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/hDHegCpxSJw/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBWKEkwDw==&rs=AOn4CLBVj6o1uhbbLxqeZ67cbSPWrj7COA",
+      "url": "https://www.youtube.com/shorts/hDHegCpxSJw",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 31,
+      "subscriberRank": 4
+    },
+    {
+      "id": "E5ZAoHvIulU",
+      "title": "작업장 사장님 as 부르셔야겠네요.",
+      "channelTitle": "린친놈",
+      "publishedAt": "2026-05-13T23:10:39-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/E5ZAoHvIulU/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AG2CIACgA-KAgwIABABGGIgZSg5MA8=&rs=AOn4CLCtywRczboDaTOQ4CLOcR-8QP0FGA",
+      "url": "https://www.youtube.com/shorts/E5ZAoHvIulU",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 61,
+      "subscriberRank": 4
     },
     {
       "id": "4ca4Q1wrBXQ",
@@ -433,6 +697,18 @@ window.YOUTUBE_DATA = {
       "tag": "쇼츠",
       "kind": "shorts",
       "durationSeconds": 54,
+      "subscriberRank": 2
+    },
+    {
+      "id": "OYr-i11bF7o",
+      "title": "\"미친 극대노\" 분노의 린저씨  #shorts #리니지",
+      "channelTitle": "태산군주 TV",
+      "publishedAt": "2025-10-14T02:11:09-07:00",
+      "thumbnail": "https://i.ytimg.com/vi/OYr-i11bF7o/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AG2CIACgA-KAgwIABABGGUgWyhIMA8=&rs=AOn4CLBQGhlF-h5ZDpVd68V2oS6vsDJnUg",
+      "url": "https://www.youtube.com/shorts/OYr-i11bF7o",
+      "tag": "쇼츠",
+      "kind": "shorts",
+      "durationSeconds": 85,
       "subscriberRank": 2
     }
   ]
