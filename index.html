@@ -1176,11 +1176,15 @@
       @media (min-width: 900px) {
         body {
           padding: 24px;
+          background:
+            radial-gradient(circle at 18% -120px, rgba(72, 198, 255, 0.22), transparent 32%),
+            radial-gradient(circle at 82% 40px, rgba(124, 255, 178, 0.11), transparent 30%),
+            var(--bg);
         }
 
         .app {
           display: grid;
-          grid-template-columns: minmax(320px, 370px) minmax(430px, 1fr) minmax(280px, 340px);
+          grid-template-columns: 360px minmax(440px, 1fr) 330px;
           grid-template-areas:
             "topbar topbar topbar"
             "intro intro intro"
@@ -1188,90 +1192,198 @@
             "ticker chart channels"
             "list chart channels"
             "list footer channels";
-          gap: 14px;
-          max-width: 1180px;
+          gap: 16px;
+          max-width: 1280px;
           min-height: calc(100dvh - 48px);
-          padding: 0 0 18px;
-          border: 1px solid rgba(139, 166, 214, 0.12);
+          padding: 0 18px 18px;
+          border: 1px solid rgba(139, 166, 214, 0.14);
           border-radius: 18px;
-          box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
-          overflow: hidden;
+          background:
+            linear-gradient(180deg, rgba(12, 19, 37, 0.92) 0, rgba(6, 9, 19, 0.98) 360px),
+            rgba(6, 9, 19, 0.96);
+          box-shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+          overflow: visible;
         }
 
         .topbar {
           grid-area: topbar;
-          position: sticky;
+          margin: 0 -18px;
+          padding: 16px 24px 13px;
+          border-radius: 18px 18px 0 0;
+        }
+
+        .brand strong {
+          font-size: 21px;
         }
 
         .seo-intro {
           grid-area: intro;
-          padding: 18px 24px 0;
+          padding: 4px 6px 0;
         }
 
         .seo-intro h1 {
           font-size: 24px;
         }
 
+        .seo-intro p {
+          max-width: 760px;
+        }
+
         .market-brief {
           grid-area: brief;
-          padding: 0 0 0 24px;
+          padding: 0;
+        }
+
+        .brief-card,
+        .ticker,
+        .list,
+        .chart-panel,
+        .ad-slot,
+        .channels,
+        .seo-footer {
+          border: 1px solid rgba(139, 166, 214, 0.14);
+          background:
+            radial-gradient(circle at 90% 0, rgba(72, 198, 255, 0.09), transparent 34%),
+            rgba(10, 16, 31, 0.78);
+          box-shadow: 0 16px 44px rgba(0, 0, 0, 0.24);
         }
 
         .ticker {
           grid-area: ticker;
-          margin: 0 0 0 24px;
+          margin: 0;
         }
 
         .chart-panel {
           grid-area: chart;
           position: sticky;
-          top: 76px;
+          top: 88px;
           align-self: start;
           margin: 0;
-          min-height: 520px;
+          min-height: 572px;
+          padding: 20px;
+          border-radius: 14px;
+        }
+
+        .chart-head strong {
+          font-size: 17px;
         }
 
         .main-price strong {
-          font-size: 54px;
+          font-size: 56px;
+        }
+
+        .spark,
+        .spark svg {
+          height: 68px;
+        }
+
+        .source-diff {
+          gap: 8px;
+        }
+
+        .diff-card {
+          padding: 10px;
         }
 
         .ad-slot {
           grid-area: ad;
-          margin: 0 24px 0 0;
+          margin: 0;
           align-self: start;
+        }
+
+        .ad-slot a {
+          grid-template-columns: 1fr;
+        }
+
+        .ad-cta {
+          width: fit-content;
         }
 
         .list {
           grid-area: list;
-          padding: 0 0 0 24px;
+          padding: 12px;
+          border-radius: 14px;
+        }
+
+        .head {
+          position: sticky;
+          top: 0;
+          z-index: 2;
+          margin: -2px -2px 6px;
+          padding: 7px 6px;
+          border-radius: 9px;
+          background: rgba(10, 16, 31, 0.94);
+          backdrop-filter: blur(12px);
         }
 
         #rows {
-          max-height: 520px;
+          max-height: 484px;
+          padding-right: 4px;
+        }
+
+        .row {
+          min-height: 46px;
+          margin-bottom: 6px;
+          border-radius: 9px;
         }
 
         .channels {
           grid-area: channels;
-          padding: 0 24px 0 0;
           align-self: start;
+          padding: 12px;
+          border-radius: 14px;
+        }
+
+        .section-title {
+          padding: 2px 2px 10px;
+        }
+
+        .channel-tabs {
+          margin-bottom: 10px;
         }
 
         .shorts {
           grid-template-columns: 1fr;
+          max-height: 480px;
+          overflow-y: auto;
+          padding-right: 3px;
         }
 
         .short-card {
-          min-height: 106px;
+          display: grid;
+          grid-template-columns: 96px 1fr;
+          gap: 10px;
+          min-height: 82px;
+          padding: 8px;
+          align-items: center;
+        }
+
+        .short-card span {
+          top: 6px;
+          left: 6px;
+          right: auto;
+        }
+
+        .short-card strong {
+          margin-top: 0;
+          font-size: 12px;
+        }
+
+        .short-card small {
+          margin-top: 5px;
         }
 
         .thumb {
-          height: 68px;
+          height: 64px;
+          margin: 0;
+          border-radius: 8px;
         }
 
         .seo-footer {
           grid-area: footer;
           margin: 0;
-          padding: 14px 0 0;
+          padding: 14px;
+          border-radius: 14px;
         }
       }
     </style>
