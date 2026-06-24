@@ -3,7 +3,46 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>아데나머니</title>
+    <title>아데나머니 | 리니지 클래식 아데나 시세 · 서버별 ADENA/W 가격</title>
+    <meta
+      name="description"
+      content="아데나머니에서 리니지 클래식 아데나 시세를 서버별로 확인하세요. 오렌, 데포로쥬, 발라카스 등 ADENA/W 현재가, 전일 대비 등락률, 베이·매니아·바로템 수집 가격을 한눈에 비교합니다."
+    />
+    <meta
+      name="keywords"
+      content="리니지 클래식 아데나 시세, 리니지클래식 시세, 아데나 시세, ADENA/W, 서버별 아데나 가격, 오렌 시세, 데포로쥬 시세, 발라카스 시세, 아이템베이, 아이템매니아, 바로템"
+    />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <meta name="author" content="아데나머니" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:site_name" content="아데나머니" />
+    <meta property="og:title" content="아데나머니 | 리니지 클래식 아데나 시세" />
+    <meta
+      property="og:description"
+      content="리니지 클래식 서버별 아데나 시세, ADENA/W 현재가, 전일 대비 등락률, 출처별 수집 가격을 모바일에서 빠르게 확인하세요."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="아데나머니 | 리니지 클래식 아데나 시세" />
+    <meta
+      name="twitter:description"
+      content="서버별 리니지 클래식 아데나 가격과 전일 대비 흐름을 빠르게 확인하는 모바일 시세 화면입니다."
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "아데나머니",
+        "alternateName": ["AdenaMoney", "아덴시세", "리니지 클래식 아데나 시세"],
+        "description": "리니지 클래식 서버별 아데나 시세와 ADENA/W 가격 흐름을 제공하는 모바일 시세 서비스입니다.",
+        "inLanguage": "ko-KR",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "/?server={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
     <script>
       if (location.protocol === "file:") {
         location.replace("http://127.0.0.1:4179/mobile-preview.html");
@@ -138,6 +177,24 @@
         border-radius: 10px;
         background: linear-gradient(180deg, rgba(18, 28, 51, 0.86), rgba(10, 16, 31, 0.84));
         box-shadow: var(--shadow);
+      }
+
+      .seo-intro {
+        padding: 12px 16px 2px;
+      }
+
+      .seo-intro h1 {
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.25;
+        letter-spacing: -0.1px;
+      }
+
+      .seo-intro p {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.45;
       }
 
       .market-brief {
@@ -719,6 +776,26 @@
         padding: 0 16px 30px;
       }
 
+      .seo-footer {
+        margin: 0 16px 28px;
+        padding: 14px 12px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.5;
+      }
+
+      .seo-footer strong {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--text);
+        font-size: 12px;
+      }
+
+      .seo-footer p {
+        margin: 0;
+      }
+
       .ad-slot {
         margin: 0 16px 12px;
         padding: 12px;
@@ -1081,6 +1158,11 @@
         <div class="live">LIVE</div>
       </header>
 
+      <section class="seo-intro" aria-label="리니지 클래식 아데나 시세 안내">
+        <h1>리니지 클래식 아데나 시세 · 서버별 ADENA/W 가격</h1>
+        <p>오렌, 데포로쥬, 발라카스 등 주요 서버의 현재가와 전일 대비 흐름을 베이·매니아·바로템 수집 가격 기준으로 확인합니다.</p>
+      </section>
+
       <section class="market-brief" aria-label="시장 요약">
         <div class="brief-card up">
           <span>전일 12시 대비 상승</span>
@@ -1154,6 +1236,14 @@
         </div>
         <div id="rows"></div>
       </section>
+
+      <footer class="seo-footer">
+        <strong>아데나머니 리니지 클래식 시세 안내</strong>
+        <p>
+          본 화면의 아데나 시세와 서버별 ADENA/W 가격은 외부 거래 플랫폼의 공개 판매 목록을 수집·가공한 참고 정보입니다.
+          실제 거래 가격, 수수료, 체결 여부는 각 거래 플랫폼과 판매자 조건에 따라 달라질 수 있습니다.
+        </p>
+      </footer>
 
       <div class="video-modal" id="videoModal" aria-hidden="true">
         <div class="video-sheet">
