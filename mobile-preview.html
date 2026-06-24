@@ -1555,7 +1555,7 @@
             const heat = getHeat(server);
 
             return `
-              <button class="row${active}" type="button" data-server="${server.name}" style="--heat:${heat}%">
+              <button class="row${active}" type="button" data-server-index="${index}" style="--heat:${heat}%">
                 <span class="rank">${index + 1}</span>
                 <span class="server">
                   <strong>${server.name}</strong>
@@ -1575,7 +1575,8 @@
 
         document.querySelectorAll(".row").forEach((row) => {
           row.addEventListener("click", () => {
-            const selected = servers.find((server) => server.name === row.dataset.server);
+            const selected = list[Number(row.dataset.serverIndex)];
+            if (!selected) return;
             selectedServerName = selected.name;
             renderChart(selected);
             renderRows();
