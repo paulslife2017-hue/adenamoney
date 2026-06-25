@@ -1676,17 +1676,18 @@
 
         .app {
           display: grid;
-          grid-template-columns: 320px minmax(380px, 1fr) 280px;
-          grid-template-rows: auto 1fr;
+          grid-template-columns: 300px minmax(360px, 1fr) 260px;
+          grid-template-rows: auto minmax(0, 1fr) 180px;
           grid-template-areas:
-            "topbar   topbar   topbar"
-            "list     chart    right";
+            "topbar  topbar  topbar"
+            "list    chart   channels"
+            "board   board   board";
           gap: 8px;
           max-width: 1280px;
           width: 100%;
           height: calc(100dvh - 24px);
-          min-height: 600px;
-          max-height: 900px;
+          min-height: 620px;
+          max-height: 940px;
           padding: 0 12px 12px;
           border: 1px solid rgba(139, 166, 214, 0.13);
           border-radius: 16px;
@@ -1729,12 +1730,43 @@
           scrollbar-width: thin;
         }
 
+        .chart-head {
+          margin-bottom: 6px;
+        }
         .chart-head strong {
-          font-size: 17px;
+          font-size: 15px;
         }
 
+        /* 현재가 영역 컴팩트 */
+        .main-price {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 8px;
+          padding-bottom: 8px;
+          flex-wrap: wrap;
+        }
+        .main-price > div:first-child {
+          display: flex;
+          align-items: baseline;
+          gap: 8px;
+        }
+        .main-price span {
+          font-size: 11px;
+        }
         .main-price strong {
-          font-size: 42px;
+          font-size: 28px;
+          margin-top: 0;
+        }
+        .change-pill {
+          margin-top: 0;
+          font-size: 11px;
+          padding: 4px 8px;
+          min-width: 70px;
+        }
+        .baseline {
+          font-size: 10px;
+          margin-top: 2px;
         }
 
         .spark,
@@ -1743,7 +1775,7 @@
         }
 
         .spark svg {
-          height: 52px;
+          height: 48px;
         }
 
         .spark-axis span,
@@ -1803,43 +1835,34 @@
           border-radius: 8px;
         }
 
+        /* 우측: 크리에이터 피드만 */
         .channels {
           grid-area: channels;
           display: flex;
-          min-height: 0;
           flex-direction: column;
-          align-self: stretch;
-          padding: 10px;
-          border-radius: 12px;
-        }
-
-        /* 900px+: 우측 컬럼 = channels + board 세로 배치 */
-        .right-col {
-          grid-area: right;
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
           min-height: 0;
           overflow: hidden;
+          padding: 10px;
+          border-radius: 12px;
+          border: 1px solid var(--card-border);
+          background: var(--card-bg);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.22);
         }
 
-        .channels {
-          flex: 1;
-          min-height: 0;
-        }
+        /* right-col 제거 — 더 이상 사용 안 함 */
+        .right-col { display: contents; }
 
+        /* 하단: 게시판 전체 가로 */
         .board-section {
-          flex-shrink: 0;
+          grid-area: board;
           min-height: 0;
-          height: 220px;
           width: 100%;
-          max-width: none;
           margin: 0;
-          padding: 10px 12px;
+          padding: 9px 14px 10px;
           border-radius: 10px;
           background: rgba(9, 14, 28, 0.96);
           border: 1px solid rgba(139,166,214,0.11);
-          border-top: 2px solid rgba(72,198,255,0.16);
+          border-top: 2px solid rgba(72,198,255,0.18);
           box-shadow: 0 2px 12px rgba(0,0,0,0.2);
           overflow: hidden;
           display: flex;
@@ -1945,11 +1968,12 @@
           }
 
           .app {
-            grid-template-columns: 360px minmax(480px, 1fr) 340px;
-            grid-template-rows: auto 1fr;
+            grid-template-columns: 340px minmax(460px, 1fr) 320px;
+            grid-template-rows: auto minmax(0, 1fr) 200px;
             grid-template-areas:
-              "topbar  topbar   topbar"
-              "list    chart    right";
+              "topbar  topbar    topbar"
+              "list    chart     channels"
+              "board   board     board";
             gap: 10px;
             max-width: 1440px;
             height: calc(100dvh - 28px);
@@ -2004,77 +2028,71 @@
 
           .chart-panel {
             min-height: 0;
-            padding: 20px;
+            padding: 16px 18px;
             border-radius: 14px;
             border-color: rgba(92, 200, 255, 0.16);
             background:
-              radial-gradient(circle at 20% 0, rgba(72,198,255,0.1), transparent 40%),
+              radial-gradient(circle at 20% 0, rgba(72,198,255,0.08), transparent 40%),
               var(--card-bg);
             box-shadow: 0 6px 30px rgba(0,0,0,0.28);
           }
 
           .chart-head {
-            margin-bottom: 14px;
+            margin-bottom: 8px;
           }
 
           .chart-head strong {
-            font-size: 22px;
+            font-size: 18px;
           }
 
           .chart-head span {
-            padding: 6px 9px;
-            border: 1px solid rgba(79, 214, 200, 0.22);
+            padding: 4px 8px;
+            border: 1px solid rgba(79, 214, 200, 0.2);
             border-radius: 999px;
-            background: rgba(79, 214, 200, 0.08);
+            background: rgba(79, 214, 200, 0.07);
             color: #d7f7ff;
-            font-weight: 900;
-          }
-
-          .main-price {
-            grid-template-columns: minmax(0, 1fr) 160px;
-            gap: 20px;
-            margin-bottom: 14px;
-            padding: 18px;
-            border: 1px solid rgba(154, 178, 218, 0.14);
-            border-radius: 18px;
-            background:
-              linear-gradient(135deg, rgba(72, 198, 255, 0.1), transparent 36%),
-              rgba(5, 8, 15, 0.32);
-          }
-
-          .main-price span {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
           }
 
+          /* 현재가 컴팩트 — 한 줄 레이아웃 */
+          .main-price {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            margin-bottom: 10px;
+            padding: 10px 12px;
+            border: 1px solid rgba(72,198,255,0.12);
+            border-radius: 12px;
+            background: rgba(72,198,255,0.04);
+          }
+          .main-price > div:first-child {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+          }
+          .main-price span {
+            font-size: 11px;
+            font-weight: 700;
+          }
           .main-price strong {
-            margin-top: 8px;
-            font-size: 66px;
-            text-shadow: 0 0 34px rgba(72, 198, 255, 0.2);
+            margin-top: 0;
+            font-size: 32px;
+            text-shadow: 0 0 20px rgba(72, 198, 255, 0.18);
           }
-
           .main-price em {
-            display: inline-flex;
-            justify-content: center;
-            width: 100%;
-            padding: 7px 10px;
-            border-radius: 999px;
-            background: rgba(79, 214, 200, 0.1);
-            color: #d7f7ff;
-            font-size: 12px;
+            font-size: 11px;
           }
-
           .change-pill {
-            width: 100%;
-            justify-content: center;
-            margin-top: 10px;
-            padding: 8px 10px;
-            font-size: 13px;
+            margin-top: 0;
+            font-size: 12px;
+            padding: 5px 10px;
+            min-width: 80px;
           }
-
           .baseline {
-            margin-top: 8px;
-            text-align: center;
+            margin-top: 0;
+            text-align: left;
           }
 
           .spark,
@@ -2328,16 +2346,17 @@
           }
 
           .app {
-            grid-template-columns: 340px minmax(440px, 540px) 320px;
-            grid-template-rows: auto 1fr;
+            grid-template-columns: 340px minmax(440px, 540px) 300px;
+            grid-template-rows: auto minmax(0, 1fr) 200px;
             grid-template-areas:
-              "topbar  topbar   topbar"
-              "list    chart    right";
+              "topbar  topbar    topbar"
+              "list    chart     channels"
+              "board   board     board";
             gap: 10px;
             justify-content: center;
             max-width: 1320px;
             height: calc(100dvh - 24px);
-            min-height: 600px;
+            min-height: 620px;
             max-height: 1000px;
             padding: 0 14px 14px;
             border-radius: 16px;
@@ -2697,10 +2716,22 @@
         opacity: 0.85;
       }
 
-      .board-tabs-center { flex: 1; justify-content: center; }
+      .board-title { flex: 1; }
       .board-write-toggle { flex-shrink: 0; }
 
-      /* PC: 글 목록 — 더 컴팩트한 한 줄 레이아웃 */
+      /* PC: 게시판 하단 가로배치 — 2열 그리드 */
+      .board-section .board-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0 12px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        flex: 1;
+        min-height: 0;
+        align-content: start;
+      }
+
+      /* PC: 글 목록 — 한 줄 컴팩트 */
       .board-post {
         padding: 5px 6px;
         gap: 0;
@@ -2717,9 +2748,9 @@
         display: flex;
         align-items: center;
         gap: 5px;
-        min-width: 160px;
-        max-width: 200px;
-        margin-right: 10px;
+        min-width: 130px;
+        max-width: 160px;
+        margin-right: 8px;
       }
 
       .board-post-content {
@@ -3044,36 +3075,13 @@
       border-bottom: 1px solid rgba(139,166,214,0.09);
     }
 
-    /* ── 게시판 탭 (가운데 정렬) ── */
-    .board-tabs-center {
-      display: flex;
-      gap: 4px;
-      flex: 1;
-      justify-content: center;
-    }
-
-    .board-tab-btn {
-      background: transparent;
-      border: 1px solid rgba(120,150,200,0.15);
-      border-radius: 6px;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 600;
-      padding: 3px 12px;
-      cursor: pointer;
-      transition: all 130ms;
-      white-space: nowrap;
-    }
-    .board-tab-btn.active {
-      background: rgba(92,200,255,0.1);
-      border-color: rgba(92,200,255,0.35);
-      color: var(--blue);
+    /* ── 게시판 제목 ── */
+    .board-title {
+      font-size: 12px;
       font-weight: 700;
-    }
-    .board-tab-btn:hover:not(.active) {
-      background: rgba(92,200,255,0.05);
-      border-color: rgba(92,200,255,0.2);
-      color: var(--text);
+      color: rgba(220,232,255,0.85);
+      margin: 0;
+      flex: 1;
     }
 
     /* ── 글쓰기 버튼 ── */
@@ -3436,7 +3444,7 @@
         min-height: 100dvh;
       }
 
-      /* 모바일: right-col은 투명 래퍼 — 자식이 직접 flex 자식처럼 동작 */
+      /* 모바일: right-col은 사용 안 함 (display:contents 유지) */
       .right-col {
         display: contents;
       }
@@ -3484,13 +3492,6 @@
         font-size: 12px;
         gap: 5px;
         min-width: 0;
-      }
-
-      .board-title-icon { font-size: 13px; }
-
-      .board-tab-btn {
-        font-size: 10px;
-        padding: 3px 10px;
       }
 
       .board-write-toggle {
@@ -3601,7 +3602,6 @@
         <div id="rows"></div>
       </section>
 
-      <div class="right-col">
       <section class="channels" aria-label="추천 콘텐츠">
         <div class="section-title">
           <strong>크리에이터 피드</strong>
@@ -3697,20 +3697,19 @@
         </p>
       </footer>
 
+      <!-- /.right-col (channels만 포함) -->
+
       <!-- ══════════════════════════════════════════════════════════ -->
-      <!-- 게시판 섹션                                               -->
+      <!-- 게시판 — grid-area: board (하단 전체 가로)               -->
       <!-- ══════════════════════════════════════════════════════════ -->
       <section class="board-section" id="boardSection" aria-label="커뮤니티 게시판">
-        <!-- 상단: 탭 (시세/크리에이터) 가운데 + 글쓰기 버튼 오른쪽 -->
+        <!-- 상단: 제목 + 글쓰기 -->
         <div class="board-top-row">
-          <div class="board-tabs-center">
-            <button class="board-tab-btn active" id="btBoard" data-tab="board">💬 시세톡</button>
-            <button class="board-tab-btn" id="btCreator" data-tab="creator">🎬 크리에이터</button>
-          </div>
+          <h2 class="board-title">💬 시세톡</h2>
           <button class="board-write-toggle" id="boardWriteToggleBtn" type="button">✏️ 글쓰기</button>
         </div>
 
-        <!-- 글쓰기 폼 (토글) -->
+        <!-- 글쓰기 패널 -->
         <div class="board-write-panel" id="boardWritePanel" style="display:none">
           <form class="board-write-form" id="boardWriteForm" autocomplete="off">
             <div class="board-write-row">
@@ -3736,7 +3735,6 @@
         <!-- 페이지네이션 -->
         <div class="board-pagination" id="boardPagination"></div>
       </section>
-      </div><!-- /.right-col -->
 
       <div class="video-modal" id="videoModal" aria-hidden="true">
         <div class="video-sheet">
@@ -4582,9 +4580,8 @@
         const MAX_POSTS  = 200;
 
         // ── 상태 ──────────────────────────────────────────────────
-        let boardPage   = 1;
-        let boardTotal  = 0;
-        let activeTab   = "board"; // "board" | "creator"
+        let boardPage  = 1;
+        let boardTotal = 0;
 
         // ── DOM refs ──────────────────────────────────────────────
         const boardList           = document.getElementById("boardList");
@@ -4599,42 +4596,9 @@
         const bwContent           = document.getElementById("bwContent");
         const bwCharCount         = document.getElementById("bwCharCount");
         const bwSubmit            = document.getElementById("bwSubmit");
-        const btBoard             = document.getElementById("btBoard");
-        const btCreator           = document.getElementById("btCreator");
-        // 크리에이터 피드 섹션 (탭 전환용)
         const channelsSection     = document.querySelector(".channels");
 
         // ── 탭 전환 ───────────────────────────────────────────────
-        function switchTab(tab) {
-          activeTab = tab;
-          btBoard.classList.toggle("active", tab === "board");
-          btCreator.classList.toggle("active", tab === "creator");
-          // 게시판 내용 토글
-          boardList.style.display      = tab === "board" ? "" : "none";
-          boardPagination.style.display = tab === "board" ? "" : "none";
-          boardWriteToggleBtn.style.display = tab === "board" ? "" : "none";
-          // 글쓰기 패널 닫기
-          if (boardWritePanel) boardWritePanel.style.display = "none";
-          if (boardWriteToggleBtn) boardWriteToggleBtn.classList.remove("open");
-          // 크리에이터 피드: board-section 안에 inline으로 보여주기
-          const creatorInline = document.getElementById("boardCreatorInline");
-          if (tab === "creator") {
-            if (!creatorInline && channelsSection) {
-              // 크리에이터 섹션의 내용을 복제해 인라인으로 표시
-              const clone = channelsSection.cloneNode(true);
-              clone.id = "boardCreatorInline";
-              clone.style.cssText = "background:none;border:none;padding:0;box-shadow:none;overflow-y:auto;flex:1;min-height:0";
-              boardList.parentNode.insertBefore(clone, boardList);
-            }
-            if (creatorInline) creatorInline.style.display = "";
-          } else {
-            if (creatorInline) creatorInline.style.display = "none";
-          }
-        }
-
-        btBoard.addEventListener("click",   () => switchTab("board"));
-        btCreator.addEventListener("click", () => switchTab("creator"));
-
         // ── 글쓰기 패널 토글 ──────────────────────────────────────
         if (boardWriteToggleBtn) {
           boardWriteToggleBtn.addEventListener("click", () => {
