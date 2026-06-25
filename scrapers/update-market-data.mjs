@@ -5,7 +5,7 @@ import { ProxyAgent, fetch as undiciFetch } from "undici";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT_FILE = resolve(ROOT, "data", "market-data.js");
-const HISTORY_LIMIT = 12;
+const HISTORY_LIMIT = 336; // 30분 주기 × 336 = 7일치
 const MIN_VALID_UNIT_PRICE = 400;
 const MAX_VALID_UNIT_PRICE = 4000;
 const OUTLIER_LOW_RATIO = 0.6;
@@ -123,6 +123,13 @@ for (const [name, itemBayServerId] of SERVERS) {
     noonBaselines[baselineDate] = noonBaselines[baselineDate] || {};
     noonBaselines[baselineDate][name] = currentPrice;
   }
+}
+
+// noonBaselines 14일치만 유지
+const BASELINE_KEEP_DAYS = 14;
+const cutoffDate = getKstDateKey(addDays(fetchedAt, -BASELINE_KEEP_DAYS));
+for (const date of Object.keys(noonBaselines)) {
+  if (date < cutoffDate) delete noonBaselines[date];
 }
 
 const data = {

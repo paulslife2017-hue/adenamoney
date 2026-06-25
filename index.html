@@ -5239,8 +5239,8 @@
         const W = 360, H = 140;
         const padTop = 22;   // 가격 레이블 위 여백
         const padBot = 20;   // 날짜 레이블 아래 여백
-        const padL   = 4;
-        const padR   = 4;
+        const padL   = 2;
+        const padR   = 2;
         const plotW  = W - padL - padR;
         const plotTop = padTop;
         const plotBot = H - padBot;
@@ -5285,7 +5285,7 @@
 
         spark.innerHTML = `
           <div class="spark-header">
-            <span class="spark-title">7일 정오 시세</span>
+            <span class="spark-title">2주 정오 시세</span>
             <span class="spark-trust">
               <span class="spark-trust-dot" style="background:${trustColor}"></span>
               ${fetchedLabel ? `<span style="color:${trustColor}">${fetchedLabel}</span>` : ""}
@@ -5343,7 +5343,7 @@
             at: `${date}T12:00:00+09:00`,
           }))
           .filter((point) => Number.isFinite(point.price))
-          .slice(-6);
+          .slice(-14);
         const history = (server.history || [])
           .filter((point) => Number.isFinite(point.price))
           .filter((point) => {
@@ -5371,8 +5371,8 @@
           daily.set(key, { ...point, dayLabel: key });
         });
 
-        const compact = [...daily.values()].slice(-7);
-        return compact.length >= 2 ? compact : points.slice(-7);
+        const compact = [...daily.values()].slice(-14);
+        return compact.length >= 2 ? compact : points.slice(-14);
       }
 
       function buildSparkPriceLabels(points, coords) {
@@ -5393,9 +5393,17 @@
       }
 
       function buildSparkAxisLabels(points, coords) {
-        const indexes = points.length <= 7
-          ? points.map((_, index) => index)
-          : [...new Set([0, Math.floor((points.length - 1) / 2), points.length - 1])];
+        // 포인트 수에 따라 레이블 개수 조절 (최대 7개, 겹침 방지)
+        let indexes;
+        if (points.length <= 7) {
+          indexes = points.map((_, i) => i);
+        } else if (points.length <= 14) {
+          // 7~14개: 첫/중간/끝 + 균등 간격으로 총 5개
+          const step = Math.floor((points.length - 1) / 4);
+          indexes = [...new Set([0, step, step*2, step*3, points.length - 1])];
+        } else {
+          indexes = [...new Set([0, Math.floor((points.length - 1) / 2), points.length - 1])];
+        }
         const used = new Set();
         return indexes
           .map((index) => {
