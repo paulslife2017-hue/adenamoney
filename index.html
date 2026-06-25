@@ -882,7 +882,8 @@
       }
 
       .channels {
-        padding: 0 16px 30px;
+        padding: 6px 16px 30px;
+        margin-top: 8px;
       }
 
       .seo-footer {
@@ -1220,16 +1221,19 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 10px 4px 8px;
+        padding: 6px 4px 8px;
       }
 
       .section-title strong {
         font-size: 13px;
+        color: var(--text);
+        letter-spacing: -0.2px;
       }
 
       .section-title span {
         color: var(--muted);
         font-size: 10px;
+        opacity: 0.8;
       }
 
       .shorts {
@@ -1528,16 +1532,17 @@
         .app {
           display: grid;
           grid-template-columns: 340px minmax(400px, 1fr) 300px;
-          grid-template-rows: auto minmax(0, 1fr);
+          grid-template-rows: auto minmax(0, 38vh) minmax(0, 1fr);
           grid-template-areas:
-            "topbar topbar topbar"
-            "list chart channels";
+            "topbar  topbar   topbar"
+            "list    chart    channels"
+            "board   board    board";
           gap: 8px;
           max-width: 1280px;
           width: 100%;
-          height: calc(63vh);
-          min-height: 430px;
-          max-height: 580px;
+          height: calc(100dvh - 24px);
+          min-height: 600px;
+          max-height: 900px;
           padding: 0 12px 12px;
           border: 1px solid rgba(139, 166, 214, 0.14);
           border-radius: 16px;
@@ -1666,6 +1671,19 @@
           align-self: stretch;
           padding: 10px;
           border-radius: 12px;
+        }
+
+        /* 900px+에서 board-section은 grid-area: board */
+        .board-section {
+          grid-area: board;
+          min-height: 0;
+          width: 100%;
+          max-width: none;
+          margin: 0;
+          padding: 10px 14px;
+          border-radius: 12px;
+          background: linear-gradient(170deg, rgba(10,16,32,0.96) 0%, rgba(6,10,20,0.97) 100%);
+          border-color: rgba(139,166,214,0.12);
         }
 
         .section-title {
@@ -2432,9 +2450,9 @@
           }
         }
       }
-    /* ═══════════════════════════════════════════════════════
-       PC 레이아웃: 앱 + 게시판 한 화면에 배치
-    ═══════════════════════════════════════════════════════ */
+    /* ═══════════════════════════════════════════════════════════════
+       PC 레이아웃 (900px+): 앱 + 게시판 한 화면 배치
+    ═══════════════════════════════════════════════════════════════ */
     @media (min-width: 900px) {
       html, body {
         height: 100dvh;
@@ -2446,33 +2464,36 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        padding: 12px 16px;
+        padding: 12px 16px 8px;
         gap: 8px;
         box-sizing: border-box;
       }
 
+      /* PC에서는 app이 grid 레이아웃이므로 board-section은 body 자식으로 */
       .app {
         margin: 0;
-        flex-shrink: 0;
         width: 100%;
         max-width: 1320px;
       }
 
-      /* 게시판: 나머지 높이 채우기 */
+      /* PC에서 board-section: grid-area: board로 배치 */
       .board-section {
-        flex: 1;
+        grid-area: board;
         min-height: 0;
         width: 100%;
-        max-width: 1320px;
+        max-width: none;
         margin: 0;
         display: flex;
         flex-direction: column;
         overflow: hidden;
         padding: 10px 16px 10px;
-        background: rgba(10, 16, 31, 0.82);
-        border: 1px solid rgba(139, 166, 214, 0.14);
+        background: linear-gradient(170deg, rgba(12,19,37,0.97) 0%, rgba(7,11,22,0.98) 100%);
+        border: 1px solid rgba(139,166,214,0.14);
+        border-top: 2px solid rgba(72,198,255,0.2);
         border-radius: 12px;
-        box-shadow: 0 8px 28px rgba(0,0,0,0.22);
+        box-shadow:
+          0 4px 20px rgba(0,0,0,0.24),
+          inset 0 1px 0 rgba(255,255,255,0.03);
         box-sizing: border-box;
       }
 
@@ -2482,60 +2503,47 @@
         min-height: 0;
         overflow-y: auto;
         scrollbar-width: thin;
+        scrollbar-color: rgba(139,166,214,0.25) transparent;
       }
 
-      /* 게시판 헤더 + 필터 바: 수평 한 줄로 */
+      /* 게시판 헤더: PC에서 한 줄 수평 */
       .board-top-row {
         display: flex;
         align-items: center;
         gap: 10px;
         margin-bottom: 8px;
+        padding-bottom: 9px;
+        flex-wrap: nowrap;
       }
 
       .board-title {
-        margin: 0;
-        padding-bottom: 0;
-        border-bottom: none;
-        font-size: 14px;
+        font-size: 13px;
         flex-shrink: 0;
       }
 
-      .board-filter-bar {
-        margin: 0;
-        flex-shrink: 0;
-      }
+      .board-filter-bar { flex-shrink: 0; }
+      .board-write-wrap { flex-shrink: 0; }
 
-      .board-write-wrap {
-        margin-bottom: 0;
-        flex-shrink: 0;
-      }
-
-      .board-write-toggle {
-        padding: 6px 12px;
-        font-size: 12px;
-      }
-
-      /* 글 목록 컴팩트 */
+      /* PC: 글 목록 가로 한 줄 레이아웃 */
       .board-post {
-        padding: 8px 6px;
-        gap: 4px;
+        padding: 7px 8px;
+        gap: 0;
         flex-direction: row;
         align-items: center;
-        border-bottom: 1px solid rgba(139,166,214,0.1);
+        border-radius: 7px;
+        border-bottom: 1px solid rgba(139,166,214,0.08);
       }
-
-      .board-post:hover {
-        background: rgba(72,198,255,0.04);
-        border-radius: 8px;
-      }
+      .board-post:last-child { border-bottom: none; }
+      .board-post:hover { background: rgba(72,198,255,0.04); }
 
       .board-post-header {
         flex-shrink: 0;
         display: flex;
         align-items: center;
         gap: 6px;
-        min-width: 180px;
-        max-width: 220px;
+        min-width: 190px;
+        max-width: 230px;
+        margin-right: 12px;
       }
 
       .board-post-content {
@@ -2548,23 +2556,23 @@
 
       .board-post-actions {
         flex-shrink: 0;
-        margin-left: 8px;
+        margin-left: 10px;
       }
 
-      /* 인라인 삭제 확인은 PC에서 절대 위치 */
+      .board-post-time {
+        white-space: nowrap;
+      }
+
+      /* PC: 삭제 확인 절대위치 */
       .board-delete-confirm {
         position: absolute;
         right: 0;
         top: calc(100% + 4px);
-        z-index: 10;
+        z-index: 20;
         min-width: 280px;
-        background: rgba(14, 21, 38, 0.98);
-        border: 1px solid rgba(224,85,85,.4);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-      }
-
-      .board-post {
-        position: relative;
+        background: linear-gradient(170deg, rgba(14,21,38,0.99), rgba(8,13,25,0.99));
+        border: 1px solid rgba(255,109,138,0.3);
+        box-shadow: 0 10px 32px rgba(0,0,0,0.5);
       }
 
       .board-pagination {
@@ -2575,30 +2583,36 @@
 
     @media (min-width: 1180px) {
       body {
-        padding: 16px 24px;
-        gap: 10px;
+        padding: 16px 24px 12px;
+        gap: 8px;
       }
 
       .app {
         width: min(1320px, calc(100vw - 48px));
         grid-template-columns: 330px minmax(480px, 1fr) 320px;
-        grid-template-rows: auto minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr) minmax(0, 1fr);
         grid-template-areas:
-          "topbar topbar topbar"
-          "list chart channels";
-        gap: 12px;
+          "topbar  topbar  topbar"
+          "list    chart   channels"
+          "board   board   board";
+        gap: 10px;
         align-content: stretch;
         max-width: 1320px;
-        height: calc(63vh);
-        min-height: 430px;
-        max-height: 590px;
+        height: calc(100dvh - 32px);
+        min-height: 600px;
+        max-height: 900px;
         padding: 0 14px 14px;
+        overflow: hidden;
       }
       .seo-footer { display: none; }
 
+      /* board-section이 app 내부 grid 항목 */
       .board-section {
-        width: min(1320px, calc(100vw - 48px));
-        max-width: 1320px;
+        grid-area: board;
+        width: 100%;
+        max-width: none;
+        min-height: 0;
+        flex: unset;
       }
 
       .topbar {
@@ -2805,87 +2819,109 @@
       }
     }
 
-    /* ═══════════════════════════════════════════════════════
+    /* ═══════════════════════════════════════════════════════════════
        게시판 스타일 (공통 — 모바일 우선)
-    ═══════════════════════════════════════════════════════ */
+    ═══════════════════════════════════════════════════════════════ */
+
+    /* 모바일 기본: board-section은 .app 내부 블록, channels 앞에 배치 */
     .board-section {
       display: flex;
       flex-direction: column;
       width: 100%;
-      max-width: 860px;
-      margin: 16px auto 32px;
-      padding: 16px 16px 20px;
       box-sizing: border-box;
-      background: rgba(10,16,31,0.82);
-      border: 1px solid rgba(139,166,214,0.14);
-      border-radius: 14px;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.22);
+      padding: 14px 14px 16px;
+      background: linear-gradient(170deg, rgba(14,22,42,0.96) 0%, rgba(8,13,25,0.97) 100%);
+      border: 1px solid rgba(139,166,214,0.15);
+      border-top: 2px solid rgba(72,198,255,0.28);
+      border-radius: 16px;
+      box-shadow:
+        0 4px 24px rgba(0,0,0,0.28),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+      position: relative;
     }
 
-    /* 상단 한 줄 (모바일: 세로, PC: 가로) */
+    /* 게시판 상단 글로우 라인 */
+    .board-section::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: 20px;
+      right: 20px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(72,198,255,0.5), rgba(79,214,200,0.4), transparent);
+      border-radius: 1px;
+    }
+
+    /* ── 상단 행: 제목 + 필터 + 글쓰기 ── */
     .board-top-row {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       align-items: center;
       gap: 8px;
       margin-bottom: 10px;
       padding-bottom: 10px;
-      border-bottom: 1px solid rgba(139,166,214,0.12);
+      border-bottom: 1px solid rgba(139,166,214,0.1);
     }
 
     .board-title {
       display: flex;
       align-items: center;
-      gap: 7px;
-      font-size: 14px;
+      gap: 6px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--text);
       margin: 0;
       padding: 0;
       border: none;
       flex-shrink: 0;
+      white-space: nowrap;
     }
 
-    .board-title-icon { font-size: 15px; }
+    .board-title-icon { font-size: 14px; }
 
     .board-server-badge {
       display: inline-flex;
       align-items: center;
-      background: var(--blue);
+      background: linear-gradient(135deg, var(--blue), var(--green));
       color: #05080f;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 8px;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 7px;
       border-radius: 20px;
-      margin-left: 2px;
+      letter-spacing: 0.3px;
     }
 
-    /* 필터 탭 */
+    /* ── 필터 탭 ── */
     .board-filter-bar {
       display: flex;
-      gap: 5px;
+      gap: 4px;
       flex-shrink: 0;
     }
 
     .board-filter-btn {
-      background: transparent;
-      border: 1px solid rgba(139,166,214,0.24);
+      background: rgba(14,21,38,0.6);
+      border: 1px solid rgba(139,166,214,0.2);
       border-radius: 20px;
       color: var(--muted);
       font-size: 11px;
-      padding: 3px 11px;
-      cursor: pointer;
-      transition: all 150ms;
-    }
-    .board-filter-btn.active,
-    .board-filter-btn:hover {
-      background: var(--blue);
-      border-color: var(--blue);
-      color: #05080f;
       font-weight: 600;
+      padding: 3px 10px;
+      cursor: pointer;
+      transition: all 160ms;
+      white-space: nowrap;
+    }
+    .board-filter-btn.active {
+      background: linear-gradient(135deg, rgba(72,198,255,0.2), rgba(79,214,200,0.15));
+      border-color: rgba(72,198,255,0.5);
+      color: var(--blue);
+    }
+    .board-filter-btn:hover:not(.active) {
+      background: rgba(72,198,255,0.08);
+      border-color: rgba(72,198,255,0.3);
+      color: var(--text);
     }
 
-    /* 글쓰기 폼 */
+    /* ── 글쓰기 버튼 (details/summary) ── */
     .board-write-wrap {
       position: relative;
       border-radius: 8px;
@@ -2897,102 +2933,131 @@
       align-items: center;
       gap: 5px;
       padding: 5px 12px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--blue);
       cursor: pointer;
       list-style: none;
-      border: 1px solid rgba(139,166,214,0.22);
-      border-radius: 8px;
-      background: rgba(14,21,38,0.6);
-      transition: all 150ms;
+      border: 1px solid rgba(72,198,255,0.3);
+      border-radius: 20px;
+      background: rgba(72,198,255,0.07);
+      transition: all 160ms;
       white-space: nowrap;
     }
-    .board-write-toggle:hover { background: rgba(72,198,255,0.08); border-color: var(--blue); color: var(--text); }
+    .board-write-toggle:hover {
+      background: rgba(72,198,255,0.14);
+      border-color: rgba(72,198,255,0.5);
+      box-shadow: 0 0 12px rgba(72,198,255,0.15);
+    }
     .board-write-toggle::-webkit-details-marker { display: none; }
     .board-write-wrap[open] .board-write-toggle {
-      color: var(--blue);
+      background: linear-gradient(135deg, rgba(72,198,255,0.18), rgba(79,214,200,0.12));
       border-color: var(--blue);
-      background: rgba(72,198,255,0.06);
+      color: var(--blue);
     }
 
+    /* ── 글쓰기 폼 (드롭다운) ── */
     .board-write-form {
       position: absolute;
       right: 0;
-      top: calc(100% + 6px);
-      z-index: 100;
-      width: min(420px, 90vw);
-      padding: 14px;
+      top: calc(100% + 8px);
+      z-index: 200;
+      width: min(400px, 90vw);
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      background: rgba(12,18,34,0.98);
-      border: 1px solid rgba(139,166,214,0.22);
-      border-radius: 12px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-      backdrop-filter: blur(16px);
+      gap: 10px;
+      background: linear-gradient(170deg, rgba(12,18,34,0.99), rgba(8,13,25,0.99));
+      border: 1px solid rgba(72,198,255,0.22);
+      border-radius: 14px;
+      box-shadow:
+        0 16px 48px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(255,255,255,0.03);
+      backdrop-filter: blur(20px);
+    }
+
+    .board-write-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: -4px;
     }
 
     .board-write-row {
       display: flex;
-      gap: 7px;
+      gap: 8px;
     }
 
     .board-input {
       flex: 1;
-      background: rgba(6,9,19,0.8);
-      border: 1px solid rgba(139,166,214,0.2);
-      border-radius: 7px;
+      background: rgba(6,9,19,0.7);
+      border: 1px solid rgba(139,166,214,0.18);
+      border-radius: 8px;
       color: var(--text);
       font-size: 12px;
-      padding: 7px 10px;
+      padding: 8px 11px;
       outline: none;
-      transition: border-color 150ms;
+      transition: border-color 160ms, box-shadow 160ms;
       min-width: 0;
     }
-    .board-input:focus { border-color: var(--blue); }
+    .board-input:focus {
+      border-color: rgba(72,198,255,0.5);
+      box-shadow: 0 0 0 3px rgba(72,198,255,0.08);
+    }
+    .board-input::placeholder { color: rgba(147,164,189,0.5); }
 
     .board-textarea {
-      background: rgba(6,9,19,0.8);
-      border: 1px solid rgba(139,166,214,0.2);
-      border-radius: 7px;
+      background: rgba(6,9,19,0.7);
+      border: 1px solid rgba(139,166,214,0.18);
+      border-radius: 8px;
       color: var(--text);
-      font-size: 12px;
-      padding: 8px 10px;
+      font-size: 13px;
+      padding: 9px 11px;
       resize: vertical;
+      min-height: 70px;
       outline: none;
       font-family: inherit;
-      line-height: 1.5;
-      transition: border-color 150ms;
+      line-height: 1.55;
+      transition: border-color 160ms, box-shadow 160ms;
     }
-    .board-textarea:focus { border-color: var(--blue); }
+    .board-textarea:focus {
+      border-color: rgba(72,198,255,0.5);
+      box-shadow: 0 0 0 3px rgba(72,198,255,0.08);
+    }
+    .board-textarea::placeholder { color: rgba(147,164,189,0.5); }
 
     .board-write-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding-top: 2px;
     }
 
     .board-char-count {
       font-size: 11px;
       color: var(--muted);
+      font-variant-numeric: tabular-nums;
     }
 
     .board-submit-btn {
-      background: linear-gradient(135deg, #48c6ff, #4fd6c8);
+      background: linear-gradient(135deg, #48c6ff 0%, #4fd6c8 100%);
       color: #05080f;
       border: none;
-      border-radius: 7px;
-      padding: 7px 18px;
+      border-radius: 8px;
+      padding: 7px 20px;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
-      transition: opacity 150ms;
+      transition: opacity 150ms, transform 100ms;
+      letter-spacing: 0.3px;
     }
-    .board-submit-btn:hover { opacity: 0.85; }
-    .board-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .board-submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .board-submit-btn:active { transform: translateY(0); }
+    .board-submit-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
 
-    /* 글 목록 */
+    /* ── 글 목록 ── */
     .board-list {
       display: flex;
       flex-direction: column;
@@ -3002,23 +3067,32 @@
     .board-loading,
     .board-empty {
       text-align: center;
-      padding: 24px;
+      padding: 28px 16px;
       color: var(--muted);
       font-size: 13px;
       line-height: 1.7;
     }
 
+    .board-empty::before {
+      content: "📭";
+      display: block;
+      font-size: 24px;
+      margin-bottom: 8px;
+      opacity: 0.7;
+    }
+
     .board-post {
-      border-bottom: 1px solid rgba(139,166,214,0.09);
-      padding: 10px 4px;
+      border-bottom: 1px solid rgba(139,166,214,0.08);
+      padding: 10px 6px;
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      transition: background 150ms;
+      gap: 6px;
+      transition: background 160ms;
       position: relative;
+      border-radius: 8px;
     }
     .board-post:last-child { border-bottom: none; }
-    .board-post:hover { background: rgba(72,198,255,0.03); border-radius: 7px; }
+    .board-post:hover { background: rgba(72,198,255,0.04); }
 
     .board-post-header {
       display: flex;
@@ -3035,23 +3109,25 @@
 
     .board-post-server-tag {
       font-size: 10px;
-      background: rgba(72,198,255,0.12);
+      background: linear-gradient(135deg, rgba(72,198,255,0.15), rgba(79,214,200,0.1));
       color: var(--blue);
-      padding: 1px 7px;
+      padding: 1px 8px;
       border-radius: 10px;
-      font-weight: 600;
+      font-weight: 700;
+      border: 1px solid rgba(72,198,255,0.2);
     }
 
     .board-post-time {
       font-size: 10px;
       color: var(--muted);
       margin-left: auto;
+      opacity: 0.7;
     }
 
     .board-post-content {
       font-size: 13px;
-      color: var(--text);
-      line-height: 1.5;
+      color: rgba(246,249,255,0.88);
+      line-height: 1.55;
       word-break: break-word;
       white-space: pre-wrap;
     }
@@ -3065,25 +3141,25 @@
     .board-delete-btn {
       background: transparent;
       border: none;
-      color: rgba(255,109,138,0.4);
+      color: rgba(255,109,138,0.35);
       font-size: 11px;
       cursor: pointer;
-      padding: 2px 6px;
-      border-radius: 4px;
+      padding: 2px 7px;
+      border-radius: 5px;
       transition: all 150ms;
     }
     .board-delete-btn:hover { color: var(--red); background: rgba(255,109,138,0.08); }
 
-    /* 인라인 삭제 확인 박스 */
+    /* ── 삭제 확인 인라인 박스 ── */
     .board-delete-confirm {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       margin-top: 5px;
-      padding: 8px 10px;
-      background: rgba(255,109,138,0.07);
-      border: 1px solid rgba(255,109,138,0.22);
-      border-radius: 8px;
+      padding: 8px 11px;
+      background: rgba(255,109,138,0.06);
+      border: 1px solid rgba(255,109,138,0.2);
+      border-radius: 9px;
       flex-wrap: wrap;
     }
     .board-delete-confirm span {
@@ -3095,81 +3171,176 @@
     .board-delete-pw {
       background: var(--bg);
       border: 1px solid rgba(139,166,214,0.2);
-      border-radius: 5px;
+      border-radius: 6px;
       color: var(--text);
       font-size: 12px;
-      padding: 4px 8px;
+      padding: 5px 9px;
       width: 110px;
       outline: none;
+      transition: border-color 150ms;
     }
     .board-delete-pw:focus { border-color: var(--red); }
     .board-delete-ok {
       background: var(--red);
       color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       font-size: 12px;
-      padding: 4px 10px;
+      padding: 5px 11px;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
     }
     .board-delete-cancel {
       background: transparent;
       color: var(--muted);
       border: 1px solid rgba(139,166,214,0.2);
-      border-radius: 5px;
+      border-radius: 6px;
       font-size: 12px;
-      padding: 4px 10px;
+      padding: 5px 11px;
       cursor: pointer;
     }
 
-    /* 페이지네이션 */
+    /* ── 페이지네이션 ── */
     .board-pagination {
       display: flex;
       justify-content: center;
-      gap: 5px;
-      margin-top: 10px;
+      gap: 4px;
+      margin-top: 12px;
       flex-wrap: wrap;
       flex-shrink: 0;
     }
 
     .board-page-btn {
-      background: rgba(14,21,38,0.7);
-      border: 1px solid rgba(139,166,214,0.18);
-      border-radius: 6px;
+      background: rgba(14,21,38,0.6);
+      border: 1px solid rgba(139,166,214,0.16);
+      border-radius: 7px;
       color: var(--muted);
       font-size: 12px;
-      padding: 4px 11px;
+      font-weight: 600;
+      padding: 4px 12px;
       cursor: pointer;
       transition: all 150ms;
     }
     .board-page-btn.active {
-      background: var(--blue);
-      border-color: var(--blue);
-      color: #05080f;
+      background: linear-gradient(135deg, rgba(72,198,255,0.22), rgba(79,214,200,0.16));
+      border-color: rgba(72,198,255,0.5);
+      color: var(--blue);
       font-weight: 700;
     }
-    .board-page-btn:hover:not(.active) { background: rgba(72,198,255,0.08); border-color: rgba(72,198,255,0.3); }
-    .board-page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .board-page-btn:hover:not(.active) {
+      background: rgba(72,198,255,0.08);
+      border-color: rgba(72,198,255,0.28);
+      color: var(--text);
+    }
+    .board-page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
-    /* 모바일: 글쓰기 폼 위치 조정 */
-    @media (max-width: 600px) {
-      .board-section {
-        padding: 12px 12px 16px;
-        border-radius: 12px;
-        margin: 10px 8px 20px;
-        width: auto;
+    /* ══════════════════════════════════════════════════════════════
+       모바일 레이아웃: 게시판을 크리에이터 피드 위로 (order 활용)
+    ══════════════════════════════════════════════════════════════ */
+    /* ══════════════════════════════════════════════════════════════
+       모바일 레이아웃 (max-width: 899px)
+       게시판을 크리에이터 피드(channels) 위로 배치
+    ══════════════════════════════════════════════════════════════ */
+    @media (max-width: 899px) {
+      /* app을 flex column으로 → order 작동 */
+      .app {
+        display: flex;
+        flex-direction: column;
+        max-width: 430px;
+        margin: 0 auto;
+        min-height: 100dvh;
       }
+
+      /* ── 섹션 순서 제어 ── */
+      .topbar      { order: 0; }
+      .seo-intro   { order: 1; }
+      .ticker      { order: 2; }
+      .chart-panel { order: 3; }
+      .list        { order: 4; }
+
+      /* ✨ 게시판: 크리에이터 피드(order:6) 바로 위 */
+      .board-section {
+        order: 5;
+        margin: 8px 10px 0;
+        border-radius: 16px;
+        padding: 14px 13px 16px;
+        /* 모바일에서 글 목록 너무 길어지지 않게 */
+        max-height: 460px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .board-list {
+        overflow-y: auto;
+        max-height: 320px;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(139,166,214,0.2) transparent;
+      }
+
+      .channels   { order: 6; }
+      .seo-footer { order: 7; }
+      .video-modal { order: 8; }
+
+      /* ── 모바일 게시판 세부 스타일 ── */
+      .board-top-row {
+        gap: 6px;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        flex-wrap: nowrap;
+      }
+
+      .board-title {
+        font-size: 12px;
+        gap: 5px;
+        min-width: 0;
+      }
+
+      .board-title-icon { font-size: 13px; }
+
+      .board-filter-btn {
+        font-size: 10px;
+        padding: 3px 9px;
+      }
+
+      .board-write-toggle {
+        font-size: 10px;
+        padding: 4px 10px;
+      }
+
       .board-write-form {
         right: auto;
         left: 0;
-        width: min(360px, 92vw);
+        width: min(340px, 92vw);
       }
+
       .board-write-row {
         flex-direction: column;
+        gap: 7px;
       }
+
+      .board-post {
+        padding: 9px 5px;
+        gap: 5px;
+      }
+
       .board-post-content {
-        font-size: 13px;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .board-post-nick { font-size: 11px; }
+      .board-post-server-tag { font-size: 10px; }
+      .board-post-time { font-size: 10px; }
+
+      .board-pagination {
+        gap: 3px;
+        margin-top: 10px;
+      }
+
+      .board-page-btn {
+        font-size: 11px;
+        padding: 3px 10px;
       }
     }
   </style>
@@ -3295,6 +3466,46 @@
         </p>
       </footer>
 
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- 게시판 섹션 (모바일: channels 위, PC: main 밖 독립 블록)  -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <section class="board-section" id="boardSection" aria-label="커뮤니티 게시판">
+        <!-- 상단 한 줄: 제목 + 필터 + 글쓰기 버튼 -->
+        <div class="board-top-row">
+          <h2 class="board-title">
+            <span class="board-title-icon">💬</span>
+            커뮤니티 게시판
+            <span class="board-server-badge" id="boardServerBadge" style="display:none"></span>
+          </h2>
+          <div class="board-filter-bar">
+            <button class="board-filter-btn active" id="bfAll" data-filter="all">전체</button>
+            <button class="board-filter-btn" id="bfServer" data-filter="server" style="display:none">현재 서버</button>
+          </div>
+          <details class="board-write-wrap" id="boardWriteWrap" style="margin-left:auto">
+            <summary class="board-write-toggle">✏️ 글쓰기</summary>
+            <form class="board-write-form" id="boardWriteForm" autocomplete="off">
+              <div class="board-write-row">
+                <input type="text" class="board-input" id="bwNickname" placeholder="닉네임 (선택)" maxlength="20" autocomplete="nickname">
+                <input type="password" class="board-input" id="bwPassword" placeholder="비밀번호 (4자 이상)" maxlength="30" autocomplete="new-password" required>
+              </div>
+              <textarea class="board-textarea" id="bwContent" placeholder="내용을 입력하세요 (최대 1000자)" maxlength="1000" rows="3" required></textarea>
+              <div class="board-write-footer">
+                <span class="board-char-count" id="bwCharCount">0 / 1000</span>
+                <button type="submit" class="board-submit-btn" id="bwSubmit">등록</button>
+              </div>
+            </form>
+          </details>
+        </div>
+
+        <!-- 글 목록 -->
+        <div class="board-list" id="boardList">
+          <div class="board-loading" id="boardLoading">로딩 중…</div>
+        </div>
+
+        <!-- 페이지네이션 -->
+        <div class="board-pagination" id="boardPagination"></div>
+      </section>
+
       <div class="video-modal" id="videoModal" aria-hidden="true">
         <div class="video-sheet">
           <div class="video-top">
@@ -3305,46 +3516,6 @@
         </div>
       </div>
     </main>
-
-    <!-- ══════════════════════════════════════════════════════════ -->
-    <!-- 게시판 섹션 (main 그리드 바깥 독립 블록)                   -->
-    <!-- ══════════════════════════════════════════════════════════ -->
-    <section class="board-section" id="boardSection" aria-label="커뮤니티 게시판">
-      <!-- 상단 한 줄: 제목 + 필터 + 글쓰기 버튼 -->
-      <div class="board-top-row">
-        <h2 class="board-title">
-          <span class="board-title-icon">💬</span>
-          커뮤니티 게시판
-          <span class="board-server-badge" id="boardServerBadge" style="display:none"></span>
-        </h2>
-        <div class="board-filter-bar">
-          <button class="board-filter-btn active" id="bfAll" data-filter="all">전체</button>
-          <button class="board-filter-btn" id="bfServer" data-filter="server" style="display:none">현재 서버</button>
-        </div>
-        <details class="board-write-wrap" id="boardWriteWrap" style="margin-left:auto">
-          <summary class="board-write-toggle">✏️ 글쓰기</summary>
-          <form class="board-write-form" id="boardWriteForm" autocomplete="off">
-            <div class="board-write-row">
-              <input type="text" class="board-input" id="bwNickname" placeholder="닉네임 (선택)" maxlength="20" autocomplete="nickname">
-              <input type="password" class="board-input" id="bwPassword" placeholder="비밀번호 (4자 이상)" maxlength="30" autocomplete="new-password" required>
-            </div>
-            <textarea class="board-textarea" id="bwContent" placeholder="내용을 입력하세요 (최대 1000자)" maxlength="1000" rows="3" required></textarea>
-            <div class="board-write-footer">
-              <span class="board-char-count" id="bwCharCount">0 / 1000</span>
-              <button type="submit" class="board-submit-btn" id="bwSubmit">등록</button>
-            </div>
-          </form>
-        </details>
-      </div>
-
-      <!-- 글 목록 -->
-      <div class="board-list" id="boardList">
-        <div class="board-loading" id="boardLoading">로딩 중…</div>
-      </div>
-
-      <!-- 페이지네이션 -->
-      <div class="board-pagination" id="boardPagination"></div>
-    </section>
 
     <script src="data/market-data.js"></script>
     <script src="data/youtube-data.js"></script>
