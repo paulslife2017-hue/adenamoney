@@ -557,15 +557,19 @@
 
       /* 현재가 행 */
       .price-ad-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         margin-bottom: 10px;
         padding-bottom: 10px;
         border-bottom: 1px solid var(--line);
       }
       .main-price {
         display: grid;
-        grid-template-columns: minmax(170px, 1fr) auto;
-        gap: 10px;
+        grid-template-columns: minmax(120px, auto) auto;
+        gap: 8px;
         align-items: center;
+        flex-shrink: 0;
       }
       /* 우측: 변동률 + 기준가 + 미니배너 3개 */
       .change-right {
@@ -611,11 +615,12 @@
       .square-ad-row {
         display: flex;
         flex-direction: row;
-        gap: 6px;
+        gap: 5px;
         justify-content: flex-end;
-        align-self: center;
-        margin: 0;
+        align-items: center;
         margin-left: auto;
+        flex-shrink: 0;
+        min-width: 0;
       }
 
       .square-ad {
@@ -623,14 +628,13 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 8px;
-        width: auto;
-        min-width: 100px;
-        height: 44px;
-        padding: 0 12px;
+        gap: 6px;
+        width: 82px;
+        height: 40px;
+        padding: 0 8px;
         overflow: hidden;
         border: 1px solid rgba(246, 199, 107, 0.2);
-        border-radius: 10px;
+        border-radius: 9px;
         background:
           radial-gradient(circle at 78% 12%, rgba(246, 199, 107, 0.18), transparent 34%),
           linear-gradient(145deg, rgba(22, 27, 42, 0.92), rgba(8, 13, 25, 0.76));
@@ -639,6 +643,7 @@
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
         transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
         white-space: nowrap;
+        flex-shrink: 0;
       }
 
       .square-ad::after {
@@ -680,7 +685,7 @@
 
       .square-ad strong {
         display: block;
-        font-size: 11.5px;
+        font-size: 10px;
         font-weight: 700;
         line-height: 1.2;
       }
@@ -688,7 +693,7 @@
       .square-ad small {
         display: block;
         color: rgba(210, 225, 255, 0.55);
-        font-size: 9px;
+        font-size: 8.5px;
         font-weight: 600;
         margin-top: 1px;
       }
@@ -913,12 +918,12 @@
       .spark svg {
         display: block;
         width: 100%;
-        height: 66px;
+        height: 108px;
         overflow: visible;
       }
 
       .spark path.area {
-        fill: rgba(79, 214, 200, 0.14);
+        fill: url(#sparkGrad);
       }
 
       .spark path.line {
@@ -4351,7 +4356,7 @@
           <span>ADENA/W</span>
         </div>
 
-        <!-- 현재가(좌) + 기준 옵단 소형배너 3개(우) -->
+        <!-- 현재가(좌) + 광고 슬롯 3개(우) -->
         <div class="price-ad-row">
           <div class="main-price">
             <div>
@@ -4361,27 +4366,27 @@
             <div class="change-right">
               <div class="change-pill" id="mainChange">기준 대기</div>
               <div class="baseline" id="baselineText">기준가 대기</div>
-              <!-- 기준 옆 소형 배너 3개 -->
               <div class="mini-ad-row">
                 <button class="mini-ad-btn" type="button" data-market="itemBay" data-url="https://www.itembay.com">아이템베이</button>
                 <button class="mini-ad-btn" type="button" data-market="itemMania" data-url="https://www.itemmania.com">아이템매니아</button>
                 <button class="mini-ad-btn" type="button" data-market="barotem" data-url="https://www.barotem.com">바로템</button>
               </div>
             </div>
-            <div class="square-ad-row" aria-label="광고 영역">
-              <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
-                <span>광고</span>
-                <div><strong>광고 문의</strong><small>Telegram</small></div>
-              </a>
-              <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
-                <span>광고</span>
-                <div><strong>광고 문의</strong><small>Telegram</small></div>
-              </a>
-              <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
-                <span>광고</span>
-                <div><strong>광고 문의</strong><small>Telegram</small></div>
-              </a>
-            </div>
+          </div>
+          <!-- 광고 슬롯 3개 — main-price 밖, 우측 끝 -->
+          <div class="square-ad-row" aria-label="광고 영역">
+            <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+              <span>광고</span>
+              <div><strong>문의</strong><small>Telegram</small></div>
+            </a>
+            <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+              <span>광고</span>
+              <div><strong>문의</strong><small>Telegram</small></div>
+            </a>
+            <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+              <span>광고</span>
+              <div><strong>문의</strong><small>Telegram</small></div>
+            </a>
           </div>
         </div>
 
@@ -5052,46 +5057,62 @@
           return;
         }
 
-        const prices = points.map((point) => point.price);
-        const min = Math.min(...prices);
-        const max = Math.max(...prices);
-        const range = Math.max(max - min, 1);
-        const width = 360;
-        const height = 66;
-        const plotHeight = 44;
-        const coords = points.map((point, index) => {
-          const x = (index / (points.length - 1)) * width;
-          const y = plotHeight - ((point.price - min) / range) * 31 - 7;
+        const prices = points.map((p) => p.price);
+        const minP = Math.min(...prices);
+        const maxP = Math.max(...prices);
+        const range = Math.max(maxP - minP, 1);
+
+        // SVG 좌표계
+        const W = 360, H = 108;
+        const padTop = 20;   // 가격 레이블 위 여백
+        const padBot = 18;   // 날짜 레이블 아래 여백
+        const plotTop = padTop;
+        const plotBot = H - padBot;
+        const plotH   = plotBot - plotTop;
+
+        const coords = points.map((p, i) => {
+          const x = points.length === 1 ? W / 2 : (i / (points.length - 1)) * W;
+          const y = plotBot - ((p.price - minP) / range) * (plotH * 0.82);
           return [x, y];
         });
-        const line = coords.map(([x, y], index) => `${index ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
-        const area = `${line} L${width},${plotHeight} L0,${plotHeight} Z`;
-        const priceLabels = buildSparkPriceLabels(points, coords);
-        const axisLabels = buildSparkAxisLabels(points, coords);
+
+        const line = coords.map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
+        const area = `${line} L${W},${plotBot} L0,${plotBot} Z`;
+
+        // 모든 포인트에 가격 + 날짜 동시 표시
+        const labels = points.map((p, i) => {
+          const [x, y] = coords[i];
+          const isFirst = i === 0;
+          const isLast  = i === points.length - 1;
+          const anchor  = isFirst ? "start" : isLast ? "end" : "middle";
+          const textX   = (isFirst ? x + 4 : isLast ? x - 4 : x).toFixed(1);
+          const isHigh  = p.price === maxP;
+          const isLow   = p.price === minP;
+          return { x: x.toFixed(1), y: y.toFixed(1), textX,
+            priceY: Math.max(13, y - 6).toFixed(1),
+            dateY:  (plotBot + 14).toFixed(1),
+            anchor, price: formatShort(p.price), date: formatSparkTime(p),
+            isHigh, isLow };
+        });
 
         spark.innerHTML = `
-          <div class="spark-caption">
-            <strong>최근 7일 시세 흐름</strong>
-            <span>선 위 숫자: 수집 가격</span>
-          </div>
-          <svg viewBox="0 0 ${width} ${height}" aria-hidden="true">
-            <path class="area" d="${area}"></path>
-            <path class="line" d="${line}"></path>
-            ${priceLabels
-              .map(
-                (item) => `
-                  <circle cx="${item.x}" cy="${item.y}" r="3.2"></circle>
-                  <text x="${item.textX}" y="${item.textY}" text-anchor="${item.anchor}">${item.label}</text>
-                `,
-              )
-              .join("")}
-            ${axisLabels
-              .map(
-                (item) => `
-                  <text class="axis-label" x="${item.textX}" y="${item.textY}" text-anchor="${item.anchor}">${item.label}</text>
-                `,
-              )
-              .join("")}
+          <svg viewBox="0 0 ${W} ${H}" aria-hidden="true">
+            <defs>
+              <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="rgba(72,214,180,0.25)"/>
+                <stop offset="100%" stop-color="rgba(72,214,180,0)"/>
+              </linearGradient>
+            </defs>
+            <path class="area" d="${area}"/>
+            <path class="line" d="${line}"/>
+            ${labels.map((lb) => `
+              <circle cx="${lb.x}" cy="${lb.y}" r="${lb.isHigh || lb.isLow ? 3.8 : 2.8}"
+                fill="${lb.isHigh ? "rgba(100,230,180,0.9)" : lb.isLow ? "rgba(255,110,90,0.85)" : "rgba(72,198,255,0.75)"}"/>
+              <text x="${lb.textX}" y="${lb.priceY}" text-anchor="${lb.anchor}"
+                style="fill:${lb.isHigh ? "rgba(100,230,180,1)" : lb.isLow ? "rgba(255,130,110,1)" : "rgba(200,225,255,0.9)"};font-weight:${lb.isHigh||lb.isLow?800:600}"
+              >${lb.price}</text>
+              <text class="axis-label" x="${lb.textX}" y="${lb.dateY}" text-anchor="${lb.anchor}">${lb.date}</text>
+            `).join("")}
           </svg>
         `;
         sparkLabels.innerHTML = "";
