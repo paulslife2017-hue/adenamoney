@@ -2282,6 +2282,85 @@
         grid-template-columns: 1fr auto;
       }
     }
+
+    @media (min-width: 900px) {
+      body {
+        display: flex;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .app {
+        margin: 0;
+      }
+    }
+
+    @media (min-width: 1180px) {
+      body {
+        padding: 32px 28px;
+      }
+
+      .app {
+        grid-template-columns: 350px minmax(500px, 560px) 340px;
+        gap: 16px;
+        align-content: stretch;
+        max-width: 1300px;
+        height: min(820px, calc(100dvh - 64px));
+        min-height: 720px;
+        padding: 0 18px 18px;
+      }
+
+      .topbar {
+        margin: 0 -18px;
+        padding: 14px 22px 12px;
+      }
+
+      .seo-intro {
+        padding-top: 2px;
+      }
+
+      .seo-intro h1 {
+        font-size: 22px;
+      }
+
+      .seo-intro p {
+        max-width: 330px;
+        margin-top: 7px;
+      }
+
+      .chart-panel,
+      .list,
+      .channels {
+        align-self: stretch;
+      }
+
+      .chart-panel {
+        padding: 15px;
+      }
+
+      .channels {
+        padding: 13px;
+      }
+
+      .seo-footer {
+        padding: 12px 14px;
+      }
+
+      .seo-footer span {
+        font-size: 10px;
+      }
+
+      .seo-footer strong {
+        font-size: 14px;
+      }
+
+      .seo-footer p {
+        margin-top: 7px;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+    }
   </style>
   </head>
   <body>
@@ -2367,11 +2446,11 @@
       </section>
 
       <footer class="seo-footer">
-        <span>DATA GUIDE</span>
-        <strong>리니지 클래식 아데나 시세 참고표</strong>
+        <span>시세 안내</span>
+        <strong>리니지 클래식 아데나 시세 참고 정보</strong>
         <p>
-          서버별 공개 판매가를 모아 보기 쉽게 정리한 참고용 시세입니다.
-          실제 거래가는 판매 조건과 체결 시점에 따라 달라질 수 있습니다.
+          표시 가격은 공개 판매 목록을 기준으로 정리한 참고 시세입니다.
+          실제 거래 가격은 판매자 조건과 체결 시점에 따라 달라질 수 있습니다.
         </p>
       </footer>
 
@@ -2421,7 +2500,6 @@
 
       function applySiteConfig() {
         const config = window.SITE_CONFIG || {};
-        document.title = config.brandName || "아데나머니";
         document.querySelector("#brandName").textContent = config.brandName || "아데나머니";
         document.querySelector("#brandTagline").textContent =
           config.tagline || "리니지 클래식 시세";
