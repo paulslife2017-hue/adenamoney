@@ -1,4 +1,4 @@
-const INTERVAL_MS = 30_000;
+const INTERVAL_MS = 30_000; // 30초
 
 async function runOnce() {
   const startedAt = new Date();
