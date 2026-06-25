@@ -844,13 +844,38 @@
 
       .chart {
         display: grid;
-        gap: 9px;
+        gap: 10px;
+        margin-top: 12px;
+        padding: 12px;
+        border: 1px solid rgba(178, 194, 224, 0.1);
+        border-radius: 14px;
+        background:
+          linear-gradient(180deg, rgba(9, 15, 28, 0.72), rgba(5, 9, 17, 0.52));
+      }
+
+      .compare-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 2px;
+      }
+
+      .compare-title strong {
+        color: #eaf3ff;
+        font-size: 13px;
+      }
+
+      .compare-title span {
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 800;
       }
 
       .compare-row {
         display: grid;
-        grid-template-columns: 76px 1fr 70px;
-        gap: 9px;
+        grid-template-columns: 82px 1fr 78px 48px;
+        gap: 8px;
         align-items: center;
         color: var(--muted);
         font-size: 12px;
@@ -861,6 +886,14 @@
         font-size: 12px;
         font-variant-numeric: tabular-nums;
         text-align: right;
+      }
+
+      .compare-row small {
+        color: rgba(147, 164, 189, 0.78);
+        font-size: 10px;
+        font-weight: 800;
+        text-align: right;
+        white-space: nowrap;
       }
 
       .compare-track {
@@ -913,16 +946,17 @@
       .market-density {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 7px;
-        margin-top: 10px;
+        gap: 8px;
+        margin-top: 12px;
       }
 
       .density-card {
         min-width: 0;
-        padding: 9px 10px;
+        padding: 11px 12px;
         border: 1px solid var(--line);
-        border-radius: 10px;
-        background: rgba(6, 9, 19, 0.22);
+        border-radius: 12px;
+        background:
+          linear-gradient(180deg, rgba(15, 23, 42, 0.72), rgba(6, 10, 19, 0.5));
       }
 
       .density-card span {
@@ -936,7 +970,7 @@
         display: block;
         overflow: hidden;
         margin-top: 5px;
-        font-size: 12px;
+        font-size: 13px;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
@@ -1608,11 +1642,6 @@
       .diff-card.adjusted strong,
       .diff-card.adjusted small {
         color: var(--yellow);
-      }
-
-      .source-diff,
-      .market-density {
-        display: none !important;
       }
 
       .channel-tabs {
@@ -4016,6 +4045,28 @@
     .channels {
       display: none !important;
     }
+
+    @media (max-width: 480px) {
+      .compare-row {
+        grid-template-columns: 74px 1fr 68px;
+      }
+
+      .compare-row small {
+        display: none;
+      }
+
+      .market-density {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .density-card {
+        padding: 9px 10px;
+      }
+
+      .density-card strong {
+        font-size: 12px;
+      }
+    }
   </style>
   </head>
   <body>
@@ -4366,8 +4417,8 @@
         renderSpark(server);
         renderMarketBars(server);
         sourceDiff.innerHTML = "";
-        marketDensity.innerHTML = "";
-        chartNote.textContent = "대표가는 출처별 수집 가격에서 과도하게 튀는 값을 보정해 산정합니다.";
+        renderMarketDensity(server);
+        chartNote.textContent = "";
 
       }
 
@@ -4404,40 +4455,83 @@
       }
 
       function renderMarketBars(server) {
-        // 거래소별 비교 바 제거됨
-        if (chart) chart.innerHTML = "";
+        const sources = [
+          ["아이템베이", server.itemBay?.min, server.itemBay?.count],
+          ["아이템매니아", server.itemMania?.min, server.itemMania?.count],
+          ["바로템", server.barotem?.min, server.barotem?.count],
+        ];
+        const values = sources.map(([, value]) => value).filter(Number.isFinite);
+        if (!values.length) {
+          chart.innerHTML = "";
+          return;
+        }
+
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        const spread = Math.max(1, max - min);
+
+        chart.innerHTML = `
+          <div class="compare-title">
+            <strong>거래소별 최저가</strong>
+            <span>수집가 기준</span>
+          </div>
+          ${sources.map(([label, value, count]) => {
+            const hasValue = Number.isFinite(value);
+            const width = hasValue ? 44 + ((value - min) / spread) * 56 : 12;
+            const best = hasValue && value === min ? " best" : "";
+            const waiting = hasValue ? "" : " waiting";
+            const meta = hasValue
+              ? `${count ? `${count.toLocaleString("ko-KR")}건` : "수집됨"}`
+              : "수집대기";
+            return `
+              <div class="compare-row">
+                <span>${label}</span>
+                <div class="compare-track" title="${label} ${hasValue ? formatPrice(value) : "수집대기"}">
+                  <div class="compare-fill${best}${waiting}" style="--w:${width.toFixed(1)}%"></div>
+                </div>
+                <strong>${hasValue ? formatPrice(value) : "-"}</strong>
+                <small>${meta}</small>
+              </div>
+            `;
+          }).join("")}
+        `;
       }
 
       function renderMarketDensity(server) {
-        const sources = [server.itemBay, server.itemMania, server.barotem];
+        const sources = [
+          ["아이템베이", server.itemBay],
+          ["아이템매니아", server.itemMania],
+          ["바로템", server.barotem],
+        ];
         const sourceValues = sources
-          .map((source) => source?.min)
+          .map(([, source]) => source?.min)
           .filter(Number.isFinite);
-        const avg =
-          sourceValues.length > 0
-            ? Math.round(sourceValues.reduce((sum, value) => sum + value, 0) / sourceValues.length)
-            : null;
-        const totalCount = sources.reduce((sum, source) => sum + (source?.count || 0), 0);
-        const sourceRange = sourceValues.length
-          ? [Math.min(...sourceValues), Math.max(...sourceValues)]
-          : [server.lowestPrice, server.currentPrice].filter(Number.isFinite);
+        const ranked = getRankedServers();
+        const rank = ranked.findIndex((item) => item.name === server.name) + 1;
+        const lowestSource = sources
+          .filter(([, source]) => Number.isFinite(source?.min))
+          .sort((a, b) => a[1].min - b[1].min)[0];
+        const totalCount = sources.reduce((sum, [, source]) => sum + (source?.count || 0), 0);
+        const sourceGap = sourceValues.length >= 2
+          ? Math.max(...sourceValues) - Math.min(...sourceValues)
+          : null;
 
         marketDensity.innerHTML = `
           <div class="density-card">
-            <span>출처 가격대</span>
-            <strong>${sourceRange.length ? `${formatPrice(Math.min(...sourceRange))} ~ ${formatPrice(Math.max(...sourceRange))}` : "-"}</strong>
+            <span>선택 서버 순위</span>
+            <strong>${rank ? `${rank}위 / ${ranked.length}개` : "-"}</strong>
           </div>
           <div class="density-card">
-            <span>출처 평균</span>
-            <strong>${avg ? formatPrice(avg) : "-"}</strong>
+            <span>최저 출처</span>
+            <strong>${lowestSource ? `${lowestSource[0]} ${formatPrice(lowestSource[1].min)}` : "-"}</strong>
           </div>
           <div class="density-card">
-            <span>등록 물량</span>
+            <span>수집 물량</span>
             <strong>${totalCount ? `${totalCount.toLocaleString("ko-KR")}건` : "-"}</strong>
           </div>
           <div class="density-card">
-            <span>전일 기준</span>
-            <strong>${server.previousNoonPrice ? formatPrice(server.previousNoonPrice) : "-"}</strong>
+            <span>출처 차이</span>
+            <strong>${sourceGap !== null ? formatPrice(sourceGap) : "-"}</strong>
           </div>
         `;
       }
