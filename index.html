@@ -350,7 +350,21 @@
       .topbar-refresh {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
+        padding: 5px 9px;
+        border: 1px solid rgba(72, 198, 255, 0.14);
+        border-radius: 999px;
+        background: rgba(72, 198, 255, 0.055);
+      }
+
+      .topbar-refresh::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: var(--mint);
+        box-shadow: 0 0 14px rgba(79, 214, 200, 0.85);
+        animation: livePulse 1.6s ease-in-out infinite;
       }
 
       .topbar-refresh .refresh-indicator {
@@ -368,11 +382,21 @@
       }
 
       .topbar-refresh .refresh-countdown {
-        color: var(--muted);
-        font-size: 10px;
+        color: #d8e8ff;
+        font-size: 11px;
+        font-weight: 800;
         font-variant-numeric: tabular-nums;
-        min-width: 28px;
+        min-width: 168px;
         text-align: right;
+      }
+
+      @keyframes livePulse {
+        0%, 100% { opacity: 0.45; transform: scale(0.86); }
+        50% { opacity: 1; transform: scale(1.18); }
+      }
+
+      .channels {
+        display: none !important;
       }
 
       .notice {
@@ -1811,12 +1835,12 @@
 
         .app {
           display: grid;
-          grid-template-columns: 300px minmax(360px, 1fr) 260px;
+          grid-template-columns: 300px minmax(520px, 1fr);
           grid-template-rows: auto minmax(0, 1fr) 160px;
           grid-template-areas:
-            "topbar  topbar    topbar"
-            "list    chart     channels"
-            "list    board     board";
+            "topbar  topbar"
+            "list    chart"
+            "list    board";
           gap: 8px;
           max-width: 1280px;
           width: 100%;
@@ -1847,8 +1871,7 @@
         .seo-intro { display: none; }
 
         .list,
-        .chart-panel,
-        .channels {
+        .chart-panel {
           border: 1px solid var(--card-border);
           background: var(--card-bg);
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.22);
@@ -1971,18 +1994,8 @@
           border-radius: 8px;
         }
 
-        /* 우측: 크리에이터 피드만 */
         .channels {
-          grid-area: channels;
-          display: flex;
-          flex-direction: column;
-          min-height: 0;
-          overflow: hidden;
-          padding: 10px;
-          border-radius: 12px;
-          border: 1px solid var(--card-border);
-          background: var(--card-bg);
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.22);
+          display: none !important;
         }
 
         /* right-col 제거 — 더 이상 사용 안 함 */
@@ -2104,14 +2117,14 @@
           }
 
           .app {
-            grid-template-columns: 340px minmax(460px, 1fr) 320px;
+            grid-template-columns: 340px minmax(640px, 1fr);
             grid-template-rows: auto minmax(0, 1fr) 160px;
             grid-template-areas:
-              "topbar  topbar    topbar"
-              "list    chart     channels"
-              "list    board     board";
+              "topbar  topbar"
+              "list    chart"
+              "list    board";
             gap: 10px;
-            max-width: 1440px;
+            max-width: 1180px;
             height: calc(100dvh - 28px);
             min-height: 600px;
             max-height: 1000px;
@@ -2482,15 +2495,15 @@
           }
 
           .app {
-            grid-template-columns: 340px minmax(440px, 540px) 300px;
+            grid-template-columns: 340px minmax(640px, 1fr);
             grid-template-rows: auto minmax(0, 1fr) 160px;
             grid-template-areas:
-              "topbar  topbar    topbar"
-              "list    chart     channels"
-              "list    board     board";
+              "topbar  topbar"
+              "list    chart"
+              "list    board";
             gap: 10px;
             justify-content: center;
-            max-width: 1320px;
+            max-width: 1180px;
             height: calc(100dvh - 24px);
             min-height: 620px;
             max-height: 1000px;
@@ -2784,10 +2797,9 @@
       }
 
       .app {
-        /* app 자체가 화면 전부를 차지 */
-        width: 100%;
+        width: min(1180px, calc(100vw - 24px));
         height: calc(100dvh - 24px);
-        max-width: 1320px;
+        max-width: 1180px;
         margin: 0;
       }
 
@@ -2972,8 +2984,8 @@
       }
 
       .app {
-        width: min(1440px, calc(100vw - 24px));
-        max-width: 1440px;
+        width: min(1180px, calc(100vw - 24px));
+        max-width: 1180px;
         height: calc(100dvh - 24px);
         min-height: 620px;
         max-height: none;
@@ -4003,7 +4015,7 @@
           <span id="brandTagline">리니지 클래식 아데나</span>
         </div>
         <div class="topbar-refresh" id="topbarRefresh">
-          <span class="refresh-countdown" id="refreshCountdown">30s</span>
+          <span class="refresh-countdown" id="refreshCountdown">오늘 12시 기준</span>
           <div class="refresh-indicator"></div>
         </div>
       </header>
@@ -4996,12 +5008,31 @@
         element.classList.toggle("wait", !ok);
       }
 
+      function updateMarketClock() {
+        if (!refreshCountdown) return;
+        const now = new Date();
+        const kstNow = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+        const nextNoon = new Date(kstNow);
+        nextNoon.setHours(12, 0, 0, 0);
+        if (kstNow >= nextNoon) nextNoon.setDate(nextNoon.getDate() + 1);
+
+        const diff = Math.max(0, nextNoon.getTime() - kstNow.getTime());
+        const hours = String(Math.floor(diff / 3600000)).padStart(2, "0");
+        const minutes = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
+        const seconds = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
+        const today = new Intl.DateTimeFormat("ko-KR", {
+          timeZone: "Asia/Seoul",
+          month: "numeric",
+          day: "numeric",
+        }).format(now).replace(/\s/g, "");
+
+        refreshCountdown.textContent = `${today} 12시 기준 · 다음 ${hours}:${minutes}:${seconds}`;
+      }
+
       setInterval(() => {
+        updateMarketClock();
         if (isRefreshing) return; // 갱신 중에는 카운트다운 정지
         refreshLeft -= 1;
-        if (refreshCountdown) {
-          refreshCountdown.textContent = `${refreshLeft}s`;
-        }
         if (refreshLeft <= 0) {
           reloadMarketData();
         }
@@ -5009,6 +5040,7 @@
 
       renderTicker();
       renderYoutubeVideos();
+      updateMarketClock();
 
       // ── 서버 자동 선택: URL ?server=오렌 or postMessage ──
       (function autoSelectServer() {
