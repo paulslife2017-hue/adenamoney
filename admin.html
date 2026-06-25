@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>관리자 — 아데나머니</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    :root {
+      --bg: #060913;
+      --panel: rgba(10,16,31,.9);
+      --border: rgba(139,166,214,.14);
+      --fg: #e8edf8;
+      --fg-dim: #8fa3c0;
+      --accent: #3b82f6;
+      --red: #e05555;
+      --yellow: #f5a623;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── 로그인 화면 ── */
+    #loginScreen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .login-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 36px;
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .login-card h1 {
+      font-size: 20px;
+      text-align: center;
+      color: var(--fg);
+    }
+    .login-card p {
+      font-size: 13px;
+      color: var(--fg-dim);
+      text-align: center;
+    }
+    .login-input {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--fg);
+      font-size: 15px;
+      padding: 10px 14px;
+      width: 100%;
+      outline: none;
+      letter-spacing: 4px;
+      text-align: center;
+    }
+    .login-input:focus { border-color: var(--accent); }
+    .login-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 11px;
+      cursor: pointer;
+      width: 100%;
+      transition: opacity 150ms;
+    }
+    .login-btn:hover { opacity: .85; }
+    .login-error {
+      color: var(--red);
+      font-size: 13px;
+      text-align: center;
+      min-height: 18px;
+    }
+
+    /* ── 관리자 대시보드 ── */
+    #adminScreen { display: none; }
+
+    .admin-header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .admin-header h1 { font-size: 17px; }
+    .admin-header .badge {
+      background: var(--red);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .admin-header .logout-btn {
+      margin-left: auto;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--fg-dim);
+      font-size: 12px;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 150ms;
+    }
+    .admin-header .logout-btn:hover { border-color: var(--red); color: var(--red); }
+
+    .admin-body {
+      max-width: 900px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    /* 통계 카드 */
+    .stats-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 20px;
+      flex: 1;
+      min-width: 120px;
+    }
+    .stat-card .label { font-size: 11px; color: var(--fg-dim); margin-bottom: 4px; }
+    .stat-card .value { font-size: 22px; font-weight: 700; color: var(--fg); }
+
+    /* 필터/액션 바 */
+    .admin-toolbar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .admin-search {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--fg);
+      font-size: 13px;
+      padding: 7px 12px;
+      flex: 1;
+      min-width: 180px;
+      outline: none;
+    }
+    .admin-search:focus { border-color: var(--accent); }
+    .admin-filter-sel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--fg);
+      font-size: 13px;
+      padding: 7px 10px;
+      outline: none;
+      cursor: pointer;
+    }
+    .delete-all-btn {
+      background: rgba(224,85,85,.15);
+      border: 1px solid rgba(224,85,85,.35);
+      color: var(--red);
+      font-size: 13px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 150ms;
+    }
+    .delete-all-btn:hover { background: rgba(224,85,85,.28); }
+
+    /* 글 목록 테이블 */
+    .admin-table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .admin-table thead tr {
+      background: rgba(59,130,246,.08);
+      border-bottom: 1px solid var(--border);
+    }
+    .admin-table th {
+      padding: 10px 14px;
+      text-align: left;
+      color: var(--fg-dim);
+      font-weight: 600;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .admin-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(139,166,214,.07);
+      vertical-align: top;
+    }
+    .admin-table tr:last-child td { border-bottom: none; }
+    .admin-table tr:hover td { background: rgba(59,130,246,.04); }
+
+    .td-nick { color: var(--fg); font-weight: 600; white-space: nowrap; }
+    .td-server {
+      background: rgba(120,140,180,.15);
+      color: var(--fg-dim);
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+    .td-content {
+      color: var(--fg);
+      max-width: 320px;
+      word-break: break-word;
+      line-height: 1.5;
+    }
+    .td-time { color: var(--fg-dim); font-size: 11px; white-space: nowrap; }
+    .td-del {
+      background: transparent;
+      border: 1px solid rgba(224,85,85,.4);
+      color: var(--red);
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 150ms;
+      white-space: nowrap;
+    }
+    .td-del:hover { background: rgba(224,85,85,.15); }
+
+    .admin-empty {
+      text-align: center;
+      padding: 48px;
+      color: var(--fg-dim);
+      font-size: 14px;
+    }
+
+    /* 페이지네이션 */
+    .admin-pagination {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .apg-btn {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--fg-dim);
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 150ms;
+    }
+    .apg-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+    .apg-btn:hover:not(.active) { background: rgba(59,130,246,.1); }
+
+    .post-count { font-size: 12px; color: var(--fg-dim); }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     로그인 화면
+═══════════════════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <h1>🔐 관리자 로그인</h1>
+    <p>아데나머니 게시판 관리</p>
+    <input type="password" id="adminPwInput" class="login-input"
+           placeholder="••••" maxlength="20" autocomplete="current-password">
+    <button class="login-btn" id="loginBtn">로그인</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     관리자 대시보드
+═══════════════════════════════════════ -->
+<div id="adminScreen">
+  <header class="admin-header">
+    <h1>⚙️ 아데나머니 관리자</h1>
+    <span class="badge">ADMIN</span>
+    <button class="logout-btn" id="logoutBtn">로그아웃</button>
+  </header>
+
+  <div class="admin-body">
+    <!-- 통계 -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="label">전체 글</div>
+        <div class="value" id="statTotal">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">오늘 작성</div>
+        <div class="value" id="statToday">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">서버 태그 글</div>
+        <div class="value" id="statTagged">0</div>
+      </div>
+    </div>
+
+    <!-- 필터/검색/삭제 -->
+    <div class="admin-toolbar">
+      <input type="search" class="admin-search" id="adminSearch" placeholder="닉네임·내용 검색…">
+      <select class="admin-filter-sel" id="adminServerFilter">
+        <option value="">전체 서버</option>
+      </select>
+      <button class="delete-all-btn" id="deleteAllBtn">🗑 전체 삭제</button>
+    </div>
+
+    <div class="post-count" id="postCount"></div>
+
+    <!-- 글 목록 테이블 -->
+    <div class="admin-table-wrap" style="margin-top:8px">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>닉네임</th>
+            <th>서버</th>
+            <th>내용</th>
+            <th>작성시각</th>
+            <th>삭제</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody"></tbody>
+      </table>
+    </div>
+
+    <div class="admin-pagination" id="adminPagination"></div>
+  </div>
+</div>
+
+<script>
+  // ── 설정 ──────────────────────────────────────────────────────
+  const ADMIN_PW   = "0907";
+  const BOARD_KEY  = "adenamoney_board";
+  const PAGE_SIZE  = 30;
+
+  let adminPage     = 1;
+  let searchQ       = "";
+  let serverFilter  = "";
+
+  // ── DOM ──────────────────────────────────────────────────────
+  const loginScreen    = document.getElementById("loginScreen");
+  const adminScreen    = document.getElementById("adminScreen");
+  const adminPwInput   = document.getElementById("adminPwInput");
+  const loginBtn       = document.getElementById("loginBtn");
+  const loginError     = document.getElementById("loginError");
+  const logoutBtn      = document.getElementById("logoutBtn");
+  const adminSearch    = document.getElementById("adminSearch");
+  const adminServerFilter = document.getElementById("adminServerFilter");
+  const deleteAllBtn   = document.getElementById("deleteAllBtn");
+  const adminTableBody = document.getElementById("adminTableBody");
+  const adminPagination = document.getElementById("adminPagination");
+  const statTotal      = document.getElementById("statTotal");
+  const statToday      = document.getElementById("statToday");
+  const statTagged     = document.getElementById("statTagged");
+  const postCount      = document.getElementById("postCount");
+
+  // ── localStorage 헬퍼 ─────────────────────────────────────────
+  function getAllPosts() {
+    try { return JSON.parse(localStorage.getItem(BOARD_KEY) || "[]"); }
+    catch { return []; }
+  }
+  function savePosts(arr) {
+    localStorage.setItem(BOARD_KEY, JSON.stringify(arr));
+  }
+  function deleteById(id) {
+    savePosts(getAllPosts().filter(p => p.id !== id));
+  }
+
+  // ── 로그인 ──────────────────────────────────────────────────────
+  function tryLogin() {
+    if (adminPwInput.value === ADMIN_PW) {
+      loginError.textContent = "";
+      loginScreen.style.display = "none";
+      adminScreen.style.display = "block";
+      renderAdmin();
+    } else {
+      loginError.textContent = "비밀번호가 틀렸습니다.";
+      adminPwInput.value = "";
+      adminPwInput.focus();
+      adminPwInput.style.borderColor = "#e05555";
+      setTimeout(() => adminPwInput.style.borderColor = "", 1200);
+    }
+  }
+  loginBtn.addEventListener("click", tryLogin);
+  adminPwInput.addEventListener("keydown", e => { if (e.key === "Enter") tryLogin(); });
+
+  logoutBtn.addEventListener("click", () => {
+    adminScreen.style.display = "none";
+    loginScreen.style.display = "flex";
+    adminPwInput.value = "";
+  });
+
+  // ── 날짜 포맷 ────────────────────────────────────────────────
+  function fmtTime(iso) {
+    const d = new Date(iso);
+    const pad = n => String(n).padStart(2,"0");
+    return `${d.getMonth()+1}/${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+  function isToday(iso) {
+    const d = new Date(iso), n = new Date();
+    return d.getFullYear()===n.getFullYear() && d.getMonth()===n.getMonth() && d.getDate()===n.getDate();
+  }
+
+  // ── 서버 옵션 채우기 ─────────────────────────────────────────
+  function populateServerFilter(posts) {
+    const servers = [...new Set(posts.map(p=>p.server).filter(Boolean))].sort();
+    adminServerFilter.innerHTML = `<option value="">전체 서버</option>` +
+      servers.map(s => `<option value="${s}">${s}</option>`).join("");
+    adminServerFilter.value = serverFilter;
+  }
+
+  // ── 메인 렌더 ────────────────────────────────────────────────
+  function renderAdmin() {
+    const all = getAllPosts();
+
+    // 통계
+    statTotal.textContent  = all.length;
+    statToday.textContent  = all.filter(p => isToday(p.created_at)).length;
+    statTagged.textContent = all.filter(p => p.server).length;
+
+    populateServerFilter(all);
+
+    // 필터 적용
+    let filtered = all;
+    if (serverFilter) filtered = filtered.filter(p => p.server === serverFilter);
+    if (searchQ) {
+      const q = searchQ.toLowerCase();
+      filtered = filtered.filter(p =>
+        (p.nickname||"").toLowerCase().includes(q) ||
+        (p.content||"").toLowerCase().includes(q)
+      );
+    }
+
+    postCount.textContent = `${filtered.length}개`;
+
+    // 페이지 슬라이스
+    const total = filtered.length;
+    const offset = (adminPage - 1) * PAGE_SIZE;
+    const page   = filtered.slice(offset, offset + PAGE_SIZE);
+
+    if (!page.length) {
+      adminTableBody.innerHTML = `<tr><td colspan="6" class="admin-empty">글이 없습니다.</td></tr>`;
+      adminPagination.innerHTML = "";
+      return;
+    }
+
+    adminTableBody.innerHTML = page.map((p, i) => `
+      <tr>
+        <td style="color:var(--fg-dim);font-size:11px">${offset + i + 1}</td>
+        <td class="td-nick">${esc(p.nickname||"익명")}</td>
+        <td>${p.server ? `<span class="td-server">${esc(p.server)}</span>` : ""}</td>
+        <td class="td-content">${esc(p.content)}</td>
+        <td class="td-time">${fmtTime(p.created_at)}</td>
+        <td><button class="td-del" data-id="${p.id}">삭제</button></td>
+      </tr>
+    `).join("");
+
+    // 삭제 버튼
+    adminTableBody.querySelectorAll(".td-del").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (!confirm("이 글을 삭제하시겠습니까?")) return;
+        deleteById(Number(btn.dataset.id));
+        renderAdmin();
+      });
+    });
+
+    renderPagination(total);
+  }
+
+  // ── 페이지네이션 ─────────────────────────────────────────────
+  function renderPagination(total) {
+    const totalPages = Math.ceil(total / PAGE_SIZE);
+    if (totalPages <= 1) { adminPagination.innerHTML = ""; return; }
+
+    const max = 7, half = Math.floor(max / 2);
+    let s = Math.max(1, adminPage - half);
+    let e = Math.min(totalPages, s + max - 1);
+    if (e - s < max - 1) s = Math.max(1, e - max + 1);
+
+    const btns = [];
+    if (adminPage > 1) btns.push(`<button class="apg-btn" data-p="${adminPage-1}">‹</button>`);
+    for (let i = s; i <= e; i++)
+      btns.push(`<button class="apg-btn${i===adminPage?" active":""}" data-p="${i}">${i}</button>`);
+    if (adminPage < totalPages) btns.push(`<button class="apg-btn" data-p="${adminPage+1}">›</button>`);
+
+    adminPagination.innerHTML = btns.join("");
+    adminPagination.querySelectorAll(".apg-btn").forEach(b => {
+      b.addEventListener("click", () => { adminPage = Number(b.dataset.p); renderAdmin(); });
+    });
+  }
+
+  // ── 이벤트 ──────────────────────────────────────────────────
+  adminSearch.addEventListener("input", () => {
+    searchQ    = adminSearch.value.trim();
+    adminPage  = 1;
+    renderAdmin();
+  });
+
+  adminServerFilter.addEventListener("change", () => {
+    serverFilter = adminServerFilter.value;
+    adminPage    = 1;
+    renderAdmin();
+  });
+
+  deleteAllBtn.addEventListener("click", () => {
+    const all = getAllPosts();
+    if (!all.length) { alert("삭제할 글이 없습니다."); return; }
+    if (!confirm(`전체 글 ${all.length}개를 모두 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.`)) return;
+    savePosts([]);
+    adminPage = 1;
+    renderAdmin();
+  });
+
+  // ── XSS 방지 ────────────────────────────────────────────────
+  function esc(str) {
+    return String(str||"")
+      .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+</script>
+</body>
+</html>
