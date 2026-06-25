@@ -31,11 +31,13 @@ for (const channel of CHANNELS) {
   const channelVideos = API_KEY
     ? await fetchWithApi(channelId, channel)
     : await fetchWithRss(channelId, channel);
+  const channelPageVideos = await fetchChannelVideosPage(channel, channelId);
   const channelShorts = await fetchChannelShorts(channel, channelId);
 
   videos.push(
-    ...[...channelVideos, ...channelShorts].map((video) => ({
+    ...[...channelVideos, ...channelPageVideos, ...channelShorts].map((video) => ({
       ...video,
+      channelTitle: channel.name || video.channelTitle,
       subscriberRank: channel.subscriberRank || 999,
     })),
   );
@@ -238,6 +240,60 @@ async function fetchChannelShorts(channel, channelId) {
     return shorts.filter((video) => matchesChannelFilter(video, channel));
   } catch (error) {
     console.warn(`YouTube shorts parse failed for ${channelId}: ${error.message}`);
+    return [];
+  }
+}
+
+async function fetchChannelVideosPage(channel, channelId) {
+  const videosUrl = channel.url
+    ? `${channel.url.replace(/\/+$/, "")}/videos`
+    : `https://www.youtube.com/channel/${channelId}/videos`;
+
+  try {
+    const response = await fetch(videosUrl, {
+      headers: {
+        "user-agent": "Mozilla/5.0",
+        "accept-language": "ko-KR,ko;q=0.9",
+      },
+    });
+
+    if (!response.ok) {
+      console.warn(`YouTube videos page fetch failed for ${channelId}: HTTP ${response.status}`);
+      return [];
+    }
+
+    const html = await response.text();
+    const ids = uniqueVideoIds([
+      ...[...html.matchAll(/"videoId":"([\w-]{11})"/g)].map((match) => match[1]),
+      ...[...html.matchAll(/\/watch\?v=([\w-]{11})/g)].map((match) => match[1]),
+    ]);
+    const videos = [];
+
+    for (const id of ids.slice(0, 16)) {
+      const details = await fetchVideoPageDetails(id);
+      const isShorts =
+        details.isShorts ||
+        (details.durationSeconds && details.durationSeconds <= SHORTS_MAX_SECONDS) ||
+        html.includes(`/shorts/${id}`);
+
+      if (isShorts) continue;
+
+      videos.push({
+        id,
+        title: details.title || "영상",
+        channelTitle: details.channelTitle || channel.name || "",
+        publishedAt: details.publishedAt || null,
+        thumbnail: details.thumbnail || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+        url: `https://www.youtube.com/watch?v=${id}`,
+        tag: channel.tag || "영상",
+        kind: "video",
+        durationSeconds: details.durationSeconds,
+      });
+    }
+
+    return videos.filter((video) => matchesChannelFilter(video, channel));
+  } catch (error) {
+    console.warn(`YouTube videos page parse failed for ${channelId}: ${error.message}`);
     return [];
   }
 }

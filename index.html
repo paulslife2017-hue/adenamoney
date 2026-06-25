@@ -58,13 +58,13 @@
         --line-strong: rgba(110, 231, 255, 0.34);
         --text: #f6f9ff;
         --muted: #93a4bd;
-        --blue: #48c6ff;
-        --green: #7cffb2;
+        --blue: #5cc8ff;
+        --green: #4fd6c8;
         --red: #ff6d8a;
-        --yellow: #ffd166;
-        --violet: #9b8cff;
+        --yellow: #f2c46d;
+        --violet: #8ea7ff;
         --soft-red: rgba(255, 109, 138, 0.14);
-        --soft-green: rgba(124, 255, 178, 0.13);
+        --soft-green: rgba(79, 214, 200, 0.13);
         --shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
       }
 
@@ -123,7 +123,7 @@
         display: block;
         font-size: 18px;
         line-height: 1.1;
-        letter-spacing: -0.2px;
+        letter-spacing: 0;
       }
 
       .brand span {
@@ -131,40 +131,6 @@
         margin-top: 4px;
         color: var(--muted);
         font-size: 11px;
-      }
-
-      .live {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 7px 10px;
-        border: 1px solid rgba(124, 255, 178, 0.4);
-        border-radius: 999px;
-        background: rgba(124, 255, 178, 0.08);
-        color: var(--green);
-        box-shadow: 0 0 24px rgba(124, 255, 178, 0.12);
-        font-size: 12px;
-        font-weight: 800;
-      }
-
-      .live::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--green);
-        animation: livePulse 1.4s ease-in-out infinite;
-      }
-
-      @keyframes livePulse {
-        0%,
-        100% {
-          box-shadow: 0 0 0 0 rgba(124, 255, 178, 0.38);
-        }
-
-        50% {
-          box-shadow: 0 0 0 6px rgba(124, 255, 178, 0);
-        }
       }
 
       .refresh {
@@ -187,7 +153,7 @@
         margin: 0;
         font-size: 17px;
         line-height: 1.25;
-        letter-spacing: -0.1px;
+        letter-spacing: 0;
       }
 
       .seo-intro p {
@@ -195,45 +161,6 @@
         color: var(--muted);
         font-size: 12px;
         line-height: 1.45;
-      }
-
-      .market-brief {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        padding: 14px 16px 10px;
-      }
-
-      .brief-card {
-        padding: 12px;
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        background:
-          radial-gradient(circle at 82% 0, rgba(72, 198, 255, 0.13), transparent 36%),
-          linear-gradient(180deg, rgba(18, 28, 51, 0.78), rgba(10, 16, 31, 0.78));
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
-      }
-
-      .brief-card span {
-        display: block;
-        color: var(--muted);
-        font-size: 10px;
-        font-weight: 800;
-      }
-
-      .brief-card strong {
-        display: block;
-        margin-top: 6px;
-        font-size: 18px;
-        letter-spacing: -0.2px;
-      }
-
-      .brief-card.up strong {
-        color: var(--green);
-      }
-
-      .brief-card.down strong {
-        color: var(--red);
       }
 
       .refresh strong {
@@ -344,7 +271,7 @@
         margin: 0 16px 12px;
         border: 1px solid rgba(72, 198, 255, 0.24);
         border-radius: 10px;
-        background: linear-gradient(90deg, rgba(72, 198, 255, 0.08), rgba(124, 255, 178, 0.06));
+        background: linear-gradient(90deg, rgba(72, 198, 255, 0.08), rgba(79, 214, 200, 0.06));
         box-shadow: inset 0 0 24px rgba(72, 198, 255, 0.05);
       }
 
@@ -391,7 +318,7 @@
         border-radius: 14px;
         background:
           radial-gradient(circle at 16% -14%, rgba(72, 198, 255, 0.35), transparent 34%),
-          radial-gradient(circle at 96% 20%, rgba(124, 255, 178, 0.16), transparent 30%),
+          radial-gradient(circle at 96% 20%, rgba(79, 214, 200, 0.12), transparent 30%),
           linear-gradient(180deg, rgba(18, 29, 54, 0.95) 0, rgba(9, 15, 29, 0.95) 100%);
         box-shadow:
           0 24px 70px rgba(0, 0, 0, 0.42),
@@ -407,7 +334,7 @@
 
       .chart-head strong {
         font-size: 15px;
-        letter-spacing: -0.1px;
+        letter-spacing: 0;
       }
 
       .chart-head span {
@@ -426,9 +353,32 @@
       }
 
       .spark {
-        height: 54px;
-        margin: 0 0 4px;
+        min-height: 82px;
+        margin: 0 0 12px;
         border-bottom: 1px solid rgba(139, 166, 214, 0.12);
+      }
+
+      .spark-caption,
+      .spark-axis {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .spark-caption {
+        margin-bottom: 4px;
+      }
+
+      .spark-caption strong {
+        font-size: 11px;
+      }
+
+      .spark-caption span,
+      .spark-axis span {
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 800;
       }
 
       .spark svg {
@@ -439,7 +389,7 @@
       }
 
       .spark path.area {
-        fill: rgba(124, 255, 178, 0.12);
+        fill: rgba(79, 214, 200, 0.14);
       }
 
       .spark path.line {
@@ -448,7 +398,23 @@
         stroke-width: 2.5;
         stroke-linecap: round;
         stroke-linejoin: round;
-        filter: drop-shadow(0 0 8px rgba(124, 255, 178, 0.22));
+        filter: drop-shadow(0 0 8px rgba(79, 214, 200, 0.2));
+      }
+
+      .spark circle {
+        fill: #07111d;
+        stroke: var(--green);
+        stroke-width: 2;
+      }
+
+      .spark text {
+        fill: var(--text);
+        font-size: 11px;
+        font-weight: 900;
+        paint-order: stroke;
+        stroke: rgba(6, 9, 19, 0.9);
+        stroke-width: 4px;
+        stroke-linejoin: round;
       }
 
       .spark-labels {
@@ -470,7 +436,7 @@
         margin-top: 4px;
         font-size: 42px;
         line-height: 1;
-        letter-spacing: -1.1px;
+        letter-spacing: 0;
         text-shadow: 0 0 24px rgba(72, 198, 255, 0.18);
         transition:
           color 240ms ease,
@@ -487,27 +453,6 @@
         font-size: 12px;
         font-style: normal;
         font-weight: 900;
-      }
-
-      .best-source {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        margin-top: 10px;
-        padding: 6px 8px;
-        border-radius: 999px;
-        background: rgba(124, 255, 178, 0.12);
-        color: var(--green);
-        font-size: 11px;
-        font-weight: 900;
-      }
-
-      .best-source::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: currentColor;
       }
 
       .change-pill {
@@ -579,8 +524,8 @@
       }
 
       .compare-fill.best {
-        background: linear-gradient(90deg, var(--green), #d8ff7a);
-        box-shadow: 0 0 18px rgba(124, 255, 178, 0.25);
+        background: linear-gradient(90deg, var(--green), #f2c46d);
+        box-shadow: 0 0 18px rgba(79, 214, 200, 0.18);
       }
 
       .compare-fill.waiting {
@@ -607,6 +552,37 @@
         margin-top: 9px;
         color: var(--muted);
         font-size: 11px;
+      }
+
+      .market-density {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+        margin-top: 10px;
+      }
+
+      .density-card {
+        min-width: 0;
+        padding: 9px 10px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: rgba(6, 9, 19, 0.22);
+      }
+
+      .density-card span {
+        display: block;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 900;
+      }
+
+      .density-card strong {
+        display: block;
+        overflow: hidden;
+        margin-top: 5px;
+        font-size: 12px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .list {
@@ -744,7 +720,7 @@
       }
 
       .chip.best {
-        background: rgba(124, 255, 178, 0.12);
+        background: rgba(79, 214, 200, 0.1);
         color: var(--green);
       }
 
@@ -765,7 +741,7 @@
         font-size: 15px;
         color: var(--text);
         font-variant-numeric: tabular-nums;
-        letter-spacing: -0.25px;
+        letter-spacing: 0;
       }
 
       .value span {
@@ -844,11 +820,13 @@
 
       .ad-slot a {
         display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 12px;
+        grid-template-columns: 1fr;
+        gap: 9px;
         align-items: center;
+        justify-items: center;
         color: inherit;
         text-decoration: none;
+        text-align: center;
       }
 
       .ad-slot span {
@@ -898,6 +876,33 @@
         font-size: 11px;
         font-weight: 900;
         white-space: nowrap;
+      }
+
+      .chart-panel .ad-slot {
+        margin: 0 0 12px;
+        padding: 11px;
+        border-color: rgba(255, 209, 102, 0.34);
+        background:
+          linear-gradient(90deg, rgba(255, 209, 102, 0.15), rgba(255, 255, 255, 0.03)),
+          rgba(10, 16, 31, 0.78);
+      }
+
+      .chart-panel .ad-slot a {
+        grid-template-columns: 1fr;
+      }
+
+      .chart-panel .ad-slot strong {
+        margin-top: 6px;
+        font-size: 13px;
+      }
+
+      .chart-panel .ad-cta {
+        background: linear-gradient(135deg, rgba(255, 209, 102, 0.28), rgba(255, 255, 255, 0.1));
+        color: #fff4cf;
+      }
+
+      .chart-panel .ad-products {
+        margin-top: 7px;
       }
 
       .section-title {
@@ -1023,8 +1028,8 @@
       }
 
       .feed-tab.active {
-        border-color: rgba(124, 255, 178, 0.4);
-        background: rgba(124, 255, 178, 0.1);
+        border-color: rgba(79, 214, 200, 0.32);
+        background: rgba(79, 214, 200, 0.1);
         color: var(--green);
       }
 
@@ -1187,7 +1192,7 @@
           padding: 24px;
           background:
             radial-gradient(circle at 18% -120px, rgba(72, 198, 255, 0.22), transparent 32%),
-            radial-gradient(circle at 82% 40px, rgba(124, 255, 178, 0.11), transparent 30%),
+            radial-gradient(circle at 82% 40px, rgba(79, 214, 200, 0.1), transparent 30%),
             var(--bg);
         }
 
@@ -1197,9 +1202,9 @@
           grid-template-areas:
             "topbar topbar topbar"
             "intro intro intro"
-            "brief chart ad"
             "ticker chart channels"
             "list chart channels"
+            "list ad channels"
             "list footer channels";
           gap: 16px;
           max-width: 1280px;
@@ -1238,12 +1243,6 @@
           max-width: 760px;
         }
 
-        .market-brief {
-          grid-area: brief;
-          padding: 0;
-        }
-
-        .brief-card,
         .ticker,
         .list,
         .chart-panel,
@@ -1283,7 +1282,17 @@
 
         .spark,
         .spark svg {
+          height: auto;
+        }
+
+        .spark svg {
           height: 68px;
+        }
+
+        .spark-axis span,
+        .spark-caption span,
+        .spark-caption strong {
+          font-size: 11px;
         }
 
         .source-diff {
@@ -1388,11 +1397,448 @@
           border-radius: 8px;
         }
 
+        .video-modal {
+          align-items: center;
+          padding: 28px;
+          background: rgba(0, 0, 0, 0.78);
+        }
+
+        .video-sheet {
+          width: min(980px, calc(100vw - 56px));
+          padding: 16px;
+          border-radius: 16px;
+          background:
+            linear-gradient(180deg, rgba(13, 21, 39, 0.98), rgba(5, 8, 15, 0.98));
+          box-shadow: 0 34px 120px rgba(0, 0, 0, 0.62);
+        }
+
+        .video-top {
+          margin-bottom: 12px;
+        }
+
+        .video-top strong {
+          font-size: 15px;
+        }
+
+        .video-top button {
+          width: 36px;
+          height: 36px;
+          border-radius: 10px;
+        }
+
+        .player {
+          border-radius: 14px;
+        }
+
         .seo-footer {
           grid-area: footer;
           margin: 0;
           padding: 14px;
           border-radius: 14px;
+        }
+
+        @media (min-width: 1180px) {
+          body {
+            padding: 28px;
+            background:
+              linear-gradient(180deg, rgba(9, 14, 27, 0.94), rgba(5, 8, 15, 1)),
+              radial-gradient(circle at 18% 0, rgba(72, 198, 255, 0.2), transparent 30%),
+              radial-gradient(circle at 88% 10%, rgba(79, 214, 200, 0.1), transparent 28%),
+              #05080f;
+          }
+
+          .app {
+            grid-template-columns: 390px minmax(520px, 1fr) 360px;
+            grid-template-areas:
+              "topbar topbar topbar"
+              "intro chart channels"
+              "ticker chart channels"
+              "list chart channels"
+              "list ad channels"
+              "list footer channels";
+            gap: 18px;
+            max-width: 1440px;
+            padding: 0 22px 22px;
+            border-color: rgba(154, 178, 218, 0.18);
+            border-radius: 22px;
+            background:
+              linear-gradient(180deg, rgba(13, 21, 39, 0.96), rgba(5, 8, 15, 0.98)),
+              #05080f;
+            box-shadow:
+              0 34px 110px rgba(0, 0, 0, 0.52),
+              inset 0 1px 0 rgba(255, 255, 255, 0.06);
+          }
+
+          .topbar {
+            margin: 0 -22px;
+            padding: 18px 26px 15px;
+            border-bottom-color: rgba(154, 178, 218, 0.13);
+            background:
+              linear-gradient(90deg, rgba(8, 13, 25, 0.96), rgba(14, 23, 43, 0.9)),
+              rgba(6, 9, 19, 0.92);
+          }
+
+          .brand strong {
+            font-size: 23px;
+          }
+
+          .brand span {
+            font-size: 12px;
+          }
+
+          .seo-intro {
+            align-self: start;
+            padding: 6px 2px 0;
+          }
+
+          .seo-intro h1 {
+            max-width: 360px;
+            font-size: 28px;
+            line-height: 1.22;
+          }
+
+          .seo-intro p {
+            max-width: 360px;
+            margin-top: 10px;
+            color: #a9b9d0;
+            font-size: 13px;
+          }
+
+          .ticker {
+            min-height: 44px;
+            border-radius: 14px;
+            background: rgba(8, 13, 25, 0.82);
+          }
+
+          .chart-panel {
+            top: 92px;
+            min-height: 0;
+            padding: 22px;
+            border-radius: 20px;
+            border-color: rgba(72, 198, 255, 0.34);
+            background:
+              radial-gradient(circle at 22% 0, rgba(72, 198, 255, 0.28), transparent 28%),
+              radial-gradient(circle at 92% 12%, rgba(79, 214, 200, 0.12), transparent 30%),
+              linear-gradient(180deg, rgba(18, 31, 57, 0.98), rgba(8, 13, 25, 0.98));
+            box-shadow:
+              0 28px 90px rgba(0, 0, 0, 0.46),
+              inset 0 1px 0 rgba(255, 255, 255, 0.08),
+              inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+          }
+
+          .chart-head {
+            margin-bottom: 14px;
+          }
+
+          .chart-head strong {
+            font-size: 22px;
+          }
+
+          .chart-head span {
+            padding: 6px 9px;
+            border: 1px solid rgba(79, 214, 200, 0.22);
+            border-radius: 999px;
+            background: rgba(79, 214, 200, 0.08);
+            color: #d7f7ff;
+            font-weight: 900;
+          }
+
+          .main-price {
+            grid-template-columns: minmax(0, 1fr) 160px;
+            gap: 20px;
+            margin-bottom: 14px;
+            padding: 18px;
+            border: 1px solid rgba(154, 178, 218, 0.14);
+            border-radius: 18px;
+            background:
+              linear-gradient(135deg, rgba(72, 198, 255, 0.1), transparent 36%),
+              rgba(5, 8, 15, 0.32);
+          }
+
+          .main-price span {
+            font-size: 12px;
+            font-weight: 800;
+          }
+
+          .main-price strong {
+            margin-top: 8px;
+            font-size: 66px;
+            text-shadow: 0 0 34px rgba(72, 198, 255, 0.2);
+          }
+
+          .main-price em {
+            display: inline-flex;
+            justify-content: center;
+            width: 100%;
+            padding: 7px 10px;
+            border-radius: 999px;
+            background: rgba(79, 214, 200, 0.1);
+            color: #d7f7ff;
+            font-size: 12px;
+          }
+
+          .change-pill {
+            width: 100%;
+            justify-content: center;
+            margin-top: 10px;
+            padding: 8px 10px;
+            font-size: 13px;
+          }
+
+          .baseline {
+            margin-top: 8px;
+            text-align: center;
+          }
+
+          .spark,
+          .spark svg {
+            height: auto;
+          }
+
+          .spark {
+            min-height: 104px;
+          }
+
+          .spark svg {
+            height: 70px;
+          }
+
+          .source-diff {
+            gap: 10px;
+            margin: 2px 0 12px;
+          }
+
+          .diff-card {
+            min-height: 74px;
+            padding: 12px;
+            border-radius: 14px;
+            background:
+              linear-gradient(180deg, rgba(16, 25, 46, 0.9), rgba(8, 13, 25, 0.78));
+          }
+
+          .diff-card strong {
+            margin-top: 6px;
+            font-size: 17px;
+          }
+
+          .diff-card small {
+            margin-top: 6px;
+          }
+
+          .chart {
+            margin-top: 12px;
+            padding: 13px;
+            border: 1px solid rgba(154, 178, 218, 0.12);
+            border-radius: 16px;
+            background: rgba(5, 8, 15, 0.28);
+          }
+
+          .compare-row {
+            grid-template-columns: 92px 1fr 86px;
+            gap: 12px;
+            font-size: 12px;
+          }
+
+          .compare-row strong {
+            font-size: 13px;
+          }
+
+          .compare-track {
+            height: 11px;
+            background: rgba(154, 178, 218, 0.13);
+          }
+
+          .compare-fill {
+            background: linear-gradient(90deg, #48c6ff, #f2c46d);
+          }
+
+          .market-density {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+          }
+
+          .density-card {
+            min-height: 62px;
+            padding: 10px;
+            border-radius: 14px;
+            background:
+              linear-gradient(180deg, rgba(16, 25, 46, 0.9), rgba(8, 13, 25, 0.78));
+          }
+
+          .density-card strong {
+            margin-top: 6px;
+            font-size: 12px;
+          }
+
+          .list {
+            padding: 14px;
+            border-radius: 18px;
+            background:
+              linear-gradient(180deg, rgba(12, 20, 38, 0.92), rgba(8, 13, 25, 0.9));
+          }
+
+          .head,
+          .row {
+            grid-template-columns: 34px minmax(0, 1fr) 96px 66px;
+          }
+
+          .head {
+            padding: 9px 8px;
+            font-size: 11px;
+          }
+
+          #rows {
+            max-height: 548px;
+            padding-right: 5px;
+          }
+
+          .row {
+            min-height: 48px;
+            margin-bottom: 6px;
+            padding: 8px 10px;
+            border-radius: 12px;
+            background: rgba(12, 20, 38, 0.78);
+            box-shadow: none;
+          }
+
+          .row:hover {
+            border-color: rgba(72, 198, 255, 0.36);
+            background: rgba(18, 30, 55, 0.88);
+            transform: translateY(-1px);
+          }
+
+          .row.active {
+            border-color: rgba(79, 214, 200, 0.34);
+            background:
+              linear-gradient(90deg, rgba(79, 214, 200, 0.12), rgba(18, 30, 55, 0.88));
+            box-shadow: inset 3px 0 0 var(--green);
+          }
+
+          .rank {
+            width: 28px;
+            height: 28px;
+            border-radius: 10px;
+          }
+
+          .server strong {
+            font-size: 15px;
+          }
+
+          .value strong {
+            font-size: 15px;
+          }
+
+          .channels {
+            padding: 16px;
+            border-radius: 18px;
+            background:
+              radial-gradient(circle at 16% 0, rgba(72, 198, 255, 0.1), transparent 32%),
+              linear-gradient(180deg, rgba(12, 20, 38, 0.96), rgba(6, 10, 20, 0.94));
+          }
+
+          .section-title {
+            padding: 4px 4px 14px;
+            border-bottom: 1px solid rgba(154, 178, 218, 0.11);
+            margin-bottom: 12px;
+          }
+
+          .section-title strong {
+            font-size: 17px;
+          }
+
+          .section-title span {
+            max-width: 150px;
+            text-align: right;
+            line-height: 1.35;
+          }
+
+          .channel-tabs {
+            gap: 7px;
+            max-height: 74px;
+            overflow-y: auto;
+            padding-bottom: 4px;
+          }
+
+          .channel-tab,
+          .feed-tab {
+            border-radius: 10px;
+            background: rgba(8, 13, 25, 0.7);
+          }
+
+          .feed-tabs {
+            gap: 8px;
+            margin-bottom: 10px;
+          }
+
+          .feed-tab {
+            height: 34px;
+            border-color: rgba(154, 178, 218, 0.14);
+          }
+
+          .feed-tab.active {
+            border-color: rgba(79, 214, 200, 0.34);
+            background: linear-gradient(135deg, rgba(79, 214, 200, 0.12), rgba(72, 198, 255, 0.1));
+          }
+
+          .channel-tab.active {
+            border-color: rgba(72, 198, 255, 0.5);
+            background: rgba(72, 198, 255, 0.14);
+          }
+
+          .shorts {
+            max-height: 612px;
+            gap: 8px;
+          }
+
+          .short-card {
+            grid-template-columns: 104px 1fr;
+            min-height: 78px;
+            padding: 8px 9px;
+            border-radius: 14px;
+            border-color: rgba(154, 178, 218, 0.14);
+            background:
+              linear-gradient(180deg, rgba(16, 25, 46, 0.92), rgba(8, 13, 25, 0.9));
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+          }
+
+          .short-card:hover {
+            border-color: rgba(72, 198, 255, 0.32);
+            background: rgba(16, 25, 46, 0.94);
+          }
+
+          .short-card span {
+            top: 7px;
+            left: 7px;
+            background: rgba(6, 9, 19, 0.78);
+          }
+
+          .short-card strong {
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            font-size: 12px;
+            line-height: 1.38;
+          }
+
+          .short-card small {
+            margin-top: 8px;
+            color: #aab9ce;
+          }
+
+          .thumb {
+            height: 66px;
+            border-radius: 11px;
+            box-shadow: inset 0 -24px 42px rgba(0, 0, 0, 0.28);
+          }
+
+          .ad-slot {
+            border-radius: 18px;
+            background:
+              radial-gradient(circle at 92% 0, rgba(255, 209, 102, 0.18), transparent 36%),
+              linear-gradient(135deg, rgba(35, 28, 14, 0.82), rgba(12, 20, 38, 0.92));
+          }
         }
       }
     </style>
@@ -1402,25 +1848,13 @@
       <header class="topbar">
         <div class="brand">
           <strong id="brandName">아데나머니</strong>
-          <span id="brandTagline">리니지 클래식 서버별 아데나 현재가</span>
+          <span id="brandTagline">리니지 클래식 아데나</span>
         </div>
-        <div class="live">LIVE</div>
       </header>
 
       <section class="seo-intro" aria-label="리니지 클래식 아데나 시세 안내">
-        <h1>리니지 클래식 서버별 아데나 현재가</h1>
-        <p>오렌, 데포로쥬, 발라카스 등 주요 서버의 ADENA/W 시세와 전일 대비 흐름을 한눈에 확인합니다.</p>
-      </section>
-
-      <section class="market-brief" aria-label="시장 요약">
-        <div class="brief-card up">
-          <span>전일 12시 대비 상승</span>
-          <strong id="upCount">-</strong>
-        </div>
-        <div class="brief-card down">
-          <span>전일 12시 대비 하락</span>
-          <strong id="downCount">-</strong>
-        </div>
+        <h1>서버별 아데나 가격</h1>
+        <p>오늘 기준가와 전일 변동을 한눈에 비교하세요.</p>
       </section>
 
       <section class="ticker" aria-label="실시간 순위 흐름">
@@ -1436,31 +1870,30 @@
           <div>
             <span>현재가</span>
             <strong id="mainPrice">-</strong>
-            <div class="best-source" id="bestSource">기준가 산정중</div>
           </div>
           <div>
-            <em id="mainSources">MARKET</em>
             <div class="change-pill" id="mainChange">기준 대기</div>
-            <div class="baseline" id="baselineText">전일 12시</div>
+            <div class="baseline" id="baselineText">기준가 대기</div>
           </div>
         </div>
+        <section class="ad-slot" aria-label="광고">
+        <a href="tg://resolve?phone=821058947690">
+          <div>
+            <span>홍보</span>
+            <strong>홍보 및 문의</strong>
+            <small>서버 · 방송 · 거래소 배너 문의</small>
+            <div class="ad-products" id="promotionProducts"></div>
+          </div>
+          <div class="ad-cta">홍보 문의</div>
+        </a>
+      </section>
+
         <div class="spark" id="spark"></div>
         <div class="spark-labels" id="sparkLabels"></div>
         <div class="source-diff" id="sourceDiff"></div>
         <div class="chart" id="chart"></div>
+        <div class="market-density" id="marketDensity"></div>
         <p class="chart-note" id="chartNote">수집 데이터가 아직 없습니다.</p>
-      </section>
-
-      <section class="ad-slot" aria-label="광고">
-        <a href="tg://resolve?phone=821058947690">
-          <div>
-            <span>PROMOTION</span>
-            <strong>아데나머니에 홍보하기</strong>
-            <small>클릭하면 텔레그램 문의로 바로 연결됩니다</small>
-            <div class="ad-products" id="promotionProducts"></div>
-          </div>
-          <div class="ad-cta">텔레그램 문의</div>
-        </a>
       </section>
 
       <section class="list">
@@ -1521,13 +1954,10 @@
       const sparkLabels = document.querySelector("#sparkLabels");
       const tickerTrack = document.querySelector("#tickerTrack");
       const mainPrice = document.querySelector("#mainPrice");
-      const mainSources = document.querySelector("#mainSources");
-      const bestSource = document.querySelector("#bestSource");
       const mainChange = document.querySelector("#mainChange");
       const baselineText = document.querySelector("#baselineText");
-      const upCount = document.querySelector("#upCount");
-      const downCount = document.querySelector("#downCount");
       const sourceDiff = document.querySelector("#sourceDiff");
+      const marketDensity = document.querySelector("#marketDensity");
       const youtubeVideos = document.querySelector("#youtubeVideos");
       const channelTabs = document.querySelector("#channelTabs");
       const feedTabs = document.querySelector("#feedTabs");
@@ -1539,16 +1969,14 @@
       let selectedChannel = "전체";
       let selectedKind = "all";
       let refreshLeft = 30;
-
       applySiteConfig();
-      updateHeaderState();
 
       function applySiteConfig() {
         const config = window.SITE_CONFIG || {};
         document.title = config.brandName || "아데나머니";
         document.querySelector("#brandName").textContent = config.brandName || "아데나머니";
         document.querySelector("#brandTagline").textContent =
-          config.tagline || "리니지 클래식 서버별 아데나 현재가";
+          config.tagline || "리니지 클래식 시세";
         document.querySelector("#creatorLabel").textContent =
           config.creatorChannelsLabel || "채널 구독자순 · 콘텐츠 최신순";
 
@@ -1572,17 +2000,79 @@
           ? server.currentPrice.toLocaleString("ko-KR")
           : "-";
         flashMainPrice();
-        mainSources.textContent = `검증 ${server.verifiedSources?.length || 0}/3`;
-        bestSource.textContent = `${getBestSource(server).label} 기준 산정`;
         mainChange.textContent = formatChange(server);
         mainChange.className = `change-pill ${getChangeClass(server)}`;
         baselineText.textContent = server.previousNoonPrice
-          ? `${server.baselineLabel} ${formatPrice(server.previousNoonPrice)}`
-          : "전일 12시 기준 대기";
+          ? `기준 ${formatPrice(server.previousNoonPrice)}`
+          : "기준가 대기";
         renderSpark(server);
         renderSourceDiff(server);
-        chart.innerHTML = "";
+        renderMarketBars(server);
+        renderMarketDensity(server);
         chartNote.textContent = "대표가는 출처별 수집 가격에서 과도하게 튀는 값을 보정해 산정합니다.";
+      }
+
+      function renderMarketBars(server) {
+        const sources = [
+          ["아이템베이", server.itemBay?.min],
+          ["아이템매니아", server.itemMania?.min],
+          ["바로템", server.barotem?.min],
+        ];
+        const values = sources.map(([, value]) => value).filter(Number.isFinite);
+        const max = Math.max(...values, server.currentPrice || 0, 1);
+        const representative = server.currentPrice || null;
+
+        chart.innerHTML = sources
+          .map(([label, value]) => {
+            const hasValue = Number.isFinite(value);
+            const width = hasValue ? Math.max(14, Math.round((value / max) * 100)) : 14;
+            const isBest = hasValue && representative && Math.abs(value - representative) <= 20;
+
+            return `
+              <div class="compare-row">
+                <span>${label}</span>
+                <div class="compare-track">
+                  <div class="compare-fill ${isBest ? "best" : ""} ${hasValue ? "" : "waiting"}" style="--w:${width}%"></div>
+                </div>
+                <strong>${hasValue ? formatPrice(value) : "-"}</strong>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      function renderMarketDensity(server) {
+        const sources = [server.itemBay, server.itemMania, server.barotem];
+        const sourceValues = sources
+          .map((source) => source?.min)
+          .filter(Number.isFinite);
+        const avg =
+          sourceValues.length > 0
+            ? Math.round(sourceValues.reduce((sum, value) => sum + value, 0) / sourceValues.length)
+            : null;
+        const totalCount = sources.reduce((sum, source) => sum + (source?.count || 0), 0);
+        const sourceRange = sourceValues.length
+          ? [Math.min(...sourceValues), Math.max(...sourceValues)]
+          : [server.lowestPrice, server.currentPrice].filter(Number.isFinite);
+
+        marketDensity.innerHTML = `
+          <div class="density-card">
+            <span>출처 가격대</span>
+            <strong>${sourceRange.length ? `${formatPrice(Math.min(...sourceRange))} ~ ${formatPrice(Math.max(...sourceRange))}` : "-"}</strong>
+          </div>
+          <div class="density-card">
+            <span>출처 평균</span>
+            <strong>${avg ? formatPrice(avg) : "-"}</strong>
+          </div>
+          <div class="density-card">
+            <span>등록 물량</span>
+            <strong>${totalCount ? `${totalCount.toLocaleString("ko-KR")}건` : "-"}</strong>
+          </div>
+          <div class="density-card">
+            <span>전일 기준</span>
+            <strong>${server.previousNoonPrice ? formatPrice(server.previousNoonPrice) : "-"}</strong>
+          </div>
+        `;
       }
 
       function renderTicker() {
@@ -1670,17 +2160,44 @@
       }
 
       function pickFeedVideos(videos) {
-        if (selectedKind !== "all") return videos.slice(0, 6);
         if (selectedChannel !== "전체") return videos.slice(0, 6);
+        if (selectedKind !== "all") return pickLatestByChannel(videos);
+        return pickPriorityFeed(videos);
+      }
 
+      function pickPriorityFeed(videos) {
+        const priorityNames = ["똘끼100%", "아덴은지금"];
+        const picked = [];
+        priorityNames.forEach((name) => {
+          const video = videos.find((item) => item.channelTitle === name && item.kind === "video");
+          if (video) picked.push(video);
+        });
+
+        videos.forEach((video) => {
+          if (picked.length >= 6) return;
+          if (picked.some((item) => item.id === video.id)) return;
+          picked.push(video);
+        });
+
+        return picked;
+      }
+
+      function pickLatestByChannel(videos) {
+        const priority = new Map([
+          ["똘끼100%", 1],
+          ["아덴은지금", 2],
+        ]);
         const byChannel = new Map();
         videos.forEach((video) => {
           if (!video.channelTitle || byChannel.has(video.channelTitle)) return;
           byChannel.set(video.channelTitle, video);
         });
-
         return [...byChannel.values()]
-          .sort((a, b) => (a.subscriberRank || 999) - (b.subscriberRank || 999))
+          .sort(
+            (a, b) =>
+              (priority.get(a.channelTitle) || 99) - (priority.get(b.channelTitle) || 99) ||
+              (a.subscriberRank || 999) - (b.subscriberRank || 999),
+          )
           .slice(0, 6);
       }
 
@@ -1731,7 +2248,6 @@
       feedTabs.querySelectorAll(".feed-tab").forEach((tab) => {
         tab.addEventListener("click", () => {
           selectedKind = tab.dataset.kind;
-          selectedChannel = "전체";
           feedTabs.querySelectorAll(".feed-tab").forEach((button) => {
             button.classList.toggle("active", button === tab);
           });
@@ -1771,60 +2287,103 @@
       }
 
       function renderSpark(server) {
-        const data = buildSparkData(server);
-        const points = data.map((d) => d.price);
+        const points = buildSparkPoints(server);
         if (points.length < 2) {
           spark.innerHTML = "";
           sparkLabels.innerHTML = "";
           return;
         }
 
-        const min = Math.min(...points);
-        const max = Math.max(...points);
+        const prices = points.map((point) => point.price);
+        const min = Math.min(...prices);
+        const max = Math.max(...prices);
         const range = Math.max(max - min, 1);
         const width = 360;
         const height = 52;
-        const coords = points.map((price, index) => {
+        const coords = points.map((point, index) => {
           const x = (index / (points.length - 1)) * width;
-          const y = height - ((price - min) / range) * 38 - 7;
+          const y = height - ((point.price - min) / range) * 38 - 7;
           return [x, y];
         });
         const line = coords.map(([x, y], index) => `${index ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
         const area = `${line} L${width},${height} L0,${height} Z`;
+        const labels = buildSparkLabels(points);
+        const priceLabels = buildSparkPriceLabels(points, coords);
 
         spark.innerHTML = `
+          <div class="spark-caption">
+            <strong>최근 수집 시세 흐름</strong>
+            <span>선 위 숫자: 수집 가격</span>
+          </div>
           <svg viewBox="0 0 ${width} ${height}" aria-hidden="true">
             <path class="area" d="${area}"></path>
             <path class="line" d="${line}"></path>
+            ${priceLabels
+              .map(
+                (item) => `
+                  <circle cx="${item.x}" cy="${item.y}" r="3.2"></circle>
+                  <text x="${item.textX}" y="${item.textY}" text-anchor="${item.anchor}">${item.label}</text>
+                `,
+              )
+              .join("")}
           </svg>
+          <div class="spark-axis">
+            ${labels.map((label) => `<span>${label}</span>`).join("")}
+          </div>
         `;
-
-        const mid = Math.floor((data.length - 1) / 2);
-        const labelLeft = formatSparkDate(data[0]?.collectedAt);
-        const labelMid = data.length > 2 ? formatSparkDate(data[mid]?.collectedAt) : "";
-        const labelRight = formatSparkDate(data[data.length - 1]?.collectedAt);
-        sparkLabels.innerHTML = `<span>${labelLeft}</span><span>${labelMid}</span><span>${labelRight}</span>`;
+        sparkLabels.innerHTML = "";
       }
 
-      function buildSparkData(server) {
-        const historyPoints = (server.history || [])
+      function buildSparkPoints(server) {
+        const currentPrice = Number.isFinite(server.currentPrice) ? server.currentPrice : null;
+        const history = (server.history || [])
           .filter((point) => Number.isFinite(point.price))
-          .map((point) => ({ price: point.price, collectedAt: point.collectedAt || null }));
+          .filter((point) => {
+            if (!currentPrice) return true;
+            return Math.abs(point.price - currentPrice) / currentPrice <= 0.35;
+          })
+          .map((point) => ({ price: point.price, at: point.at }));
         const base = Number.isFinite(server.previousNoonPrice)
-          ? [{ price: server.previousNoonPrice, collectedAt: server.previousNoonAt || null }]
+          ? [{ price: server.previousNoonPrice, at: server.baselineLabel, label: "전일 12시" }]
           : [];
         const current = Number.isFinite(server.currentPrice)
-          ? [{ price: server.currentPrice, collectedAt: new Date().toISOString() }]
+          ? [{ price: server.currentPrice, at: marketData.fetchedAt || new Date().toISOString(), label: "현재" }]
           : [];
-        const combined = [...base, ...historyPoints, ...current];
-        return combined.length >= 2 ? combined.slice(-12) : combined;
+        const combined = [...base, ...history.slice(-6), ...current];
+        return combined.length >= 2 ? combined.slice(-8) : combined;
       }
 
-      function formatSparkDate(value) {
-        if (!value) return "";
-        const d = new Date(value);
-        if (isNaN(d.getTime())) return "";
-        return `${d.getMonth() + 1}월 ${d.getDate()}일`;
+      function buildSparkLabels(points) {
+        const indexes = [0, Math.floor((points.length - 1) / 2), points.length - 1];
+        const labels = indexes.map((index) => formatSparkTime(points[index]));
+        return labels.map((label, index) => {
+          const isDuplicate = labels.indexOf(label) !== index;
+          return isDuplicate ? "" : label;
+        });
+      }
+
+      function buildSparkPriceLabels(points, coords) {
+        const indexes = [...new Set([0, Math.floor((points.length - 1) / 2), points.length - 1])];
+        return indexes.map((index) => {
+          const [x, y] = coords[index];
+          const isFirst = index === 0;
+          const isLast = index === points.length - 1;
+          return {
+            x: x.toFixed(1),
+            y: y.toFixed(1),
+            textX: (isFirst ? x + 5 : isLast ? x - 5 : x).toFixed(1),
+            textY: Math.max(10, y - 7).toFixed(1),
+            anchor: isFirst ? "start" : isLast ? "end" : "middle",
+            label: formatShort(points[index].price),
+          };
+        });
+      }
+
+      function formatSparkTime(point) {
+        const raw = String(point?.at || "").replace(" ", "T");
+        const date = new Date(raw.includes("T") && !/[zZ]|[+-]\d\d:?\d\d$/.test(raw) ? `${raw}+09:00` : raw);
+        if (Number.isNaN(date.getTime())) return "-";
+        return `${date.getDate()}일`;
       }
 
       function flashMainPrice() {
@@ -1855,7 +2414,6 @@
             selectedServerName = getRankedServers()[0]?.name || "";
           }
 
-          updateHeaderState();
           renderTicker();
           renderChart(servers.find((server) => server.name === selectedServerName) || getRankedServers()[0]);
           renderRows();
@@ -1864,12 +2422,6 @@
         }
 
         refreshLeft = 30;
-      }
-
-      function updateHeaderState() {
-        const changed = servers.filter((server) => Number.isFinite(server.change));
-        upCount.textContent = changed.length ? `${changed.filter((server) => server.change > 0).length}개` : "대기";
-        downCount.textContent = changed.length ? `${changed.filter((server) => server.change < 0).length}개` : "대기";
       }
 
       function renderRows() {
@@ -1882,7 +2434,8 @@
 
         rows.innerHTML = list
           .map((server, index) => {
-            const price = server.currentPrice ? `${server.currentPrice.toLocaleString("ko-KR")}` : "수집전";
+            const currentPrice = getServerPrice(server);
+            const price = currentPrice ? `${currentPrice.toLocaleString("ko-KR")}` : "수집전";
             const active = server.name === selectedServerName ? " active" : "";
             const heat = getHeat(server);
 
@@ -1927,11 +2480,13 @@
       }
 
       function formatPrice(value) {
-        return value ? `${value.toLocaleString("ko-KR")}원` : "수집전";
+        const price = Number(value);
+        return price ? `${price.toLocaleString("ko-KR")}원` : "수집전";
       }
 
       function formatShort(value) {
-        return value ? value.toLocaleString("ko-KR") : "-";
+        const price = Number(value);
+        return price ? price.toLocaleString("ko-KR") : "-";
       }
 
       function getBestSource(server) {
@@ -2032,17 +2587,25 @@
 
       function getRankedServers() {
         return servers
-          .filter((server) => server.currentPrice)
+          .filter((server) => getServerPrice(server))
           .slice()
-          .sort((a, b) => b.currentPrice - a.currentPrice);
+          .sort((a, b) => {
+            const priceDiff = getServerPrice(b) - getServerPrice(a);
+            if (priceDiff) return priceDiff;
+            return 0;
+          });
       }
 
       function getHeat(server) {
         const ranked = getRankedServers();
-        const max = ranked[0]?.currentPrice || 1;
-        const min = ranked.at(-1)?.currentPrice || 0;
+        const max = getServerPrice(ranked[0]) || 1;
+        const min = getServerPrice(ranked.at(-1)) || 0;
         const range = Math.max(max - min, 1);
-        return Math.round(((server.currentPrice - min) / range) * 72 + 10);
+        return Math.round(((getServerPrice(server) - min) / range) * 72 + 10);
+      }
+
+      function getServerPrice(server) {
+        return Number(server?.currentPrice) || 0;
       }
     </script>
   </body>
