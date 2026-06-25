@@ -528,10 +528,10 @@
         font-size: 11px;
       }
 
-      /* 현재가 + 옆 광고 배너 가로 래퍼 */
+      /* 현재가(좌) + 광고3개(우) 가로 배치 */
       .price-ad-row {
         display: flex;
-        gap: 10px;
+        gap: 8px;
         align-items: stretch;
         margin-bottom: 12px;
         padding-bottom: 12px;
@@ -541,54 +541,47 @@
         flex: 1;
         display: grid;
         grid-template-columns: 1fr auto;
-        gap: 10px;
+        gap: 6px;
         align-items: end;
       }
-      /* 현재가 옆 광고 배너 */
-      .main-ad-banner {
+      /* 우측 광고 세로 컬럼 */
+      .ad-slots-col {
         flex-shrink: 0;
-        width: 80px;
+        width: 72px;
         display: flex;
         flex-direction: column;
+        gap: 3px;
+      }
+      .ad-col-label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: rgba(147,164,189,0.38);
+        text-align: center;
+        padding-bottom: 1px;
+      }
+      .ad-slot-card {
+        flex: 1;
+        display: flex;
         align-items: center;
         justify-content: center;
-        gap: 3px;
-        padding: 8px 6px;
-        border-radius: 9px;
-        border: 1px dashed rgba(255,209,102,0.3);
-        background: rgba(255,209,102,0.04);
-        text-decoration: none;
-        transition: background 140ms, border-color 140ms;
+        padding: 0 4px;
+        border-radius: 6px;
+        border: 1px solid rgba(139,166,214,0.14);
+        background: rgba(139,166,214,0.05);
+        font-size: 10px;
+        font-weight: 600;
+        color: rgba(200,218,255,0.7);
         cursor: pointer;
+        transition: background 120ms, border-color 120ms, color 120ms;
+        font-family: inherit;
+        white-space: nowrap;
+        text-align: center;
       }
-      .main-ad-banner:hover {
-        background: rgba(255,209,102,0.09);
-        border-color: rgba(255,209,102,0.55);
-      }
-      .main-ad-badge {
-        font-size: 8px;
-        font-weight: 800;
-        letter-spacing: 0.8px;
-        color: rgba(255,209,102,0.65);
-        border: 1px solid rgba(255,209,102,0.3);
-        border-radius: 3px;
-        padding: 1px 4px;
-        background: rgba(255,209,102,0.06);
-      }
-      .main-ad-body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1px;
-      }
-      .main-ad-title {
-        font-size: 10.5px;
-        font-weight: 700;
-        color: rgba(255,209,102,0.75);
-      }
-      .main-ad-sub {
-        font-size: 9px;
-        color: rgba(255,209,102,0.45);
+      .ad-slot-card:hover {
+        background: rgba(72,198,255,0.1);
+        border-color: rgba(72,198,255,0.32);
+        color: rgba(220,232,255,1);
       }
 
       /* 관리자 전체삭제 패널 */
@@ -644,70 +637,7 @@
         text-align: center;
       }
 
-      /* 광고 배너 3개 로우 */
-      /* 거래소 배너 — 가로 3열 네모 박스 */
-      .ad-slots-row {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 6px;
-        margin-top: 10px;
-      }
-      .ad-slot-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        padding: 10px 6px;
-        border-radius: 10px;
-        border: 1px solid rgba(139,166,214,0.18);
-        background: rgba(139,166,214,0.05);
-        cursor: pointer;
-        transition: background 140ms, border-color 140ms, transform 100ms;
-        font-family: inherit;
-        text-align: center;
-      }
-      .ad-slot-card:hover {
-        background: rgba(72,198,255,0.1);
-        border-color: rgba(72,198,255,0.35);
-        transform: translateY(-1px);
-      }
-      .ad-slot-badge {
-        font-size: 8px;
-        font-weight: 800;
-        letter-spacing: 0.6px;
-        color: rgba(255,209,102,0.65);
-        border: 1px solid rgba(255,209,102,0.25);
-        border-radius: 3px;
-        padding: 1px 5px;
-        background: rgba(255,209,102,0.06);
-      }
-      .ad-slot-body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2px;
-      }
-      .ad-slot-site {
-        font-size: 11.5px;
-        font-weight: 700;
-        color: rgba(220,232,255,0.9);
-        white-space: nowrap;
-      }
-      .ad-slot-desc {
-        font-size: 9.5px;
-        color: rgba(147,164,189,0.55);
-        white-space: nowrap;
-      }
-      .ad-slot-cta {
-        font-size: 10px;
-        font-weight: 700;
-        color: rgba(72,198,255,0.7);
-        white-space: nowrap;
-      }
-      .ad-slot-card:hover .ad-slot-cta {
-        color: rgba(72,198,255,1);
-      }
+
 
       .spark {
         min-height: 82px;
@@ -3777,7 +3707,7 @@
           <span>ADENA/W</span>
         </div>
 
-        <!-- 현재가 + 옆 광고 배너 -->
+        <!-- 현재가(좌) + 광고3개(우) 가로 배치 -->
         <div class="price-ad-row">
           <div class="main-price">
             <div>
@@ -3789,13 +3719,13 @@
               <div class="baseline" id="baselineText">기준가 대기</div>
             </div>
           </div>
-          <a class="main-ad-banner" href="https://www.itembay.com" target="_blank" rel="noopener sponsored">
-            <div class="main-ad-badge">AD</div>
-            <div class="main-ad-body">
-              <span class="main-ad-title">아데나 거래</span>
-              <span class="main-ad-sub">최저가 비교</span>
-            </div>
-          </a>
+          <!-- 오른쪽: 광고 라벨 + 3개 버튼 세로 -->
+          <div class="ad-slots-col">
+            <span class="ad-col-label">광고</span>
+            <button class="ad-slot-card" type="button" data-url="https://www.itembay.com">아이템베이</button>
+            <button class="ad-slot-card" type="button" data-url="https://www.itemmania.com">아이템매니아</button>
+            <button class="ad-slot-card" type="button" data-url="https://www.barotem.com">바로템</button>
+          </div>
         </div>
 
         <!-- 스파크 차트 -->
@@ -3803,34 +3733,6 @@
         <div class="spark-labels" id="sparkLabels"></div>
         <div class="source-diff" id="sourceDiff"></div>
         <div class="chart" id="chart"></div>
-
-        <!-- 거래소 광고 배너 3개 (팝업 창으로 열기) -->
-        <div class="ad-slots-row">
-          <button class="ad-slot-card" type="button" data-url="https://www.itembay.com">
-            <div class="ad-slot-badge">AD</div>
-            <div class="ad-slot-body">
-              <span class="ad-slot-site">아이템베이</span>
-              <span class="ad-slot-desc">아데나 최저가</span>
-            </div>
-            <span class="ad-slot-cta">입장 →</span>
-          </button>
-          <button class="ad-slot-card" type="button" data-url="https://www.itemmania.com">
-            <div class="ad-slot-badge">AD</div>
-            <div class="ad-slot-body">
-              <span class="ad-slot-site">아이템매니아</span>
-              <span class="ad-slot-desc">안전거래</span>
-            </div>
-            <span class="ad-slot-cta">입장 →</span>
-          </button>
-          <button class="ad-slot-card" type="button" data-url="https://www.barotem.com">
-            <div class="ad-slot-badge">AD</div>
-            <div class="ad-slot-body">
-              <span class="ad-slot-site">바로템</span>
-              <span class="ad-slot-desc">빠른 거래</span>
-            </div>
-            <span class="ad-slot-cta">입장 →</span>
-          </button>
-        </div>
 
         <div class="market-density" id="marketDensity"></div>
         <p class="chart-note" id="chartNote">수집 데이터가 아직 없습니다.</p>
