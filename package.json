@@ -1,0 +1,12 @@
+{
+  "name": "adenamoney",
+  "version": "1.0.0",
+  "private": true,
+  "description": "리니지 클래식 아데나 시세 사이트",
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -679,7 +679,7 @@
       .head,
       .row {
         display: grid;
-        grid-template-columns: 30px 1fr 88px 58px;
+        grid-template-columns: 30px 1fr 88px 58px 26px;
         gap: 8px;
         align-items: center;
       }
@@ -1002,6 +1002,181 @@
         font-size: 10px;
         background: linear-gradient(135deg, rgba(255, 209, 102, 0.28), rgba(255, 255, 255, 0.1));
         color: #fff4cf;
+      }
+
+      /* ── 차트 탭 (오늘 / 7일) ── */
+      .chart-tabs {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+
+      .chart-tab {
+        flex: 1;
+        height: 28px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(14, 21, 38, 0.6);
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 900;
+        cursor: pointer;
+        transition: border-color 150ms, background 150ms, color 150ms;
+      }
+
+      .chart-tab.active {
+        border-color: rgba(92, 200, 255, 0.5);
+        background: rgba(92, 200, 255, 0.12);
+        color: var(--blue);
+      }
+
+      /* 7일 차트 SVG */
+      .week-chart {
+        margin: 0 0 14px;
+        border-bottom: 1px solid rgba(139, 166, 214, 0.12);
+        padding-bottom: 12px;
+      }
+
+      .week-chart-caption {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .week-chart-caption strong {
+        font-size: 11px;
+        color: var(--text);
+      }
+
+      .week-chart-caption span {
+        color: var(--muted);
+        font-size: 10px;
+      }
+
+      .week-chart svg {
+        display: block;
+        width: 100%;
+        height: 90px;
+        overflow: visible;
+      }
+
+      .week-chart path.wc-area {
+        fill: rgba(92, 200, 255, 0.1);
+      }
+
+      .week-chart path.wc-line {
+        fill: none;
+        stroke: var(--blue);
+        stroke-width: 2.2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        filter: drop-shadow(0 0 6px rgba(92, 200, 255, 0.28));
+      }
+
+      .week-chart circle {
+        fill: #07111d;
+        stroke: var(--blue);
+        stroke-width: 2;
+      }
+
+      .week-chart text {
+        fill: var(--text);
+        font-size: 10px;
+        font-weight: 900;
+        paint-order: stroke;
+        stroke: rgba(6, 9, 19, 0.92);
+        stroke-width: 3.5px;
+        stroke-linejoin: round;
+      }
+
+      .week-chart text.wc-axis {
+        fill: var(--muted);
+        font-size: 9.5px;
+        font-weight: 800;
+        stroke: none;
+      }
+
+      /* ── 서버 검색 + 즐겨찾기 ── */
+      .list-toolbar {
+        display: flex;
+        gap: 7px;
+        align-items: center;
+        padding: 0 0 8px;
+      }
+
+      .server-search {
+        flex: 1;
+        height: 32px;
+        padding: 0 10px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: rgba(14, 21, 38, 0.68);
+        color: var(--text);
+        font-size: 12px;
+        outline: none;
+        transition: border-color 150ms;
+      }
+
+      .server-search::placeholder {
+        color: var(--muted);
+      }
+
+      .server-search:focus {
+        border-color: rgba(92, 200, 255, 0.45);
+      }
+
+      .fav-only-btn {
+        height: 32px;
+        padding: 0 10px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: rgba(14, 21, 38, 0.68);
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 900;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: border-color 150ms, background 150ms, color 150ms;
+      }
+
+      .fav-only-btn.active {
+        border-color: rgba(242, 196, 109, 0.55);
+        background: rgba(242, 196, 109, 0.12);
+        color: var(--yellow);
+      }
+
+      /* 즐겨찾기 별 버튼 */
+      .fav-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border: none;
+        background: transparent;
+        color: rgba(147, 164, 189, 0.3);
+        font-size: 14px;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: color 150ms, transform 150ms;
+        padding: 0;
+        position: relative;
+        z-index: 2;
+      }
+
+      .fav-btn.on {
+        color: var(--yellow);
+      }
+
+      .fav-btn:active {
+        transform: scale(1.3);
+      }
+
+      /* row 구조에 즐겨찾기 버튼 포함 */
+      .head,
+      .row {
+        grid-template-columns: 30px 1fr 88px 58px 26px;
       }
 
       .section-title {
@@ -1807,7 +1982,7 @@
 
           .head,
           .row {
-            grid-template-columns: 34px minmax(0, 1fr) 96px 66px;
+            grid-template-columns: 34px minmax(0, 1fr) 96px 66px 26px;
           }
 
           .head {
@@ -2164,7 +2339,7 @@
 
           .head,
           .row {
-            grid-template-columns: 32px minmax(0, 1fr) 86px 58px;
+            grid-template-columns: 32px minmax(0, 1fr) 86px 58px 26px;
             gap: 7px;
           }
 
@@ -2427,6 +2602,279 @@
         line-height: 1.45;
       }
     }
+
+    /* ═══════════════════════════════════════════
+       게시판 스타일
+    ═══════════════════════════════════════════ */
+    .board-section {
+      grid-column: 1 / -1;
+      margin: 20px 0 0;
+      padding: 0 12px 32px;
+      max-width: 860px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .board-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--fg);
+      margin: 0 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .board-title-icon { font-size: 18px; }
+
+    .board-server-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-left: 4px;
+    }
+
+    /* 글쓰기 폼 */
+    .board-write-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
+    .board-write-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--fg-dim);
+      cursor: pointer;
+      list-style: none;
+      transition: background 150ms;
+    }
+    .board-write-toggle:hover { background: var(--hover); }
+    .board-write-toggle::-webkit-details-marker { display: none; }
+
+    .board-write-wrap[open] .board-write-toggle {
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .board-write-form {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .board-write-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .board-input {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--fg);
+      font-size: 13px;
+      padding: 7px 10px;
+      outline: none;
+      transition: border-color 150ms;
+      min-width: 0;
+    }
+    .board-input:focus { border-color: var(--accent); }
+
+    .board-textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--fg);
+      font-size: 13px;
+      padding: 8px 10px;
+      resize: vertical;
+      outline: none;
+      font-family: inherit;
+      line-height: 1.5;
+      transition: border-color 150ms;
+    }
+    .board-textarea:focus { border-color: var(--accent); }
+
+    .board-write-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .board-char-count {
+      font-size: 11px;
+      color: var(--fg-dim);
+    }
+
+    .board-submit-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 7px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 150ms;
+    }
+    .board-submit-btn:hover { opacity: 0.85; }
+    .board-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* 필터 탭 */
+    .board-filter-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .board-filter-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--fg-dim);
+      font-size: 12px;
+      padding: 4px 12px;
+      cursor: pointer;
+      transition: all 150ms;
+    }
+    .board-filter-btn.active,
+    .board-filter-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* 글 목록 */
+    .board-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .board-loading,
+    .board-empty {
+      text-align: center;
+      padding: 32px;
+      color: var(--fg-dim);
+      font-size: 13px;
+    }
+
+    .board-post {
+      border-bottom: 1px solid var(--border);
+      padding: 12px 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: background 150ms;
+    }
+    .board-post:last-child { border-bottom: none; }
+    .board-post:hover { background: var(--hover); }
+
+    .board-post-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .board-post-nick {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    .board-post-server-tag {
+      font-size: 11px;
+      background: rgba(120, 140, 180, 0.15);
+      color: var(--fg-dim);
+      padding: 1px 7px;
+      border-radius: 10px;
+    }
+
+    .board-post-time {
+      font-size: 11px;
+      color: var(--fg-dim);
+      margin-left: auto;
+    }
+
+    .board-post-content {
+      font-size: 13px;
+      color: var(--fg);
+      line-height: 1.55;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .board-post-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .board-delete-btn {
+      background: transparent;
+      border: none;
+      color: rgba(180, 90, 90, 0.6);
+      font-size: 11px;
+      cursor: pointer;
+      padding: 0;
+      transition: color 150ms;
+    }
+    .board-delete-btn:hover { color: #e05555; }
+
+    /* 페이지네이션 */
+    .board-pagination {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .board-page-btn {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--fg-dim);
+      font-size: 12px;
+      padding: 5px 12px;
+      cursor: pointer;
+      transition: all 150ms;
+    }
+    .board-page-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+    .board-page-btn:hover:not(.active) { background: var(--hover); }
+    .board-page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    @media (max-width: 600px) {
+      .board-section {
+        padding: 0 8px 24px;
+      }
+      .board-write-row {
+        flex-direction: column;
+      }
+    }
   </style>
   </head>
   <body>
@@ -2456,6 +2904,10 @@
           <strong id="chartTitle">서버 시세</strong>
           <span>ADENA/W</span>
         </div>
+        <div class="chart-tabs">
+          <button class="chart-tab active" id="tabToday" type="button">오늘 흐름</button>
+          <button class="chart-tab" id="tab7d" type="button">7일 추이</button>
+        </div>
         <div class="main-price">
           <div>
             <span>현재가</span>
@@ -2481,20 +2933,41 @@
           >문의하기</a>
         </section>
 
-        <div class="spark" id="spark"></div>
-        <div class="spark-labels" id="sparkLabels"></div>
-        <div class="source-diff" id="sourceDiff"></div>
-        <div class="chart" id="chart"></div>
-        <div class="market-density" id="marketDensity"></div>
-        <p class="chart-note" id="chartNote">수집 데이터가 아직 없습니다.</p>
+        <!-- 오늘 흐름 뷰 -->
+        <div id="viewToday">
+          <div class="spark" id="spark"></div>
+          <div class="spark-labels" id="sparkLabels"></div>
+          <div class="source-diff" id="sourceDiff"></div>
+          <div class="chart" id="chart"></div>
+          <div class="market-density" id="marketDensity"></div>
+          <p class="chart-note" id="chartNote">수집 데이터가 아직 없습니다.</p>
+        </div>
+        <!-- 7일 추이 뷰 -->
+        <div id="view7d" style="display:none">
+          <div class="week-chart" id="weekChart"></div>
+          <div class="source-diff" id="sourceDiff7d"></div>
+          <div class="chart" id="chart7d"></div>
+        </div>
       </section>
 
       <section class="list">
+        <div class="list-toolbar">
+          <input
+            type="search"
+            class="server-search"
+            id="serverSearch"
+            placeholder="서버 검색…"
+            autocomplete="off"
+            aria-label="서버 검색"
+          />
+          <button class="fav-only-btn" id="favOnlyBtn" type="button">★ 즐겨찾기</button>
+        </div>
         <div class="head">
           <span>순위</span>
           <span>서버</span>
           <span style="text-align: right">현재가</span>
           <span style="text-align: right">전일</span>
+          <span></span>
         </div>
         <div id="rows"></div>
       </section>
@@ -2531,6 +3004,47 @@
           <div class="player" id="videoPlayer"></div>
         </div>
       </div>
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <!-- 게시판 섹션                                               -->
+      <!-- ══════════════════════════════════════════════════════════ -->
+      <section class="board-section" id="boardSection" aria-label="커뮤니티 게시판">
+        <h2 class="board-title">
+          <span class="board-title-icon">💬</span>
+          커뮤니티 게시판
+          <span class="board-server-badge" id="boardServerBadge" style="display:none"></span>
+        </h2>
+
+        <!-- 글쓰기 폼 -->
+        <details class="board-write-wrap" id="boardWriteWrap">
+          <summary class="board-write-toggle">✏️ 글쓰기</summary>
+          <form class="board-write-form" id="boardWriteForm" autocomplete="off">
+            <div class="board-write-row">
+              <input type="text" class="board-input" id="bwNickname" placeholder="닉네임 (선택)" maxlength="20">
+              <input type="password" class="board-input" id="bwPassword" placeholder="비밀번호 (삭제 시 필요, 4자 이상)" maxlength="30" autocomplete="new-password" required>
+            </div>
+            <textarea class="board-textarea" id="bwContent" placeholder="내용을 입력하세요 (최대 1000자)&#10;거래 정보, 시세 정보, 질문 등 자유롭게 작성하세요." maxlength="1000" rows="3" required></textarea>
+            <div class="board-write-footer">
+              <span class="board-char-count" id="bwCharCount">0 / 1000</span>
+              <button type="submit" class="board-submit-btn" id="bwSubmit">등록</button>
+            </div>
+          </form>
+        </details>
+
+        <!-- 필터 탭 -->
+        <div class="board-filter-bar">
+          <button class="board-filter-btn active" id="bfAll" data-filter="all">전체</button>
+          <button class="board-filter-btn" id="bfServer" data-filter="server" style="display:none" id="bfServerBtn">현재 서버</button>
+        </div>
+
+        <!-- 글 목록 -->
+        <div class="board-list" id="boardList">
+          <div class="board-loading" id="boardLoading">로딩 중…</div>
+        </div>
+
+        <!-- 페이지네이션 -->
+        <div class="board-pagination" id="boardPagination"></div>
+      </section>
+
     </main>
 
     <script src="data/market-data.js"></script>
@@ -2560,14 +3074,45 @@
       const videoTitle = document.querySelector("#videoTitle");
       const videoPlayer = document.querySelector("#videoPlayer");
       const videoClose = document.querySelector("#videoClose");
+      // 신규 요소
+      const tabToday = document.querySelector("#tabToday");
+      const tab7d = document.querySelector("#tab7d");
+      const viewToday = document.querySelector("#viewToday");
+      const view7d = document.querySelector("#view7d");
+      const weekChartEl = document.querySelector("#weekChart");
+      const serverSearchEl = document.querySelector("#serverSearch");
+      const favOnlyBtn = document.querySelector("#favOnlyBtn");
+
       let selectedServerName = getRankedServers()[0]?.name || "";
       let selectedChannel = "전체";
       let selectedKind = "all";
       let refreshLeft = 30;
+      let chartMode = "today"; // "today" | "7d"
+      let searchQuery = "";
+      let showFavOnly = false;
+
+      // 즐겨찾기 localStorage
+      const FAV_KEY = "adenamoney_favs";
+      function getFavs() {
+        try { return new Set(JSON.parse(localStorage.getItem(FAV_KEY) || "[]")); }
+        catch { return new Set(); }
+      }
+      function saveFavs(set) {
+        localStorage.setItem(FAV_KEY, JSON.stringify([...set]));
+      }
+      function toggleFav(name) {
+        const favs = getFavs();
+        if (favs.has(name)) favs.delete(name); else favs.add(name);
+        saveFavs(favs);
+      }
+      function isFav(name) { return getFavs().has(name); }
+
       const topbarRefresh = document.querySelector("#topbarRefresh");
       const refreshCountdown = document.querySelector("#refreshCountdown");
       applySiteConfig();
       bindPromotionContact();
+      bindChartTabs();
+      bindSearch();
 
       function applySiteConfig() {
         const config = window.SITE_CONFIG || {};
@@ -2612,6 +3157,150 @@
         });
       }
 
+      /* ── 차트 탭 전환 ── */
+      function bindChartTabs() {
+        tabToday.addEventListener("click", () => {
+          chartMode = "today";
+          tabToday.classList.add("active");
+          tab7d.classList.remove("active");
+          viewToday.style.display = "";
+          view7d.style.display = "none";
+        });
+        tab7d.addEventListener("click", () => {
+          chartMode = "7d";
+          tab7d.classList.add("active");
+          tabToday.classList.remove("active");
+          viewToday.style.display = "none";
+          view7d.style.display = "";
+          const server = servers.find(s => s.name === selectedServerName) || getRankedServers()[0];
+          if (server) render7dChart(server);
+        });
+      }
+
+      /* ── 검색 + 즐겨찾기 필터 바인딩 ── */
+      function bindSearch() {
+        serverSearchEl.addEventListener("input", () => {
+          searchQuery = serverSearchEl.value.trim();
+          renderRows();
+        });
+        favOnlyBtn.addEventListener("click", () => {
+          showFavOnly = !showFavOnly;
+          favOnlyBtn.classList.toggle("active", showFavOnly);
+          renderRows();
+        });
+      }
+
+      /* ── 7일 추이 차트 렌더 ── */
+      function render7dChart(server) {
+        const baselines = marketData.noonBaselines || {};
+        // 날짜 키 정렬 (최신 7개)
+        const dates = Object.keys(baselines).sort().slice(-7);
+        if (dates.length < 2) {
+          weekChartEl.innerHTML = `<p style="color:var(--muted);font-size:12px;text-align:center;padding:20px 0">7일 데이터가 아직 부족합니다.</p>`;
+          return;
+        }
+
+        const points = dates.map(d => ({
+          date: d,
+          price: baselines[d][server.name] ?? null,
+          label: d.slice(5), // "MM-DD"
+        })).filter(p => p.price !== null);
+
+        if (points.length < 2) {
+          weekChartEl.innerHTML = `<p style="color:var(--muted);font-size:12px;text-align:center;padding:20px 0">이 서버의 데이터가 부족합니다.</p>`;
+          return;
+        }
+
+        // 현재가 포인트 추가 (오늘)
+        const lastDate = dates[dates.length - 1];
+        const todayKey = getLocalDateKey(new Date());
+        if (server.currentPrice && todayKey !== lastDate) {
+          points.push({ date: todayKey, price: server.currentPrice, label: "오늘", isCurrent: true });
+        } else if (server.currentPrice) {
+          // 마지막 포인트를 현재가로 업데이트
+          points[points.length - 1] = { ...points[points.length - 1], price: server.currentPrice, isCurrent: true };
+        }
+
+        const prices = points.map(p => p.price);
+        const minP = Math.min(...prices);
+        const maxP = Math.max(...prices);
+        const range = Math.max(maxP - minP, 1);
+        const W = 360, H = 90, PAD_T = 18, PAD_B = 20;
+        const plotH = H - PAD_T - PAD_B;
+
+        const coords = points.map((p, i) => {
+          const x = (i / (points.length - 1)) * W;
+          const y = PAD_T + plotH - ((p.price - minP) / range) * plotH;
+          return [x, y];
+        });
+
+        const linePath = coords.map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
+        const areaPath = `${linePath} L${W},${H - PAD_B} L0,${H - PAD_B} Z`;
+
+        // 가격 변동 방향 색
+        const first = points[0].price, last = points[points.length - 1].price;
+        const lineColor = last >= first ? "var(--green)" : "var(--red)";
+        const areaColor = last >= first ? "rgba(79,214,200,0.12)" : "rgba(255,109,138,0.1)";
+
+        // 라벨: 첫점, 마지막점, 최고, 최저 (중복 제거)
+        const labelIdxSet = new Set([0, points.length - 1]);
+        const maxIdx = prices.indexOf(Math.max(...prices)); labelIdxSet.add(maxIdx);
+        const minIdx = prices.indexOf(Math.min(...prices)); labelIdxSet.add(minIdx);
+
+        const priceLabels = [...labelIdxSet].map(idx => {
+          const [x, y] = coords[idx];
+          const isLeft = idx === 0;
+          const isRight = idx === points.length - 1;
+          return `
+            <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" stroke="${lineColor}" stroke-width="1.8" fill="#07111d"/>
+            <text x="${(isLeft ? x+4 : isRight ? x-4 : x).toFixed(1)}"
+                  y="${Math.max(PAD_T - 2, y - 6).toFixed(1)}"
+                  text-anchor="${isLeft ? "start" : isRight ? "end" : "middle"}"
+                  style="fill:var(--text);font-size:10px;font-weight:900">${formatShort(points[idx].price)}</text>`;
+        }).join("");
+
+        const axisLabels = points.map((p, i) => {
+          if (i !== 0 && i !== Math.floor((points.length - 1) / 2) && i !== points.length - 1) return "";
+          const [x] = coords[i];
+          const isLeft = i === 0, isRight = i === points.length - 1;
+          return `<text class="wc-axis" x="${(isLeft ? x+4 : isRight ? x-4 : x).toFixed(1)}" y="${(H - 2).toFixed(1)}"
+                  text-anchor="${isLeft ? "start" : isRight ? "end" : "middle"}">${p.label}</text>`;
+        }).join("");
+
+        // 변동 요약
+        const pctChange = (((last - first) / first) * 100).toFixed(1);
+        const sign = last >= first ? "+" : "";
+        const changeColor = last >= first ? "var(--green)" : "var(--red)";
+
+        weekChartEl.innerHTML = `
+          <div class="week-chart-caption">
+            <strong>최근 ${points.length}일 기준가 추이</strong>
+            <span style="color:${changeColor};font-weight:900">${sign}${pctChange}%</span>
+          </div>
+          <svg viewBox="0 0 ${W} ${H}" aria-hidden="true">
+            <path class="wc-area" d="${areaPath}" fill="${areaColor}"/>
+            <path class="wc-line" d="${linePath}" stroke="${lineColor}" stroke-width="2.2" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round"
+                  style="filter:drop-shadow(0 0 6px ${lineColor})"/>
+            ${priceLabels}
+            ${axisLabels}
+          </svg>
+        `;
+
+        // 7일 뷰 소스 바 (오늘 기준)
+        const srcDiff7d = document.querySelector("#sourceDiff7d");
+        const chart7d = document.querySelector("#chart7d");
+        if (srcDiff7d) renderSourceDiffTo(server, srcDiff7d);
+        if (chart7d) renderMarketBarsTo(server, chart7d);
+      }
+
+      function getLocalDateKey(date) {
+        return date.toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })
+          .replace(/\. /g, "-").replace(".", "").replace(/\.$/, "").trim()
+          .split("-").map(v => v.padStart(2, "0")).join("-");
+      }
+
+      /* ── renderChart ── */
       function renderChart(server) {
         if (!server) {
           chartTitle.textContent = "서버 시세 비교";
@@ -2635,9 +3324,16 @@
         sourceDiff.innerHTML = "";
         marketDensity.innerHTML = "";
         chartNote.textContent = "대표가는 출처별 수집 가격에서 과도하게 튀는 값을 보정해 산정합니다.";
+
+        // 7일 탭이 열려 있으면 함께 업데이트
+        if (chartMode === "7d") render7dChart(server);
       }
 
       function renderMarketBars(server) {
+        renderMarketBarsTo(server, chart);
+      }
+
+      function renderMarketBarsTo(server, target) {
         const sources = [
           ["아이템베이", server.itemBay?.min],
           ["아이템매니아", server.itemMania?.min],
@@ -2647,7 +3343,7 @@
         const max = Math.max(...values, server.currentPrice || 0, 1);
         const representative = server.currentPrice || null;
 
-        chart.innerHTML = sources
+        target.innerHTML = sources
           .map(([label, value]) => {
             const hasValue = Number.isFinite(value);
             const width = hasValue ? Math.max(14, Math.round((value / max) * 100)) : 14;
@@ -2718,6 +3414,10 @@
       }
 
       function renderSourceDiff(server) {
+        renderSourceDiffTo(server, sourceDiff);
+      }
+
+      function renderSourceDiffTo(server, target) {
         const representative = server.currentPrice || null;
         const sources = [
           ["베이", server.itemBay?.min],
@@ -2725,7 +3425,7 @@
           ["바로템", server.barotem?.min],
         ];
 
-        sourceDiff.innerHTML = sources
+        target.innerHTML = sources
           .map(([label, value]) => {
             const hasValue = Number.isFinite(value);
             const diff = hasValue && representative ? value - representative : null;
@@ -3101,23 +3801,47 @@
       }
 
       function renderRows() {
-        const list = getRankedServers();
+        const fullList = getRankedServers();
+        const favs = getFavs();
+
+        // 검색 필터
+        let list = searchQuery
+          ? fullList.filter(s => s.name.includes(searchQuery))
+          : fullList.slice();
+
+        // 즐겨찾기만 보기
+        if (showFavOnly) {
+          list = list.filter(s => favs.has(s.name));
+        }
+
+        // 즐겨찾기 서버 상단 정렬 (즐겨찾기끼리 → 나머지, 각 그룹은 원래 순위 유지)
+        list = [
+          ...list.filter(s => favs.has(s.name)),
+          ...list.filter(s => !favs.has(s.name)),
+        ];
 
         if (!list.length) {
-          rows.innerHTML = `<div class="empty">수집된 서버가 없습니다.</div>`;
+          const msg = showFavOnly
+            ? "즐겨찾기한 서버가 없습니다."
+            : searchQuery
+            ? "검색 결과가 없습니다."
+            : "수집된 서버가 없습니다.";
+          rows.innerHTML = `<div class="empty">${msg}</div>`;
           return;
         }
 
         rows.innerHTML = list
-          .map((server, index) => {
+          .map((server) => {
+            const realRank = fullList.findIndex(s => s.name === server.name) + 1;
             const currentPrice = getServerPrice(server);
-            const price = currentPrice ? `${currentPrice.toLocaleString("ko-KR")}` : "수집전";
+            const price = currentPrice ? currentPrice.toLocaleString("ko-KR") : "수집전";
             const active = server.name === selectedServerName ? " active" : "";
             const heat = getHeat(server);
+            const favOn = favs.has(server.name) ? " on" : "";
 
             return `
-              <button class="row${active}" type="button" data-server-index="${index}" style="--heat:${heat}%">
-                <span class="rank">${index + 1}</span>
+              <button class="row${active}" type="button" data-server-name="${escapeAttr(server.name)}" style="--heat:${heat}%">
+                <span class="rank">${realRank}</span>
                 <span class="server">
                   <strong>${server.name}</strong>
                 </span>
@@ -3128,17 +3852,28 @@
                 <span class="compact-change">
                   <span class="row-change ${getChangeClass(server)}">${formatChangeCompact(server)}</span>
                 </span>
+                <button class="fav-btn${favOn}" type="button" data-fav-name="${escapeAttr(server.name)}" aria-label="즐겨찾기 토글">★</button>
               </button>
             `;
           })
           .join("");
 
         document.querySelectorAll(".row").forEach((row) => {
-          row.addEventListener("click", () => {
-            const selected = list[Number(row.dataset.serverIndex)];
-            if (!selected) return;
-            selectedServerName = selected.name;
-            renderChart(selected);
+          row.addEventListener("click", (e) => {
+            if (e.target.closest(".fav-btn")) return; // fav 버튼 클릭은 무시
+            const name = row.dataset.serverName;
+            const server = fullList.find(s => s.name === name);
+            if (!server) return;
+            selectedServerName = name;
+            renderChart(server);
+            renderRows();
+          });
+        });
+
+        document.querySelectorAll(".fav-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleFav(btn.dataset.favName);
             renderRows();
           });
         });
@@ -3286,6 +4021,260 @@
       function getServerPrice(server) {
         return Number(server?.currentPrice) || 0;
       }
+
+      /* ═══════════════════════════════════════════════════════════
+         게시판 (Board)
+         API: /api/posts  (Vercel Serverless + Neon PostgreSQL)
+      ═══════════════════════════════════════════════════════════ */
+      (function initBoard() {
+        // ── 설정 ──────────────────────────────────────────────────
+        const API = "/api/posts";       // Vercel 배포 후 동일 origin
+        const PAGE_SIZE = 20;
+
+        // ── 상태 ──────────────────────────────────────────────────
+        let boardPage   = 1;
+        let boardFilter = "all";   // "all" | "server"
+        let boardTotal  = 0;
+
+        // ── DOM refs ──────────────────────────────────────────────
+        const boardList       = document.getElementById("boardList");
+        const boardLoading    = document.getElementById("boardLoading");
+        const boardPagination = document.getElementById("boardPagination");
+        const boardServerBadge = document.getElementById("boardServerBadge");
+        const boardWriteForm  = document.getElementById("boardWriteForm");
+        const bwNickname      = document.getElementById("bwNickname");
+        const bwPassword      = document.getElementById("bwPassword");
+        const bwContent       = document.getElementById("bwContent");
+        const bwCharCount     = document.getElementById("bwCharCount");
+        const bwSubmit        = document.getElementById("bwSubmit");
+        const bfAll           = document.getElementById("bfAll");
+        const bfServer        = document.getElementById("bfServer");
+        const boardWriteWrap  = document.getElementById("boardWriteWrap");
+
+        // ── 글자 수 카운터 ─────────────────────────────────────────
+        bwContent.addEventListener("input", () => {
+          bwCharCount.textContent = `${bwContent.value.length} / 1000`;
+        });
+
+        // ── 필터 탭 ────────────────────────────────────────────────
+        bfAll.addEventListener("click", () => {
+          boardFilter = "all";
+          boardPage   = 1;
+          bfAll.classList.add("active");
+          bfServer.classList.remove("active");
+          loadPosts();
+        });
+
+        bfServer.addEventListener("click", () => {
+          boardFilter = "server";
+          boardPage   = 1;
+          bfServer.classList.add("active");
+          bfAll.classList.remove("active");
+          loadPosts();
+        });
+
+        // ── 글 작성 ────────────────────────────────────────────────
+        boardWriteForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const content  = bwContent.value.trim();
+          const password = bwPassword.value;
+          const nickname = bwNickname.value.trim() || "익명";
+          const server   = selectedServerName || "";
+
+          if (!content) return;
+          if (password.length < 4) {
+            alert("비밀번호는 4자 이상 입력하세요.");
+            bwPassword.focus();
+            return;
+          }
+
+          bwSubmit.disabled = true;
+          bwSubmit.textContent = "등록 중…";
+
+          try {
+            const res = await fetch(API, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ server, nickname, content, password }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "오류");
+
+            bwContent.value  = "";
+            bwPassword.value = "";
+            bwNickname.value = "";
+            bwCharCount.textContent = "0 / 1000";
+            boardWriteWrap.open = false;
+            boardPage  = 1;
+            boardFilter = "all";
+            bfAll.classList.add("active");
+            bfServer.classList.remove("active");
+            await loadPosts();
+          } catch (err) {
+            alert("글 등록 실패: " + err.message);
+          } finally {
+            bwSubmit.disabled = false;
+            bwSubmit.textContent = "등록";
+          }
+        });
+
+        // ── 삭제 ───────────────────────────────────────────────────
+        async function deletePost(id) {
+          const password = prompt("비밀번호를 입력하세요:");
+          if (!password) return;
+
+          try {
+            const res = await fetch(`${API}?id=${id}&password=${encodeURIComponent(password)}`, {
+              method: "DELETE",
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "오류");
+            await loadPosts();
+          } catch (err) {
+            alert("삭제 실패: " + err.message);
+          }
+        }
+
+        // ── 날짜 포맷 ─────────────────────────────────────────────
+        function formatBoardTime(iso) {
+          const d = new Date(iso);
+          const now = new Date();
+          const diff = (now - d) / 1000;
+          if (diff < 60)   return "방금 전";
+          if (diff < 3600) return `${Math.floor(diff / 60)}분 전`;
+          if (diff < 86400) return `${Math.floor(diff / 3600)}시간 전`;
+          const pad = n => String(n).padStart(2, "0");
+          return `${d.getMonth() + 1}.${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+        }
+
+        // ── 글 목록 렌더 ───────────────────────────────────────────
+        function renderPosts(posts) {
+          if (!posts.length) {
+            boardList.innerHTML = `<div class="board-empty">아직 게시글이 없습니다. 첫 글을 남겨보세요!</div>`;
+            return;
+          }
+
+          boardList.innerHTML = posts.map(p => {
+            const serverTag = p.server
+              ? `<span class="board-post-server-tag">${escapeHtml(p.server)}</span>`
+              : "";
+            return `
+              <article class="board-post" data-post-id="${p.id}">
+                <div class="board-post-header">
+                  <span class="board-post-nick">${escapeHtml(p.nickname || "익명")}</span>
+                  ${serverTag}
+                  <span class="board-post-time">${formatBoardTime(p.created_at)}</span>
+                </div>
+                <div class="board-post-content">${escapeHtml(p.content)}</div>
+                <div class="board-post-actions">
+                  <button class="board-delete-btn" data-id="${p.id}">삭제</button>
+                </div>
+              </article>
+            `;
+          }).join("");
+
+          // 삭제 버튼 이벤트
+          boardList.querySelectorAll(".board-delete-btn").forEach(btn => {
+            btn.addEventListener("click", () => deletePost(Number(btn.dataset.id)));
+          });
+        }
+
+        // ── 페이지네이션 렌더 ──────────────────────────────────────
+        function renderPagination(total, page) {
+          const totalPages = Math.ceil(total / PAGE_SIZE);
+          if (totalPages <= 1) { boardPagination.innerHTML = ""; return; }
+
+          const maxVisible = 5;
+          const half = Math.floor(maxVisible / 2);
+          let start = Math.max(1, page - half);
+          let end   = Math.min(totalPages, start + maxVisible - 1);
+          if (end - start < maxVisible - 1) start = Math.max(1, end - maxVisible + 1);
+
+          const btns = [];
+          if (page > 1) btns.push(`<button class="board-page-btn" data-p="${page - 1}">‹</button>`);
+          for (let i = start; i <= end; i++) {
+            btns.push(`<button class="board-page-btn${i === page ? " active" : ""}" data-p="${i}">${i}</button>`);
+          }
+          if (page < totalPages) btns.push(`<button class="board-page-btn" data-p="${page + 1}">›</button>`);
+
+          boardPagination.innerHTML = btns.join("");
+          boardPagination.querySelectorAll(".board-page-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+              boardPage = Number(btn.dataset.p);
+              loadPosts();
+            });
+          });
+        }
+
+        // ── API 호출 ───────────────────────────────────────────────
+        async function loadPosts() {
+          boardList.innerHTML = `<div class="board-loading">로딩 중…</div>`;
+          boardPagination.innerHTML = "";
+
+          // "현재 서버" 필터 배지 업데이트
+          const filterServer = boardFilter === "server" ? (selectedServerName || "") : "";
+          if (filterServer) {
+            boardServerBadge.textContent = filterServer;
+            boardServerBadge.style.display = "inline-block";
+          } else {
+            boardServerBadge.style.display = "none";
+          }
+
+          // 현재 서버 필터 버튼 표시 여부
+          if (selectedServerName) {
+            bfServer.style.display = "inline-block";
+            bfServer.textContent = `${selectedServerName} 서버`;
+          } else {
+            bfServer.style.display = "none";
+            if (boardFilter === "server") { boardFilter = "all"; }
+          }
+
+          const params = new URLSearchParams({
+            page:  boardPage,
+            limit: PAGE_SIZE,
+          });
+          if (filterServer) params.set("server", filterServer);
+
+          try {
+            const res  = await fetch(`${API}?${params}`);
+            if (!res.ok) {
+              const err = await res.json().catch(() => ({}));
+              throw new Error(err.error || `HTTP ${res.status}`);
+            }
+            const data = await res.json();
+            boardTotal = data.total;
+            renderPosts(data.posts);
+            renderPagination(data.total, boardPage);
+          } catch (err) {
+            boardList.innerHTML = `<div class="board-empty">게시글을 불러오지 못했습니다.<br><small>${escapeHtml(err.message)}</small></div>`;
+          }
+        }
+
+        // ── 서버 선택 변경 시 필터 버튼 갱신 ─────────────────────
+        // renderChart() 호출 후 선택된 서버가 바뀌므로 후크를 걸어둠
+        const _origRenderChart = window.renderChartHook;
+        function updateBoardServerFilter() {
+          if (selectedServerName) {
+            bfServer.style.display = "inline-block";
+            bfServer.textContent = `${selectedServerName} 서버`;
+          } else {
+            bfServer.style.display = "none";
+          }
+        }
+
+        // renderRows() 호출마다 서버 필터 버튼 갱신
+        // MutationObserver로 서버 목록 변경 감지
+        const listObs = new MutationObserver(() => updateBoardServerFilter());
+        const rowsEl  = document.getElementById("rows");
+        if (rowsEl) listObs.observe(rowsEl, { childList: true });
+
+        // ── 초기 로드 ──────────────────────────────────────────────
+        loadPosts();
+
+        // 외부에서 접근할 수 있도록 노출
+        window.boardReload = loadPosts;
+      })();
+
     </script>
   </body>
 </html>
