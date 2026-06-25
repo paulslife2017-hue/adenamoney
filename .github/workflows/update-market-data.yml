@@ -1,0 +1,52 @@
+name: 시세 데이터 자동 갱신
+
+on:
+  schedule:
+    # 매 30분마다 실행 (UTC 기준, KST = UTC+9)
+    - cron: '0,30 * * * *'
+  workflow_dispatch: # 수동 실행 버튼
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 의존성 설치
+        run: npm ci
+
+      - name: 시세 데이터 수집
+        run: node scrapers/update-market-data.mjs
+        timeout-minutes: 5
+
+      - name: 변경사항 확인 및 커밋
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if git diff --quiet data/market-data.js; then
+            echo "변경사항 없음 — 스킵"
+          else
+            FETCHED=$(node -e "
+              const fs = require('fs');
+              const content = fs.readFileSync('data/market-data.js', 'utf8');
+              const m = content.match(/fetchedAt.*?(\d{4}-\d{2}-\d{2}T\d{2}:\d{2})/);
+              console.log(m ? m[1] : 'unknown');
+            ")
+            git add data/market-data.js
+            git commit -m "chore: 시세 데이터 자동 갱신 ($FETCHED UTC)"
+            git push
+            echo "✅ 커밋 완료: $FETCHED"
+          fi
