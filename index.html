@@ -1703,7 +1703,7 @@
         .app {
           display: grid;
           grid-template-columns: 340px minmax(400px, 1fr) 300px;
-          grid-template-rows: auto minmax(0, 62vh) minmax(160px, 26vh);
+          grid-template-rows: auto minmax(0, 62vh) minmax(140px, 22vh);
           grid-template-areas:
             "topbar  topbar   topbar"
             "list    chart    channels"
@@ -1957,7 +1957,7 @@
 
           .app {
             grid-template-columns: 360px minmax(480px, 1fr) 340px;
-            grid-template-rows: auto minmax(0, 62vh) minmax(160px, 26vh);
+            grid-template-rows: auto minmax(0, 62vh) minmax(140px, 22vh);
             grid-template-areas:
               "topbar  topbar   topbar"
               "list    chart    channels"
@@ -2345,7 +2345,7 @@
 
           .app {
             grid-template-columns: 340px minmax(440px, 540px) 320px;
-            grid-template-rows: auto minmax(0, 62vh) minmax(160px, 26vh);
+            grid-template-rows: auto minmax(0, 62vh) minmax(140px, 22vh);
             grid-template-areas:
               "topbar  topbar   topbar"
               "list    chart    channels"
@@ -2665,13 +2665,13 @@
         display: flex;
         flex-direction: column;
         overflow: hidden;
-        padding: 10px 16px 10px;
-        background: linear-gradient(170deg, rgba(12,19,37,0.97) 0%, rgba(7,11,22,0.98) 100%);
-        border: 1px solid rgba(139,166,214,0.14);
-        border-top: 2px solid rgba(72,198,255,0.2);
-        border-radius: 12px;
+        padding: 7px 14px 8px;
+        background: linear-gradient(170deg, rgba(10,16,31,0.98) 0%, rgba(6,10,20,0.99) 100%);
+        border: 1px solid rgba(139,166,214,0.12);
+        border-top: 2px solid rgba(72,198,255,0.18);
+        border-radius: 10px;
         box-shadow:
-          0 4px 20px rgba(0,0,0,0.24),
+          0 2px 14px rgba(0,0,0,0.22),
           inset 0 1px 0 rgba(255,255,255,0.03);
         box-sizing: border-box;
       }
@@ -2682,47 +2682,49 @@
         min-height: 0;
         overflow-y: auto;
         scrollbar-width: thin;
-        scrollbar-color: rgba(139,166,214,0.25) transparent;
+        scrollbar-color: rgba(139,166,214,0.2) transparent;
       }
 
-      /* 게시판 헤더: PC에서 한 줄 수평 */
+      /* 게시판 헤더: PC에서 한 줄 수평 — 컴팩트 */
       .board-top-row {
         display: flex;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 8px;
-        padding-bottom: 9px;
+        gap: 8px;
+        margin-bottom: 5px;
+        padding-bottom: 6px;
         flex-wrap: nowrap;
+        border-bottom: 1px solid rgba(139,166,214,0.08);
       }
 
       .board-title {
-        font-size: 13px;
+        font-size: 12px;
         flex-shrink: 0;
+        opacity: 0.85;
       }
 
       .board-filter-bar { flex-shrink: 0; }
       .board-write-wrap { flex-shrink: 0; }
 
-      /* PC: 글 목록 가로 한 줄 레이아웃 */
+      /* PC: 글 목록 — 더 컴팩트한 한 줄 레이아웃 */
       .board-post {
-        padding: 7px 8px;
+        padding: 5px 6px;
         gap: 0;
         flex-direction: row;
         align-items: center;
-        border-radius: 7px;
-        border-bottom: 1px solid rgba(139,166,214,0.08);
+        border-radius: 6px;
+        border-bottom: 1px solid rgba(139,166,214,0.06);
       }
       .board-post:last-child { border-bottom: none; }
-      .board-post:hover { background: rgba(72,198,255,0.04); }
+      .board-post:hover { background: rgba(72,198,255,0.05); }
 
       .board-post-header {
         flex-shrink: 0;
         display: flex;
         align-items: center;
-        gap: 6px;
-        min-width: 190px;
-        max-width: 230px;
-        margin-right: 12px;
+        gap: 5px;
+        min-width: 160px;
+        max-width: 200px;
+        margin-right: 10px;
       }
 
       .board-post-content {
@@ -2730,16 +2732,28 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 13px;
+        font-size: 12.5px;
+        color: rgba(220,232,255,0.82);
       }
 
       .board-post-actions {
         flex-shrink: 0;
-        margin-left: 10px;
+        margin-left: 8px;
       }
 
       .board-post-time {
         white-space: nowrap;
+        font-size: 10px;
+        opacity: 0.55;
+      }
+
+      .board-post-nick {
+        font-size: 11.5px;
+      }
+
+      .board-post-server-tag {
+        font-size: 9.5px;
+        padding: 1px 6px;
       }
 
       /* PC: 삭제 확인 절대위치 */
@@ -2755,7 +2769,7 @@
       }
 
       .board-pagination {
-        margin-top: 8px;
+        margin-top: 5px;
         flex-shrink: 0;
       }
     }
@@ -2998,14 +3012,14 @@
       flex-direction: column;
       width: 100%;
       box-sizing: border-box;
-      padding: 14px 14px 16px;
-      background: linear-gradient(170deg, rgba(14,22,42,0.96) 0%, rgba(8,13,25,0.97) 100%);
-      border: 1px solid rgba(139,166,214,0.15);
-      border-top: 2px solid rgba(72,198,255,0.28);
-      border-radius: 16px;
+      padding: 11px 13px 13px;
+      background: linear-gradient(170deg, rgba(11,18,34,0.97) 0%, rgba(7,11,22,0.98) 100%);
+      border: 1px solid rgba(139,166,214,0.13);
+      border-top: 2px solid rgba(72,198,255,0.22);
+      border-radius: 14px;
       box-shadow:
-        0 4px 24px rgba(0,0,0,0.28),
-        inset 0 1px 0 rgba(255,255,255,0.04);
+        0 3px 18px rgba(0,0,0,0.26),
+        inset 0 1px 0 rgba(255,255,255,0.03);
       position: relative;
     }
 
@@ -3026,27 +3040,28 @@
       display: flex;
       flex-wrap: nowrap;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(139,166,214,0.1);
+      gap: 7px;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(139,166,214,0.09);
     }
 
     .board-title {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 13px;
+      gap: 5px;
+      font-size: 12px;
       font-weight: 700;
-      color: var(--text);
+      color: rgba(220,232,255,0.8);
       margin: 0;
       padding: 0;
       border: none;
       flex-shrink: 0;
       white-space: nowrap;
+      letter-spacing: -0.1px;
     }
 
-    .board-title-icon { font-size: 14px; }
+    .board-title-icon { font-size: 13px; }
 
     .board-server-badge {
       display: inline-flex;
@@ -3068,25 +3083,26 @@
     }
 
     .board-filter-btn {
-      background: rgba(14,21,38,0.6);
-      border: 1px solid rgba(139,166,214,0.2);
-      border-radius: 20px;
+      background: rgba(14,21,38,0.5);
+      border: 1px solid rgba(139,166,214,0.15);
+      border-radius: 6px;
       color: var(--muted);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
-      padding: 3px 10px;
+      padding: 2px 9px;
       cursor: pointer;
-      transition: all 160ms;
+      transition: all 140ms;
       white-space: nowrap;
+      letter-spacing: 0.1px;
     }
     .board-filter-btn.active {
-      background: linear-gradient(135deg, rgba(72,198,255,0.2), rgba(79,214,200,0.15));
-      border-color: rgba(72,198,255,0.5);
+      background: rgba(72,198,255,0.12);
+      border-color: rgba(72,198,255,0.4);
       color: var(--blue);
     }
     .board-filter-btn:hover:not(.active) {
-      background: rgba(72,198,255,0.08);
-      border-color: rgba(72,198,255,0.3);
+      background: rgba(72,198,255,0.07);
+      border-color: rgba(72,198,255,0.25);
       color: var(--text);
     }
 
@@ -3100,27 +3116,27 @@
     .board-write-toggle {
       display: flex;
       align-items: center;
-      gap: 5px;
-      padding: 5px 12px;
-      font-size: 11px;
+      gap: 4px;
+      padding: 3px 11px;
+      font-size: 10.5px;
       font-weight: 700;
       color: var(--blue);
       cursor: pointer;
       list-style: none;
-      border: 1px solid rgba(72,198,255,0.3);
-      border-radius: 20px;
-      background: rgba(72,198,255,0.07);
-      transition: all 160ms;
+      border: 1px solid rgba(72,198,255,0.28);
+      border-radius: 6px;
+      background: rgba(72,198,255,0.06);
+      transition: all 140ms;
       white-space: nowrap;
     }
     .board-write-toggle:hover {
-      background: rgba(72,198,255,0.14);
-      border-color: rgba(72,198,255,0.5);
-      box-shadow: 0 0 12px rgba(72,198,255,0.15);
+      background: rgba(72,198,255,0.12);
+      border-color: rgba(72,198,255,0.45);
+      box-shadow: 0 0 8px rgba(72,198,255,0.12);
     }
     .board-write-toggle::-webkit-details-marker { display: none; }
     .board-write-wrap[open] .board-write-toggle {
-      background: linear-gradient(135deg, rgba(72,198,255,0.18), rgba(79,214,200,0.12));
+      background: rgba(72,198,255,0.14);
       border-color: var(--blue);
       color: var(--blue);
     }
@@ -3129,98 +3145,100 @@
     .board-write-form {
       position: absolute;
       right: 0;
-      top: calc(100% + 8px);
+      top: calc(100% + 6px);
       z-index: 200;
-      width: min(400px, 90vw);
-      padding: 16px;
+      width: min(380px, 90vw);
+      padding: 13px 14px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      background: linear-gradient(170deg, rgba(12,18,34,0.99), rgba(8,13,25,0.99));
-      border: 1px solid rgba(72,198,255,0.22);
-      border-radius: 14px;
+      gap: 8px;
+      background: linear-gradient(170deg, rgba(10,16,30,0.99), rgba(6,10,20,0.99));
+      border: 1px solid rgba(72,198,255,0.2);
+      border-radius: 12px;
       box-shadow:
-        0 16px 48px rgba(0,0,0,0.6),
+        0 12px 40px rgba(0,0,0,0.65),
         0 0 0 1px rgba(255,255,255,0.03);
       backdrop-filter: blur(20px);
     }
 
     .board-write-label {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-bottom: -4px;
+      letter-spacing: 0.5px;
+      margin-bottom: -3px;
+      opacity: 0.7;
     }
 
     .board-write-row {
       display: flex;
-      gap: 8px;
+      gap: 7px;
     }
 
     .board-input {
       flex: 1;
-      background: rgba(6,9,19,0.7);
-      border: 1px solid rgba(139,166,214,0.18);
-      border-radius: 8px;
+      background: rgba(5,8,17,0.75);
+      border: 1px solid rgba(139,166,214,0.15);
+      border-radius: 7px;
       color: var(--text);
       font-size: 12px;
-      padding: 8px 11px;
+      padding: 7px 10px;
       outline: none;
-      transition: border-color 160ms, box-shadow 160ms;
+      transition: border-color 150ms, box-shadow 150ms;
       min-width: 0;
     }
     .board-input:focus {
-      border-color: rgba(72,198,255,0.5);
-      box-shadow: 0 0 0 3px rgba(72,198,255,0.08);
+      border-color: rgba(72,198,255,0.45);
+      box-shadow: 0 0 0 2px rgba(72,198,255,0.07);
     }
-    .board-input::placeholder { color: rgba(147,164,189,0.5); }
+    .board-input::placeholder { color: rgba(147,164,189,0.45); }
 
     .board-textarea {
-      background: rgba(6,9,19,0.7);
-      border: 1px solid rgba(139,166,214,0.18);
-      border-radius: 8px;
+      background: rgba(5,8,17,0.75);
+      border: 1px solid rgba(139,166,214,0.15);
+      border-radius: 7px;
       color: var(--text);
-      font-size: 13px;
-      padding: 9px 11px;
+      font-size: 12.5px;
+      padding: 8px 10px;
       resize: vertical;
-      min-height: 70px;
+      min-height: 62px;
       outline: none;
       font-family: inherit;
-      line-height: 1.55;
-      transition: border-color 160ms, box-shadow 160ms;
+      line-height: 1.5;
+      transition: border-color 150ms, box-shadow 150ms;
     }
     .board-textarea:focus {
-      border-color: rgba(72,198,255,0.5);
-      box-shadow: 0 0 0 3px rgba(72,198,255,0.08);
+      border-color: rgba(72,198,255,0.45);
+      box-shadow: 0 0 0 2px rgba(72,198,255,0.07);
     }
-    .board-textarea::placeholder { color: rgba(147,164,189,0.5); }
+    .board-textarea::placeholder { color: rgba(147,164,189,0.45); }
 
     .board-write-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 2px;
+      padding-top: 1px;
     }
 
     .board-char-count {
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--muted);
       font-variant-numeric: tabular-nums;
+      opacity: 0.7;
     }
 
     .board-submit-btn {
       background: linear-gradient(135deg, #48c6ff 0%, #4fd6c8 100%);
       color: #05080f;
       border: none;
-      border-radius: 8px;
-      padding: 7px 20px;
-      font-size: 12px;
+      border-radius: 7px;
+      padding: 6px 18px;
+      font-size: 11.5px;
       font-weight: 800;
       cursor: pointer;
-      transition: opacity 150ms, transform 100ms;
-      letter-spacing: 0.3px;
+      transition: opacity 140ms, transform 100ms;
+      letter-spacing: 0.2px;
     }
     .board-submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
     .board-submit-btn:active { transform: translateY(0); }
@@ -3236,29 +3254,29 @@
     .board-loading,
     .board-empty {
       text-align: center;
-      padding: 28px 16px;
+      padding: 18px 16px;
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.7;
+      font-size: 12px;
+      line-height: 1.6;
     }
 
     .board-empty::before {
       content: "📭";
       display: block;
-      font-size: 24px;
-      margin-bottom: 8px;
-      opacity: 0.7;
+      font-size: 20px;
+      margin-bottom: 6px;
+      opacity: 0.6;
     }
 
     .board-post {
-      border-bottom: 1px solid rgba(139,166,214,0.08);
-      padding: 10px 6px;
+      border-bottom: 1px solid rgba(139,166,214,0.07);
+      padding: 8px 5px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      transition: background 160ms;
+      gap: 5px;
+      transition: background 140ms;
       position: relative;
-      border-radius: 8px;
+      border-radius: 7px;
     }
     .board-post:last-child { border-bottom: none; }
     .board-post:hover { background: rgba(72,198,255,0.04); }
@@ -3266,37 +3284,41 @@
     .board-post-header {
       display: flex;
       align-items: center;
-      gap: 7px;
-      flex-wrap: wrap;
+      gap: 6px;
+      flex-wrap: nowrap;
+      overflow: hidden;
     }
 
     .board-post-nick {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       color: var(--text);
+      flex-shrink: 0;
     }
 
     .board-post-server-tag {
-      font-size: 10px;
-      background: linear-gradient(135deg, rgba(72,198,255,0.15), rgba(79,214,200,0.1));
+      font-size: 9.5px;
+      background: rgba(72,198,255,0.1);
       color: var(--blue);
-      padding: 1px 8px;
-      border-radius: 10px;
+      padding: 1px 6px;
+      border-radius: 5px;
       font-weight: 700;
-      border: 1px solid rgba(72,198,255,0.2);
+      border: 1px solid rgba(72,198,255,0.18);
+      flex-shrink: 0;
     }
 
     .board-post-time {
       font-size: 10px;
       color: var(--muted);
       margin-left: auto;
-      opacity: 0.7;
+      opacity: 0.55;
+      flex-shrink: 0;
     }
 
     .board-post-content {
-      font-size: 13px;
-      color: rgba(246,249,255,0.88);
-      line-height: 1.55;
+      font-size: 12.5px;
+      color: rgba(220,232,255,0.82);
+      line-height: 1.5;
       word-break: break-word;
       white-space: pre-wrap;
     }
@@ -3373,22 +3395,22 @@
     .board-pagination {
       display: flex;
       justify-content: center;
-      gap: 4px;
-      margin-top: 12px;
+      gap: 3px;
+      margin-top: 8px;
       flex-wrap: wrap;
       flex-shrink: 0;
     }
 
     .board-page-btn {
-      background: rgba(14,21,38,0.6);
-      border: 1px solid rgba(139,166,214,0.16);
-      border-radius: 7px;
+      background: rgba(14,21,38,0.55);
+      border: 1px solid rgba(139,166,214,0.13);
+      border-radius: 5px;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
-      padding: 4px 12px;
+      padding: 3px 10px;
       cursor: pointer;
-      transition: all 150ms;
+      transition: all 140ms;
     }
     .board-page-btn.active {
       background: linear-gradient(135deg, rgba(72,198,255,0.22), rgba(79,214,200,0.16));
@@ -3431,10 +3453,10 @@
       .board-section {
         order: 5;
         margin: 8px 10px 0;
-        border-radius: 16px;
-        padding: 14px 13px 16px;
+        border-radius: 14px;
+        padding: 10px 12px 12px;
         /* 모바일에서 글 목록 너무 길어지지 않게 */
-        max-height: 460px;
+        max-height: 380px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -3442,7 +3464,7 @@
 
       .board-list {
         overflow-y: auto;
-        max-height: 320px;
+        max-height: 260px;
         scrollbar-width: thin;
         scrollbar-color: rgba(139,166,214,0.2) transparent;
       }
@@ -3719,12 +3741,12 @@
         <div class="board-top-row">
           <h2 class="board-title">
             <span class="board-title-icon">💬</span>
-            커뮤니티 게시판
+            게시판
             <span class="board-server-badge" id="boardServerBadge" style="display:none"></span>
           </h2>
           <div class="board-filter-bar">
             <button class="board-filter-btn active" id="bfAll" data-filter="all">전체</button>
-            <button class="board-filter-btn" id="bfServer" data-filter="server" style="display:none">현재 서버</button>
+            <button class="board-filter-btn" id="bfServer" data-filter="server" style="display:none">이 서버</button>
           </div>
           <details class="board-write-wrap" id="boardWriteWrap" style="margin-left:auto">
             <summary class="board-write-toggle">✏️ 글쓰기</summary>
