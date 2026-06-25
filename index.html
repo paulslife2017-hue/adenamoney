@@ -2298,35 +2298,57 @@
 
     @media (min-width: 1180px) {
       body {
-        padding: 32px 28px;
+        padding: 24px;
       }
 
       .app {
-        grid-template-columns: 350px minmax(500px, 560px) 340px;
-        gap: 16px;
+        width: min(1280px, calc(100vw - 48px));
+        grid-template-columns: 340px minmax(500px, 540px) 330px;
+        grid-template-rows: auto 108px auto minmax(0, 1fr) auto;
+        grid-template-areas:
+          "topbar topbar topbar"
+          "intro chart channels"
+          "ticker chart channels"
+          "list chart channels"
+          "list footer channels";
+        gap: 14px;
         align-content: stretch;
-        max-width: 1300px;
-        height: min(820px, calc(100dvh - 64px));
-        min-height: 720px;
-        padding: 0 18px 18px;
+        max-width: 1280px;
+        height: min(820px, calc(100dvh - 48px));
+        min-height: 700px;
+        padding: 0 16px 16px;
       }
 
       .topbar {
-        margin: 0 -18px;
-        padding: 14px 22px 12px;
+        margin: 0 -16px;
+        padding: 13px 20px 11px;
       }
 
       .seo-intro {
-        padding-top: 2px;
+        display: flex;
+        min-height: 108px;
+        flex-direction: column;
+        justify-content: center;
+        padding: 14px 16px;
+        border: 1px solid rgba(139, 166, 214, 0.14);
+        border-radius: 16px;
+        background:
+          radial-gradient(circle at 100% 0, rgba(72, 198, 255, 0.1), transparent 34%),
+          rgba(10, 16, 31, 0.72);
+        box-shadow: 0 14px 38px rgba(0, 0, 0, 0.22);
       }
 
       .seo-intro h1 {
-        font-size: 22px;
+        max-width: none;
+        font-size: 21px;
+        line-height: 1.2;
       }
 
       .seo-intro p {
-        max-width: 330px;
+        max-width: none;
         margin-top: 7px;
+        font-size: 12px;
+        line-height: 1.45;
       }
 
       .chart-panel,
@@ -2336,7 +2358,74 @@
       }
 
       .chart-panel {
-        padding: 15px;
+        padding: 18px;
+        overflow: hidden auto;
+      }
+
+      .chart-head {
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .chart-head strong {
+        font-size: 20px;
+      }
+
+      .chart-head span {
+        padding: 4px 8px;
+        border: 1px solid rgba(79, 214, 200, 0.28);
+        border-radius: 999px;
+        background: rgba(79, 214, 200, 0.08);
+        color: #d7f7ff;
+        font-size: 10px;
+        font-weight: 900;
+      }
+
+      .main-price {
+        grid-template-columns: minmax(0, 1fr) 150px;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 14px 16px;
+        border: 1px solid rgba(154, 178, 218, 0.14);
+        border-radius: 16px;
+        background: rgba(5, 8, 15, 0.28);
+      }
+
+      .main-price strong {
+        font-size: 52px;
+      }
+
+      .change-pill {
+        margin-top: 0;
+      }
+
+      .chart-panel .ad-slot {
+        min-height: 48px;
+        margin: 0 0 10px;
+        padding: 8px 10px;
+        border-radius: 12px;
+        background:
+          linear-gradient(90deg, rgba(255, 209, 102, 0.14), rgba(255, 255, 255, 0.025)),
+          rgba(10, 16, 31, 0.76);
+      }
+
+      .chart-panel .ad-copy strong {
+        font-size: 12px;
+      }
+
+      .chart-panel .ad-cta {
+        min-height: 30px;
+        padding: 0 11px;
+        font-size: 11px;
+      }
+
+      .spark {
+        min-height: 92px;
+        margin-bottom: 10px;
+      }
+
+      .spark svg {
+        height: 66px;
       }
 
       .channels {
