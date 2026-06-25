@@ -5198,7 +5198,6 @@
           const content  = bwContent.value.trim();
           const password = bwPassword.value;
           const nickname = bwNickname.value.trim() || "익명";
-          const server   = selectedServerName || "";
 
           if (!content) return;
           if (content.length > 1000) {
@@ -5211,7 +5210,7 @@
             return;
           }
 
-          addPost({ server, nickname, content, password });
+          addPost({ nickname, content, password });
 
           // 폼 초기화
           boardWriteForm.reset();
@@ -5282,16 +5281,12 @@
 
           const offset = (boardPage - 1) * PAGE_SIZE;
           boardList.innerHTML = posts.map((p, i) => {
-            const serverTag = p.server
-              ? `<span class="board-post-server-tag">${escapeHtml(p.server)}</span>`
-              : "";
             const num = boardTotal - offset - i;
             return `
               <article class="board-post" data-post-id="${p.id}">
                 <span class="board-post-num">${num}</span>
                 <div class="board-post-header">
                   <span class="board-post-nick">${escapeHtml(p.nickname || "익명")}</span>
-                  ${serverTag}
                 </div>
                 <div class="board-post-content">${escapeHtml(p.content)}</div>
                 <span class="board-post-time">${formatBoardTime(p.created_at)}</span>
