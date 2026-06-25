@@ -2438,19 +2438,31 @@
     @media (min-width: 900px) {
       body {
         display: flex;
+        flex-direction: column;
         min-height: 100vh;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        padding-top: 24px;
+        padding-bottom: 40px;
       }
 
       .app {
         margin: 0;
+        flex-shrink: 0;
+      }
+
+      .board-section {
+        flex-shrink: 0;
+        width: calc(100vw - 48px);
+        max-width: 1180px;
+        margin: 16px 0 0;
       }
     }
 
     @media (min-width: 1180px) {
       body {
-        padding: 24px;
+        padding: 24px 24px 48px;
+        justify-content: flex-start;
       }
 
       .app {
@@ -2601,20 +2613,28 @@
         font-size: 12px;
         line-height: 1.45;
       }
+
+      /* 게시판: .app 너비와 맞춤 */
+      .board-section {
+        width: min(1280px, calc(100vw - 48px));
+        max-width: 1280px;
+        margin: 16px 0 0;
+      }
     }
 
     /* ═══════════════════════════════════════════
-       게시판 스타일
+       게시판 스타일 — main 그리드 바깥 독립 블록
     ═══════════════════════════════════════════ */
     .board-section {
-      grid-column: 1 / -1;
-      margin: 20px 0 0;
-      padding: 0 12px 32px;
-      max-width: 860px;
-      margin-left: auto;
-      margin-right: auto;
+      display: block;
       width: 100%;
+      max-width: 860px;
+      margin: 20px auto 40px;
+      padding: 20px 20px 32px;
       box-sizing: border-box;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
     }
 
     .board-title {
@@ -2774,6 +2794,10 @@
       padding: 32px;
       color: var(--fg-dim);
       font-size: 13px;
+      line-height: 1.7;
+    }
+    .board-empty-setup {
+      padding: 40px 20px;
     }
 
     .board-post {
@@ -2869,7 +2893,10 @@
 
     @media (max-width: 600px) {
       .board-section {
-        padding: 0 8px 24px;
+        padding: 14px 12px 24px;
+        border-radius: 10px;
+        margin: 12px 8px 24px;
+        width: auto;
       }
       .board-write-row {
         flex-direction: column;
@@ -3004,48 +3031,48 @@
           <div class="player" id="videoPlayer"></div>
         </div>
       </div>
-      <!-- ══════════════════════════════════════════════════════════ -->
-      <!-- 게시판 섹션                                               -->
-      <!-- ══════════════════════════════════════════════════════════ -->
-      <section class="board-section" id="boardSection" aria-label="커뮤니티 게시판">
-        <h2 class="board-title">
-          <span class="board-title-icon">💬</span>
-          커뮤니티 게시판
-          <span class="board-server-badge" id="boardServerBadge" style="display:none"></span>
-        </h2>
-
-        <!-- 글쓰기 폼 -->
-        <details class="board-write-wrap" id="boardWriteWrap">
-          <summary class="board-write-toggle">✏️ 글쓰기</summary>
-          <form class="board-write-form" id="boardWriteForm" autocomplete="off">
-            <div class="board-write-row">
-              <input type="text" class="board-input" id="bwNickname" placeholder="닉네임 (선택)" maxlength="20">
-              <input type="password" class="board-input" id="bwPassword" placeholder="비밀번호 (삭제 시 필요, 4자 이상)" maxlength="30" autocomplete="new-password" required>
-            </div>
-            <textarea class="board-textarea" id="bwContent" placeholder="내용을 입력하세요 (최대 1000자)&#10;거래 정보, 시세 정보, 질문 등 자유롭게 작성하세요." maxlength="1000" rows="3" required></textarea>
-            <div class="board-write-footer">
-              <span class="board-char-count" id="bwCharCount">0 / 1000</span>
-              <button type="submit" class="board-submit-btn" id="bwSubmit">등록</button>
-            </div>
-          </form>
-        </details>
-
-        <!-- 필터 탭 -->
-        <div class="board-filter-bar">
-          <button class="board-filter-btn active" id="bfAll" data-filter="all">전체</button>
-          <button class="board-filter-btn" id="bfServer" data-filter="server" style="display:none" id="bfServerBtn">현재 서버</button>
-        </div>
-
-        <!-- 글 목록 -->
-        <div class="board-list" id="boardList">
-          <div class="board-loading" id="boardLoading">로딩 중…</div>
-        </div>
-
-        <!-- 페이지네이션 -->
-        <div class="board-pagination" id="boardPagination"></div>
-      </section>
-
     </main>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- 게시판 섹션 (main 그리드 바깥 독립 블록)                   -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <section class="board-section" id="boardSection" aria-label="커뮤니티 게시판">
+      <h2 class="board-title">
+        <span class="board-title-icon">💬</span>
+        커뮤니티 게시판
+        <span class="board-server-badge" id="boardServerBadge" style="display:none"></span>
+      </h2>
+
+      <!-- 글쓰기 폼 -->
+      <details class="board-write-wrap" id="boardWriteWrap">
+        <summary class="board-write-toggle">✏️ 글쓰기</summary>
+        <form class="board-write-form" id="boardWriteForm" autocomplete="off">
+          <div class="board-write-row">
+            <input type="text" class="board-input" id="bwNickname" placeholder="닉네임 (선택)" maxlength="20" autocomplete="nickname">
+            <input type="password" class="board-input" id="bwPassword" placeholder="비밀번호 (삭제 시 필요, 4자 이상)" maxlength="30" autocomplete="new-password" required>
+          </div>
+          <textarea class="board-textarea" id="bwContent" placeholder="내용을 입력하세요 (최대 1000자)&#10;거래 정보, 시세 정보, 질문 등 자유롭게 작성하세요." maxlength="1000" rows="4" required></textarea>
+          <div class="board-write-footer">
+            <span class="board-char-count" id="bwCharCount">0 / 1000</span>
+            <button type="submit" class="board-submit-btn" id="bwSubmit">등록</button>
+          </div>
+        </form>
+      </details>
+
+      <!-- 필터 탭 -->
+      <div class="board-filter-bar">
+        <button class="board-filter-btn active" id="bfAll" data-filter="all">전체</button>
+        <button class="board-filter-btn" id="bfServer" data-filter="server" style="display:none">현재 서버</button>
+      </div>
+
+      <!-- 글 목록 -->
+      <div class="board-list" id="boardList">
+        <div class="board-loading" id="boardLoading">로딩 중…</div>
+      </div>
+
+      <!-- 페이지네이션 -->
+      <div class="board-pagination" id="boardPagination"></div>
+    </section>
 
     <script src="data/market-data.js"></script>
     <script src="data/youtube-data.js"></script>
@@ -4097,6 +4124,7 @@
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ server, nickname, content, password }),
             });
+            if (res.status === 404) throw new Error("서비스 준비 중입니다. Vercel 배포 후 이용하세요.");
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || "오류");
 
@@ -4237,6 +4265,15 @@
 
           try {
             const res  = await fetch(`${API}?${params}`);
+            if (res.status === 404) {
+              // Vercel 배포 전 로컬 정적 서버 환경
+              boardList.innerHTML = `<div class="board-empty board-empty-setup">
+                <div style="font-size:28px;margin-bottom:8px">💬</div>
+                <strong>게시판 서비스 준비 중</strong><br>
+                <small style="opacity:.6">Vercel 배포 후 이용할 수 있습니다.</small>
+              </div>`;
+              return;
+            }
             if (!res.ok) {
               const err = await res.json().catch(() => ({}));
               throw new Error(err.error || `HTTP ${res.status}`);
@@ -4246,7 +4283,15 @@
             renderPosts(data.posts);
             renderPagination(data.total, boardPage);
           } catch (err) {
-            boardList.innerHTML = `<div class="board-empty">게시글을 불러오지 못했습니다.<br><small>${escapeHtml(err.message)}</small></div>`;
+            if (err.message.includes("Failed to fetch") || err.message.includes("NetworkError")) {
+              boardList.innerHTML = `<div class="board-empty board-empty-setup">
+                <div style="font-size:28px;margin-bottom:8px">💬</div>
+                <strong>게시판 서비스 준비 중</strong><br>
+                <small style="opacity:.6">Vercel 배포 후 이용할 수 있습니다.</small>
+              </div>`;
+            } else {
+              boardList.innerHTML = `<div class="board-empty">게시글을 불러오지 못했습니다.<br><small>${escapeHtml(err.message)}</small></div>`;
+            }
           }
         }
 
