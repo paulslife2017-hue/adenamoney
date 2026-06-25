@@ -4706,8 +4706,31 @@
 
       renderTicker();
       renderYoutubeVideos();
-      renderChart(getRankedServers()[0]);
+
+      // ── 서버 자동 선택: URL ?server=오렌 or postMessage ──
+      (function autoSelectServer() {
+        const params = new URLSearchParams(location.search);
+        const reqName = params.get("server");
+        if (reqName) {
+          const found = servers.find(s => s.name === reqName);
+          if (found) selectedServerName = found.name;
+        }
+      })();
+
+      renderChart(servers.find(s => s.name === selectedServerName) || getRankedServers()[0]);
       renderRows();
+
+      // iframe postMessage 수신 (서버별 페이지 → index.html)
+      window.addEventListener("message", (e) => {
+        if (e.data && e.data.type === "selectServer") {
+          const found = servers.find(s => s.name === e.data.name);
+          if (found) {
+            selectedServerName = found.name;
+            renderChart(found);
+            renderRows();
+          }
+        }
+      });
 
       videoClose.addEventListener("click", closeVideo);
       videoModal.addEventListener("click", (event) => {
