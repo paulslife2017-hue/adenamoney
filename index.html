@@ -1285,6 +1285,7 @@
         padding-right: 2px;
         overscroll-behavior: contain;
         scrollbar-width: thin;
+        position: relative; /* FLIP offsetTop 기준점 */
       }
 
       #rows::-webkit-scrollbar {
@@ -1329,10 +1330,15 @@
         transition:
           border-color 180ms ease,
           background 180ms ease,
-          transform 420ms cubic-bezier(0.25, 1, 0.5, 1);
+          transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
         position: relative;
         overflow: hidden;
         will-change: transform;
+        z-index: 0;
+      }
+      /* FLIP 애니메이션 중 다른 row 위에 오도록 */
+      .row.flipping {
+        z-index: 1;
       }
 
       .row::before {
@@ -1444,19 +1450,7 @@
       }
 
       .row-live {
-        color: rgba(79, 214, 200, 0.78) !important;
-        font-size: 9px !important;
-        font-weight: 900;
-        letter-spacing: 0.02em;
-      }
-
-      .row-live i {
-        width: 5px;
-        height: 5px;
-        border-radius: 999px;
-        background: var(--green);
-        box-shadow: 0 0 10px rgba(79, 214, 200, 0.8);
-        animation: livePulse 1.6s ease-in-out infinite;
+        display: none !important;
       }
 
       .row-change {
@@ -5480,10 +5474,10 @@
           return;
         }
 
-        // ── FLIP Step 1: 기존 row들의 위치(top) 기록 ──
+        // ── FLIP Step 1: 기존 row들의 offsetTop 기록 (부모 기준, 스크롤 무관) ──
         const beforePos = new Map();
         rows.querySelectorAll(".row[data-server-name]").forEach(el => {
-          beforePos.set(el.dataset.serverName, el.getBoundingClientRect().top);
+          beforePos.set(el.dataset.serverName, el.offsetTop);
         });
 
         // ── 이미 렌더된 row 요소 맵 ──
@@ -5586,25 +5580,34 @@
           if (!nameSet.has(name)) { el.remove(); _rowState.delete(name); }
         });
 
-        // ── FLIP Step 3: 재배치 후 위치 변화분을 역방향 translate로 상쇄 → RAF에서 해제 ──
+        // ── FLIP Step 3: 재배치 후 위치 변화 → 역방향 translate 즉시 세팅 ──
+        const flipEls = [];
         rows.querySelectorAll(".row[data-server-name]").forEach(el => {
           const name = el.dataset.serverName;
           const before = beforePos.get(name);
-          if (before == null) return; // 신규 row는 건너뜀
-          const after = el.getBoundingClientRect().top;
+          if (before == null) return; // 신규 row 제외
+          const after = el.offsetTop; // 부모 기준 상대 위치 (스크롤 무관)
           const delta = before - after;
-          if (Math.abs(delta) < 1) return; // 변화 없으면 skip
-          // 즉시 역방향 위치로 세팅 (transition 없이)
+          if (Math.abs(delta) < 2) return; // 변화 없으면 skip
           el.style.transition = "none";
           el.style.transform = `translateY(${delta}px)`;
-          // RAF: transition 복구 후 원위치로 animate
+          el.classList.add("flipping");
+          flipEls.push(el);
+        });
+        // RAF 두 번: 첫 번째에서 스타일 flush, 두 번째에서 transition 활성화
+        if (flipEls.length) {
           requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-              el.style.transition = "";
-              el.style.transform = "";
+              flipEls.forEach(el => {
+                el.style.transition = "";
+                el.style.transform = "";
+              });
+              setTimeout(() => {
+                flipEls.forEach(el => el.classList.remove("flipping"));
+              }, 500);
             });
           });
-        });
+        }
       }
 
       function _changeHtml(server) {
@@ -5798,6 +5801,19 @@
       renderYoutubeVideos();
       updateMarketClock();
       updateRefreshCountdown();
+
+      // ── 개발용: 브라우저 콘솔에서 testFlip() 호출로 FLIP 애니메이션 즉시 확인 ──
+      window.testFlip = function() {
+        if (!servers.length) return console.warn("서버 데이터 없음");
+        // 각 서버 가격을 랜덤하게 ±5~15% 변동
+        servers.forEach(s => {
+          const cur = Number(s.currentPrice) || 1000;
+          const delta = (Math.random() * 0.20 - 0.05); // -5% ~ +15%
+          s.currentPrice = Math.round(cur * (1 + delta));
+        });
+        renderRows();
+        console.log("✅ testFlip: 가격 랜덤 변동 + 순서 재정렬 완료");
+      };
 
       // ── 서버 자동 선택: URL ?server=오렌 or postMessage ──
       (function autoSelectServer() {
