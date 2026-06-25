@@ -1836,11 +1836,10 @@
         .app {
           display: grid;
           grid-template-columns: 300px minmax(520px, 1fr);
-          grid-template-rows: auto minmax(0, 1fr) 160px;
+          grid-template-rows: auto minmax(0, 1fr);
           grid-template-areas:
             "topbar  topbar"
-            "list    chart"
-            "list    board";
+            "list    chart";
           gap: 8px;
           max-width: 1280px;
           width: 100%;
@@ -1994,9 +1993,13 @@
           border-radius: 8px;
         }
 
-        .channels {
-          display: none !important;
-        }
+      .channels {
+        display: none !important;
+      }
+
+      .board-section {
+        display: none !important;
+      }
 
         /* right-col 제거 — 더 이상 사용 안 함 */
         .right-col { display: contents; }
@@ -2118,11 +2121,10 @@
 
           .app {
             grid-template-columns: 340px minmax(640px, 1fr);
-            grid-template-rows: auto minmax(0, 1fr) 160px;
+            grid-template-rows: auto minmax(0, 1fr);
             grid-template-areas:
               "topbar  topbar"
-              "list    chart"
-              "list    board";
+              "list    chart";
             gap: 10px;
             max-width: 1180px;
             height: calc(100dvh - 28px);
@@ -2496,11 +2498,10 @@
 
           .app {
             grid-template-columns: 340px minmax(640px, 1fr);
-            grid-template-rows: auto minmax(0, 1fr) 160px;
+            grid-template-rows: auto minmax(0, 1fr);
             grid-template-areas:
               "topbar  topbar"
-              "list    chart"
-              "list    board";
+              "list    chart";
             gap: 10px;
             justify-content: center;
             max-width: 1180px;
@@ -3939,7 +3940,7 @@
       }
 
       .app {
-        grid-template-rows: 40px 430px minmax(220px, 1fr);
+        grid-template-rows: 40px minmax(0, 1fr);
         align-content: stretch;
       }
 
@@ -3952,7 +3953,7 @@
       .chart-panel {
         min-height: 0;
         align-self: stretch;
-        height: 430px;
+        height: auto;
       }
 
       .board-section {
@@ -3966,14 +3967,14 @@
       }
 
       .list {
-        align-self: start;
+        align-self: stretch;
         height: auto;
-        max-height: 430px;
+        max-height: none;
       }
 
       #rows {
-        max-height: 340px;
-        flex: 0 1 auto;
+        max-height: none;
+        flex: 1;
         overflow-y: auto;
       }
 
@@ -4004,6 +4005,16 @@
       .chart-panel .mini-ad-row {
         display: none;
       }
+
+      .board-section,
+      .channels {
+        display: none !important;
+      }
+    }
+
+    .board-section,
+    .channels {
+      display: none !important;
     }
   </style>
   </head>
