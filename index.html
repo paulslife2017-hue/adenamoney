@@ -4000,9 +4000,9 @@
               <div class="baseline" id="baselineText">기준가 대기</div>
               <!-- 기준 옆 소형 배너 3개 -->
               <div class="mini-ad-row">
-                <button class="mini-ad-btn" type="button" data-url="https://www.itembay.com">아이템베이</button>
-                <button class="mini-ad-btn" type="button" data-url="https://www.itemmania.com">아이템매니아</button>
-                <button class="mini-ad-btn" type="button" data-url="https://www.barotem.com">바로템</button>
+                <button class="mini-ad-btn" type="button" data-market="itemBay" data-url="https://www.itembay.com">아이템베이</button>
+                <button class="mini-ad-btn" type="button" data-market="itemMania" data-url="https://www.itemmania.com">아이템매니아</button>
+                <button class="mini-ad-btn" type="button" data-market="barotem" data-url="https://www.barotem.com">바로템</button>
               </div>
             </div>
           </div>
@@ -4016,9 +4016,9 @@
 
         <!-- 차트 아래 거래소 바로가기 3개 가로 -->
         <div class="market-row">
-          <button class="market-btn" type="button" data-url="https://www.itembay.com">아이템베이</button>
-          <button class="market-btn" type="button" data-url="https://www.itemmania.com">아이템매니아</button>
-          <button class="market-btn" type="button" data-url="https://www.barotem.com">바로템</button>
+          <button class="market-btn" type="button" data-market="itemBay" data-url="https://www.itembay.com">아이템베이</button>
+          <button class="market-btn" type="button" data-market="itemMania" data-url="https://www.itemmania.com">아이템매니아</button>
+          <button class="market-btn" type="button" data-market="barotem" data-url="https://www.barotem.com">바로템</button>
         </div>
 
         <div class="market-density" id="marketDensity"></div>
@@ -4297,12 +4297,60 @@
         baselineText.textContent = server.previousNoonPrice
           ? `기준 ${formatPrice(server.previousNoonPrice)}`
           : "기준가 대기";
+        updateMarketLinks(server);
         renderSpark(server);
         renderMarketBars(server);
         sourceDiff.innerHTML = "";
         marketDensity.innerHTML = "";
         chartNote.textContent = "대표가는 출처별 수집 가격에서 과도하게 튀는 값을 보정해 산정합니다.";
 
+      }
+
+      function updateMarketLinks(server) {
+        document.querySelectorAll("[data-market]").forEach((button) => {
+          const url = getMarketUrl(button.dataset.market, server);
+          const label = button.textContent.trim();
+          button.dataset.url = url;
+          button.title = `${server.name} 서버 ${label} 아데나 목록 열기`;
+          button.setAttribute("aria-label", `${server.name} 서버 ${label} 아데나 목록 열기`);
+        });
+      }
+
+      function getMarketUrl(market, server) {
+        const serverName = server?.name || "";
+        if (market === "itemBay") {
+          return (
+            server?.itemBay?.url ||
+            (server?.itemBayServerId
+              ? `https://www.itembay.com/item/sell/game-3828/server-${server.itemBayServerId}/type-3`
+              : "https://www.itembay.com")
+          );
+        }
+
+        if (market === "itemMania") {
+          const params = new URLSearchParams({
+            search_game: "5913",
+            search_game_text: "리니지클래식",
+            search_server_text: serverName,
+            search_goods: "money",
+            goods_type: "1",
+            order: "price_asc",
+          });
+          return `https://www.itemmania.com/sell/money/lineageclassic?${params.toString()}`;
+        }
+
+        if (market === "barotem") {
+          const params = new URLSearchParams({
+            display: "1",
+            orderby: "1",
+            page: "1",
+            sell: "sell",
+            search_word: serverName,
+          });
+          return `https://www.barotem.com/product/lists/2382r902?${params.toString()}`;
+        }
+
+        return "https://adenamoney.co.kr";
       }
 
       function renderMarketBars(server) {
@@ -5285,7 +5333,9 @@
       // ── 거래소 배너 팝업창 ──────────────────────────────────────
       document.querySelectorAll(".ad-slot-card[data-url], .mini-ad-btn[data-url], .market-btn[data-url]").forEach(btn => {
         btn.addEventListener("click", () => {
-          const url = btn.dataset.url;
+          const currentServer = servers.find((server) => server.name === selectedServerName) || servers[0];
+          const url = btn.dataset.market ? getMarketUrl(btn.dataset.market, currentServer) : btn.dataset.url;
+          btn.dataset.url = url;
           const w = 1024, h = 700;
           const left = Math.round((screen.width  - w) / 2);
           const top  = Math.round((screen.height - h) / 2);
