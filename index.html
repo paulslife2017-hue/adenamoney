@@ -789,18 +789,34 @@
 
       .seo-footer {
         margin: 0 16px 28px;
-        padding: 14px 12px;
-        border-top: 1px solid var(--line);
-        color: var(--muted);
+        padding: 13px 14px;
+        border: 1px solid rgba(139, 166, 214, 0.12);
+        border-radius: 12px;
+        background:
+          linear-gradient(135deg, rgba(72, 198, 255, 0.07), transparent 42%),
+          rgba(10, 16, 31, 0.62);
+        color: #aab9ce;
         font-size: 11px;
         line-height: 1.5;
+      }
+
+      .seo-footer span {
+        display: inline-flex;
+        margin-bottom: 7px;
+        padding: 3px 7px;
+        border-radius: 999px;
+        background: rgba(72, 198, 255, 0.1);
+        color: var(--green);
+        font-size: 9px;
+        font-weight: 900;
+        letter-spacing: 0.04em;
       }
 
       .seo-footer strong {
         display: block;
         margin-bottom: 6px;
         color: var(--text);
-        font-size: 12px;
+        font-size: 13px;
       }
 
       .seo-footer p {
@@ -905,6 +921,43 @@
         margin-top: 7px;
       }
 
+      .chart-panel .ad-slot {
+        margin: -3px 0 9px;
+        padding: 7px 9px;
+        border-radius: 10px;
+        box-shadow: none;
+      }
+
+      .chart-panel .ad-slot a {
+        grid-template-columns: auto 1fr auto;
+        gap: 8px;
+        justify-items: stretch;
+        text-align: left;
+      }
+
+      .chart-panel .ad-slot span {
+        align-self: center;
+        padding: 3px 6px;
+        font-size: 9px;
+      }
+
+      .chart-panel .ad-slot strong {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.2;
+      }
+
+      .chart-panel .ad-slot small {
+        display: none;
+      }
+
+      .chart-panel .ad-cta {
+        align-self: center;
+        padding: 5px 7px;
+        border-radius: 8px;
+        font-size: 10px;
+      }
+
       .section-title {
         display: flex;
         align-items: center;
@@ -989,6 +1042,11 @@
       .diff-card.adjusted strong,
       .diff-card.adjusted small {
         color: var(--yellow);
+      }
+
+      .source-diff,
+      .market-density {
+        display: none !important;
       }
 
       .channel-tabs {
@@ -1869,13 +1927,13 @@
 
           .app {
             grid-template-columns: 360px minmax(460px, 560px) 340px;
-            grid-template-rows: auto auto minmax(0, 1fr) auto;
+            grid-template-rows: auto auto auto minmax(0, 1fr) auto auto;
             grid-template-areas:
               "topbar topbar topbar"
               "intro chart channels"
               "ticker chart channels"
               "list chart channels"
-              "list ad channels"
+              "list chart channels"
               "list footer channels";
             gap: 14px;
             justify-content: center;
@@ -1938,6 +1996,8 @@
             padding: 16px;
             border-radius: 16px;
             border-color: rgba(72, 198, 255, 0.22);
+            align-self: stretch;
+            overflow: visible;
             background:
               radial-gradient(circle at 18% 0, rgba(72, 198, 255, 0.18), transparent 30%),
               linear-gradient(180deg, rgba(15, 25, 47, 0.98), rgba(8, 13, 25, 0.98));
@@ -1959,8 +2019,8 @@
           .main-price {
             grid-template-columns: minmax(0, 1fr) 132px;
             gap: 12px;
-            margin-bottom: 10px;
-            padding: 14px;
+            margin-bottom: 9px;
+            padding: 12px;
             border-radius: 14px;
           }
 
@@ -1982,12 +2042,12 @@
           }
 
           .spark {
-            min-height: 88px;
-            margin-bottom: 10px;
+            min-height: 82px;
+            margin-bottom: 8px;
           }
 
           .spark svg {
-            height: 58px;
+            height: 54px;
           }
 
           .source-diff {
@@ -2007,14 +2067,38 @@
           }
 
           .chart {
-            margin-top: 10px;
-            padding: 10px;
+            margin-top: 7px;
+            padding: 9px;
             border-radius: 12px;
           }
 
           .compare-row {
             grid-template-columns: 76px 1fr 76px;
-            gap: 9px;
+            gap: 8px;
+            min-height: 25px;
+            font-size: 11px;
+          }
+
+          .compare-track {
+            height: 8px;
+          }
+
+          .compare-row strong {
+            font-size: 12px;
+          }
+
+          .chart-panel .ad-slot {
+            margin: -1px 0 8px;
+            padding: 7px 9px;
+            border-radius: 10px;
+          }
+
+          .chart-panel .ad-slot strong {
+            font-size: 11px;
+          }
+
+          .chart-panel .ad-slot small {
+            display: none;
           }
 
           .market-density {
@@ -2170,7 +2254,13 @@
           </div>
         </div>
         <section class="ad-slot" aria-label="광고">
-        <a href="tg://resolve?phone=821058947690">
+        <a
+          id="promoTelegramLink"
+          href="https://t.me/+821058947690"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-telegram-app="tg://resolve?phone=821058947690"
+        >
           <div>
             <span>홍보</span>
             <strong>홍보 및 문의</strong>
@@ -2214,10 +2304,11 @@
       </section>
 
       <footer class="seo-footer">
-        <strong>아데나머니 리니지 클래식 시세 안내</strong>
+        <span>DATA GUIDE</span>
+        <strong>시세는 빠르게, 판단은 신중하게</strong>
         <p>
-          본 화면의 아데나 시세와 서버별 ADENA/W 가격은 외부 거래 플랫폼의 공개 판매 목록을 수집·가공한 참고 정보입니다.
-          실제 거래 가격, 수수료, 체결 여부는 각 거래 플랫폼과 판매자 조건에 따라 달라질 수 있습니다.
+          아데나머니는 공개 거래 목록을 모아 서버별 흐름을 보기 쉽게 정리합니다.
+          실제 거래 조건은 판매자, 수수료, 체결 시점에 따라 달라질 수 있습니다.
         </p>
       </footer>
 
@@ -2263,6 +2354,7 @@
       let selectedKind = "all";
       let refreshLeft = 30;
       applySiteConfig();
+      bindPromotionContact();
 
       function applySiteConfig() {
         const config = window.SITE_CONFIG || {};
@@ -2278,6 +2370,17 @@
         if (productWrap) {
           productWrap.innerHTML = products.map((product) => `<b>${escapeHtml(product)}</b>`).join("");
         }
+      }
+
+      function bindPromotionContact() {
+        const link = document.querySelector("#promoTelegramLink");
+        if (!link) return;
+
+        link.addEventListener("click", () => {
+          const appUrl = link.dataset.telegramApp;
+          if (!appUrl) return;
+          window.location.href = appUrl;
+        });
       }
 
       function renderChart(server) {
@@ -2299,9 +2402,9 @@
           ? `기준 ${formatPrice(server.previousNoonPrice)}`
           : "기준가 대기";
         renderSpark(server);
-        renderSourceDiff(server);
         renderMarketBars(server);
-        renderMarketDensity(server);
+        sourceDiff.innerHTML = "";
+        marketDensity.innerHTML = "";
         chartNote.textContent = "대표가는 출처별 수집 가격에서 과도하게 튀는 값을 보정해 산정합니다.";
       }
 
@@ -2650,7 +2753,7 @@
           ? [{ price: server.previousNoonPrice, at: server.baselineLabel, label: "전일 12시" }]
           : [];
         const current = Number.isFinite(server.currentPrice)
-          ? [{ price: server.currentPrice, at: marketData.fetchedAt || new Date().toISOString(), label: "현재" }]
+          ? [{ price: server.currentPrice, at: new Date().toISOString(), label: "현재" }]
           : [];
         const combined = [...base, ...history.slice(-6), ...current];
         return combined.length >= 2 ? combined.slice(-8) : combined;
@@ -2686,7 +2789,11 @@
         const raw = String(point?.at || "").replace(" ", "T");
         const date = new Date(raw.includes("T") && !/[zZ]|[+-]\d\d:?\d\d$/.test(raw) ? `${raw}+09:00` : raw);
         if (Number.isNaN(date.getTime())) return "-";
-        return `${date.getDate()}일`;
+        const day = new Intl.DateTimeFormat("ko-KR", {
+          timeZone: "Asia/Seoul",
+          day: "numeric",
+        }).format(date);
+        return `${day.replace(/\D/g, "")}일`;
       }
 
       function flashMainPrice() {
