@@ -12,6 +12,7 @@
       name="keywords"
       content="리니지 클래식 아데나 시세, 리니지 클래식 아덴 시세, 리니지클래식 아데나, 리니지클래식 아덴, 리니지 아덴 시세, 리니지 아데나 시세, 아데나 시세, 오렌 아데나 시세, 데포로쥬 아데나 시세, 발라카스 아데나 시세, 이실로테 아데나 시세, 질리언 아데나 시세, 조우 아데나 시세, 아이템베이, 아이템매니아, 바로템"
     />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="canonical" href="https://adenamoney.vercel.app/" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
     <meta name="author" content="아데나머니" />
@@ -199,6 +200,44 @@
         color: var(--text);
         font-size: 12px;
         font-weight: 800;
+        cursor: pointer;
+      }
+
+      .refresh button:active {
+        opacity: 0.7;
+      }
+
+      /* 데이터 갱신 중 스피너 */
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      .topbar-refresh {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .topbar-refresh .refresh-indicator {
+        display: none;
+        width: 14px;
+        height: 14px;
+        border: 2px solid rgba(92, 200, 255, 0.3);
+        border-top-color: var(--blue);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+
+      .topbar-refresh.loading .refresh-indicator {
+        display: block;
+      }
+
+      .topbar-refresh .refresh-countdown {
+        color: var(--muted);
+        font-size: 10px;
+        font-variant-numeric: tabular-nums;
+        min-width: 28px;
+        text-align: right;
       }
 
       .notice {
@@ -846,47 +885,48 @@
       }
 
       .ad-slot {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 10px;
         margin: 0 16px 12px;
-        padding: 12px;
+        padding: 11px 12px;
         border: 1px solid rgba(255, 209, 102, 0.24);
         border-radius: 12px;
         background:
           radial-gradient(circle at 88% 0, rgba(255, 209, 102, 0.18), transparent 36%),
           linear-gradient(135deg, rgba(24, 34, 58, 0.9), rgba(12, 19, 37, 0.88));
         box-shadow: 0 14px 36px rgba(0, 0, 0, 0.24);
+        text-align: left;
       }
 
-      .ad-slot a {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 9px;
-        align-items: center;
-        justify-items: center;
-        color: inherit;
-        text-decoration: none;
-        text-align: center;
+      .ad-copy {
+        min-width: 0;
       }
 
-      .ad-slot span {
+      .ad-copy span,
+      .ad-copy strong,
+      .ad-copy small {
+        display: block;
+      }
+
+      .ad-copy span {
         display: inline-flex;
-        width: fit-content;
-        padding: 3px 7px;
+        padding: 2px 6px;
         border-radius: 999px;
         background: rgba(255, 209, 102, 0.14);
         color: var(--yellow);
-        font-size: 10px;
+        font-size: 9px;
         font-weight: 900;
+        margin-bottom: 4px;
       }
 
-      .ad-slot strong {
-        display: block;
-        margin-top: 7px;
-        font-size: 14px;
+      .ad-copy strong {
+        font-size: 13px;
       }
 
-      .ad-slot small {
-        display: block;
-        margin-top: 4px;
+      .ad-copy small {
+        margin-top: 3px;
         color: var(--muted);
         font-size: 11px;
       }
@@ -907,77 +947,61 @@
       }
 
       .ad-cta {
-        padding: 8px 10px;
-        border-radius: 9px;
-        background: rgba(255, 255, 255, 0.08);
-        color: var(--text);
-        font-size: 11px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 34px;
+        padding: 0 14px;
+        border-radius: 999px;
+        background: rgba(246, 199, 107, 0.16);
+        color: var(--yellow);
+        font-size: 12px;
         font-weight: 900;
         white-space: nowrap;
+        text-decoration: none;
+        cursor: pointer;
       }
 
-      .chart-panel .ad-slot {
-        margin: 0 0 12px;
-        padding: 11px;
-        border-color: rgba(255, 209, 102, 0.34);
-        background:
-          linear-gradient(90deg, rgba(255, 209, 102, 0.15), rgba(255, 255, 255, 0.03)),
-          rgba(10, 16, 31, 0.78);
-      }
-
-      .chart-panel .ad-slot a {
-        grid-template-columns: 1fr;
-      }
-
-      .chart-panel .ad-slot strong {
-        margin-top: 6px;
-        font-size: 13px;
-      }
-
-      .chart-panel .ad-cta {
-        background: linear-gradient(135deg, rgba(255, 209, 102, 0.28), rgba(255, 255, 255, 0.1));
-        color: #fff4cf;
-      }
-
-      .chart-panel .ad-products {
-        margin-top: 7px;
-      }
-
+      /* chart-panel 내 ad-slot 오버라이드 (ad-copy구조 기준) */
       .chart-panel .ad-slot {
         margin: -3px 0 9px;
         padding: 7px 9px;
         border-radius: 10px;
+        border-color: rgba(255, 209, 102, 0.34);
+        background:
+          linear-gradient(90deg, rgba(255, 209, 102, 0.15), rgba(255, 255, 255, 0.03)),
+          rgba(10, 16, 31, 0.78);
         box-shadow: none;
       }
 
-      .chart-panel .ad-slot a {
-        grid-template-columns: auto 1fr auto;
-        gap: 8px;
-        justify-items: stretch;
-        text-align: left;
-      }
-
-      .chart-panel .ad-slot span {
-        align-self: center;
-        padding: 3px 6px;
-        font-size: 9px;
-      }
-
-      .chart-panel .ad-slot strong {
+      .chart-panel .ad-copy strong {
         margin: 0;
         font-size: 12px;
         line-height: 1.2;
       }
 
-      .chart-panel .ad-slot small {
+      .chart-panel .ad-copy small {
         display: none;
+      }
+
+      .chart-panel .ad-copy span {
+        align-self: center;
+        padding: 3px 6px;
+        font-size: 9px;
+      }
+
+      .chart-panel .ad-products {
+        margin-top: 5px;
       }
 
       .chart-panel .ad-cta {
         align-self: center;
-        padding: 5px 7px;
+        min-height: 28px;
+        padding: 0 9px;
         border-radius: 8px;
         font-size: 10px;
+        background: linear-gradient(135deg, rgba(255, 209, 102, 0.28), rgba(255, 255, 255, 0.1));
+        color: #fff4cf;
       }
 
       .section-title {
@@ -1401,10 +1425,6 @@
           grid-area: ad;
           margin: 0;
           align-self: start;
-        }
-
-        .ad-slot a {
-          grid-template-columns: 1fr;
         }
 
         .ad-cta {
@@ -2240,49 +2260,6 @@
           }
         }
       }
-    .ad-slot {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 10px;
-      text-align: left;
-    }
-
-    .ad-copy {
-      min-width: 0;
-    }
-
-    .ad-copy span,
-    .ad-copy strong,
-    .ad-copy small {
-      display: block;
-    }
-
-    .ad-cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 34px;
-      padding: 0 14px;
-      border-radius: 999px;
-      background: rgba(246, 199, 107, 0.16);
-      color: var(--gold);
-      font-size: 12px;
-      font-weight: 900;
-      white-space: nowrap;
-      text-decoration: none;
-    }
-
-    .ad-slot > a:not(.ad-cta) {
-      display: contents;
-    }
-
-    @media (max-width: 720px) {
-      .ad-slot {
-        grid-template-columns: 1fr auto;
-      }
-    }
-
     @media (min-width: 900px) {
       body {
         display: flex;
@@ -2459,6 +2436,10 @@
           <strong id="brandName">아데나머니</strong>
           <span id="brandTagline">리니지 클래식 아데나</span>
         </div>
+        <div class="topbar-refresh" id="topbarRefresh">
+          <span class="refresh-countdown" id="refreshCountdown">30s</span>
+          <div class="refresh-indicator"></div>
+        </div>
       </header>
 
       <section class="seo-intro" aria-label="리니지 클래식 아데나 시세 안내">
@@ -2558,6 +2539,7 @@
     <script>
       let marketData = window.MARKET_DATA || { servers: [] };
       let servers = marketData.servers || [];
+      let isRefreshing = false;
 
       const rows = document.querySelector("#rows");
       const chart = document.querySelector("#chart");
@@ -2582,6 +2564,8 @@
       let selectedChannel = "전체";
       let selectedKind = "all";
       let refreshLeft = 30;
+      const topbarRefresh = document.querySelector("#topbarRefresh");
+      const refreshCountdown = document.querySelector("#refreshCountdown");
       applySiteConfig();
       bindPromotionContact();
 
@@ -2593,10 +2577,14 @@
         document.querySelector("#creatorLabel").textContent =
           config.creatorChannelsLabel || "채널 구독자순 · 콘텐츠 최신순";
 
-        const products = config.promotionProducts || ["서버 홍보", "방송 홍보", "거래소 배너"];
+        const products = config.promotionProducts;
         const productWrap = document.querySelector("#promotionProducts");
         if (productWrap) {
-          productWrap.innerHTML = products.map((product) => `<b>${escapeHtml(product)}</b>`).join("");
+          if (products && products.length > 0) {
+            productWrap.innerHTML = products.map((product) => `<b>${escapeHtml(product)}</b>`).join("");
+          } else {
+            productWrap.innerHTML = `<b>서버 홍보</b><b>방송 홍보</b><b>거래소 배너</b>`;
+          }
         }
       }
 
@@ -2604,10 +2592,23 @@
         const link = document.querySelector("#promoTelegramLink");
         if (!link) return;
 
-        link.addEventListener("click", () => {
+        // 모바일에서 tg:// 앱 딥링크를 먼저 시도하고, 실패 시 웹 URL로 폴백
+        link.addEventListener("click", (event) => {
           const appUrl = link.dataset.telegramApp;
-          if (!appUrl) return;
-          window.location.href = appUrl;
+          if (!appUrl) return; // 딥링크 없으면 href 기본 동작 허용
+          event.preventDefault();
+          // tg:// 딥링크 시도
+          const iframe = document.createElement("iframe");
+          iframe.style.display = "none";
+          document.body.appendChild(iframe);
+          iframe.src = appUrl;
+          // 500ms 후 앱이 열리지 않으면 웹으로 폴백
+          setTimeout(() => {
+            document.body.removeChild(iframe);
+            if (!document.hidden) {
+              window.open(link.href, "_blank", "noopener,noreferrer");
+            }
+          }, 500);
         });
       }
 
@@ -2890,7 +2891,8 @@
       });
 
       function openVideo(video) {
-        const videoId = video.videoId;
+        // dataset은 data-video-id -> camelCase로 video.videoId (dataset API 자동 변환)
+        const videoId = video.videoId || video["video-id"];
         const title = video.title || "영상";
         const thumbnail = video.thumbnail || `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`;
         const url = video.url || `https://www.youtube.com/watch?v=${videoId}`;
@@ -3062,6 +3064,10 @@
       }
 
       async function reloadMarketData() {
+        if (isRefreshing) return; // 중복 실행 방지
+        isRefreshing = true;
+        topbarRefresh?.classList.add("loading");
+
         try {
           await new Promise((resolve, reject) => {
             const oldScript = document.querySelector("script[data-market-reload]");
@@ -3086,6 +3092,9 @@
           renderRows();
         } catch {
           console.warn("market data reload failed");
+        } finally {
+          isRefreshing = false;
+          topbarRefresh?.classList.remove("loading");
         }
 
         refreshLeft = 30;
@@ -3235,10 +3244,13 @@
       }
 
       setInterval(() => {
+        if (isRefreshing) return; // 갱신 중에는 카운트다운 정지
         refreshLeft -= 1;
+        if (refreshCountdown) {
+          refreshCountdown.textContent = `${refreshLeft}s`;
+        }
         if (refreshLeft <= 0) {
           reloadMarketData();
-          return;
         }
       }, 1000);
 
