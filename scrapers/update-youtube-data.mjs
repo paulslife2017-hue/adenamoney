@@ -73,12 +73,15 @@ async function readOptionalJson(file, fallback) {
 }
 
 function dedupeVideos(items) {
-  const seen = new Set();
-  return items.filter((item) => {
-    if (!item.id || seen.has(item.id)) return false;
-    seen.add(item.id);
-    return true;
+  const byId = new Map();
+  items.forEach((item) => {
+    if (!item.id) return;
+    const current = byId.get(item.id);
+    if (!current || (item.kind === "shorts" && current.kind !== "shorts")) {
+      byId.set(item.id, item);
+    }
   });
+  return [...byId.values()];
 }
 
 async function fetchWithApi(channelId, channel) {
@@ -209,15 +212,21 @@ async function fetchChannelShorts(channel, channelId) {
     }
 
     const html = await response.text();
+    const explicitShortIds = new Set(
+      [...html.matchAll(/\/shorts\/([\w-]{11})/g)].map((match) => match[1]),
+    );
     const ids = uniqueVideoIds([
+      ...explicitShortIds,
       ...[...html.matchAll(/"videoId":"([\w-]{11})"/g)].map((match) => match[1]),
-      ...[...html.matchAll(/\/shorts\/([\w-]{11})/g)].map((match) => match[1]),
     ]);
     const shorts = [];
+    const detailsList = await Promise.all(
+      ids.slice(0, 18).map(async (id) => ({ id, details: await fetchVideoPageDetails(id) })),
+    );
 
-    for (const id of ids.slice(0, 8)) {
-      const details = await fetchVideoPageDetails(id);
+    for (const { id, details } of detailsList) {
       const isShorts =
+        explicitShortIds.has(id) ||
         details.isShorts ||
         (details.durationSeconds && details.durationSeconds <= SHORTS_MAX_SECONDS) ||
         html.includes(`/shorts/${id}`);
@@ -235,6 +244,8 @@ async function fetchChannelShorts(channel, channelId) {
         kind: "shorts",
         durationSeconds: details.durationSeconds,
       });
+
+      if (shorts.length >= 8) break;
     }
 
     return shorts.filter((video) => matchesChannelFilter(video, channel));
@@ -268,9 +279,11 @@ async function fetchChannelVideosPage(channel, channelId) {
       ...[...html.matchAll(/\/watch\?v=([\w-]{11})/g)].map((match) => match[1]),
     ]);
     const videos = [];
+    const detailsList = await Promise.all(
+      ids.slice(0, 20).map(async (id) => ({ id, details: await fetchVideoPageDetails(id) })),
+    );
 
-    for (const id of ids.slice(0, 16)) {
-      const details = await fetchVideoPageDetails(id);
+    for (const { id, details } of detailsList) {
       const isShorts =
         details.isShorts ||
         (details.durationSeconds && details.durationSeconds <= SHORTS_MAX_SECONDS) ||
@@ -378,7 +391,10 @@ async function fetchVideoPageDetails(videoId) {
       },
     });
 
-    if (!response.ok) return { durationSeconds: null, isShorts: false };
+    if (!response.ok) {
+      const fallback = await fetchOEmbedDetails(videoId);
+      return { durationSeconds: null, isShorts: false, ...fallback };
+    }
 
     const html = await response.text();
     const durationSeconds = Number(html.match(/"lengthSeconds":"(\d+)"/)?.[1] || 0) || null;
@@ -386,18 +402,52 @@ async function fetchVideoPageDetails(videoId) {
       html.includes('"isShortsEligible":true') ||
       html.includes('"webCommandMetadata":{"url":"/shorts/');
 
+    const fallback = await fetchOEmbedDetails(videoId);
+
     return {
       durationSeconds,
       isShorts,
-      title: decodeHtmlAttr(html.match(/<meta property="og:title" content="([^"]+)"/)?.[1] || ""),
+      title:
+        decodeHtmlAttr(html.match(/<meta property="og:title" content="([^"]+)"/)?.[1] || "") ||
+        fallback.title,
       channelTitle:
         decodeHtmlAttr(html.match(/"ownerChannelName":"([^"]+)"/)?.[1] || "") ||
-        decodeHtmlAttr(html.match(/"author":"([^"]+)"/)?.[1] || ""),
+        decodeHtmlAttr(html.match(/"author":"([^"]+)"/)?.[1] || "") ||
+        fallback.channelTitle,
       publishedAt: html.match(/"publishDate":"([^"]+)"/)?.[1] || null,
-      thumbnail: decodeHtmlAttr(html.match(/<meta property="og:image" content="([^"]+)"/)?.[1] || ""),
+      thumbnail:
+        decodeHtmlAttr(html.match(/<meta property="og:image" content="([^"]+)"/)?.[1] || "") ||
+        fallback.thumbnail,
     };
   } catch {
-    return { durationSeconds: null, isShorts: false };
+    const fallback = await fetchOEmbedDetails(videoId);
+    return { durationSeconds: null, isShorts: false, ...fallback };
+  }
+}
+
+async function fetchOEmbedDetails(videoId) {
+  try {
+    const response = await fetch(
+      `https://www.youtube.com/oembed?url=${encodeURIComponent(
+        `https://www.youtube.com/watch?v=${videoId}`,
+      )}&format=json`,
+      {
+        headers: {
+          "user-agent": "Mozilla/5.0",
+          "accept-language": "ko-KR,ko;q=0.9",
+        },
+      },
+    );
+
+    if (!response.ok) return {};
+    const data = await response.json();
+    return {
+      title: data.title || "",
+      channelTitle: data.author_name || "",
+      thumbnail: data.thumbnail_url || "",
+    };
+  } catch {
+    return {};
   }
 }
 
