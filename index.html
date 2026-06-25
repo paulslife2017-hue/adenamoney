@@ -268,6 +268,16 @@
         backdrop-filter: blur(20px);
       }
 
+      .topbar-clock {
+        font-size: 12px;
+        font-weight: 800;
+        font-variant-numeric: tabular-nums;
+        color: rgba(180, 200, 255, 0.55);
+        letter-spacing: 0.04em;
+        flex: 1;
+        text-align: center;
+      }
+
       .brand {
         min-width: 0;
         display: flex;
@@ -4456,6 +4466,7 @@
           <strong id="brandName">아데나머니</strong>
           <span id="brandTagline">리니지 클래식 아데나</span>
         </div>
+        <span class="topbar-clock" id="topbarClock">00:00:00 KST</span>
         <div class="topbar-refresh" id="topbarRefresh">
           <span class="refresh-countdown" id="refreshCountdown">오늘 12시 기준</span>
           <div class="refresh-indicator"></div>
@@ -5810,7 +5821,17 @@
         refreshCountdown.textContent = `🔄 ${mm}:${ss} 후 갱신`;
       }
 
+      const topbarClock = document.getElementById("topbarClock");
+
       setInterval(() => {
+        // KST 실시간 시계 업데이트
+        if (topbarClock) {
+          const kst = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+          const hh = String(kst.getHours()).padStart(2, "0");
+          const mi = String(kst.getMinutes()).padStart(2, "0");
+          const ss = String(kst.getSeconds()).padStart(2, "0");
+          topbarClock.textContent = `${hh}:${mi}:${ss} KST`;
+        }
         updateMarketClock();
         updateRefreshCountdown();
         if (isRefreshing) return; // 갱신 중에는 카운트다운 정지
