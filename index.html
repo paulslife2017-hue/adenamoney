@@ -3693,6 +3693,264 @@
         padding: 3px 10px;
       }
     }
+
+    @media (min-width: 1180px) {
+      body {
+        background:
+          radial-gradient(circle at 18% -120px, rgba(65, 118, 255, 0.12), transparent 30%),
+          radial-gradient(circle at 86% 0, rgba(246, 199, 107, 0.08), transparent 26%),
+          linear-gradient(180deg, #070b14 0%, #04070d 100%);
+      }
+
+      .app {
+        border-color: rgba(178, 194, 224, 0.13);
+        background:
+          linear-gradient(180deg, rgba(14, 21, 37, 0.97), rgba(6, 10, 18, 0.99)),
+          #060a12;
+        box-shadow:
+          0 34px 120px rgba(0, 0, 0, 0.58),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
+
+      .topbar {
+        border-bottom-color: rgba(178, 194, 224, 0.1);
+        background:
+          linear-gradient(90deg, rgba(9, 14, 25, 0.96), rgba(16, 24, 40, 0.88)),
+          rgba(6, 10, 18, 0.92);
+      }
+
+      .brand strong {
+        letter-spacing: -0.01em;
+      }
+
+      .brand span,
+      .seo-intro p,
+      .section-title span,
+      .baseline,
+      .spark-caption span,
+      .spark-axis span,
+      .compare-row,
+      .seo-footer,
+      .head {
+        color: #9aa8bc;
+      }
+
+      .seo-intro,
+      .ticker,
+      .list,
+      .chart-panel,
+      .channels,
+      .seo-footer {
+        border-color: rgba(178, 194, 224, 0.12);
+        background:
+          linear-gradient(180deg, rgba(15, 23, 39, 0.92), rgba(8, 13, 23, 0.92));
+        box-shadow:
+          0 18px 44px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.035);
+      }
+
+      .seo-intro {
+        background:
+          radial-gradient(circle at 100% 0, rgba(246, 199, 107, 0.1), transparent 34%),
+          linear-gradient(180deg, rgba(17, 26, 45, 0.94), rgba(9, 14, 25, 0.94));
+      }
+
+      .seo-intro h1,
+      .chart-head strong,
+      .section-title strong,
+      .seo-footer strong {
+        color: #f8fbff;
+      }
+
+      .ticker {
+        overflow: hidden;
+        background:
+          linear-gradient(90deg, rgba(246, 199, 107, 0.08), rgba(82, 204, 196, 0.06)),
+          rgba(8, 13, 23, 0.84);
+      }
+
+      .ticker-track {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        animation: none;
+        transform: none;
+      }
+
+      .ticker-item {
+        min-width: 0;
+        padding: 8px 10px;
+        overflow: hidden;
+        border-right: 1px solid rgba(178, 194, 224, 0.08);
+        border-bottom: 1px solid rgba(178, 194, 224, 0.08);
+        font-size: 11px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .ticker-item:nth-child(n + 5) {
+        display: none;
+      }
+
+      .ticker b {
+        color: #f6c76b;
+      }
+
+      .ticker strong {
+        color: #67e0d5;
+      }
+
+      .chart-panel {
+        border-color: rgba(92, 200, 255, 0.2);
+        background:
+          radial-gradient(circle at 12% 0, rgba(92, 200, 255, 0.16), transparent 28%),
+          linear-gradient(180deg, rgba(17, 27, 47, 0.98), rgba(7, 11, 20, 0.98));
+      }
+
+      .chart-head span {
+        border-color: rgba(246, 199, 107, 0.28);
+        background: rgba(246, 199, 107, 0.1);
+        color: #ffe2a0;
+      }
+
+      .main-price {
+        border-color: rgba(178, 194, 224, 0.12);
+        background:
+          linear-gradient(135deg, rgba(92, 200, 255, 0.08), rgba(246, 199, 107, 0.035)),
+          rgba(4, 8, 15, 0.34);
+      }
+
+      .main-price strong {
+        color: #65ded4;
+        text-shadow: 0 0 28px rgba(101, 222, 212, 0.16);
+      }
+
+      .change-pill.down {
+        background: rgba(255, 109, 138, 0.15);
+        color: #ff7f9a;
+      }
+
+      .change-pill.up,
+      .row-change.up {
+        background: rgba(82, 204, 196, 0.13);
+        color: #62d9cf;
+      }
+
+      .chart-panel .ad-slot {
+        border-color: rgba(246, 199, 107, 0.26);
+        background:
+          linear-gradient(90deg, rgba(246, 199, 107, 0.12), rgba(255, 255, 255, 0.025)),
+          rgba(10, 13, 18, 0.82);
+      }
+
+      .chart-panel .ad-copy strong {
+        color: #ffe2a0;
+      }
+
+      .chart-panel .ad-cta {
+        background: rgba(246, 199, 107, 0.18);
+        color: #fff1c8;
+      }
+
+      .spark path.line {
+        stroke: #62d9cf;
+        filter: drop-shadow(0 0 8px rgba(98, 217, 207, 0.18));
+      }
+
+      .spark circle {
+        stroke: #62d9cf;
+      }
+
+      .compare-fill.best,
+      .compare-fill {
+        background: linear-gradient(90deg, #5cc8ff, #62d9cf, #f6c76b);
+      }
+
+      .compare-fill {
+        animation: none;
+        transform: none;
+      }
+
+      .row,
+      .short-card,
+      .diff-card,
+      .density-card,
+      .feed-empty,
+      .feed-note {
+        border-color: rgba(178, 194, 224, 0.12);
+        background:
+          linear-gradient(180deg, rgba(16, 24, 40, 0.88), rgba(9, 14, 25, 0.86));
+      }
+
+      .row:hover,
+      .short-card:hover {
+        border-color: rgba(92, 200, 255, 0.26);
+        background:
+          linear-gradient(180deg, rgba(20, 31, 52, 0.92), rgba(10, 16, 28, 0.9));
+      }
+
+      .row.active {
+        border-color: rgba(98, 217, 207, 0.4);
+        background:
+          linear-gradient(90deg, rgba(98, 217, 207, 0.14), rgba(16, 24, 40, 0.88));
+        box-shadow:
+          inset 3px 0 0 #62d9cf,
+          0 12px 28px rgba(0, 0, 0, 0.28);
+      }
+
+      .rank {
+        background: rgba(154, 169, 193, 0.12);
+      }
+
+      .row:nth-child(-n + 3) .rank {
+        background: rgba(246, 199, 107, 0.16);
+        color: #f6c76b;
+      }
+
+      .channel-tab,
+      .feed-tab {
+        border-color: rgba(178, 194, 224, 0.12);
+        background: rgba(7, 11, 20, 0.66);
+      }
+
+      .feed-tab.active,
+      .channel-tab.active {
+        border-color: rgba(98, 217, 207, 0.34);
+        background:
+          linear-gradient(135deg, rgba(98, 217, 207, 0.13), rgba(92, 200, 255, 0.08));
+        color: #d9fffb;
+      }
+
+      .seo-footer span {
+        background: rgba(98, 217, 207, 0.11);
+        color: #62d9cf;
+      }
+
+      .app {
+        grid-template-rows: 40px minmax(0, 1fr) 240px;
+        align-content: stretch;
+      }
+
+      .topbar {
+        min-height: 0;
+        height: 40px;
+        align-self: stretch;
+      }
+
+      .chart-panel {
+        min-height: 0;
+      }
+
+      .board-section {
+        min-height: 220px;
+        border-color: rgba(178, 194, 224, 0.12);
+        background:
+          linear-gradient(180deg, rgba(15, 23, 39, 0.92), rgba(8, 13, 23, 0.92));
+        box-shadow:
+          0 18px 44px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.035);
+      }
+    }
   </style>
   </head>
   <body>
