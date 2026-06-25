@@ -1866,6 +1866,272 @@
               radial-gradient(circle at 92% 0, rgba(255, 209, 102, 0.18), transparent 36%),
               linear-gradient(135deg, rgba(35, 28, 14, 0.82), rgba(12, 20, 38, 0.92));
           }
+
+          .app {
+            grid-template-columns: 360px minmax(460px, 560px) 340px;
+            grid-template-rows: auto auto minmax(0, 1fr) auto;
+            grid-template-areas:
+              "topbar topbar topbar"
+              "intro chart channels"
+              "ticker chart channels"
+              "list chart channels"
+              "list ad channels"
+              "list footer channels";
+            gap: 14px;
+            justify-content: center;
+            align-content: start;
+            max-width: 1320px;
+            height: calc(100dvh - 44px);
+            min-height: 700px;
+            padding: 0 18px 18px;
+            border-radius: 18px;
+            background:
+              linear-gradient(180deg, rgba(10, 16, 31, 0.98), rgba(5, 8, 15, 0.99)),
+              #05080f;
+          }
+
+          .topbar {
+            margin: 0 -18px;
+            padding: 14px 22px 12px;
+            border-radius: 18px 18px 0 0;
+          }
+
+          .brand strong {
+            font-size: 21px;
+          }
+
+          .seo-intro {
+            padding: 4px 0 0;
+          }
+
+          .seo-intro h1 {
+            max-width: 320px;
+            font-size: 23px;
+          }
+
+          .seo-intro p {
+            max-width: 320px;
+            margin-top: 8px;
+            font-size: 12px;
+          }
+
+          .ticker,
+          .list,
+          .chart-panel,
+          .ad-slot,
+          .channels,
+          .seo-footer {
+            border-color: rgba(154, 178, 218, 0.13);
+            box-shadow: 0 14px 38px rgba(0, 0, 0, 0.26);
+          }
+
+          .ticker {
+            min-height: 38px;
+            border-radius: 12px;
+          }
+
+          .ticker-track {
+            animation-duration: 28s;
+          }
+
+          .chart-panel {
+            padding: 16px;
+            border-radius: 16px;
+            border-color: rgba(72, 198, 255, 0.22);
+            background:
+              radial-gradient(circle at 18% 0, rgba(72, 198, 255, 0.18), transparent 30%),
+              linear-gradient(180deg, rgba(15, 25, 47, 0.98), rgba(8, 13, 25, 0.98));
+          }
+
+          .chart-head {
+            margin-bottom: 10px;
+          }
+
+          .chart-head strong {
+            font-size: 18px;
+          }
+
+          .chart-head span {
+            padding: 4px 7px;
+            font-size: 10px;
+          }
+
+          .main-price {
+            grid-template-columns: minmax(0, 1fr) 132px;
+            gap: 12px;
+            margin-bottom: 10px;
+            padding: 14px;
+            border-radius: 14px;
+          }
+
+          .main-price strong {
+            margin-top: 4px;
+            font-size: 46px;
+            line-height: 1;
+          }
+
+          .change-pill {
+            margin-top: 6px;
+            padding: 6px 8px;
+            font-size: 12px;
+          }
+
+          .baseline {
+            margin-top: 6px;
+            font-size: 11px;
+          }
+
+          .spark {
+            min-height: 88px;
+            margin-bottom: 10px;
+          }
+
+          .spark svg {
+            height: 58px;
+          }
+
+          .source-diff {
+            gap: 7px;
+            margin-bottom: 10px;
+          }
+
+          .diff-card {
+            min-height: 58px;
+            padding: 9px;
+            border-radius: 11px;
+          }
+
+          .diff-card strong {
+            margin-top: 5px;
+            font-size: 14px;
+          }
+
+          .chart {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 12px;
+          }
+
+          .compare-row {
+            grid-template-columns: 76px 1fr 76px;
+            gap: 9px;
+          }
+
+          .market-density {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+          }
+
+          .density-card {
+            min-height: 54px;
+            padding: 9px;
+            border-radius: 11px;
+          }
+
+          .list,
+          .channels {
+            padding: 12px;
+            border-radius: 16px;
+            background:
+              linear-gradient(180deg, rgba(12, 20, 38, 0.94), rgba(7, 12, 23, 0.92));
+          }
+
+          .head,
+          .row {
+            grid-template-columns: 32px minmax(0, 1fr) 86px 58px;
+            gap: 7px;
+          }
+
+          .head {
+            margin-bottom: 5px;
+            padding: 7px 6px;
+          }
+
+          .row {
+            min-height: 43px;
+            margin-bottom: 5px;
+            padding: 7px 8px;
+            border-radius: 10px;
+          }
+
+          .rank {
+            width: 25px;
+            height: 25px;
+            border-radius: 8px;
+          }
+
+          .server strong,
+          .value strong {
+            font-size: 13px;
+          }
+
+          .compact-change {
+            font-size: 11px;
+          }
+
+          .section-title {
+            padding: 2px 2px 10px;
+            margin-bottom: 10px;
+          }
+
+          .section-title strong {
+            font-size: 15px;
+          }
+
+          .section-title span {
+            max-width: 136px;
+            font-size: 10px;
+          }
+
+          .channel-tabs {
+            max-height: 64px;
+            gap: 6px;
+          }
+
+          .channel-tab {
+            padding: 6px 8px;
+            font-size: 10px;
+          }
+
+          .feed-tabs {
+            gap: 6px;
+            margin-bottom: 8px;
+          }
+
+          .feed-tab {
+            height: 31px;
+            font-size: 11px;
+          }
+
+          .shorts {
+            gap: 7px;
+          }
+
+          .short-card {
+            grid-template-columns: 92px 1fr;
+            min-height: 70px;
+            padding: 7px;
+            border-radius: 12px;
+          }
+
+          .thumb {
+            height: 58px;
+            border-radius: 9px;
+          }
+
+          .short-card strong {
+            font-size: 11px;
+          }
+
+          .short-card small {
+            margin-top: 5px;
+            font-size: 10px;
+          }
+
+          .ad-slot,
+          .seo-footer {
+            border-radius: 16px;
+          }
         }
       }
     </style>
