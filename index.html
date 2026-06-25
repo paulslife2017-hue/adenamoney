@@ -563,9 +563,9 @@
       }
       .main-price {
         display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 8px;
-        align-items: end;
+        grid-template-columns: minmax(170px, 1fr) auto;
+        gap: 10px;
+        align-items: center;
       }
       /* 우측: 변동률 + 기준가 + 미니배너 3개 */
       .change-right {
@@ -610,22 +610,26 @@
 
       .square-ad-row {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 8px;
-        margin: 10px 0 2px;
+        grid-template-columns: repeat(3, 74px);
+        gap: 6px;
+        justify-content: end;
+        align-self: center;
+        margin: 0;
       }
 
       .square-ad {
         position: relative;
         display: flex;
         min-width: 0;
-        aspect-ratio: 1 / 1;
         flex-direction: column;
         justify-content: space-between;
-        padding: 10px;
+        width: 74px;
+        height: 74px;
+        min-height: 0;
+        padding: 8px;
         overflow: hidden;
         border: 1px solid rgba(246, 199, 107, 0.2);
-        border-radius: 12px;
+        border-radius: 10px;
         background:
           radial-gradient(circle at 78% 12%, rgba(246, 199, 107, 0.18), transparent 34%),
           linear-gradient(145deg, rgba(22, 27, 42, 0.92), rgba(8, 13, 25, 0.76));
@@ -662,20 +666,20 @@
 
       .square-ad span {
         color: var(--yellow);
-        font-size: 10px;
+        font-size: 9px;
         font-weight: 900;
         letter-spacing: 0.02em;
       }
 
       .square-ad strong {
         display: block;
-        font-size: 13px;
+        font-size: 11px;
         line-height: 1.25;
       }
 
       .square-ad small {
         color: rgba(210, 225, 255, 0.68);
-        font-size: 10px;
+        font-size: 9px;
         font-weight: 800;
       }
 
@@ -840,7 +844,7 @@
 
       .spark text.axis-label {
         fill: var(--muted);
-        font-size: 10px;
+        font-size: 8.5px;
         font-weight: 800;
         stroke: none;
       }
@@ -1203,10 +1207,29 @@
       }
 
       .value span {
-        display: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 4px;
         margin-top: 4px;
         color: var(--muted);
         font-size: 10px;
+      }
+
+      .row-live {
+        color: rgba(79, 214, 200, 0.78) !important;
+        font-size: 9px !important;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+      }
+
+      .row-live i {
+        width: 5px;
+        height: 5px;
+        border-radius: 999px;
+        background: var(--green);
+        box-shadow: 0 0 10px rgba(79, 214, 200, 0.8);
+        animation: livePulse 1.6s ease-in-out infinite;
       }
 
       .row-change {
@@ -4119,11 +4142,23 @@
     }
 
     @media (max-width: 480px) {
+      .main-price {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+
       .square-ad-row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        justify-content: stretch;
         gap: 6px;
+        width: 100%;
+        margin-top: 8px;
       }
 
       .square-ad {
+        aspect-ratio: 1 / 1;
+        width: auto;
+        height: auto;
         min-height: 88px;
         padding: 8px;
         border-radius: 10px;
@@ -4160,8 +4195,8 @@
 
     @media (min-width: 900px) {
       .square-ad-row {
-        grid-template-columns: repeat(3, 132px);
-        justify-content: start;
+        grid-template-columns: repeat(3, 74px);
+        justify-content: end;
       }
 
       .market-density {
@@ -4230,25 +4265,24 @@
                 <button class="mini-ad-btn" type="button" data-market="barotem" data-url="https://www.barotem.com">바로템</button>
               </div>
             </div>
+            <div class="square-ad-row" aria-label="광고 영역">
+              <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+                <span>AD</span>
+                <strong>광고 문의</strong>
+                <small>Telegram</small>
+              </a>
+              <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+                <span>AD</span>
+                <strong>광고 문의</strong>
+                <small>Telegram</small>
+              </a>
+              <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+                <span>AD</span>
+                <strong>광고 문의</strong>
+                <small>Telegram</small>
+              </a>
+            </div>
           </div>
-        </div>
-
-        <div class="square-ad-row" aria-label="광고 영역">
-          <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
-            <span>AD 01</span>
-            <strong>서버 광고</strong>
-            <small>문의하기</small>
-          </a>
-          <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
-            <span>AD 02</span>
-            <strong>방송 광고</strong>
-            <small>문의하기</small>
-          </a>
-          <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
-            <span>AD 03</span>
-            <strong>배너 광고</strong>
-            <small>문의하기</small>
-          </a>
         </div>
 
         <!-- 스파크 차트 -->
@@ -5013,8 +5047,8 @@
             const duplicate = used.has(label);
             used.add(label);
             return {
-              textX: (isFirst ? x + 5 : isLast ? x - 5 : x).toFixed(1),
-              textY: "62",
+              textX: (isFirst ? x + 8 : isLast ? x - 8 : x).toFixed(1),
+              textY: "64",
               anchor: isFirst ? "start" : isLast ? "end" : "middle",
               label: duplicate ? "" : label,
             };
@@ -5120,7 +5154,7 @@
                 </span>
                 <span class="value">
                   <strong>${price}</strong>
-                  <span>ADENA/W</span>
+                  <span class="row-live"><i></i>LIVE</span>
                 </span>
                 <span class="compact-change">
                   <span class="row-change ${getChangeClass(server)}">${formatChangeCompact(server)}</span>
