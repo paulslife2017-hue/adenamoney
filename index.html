@@ -384,7 +384,7 @@
       .spark svg {
         display: block;
         width: 100%;
-        height: 54px;
+        height: 66px;
         overflow: visible;
       }
 
@@ -415,6 +415,13 @@
         stroke: rgba(6, 9, 19, 0.9);
         stroke-width: 4px;
         stroke-linejoin: round;
+      }
+
+      .spark text.axis-label {
+        fill: var(--muted);
+        font-size: 10px;
+        font-weight: 800;
+        stroke: none;
       }
 
       .spark-labels {
@@ -2047,7 +2054,7 @@
           }
 
           .spark svg {
-            height: 54px;
+            height: 66px;
           }
 
           .source-diff {
@@ -2705,16 +2712,17 @@
         const max = Math.max(...prices);
         const range = Math.max(max - min, 1);
         const width = 360;
-        const height = 52;
+        const height = 66;
+        const plotHeight = 44;
         const coords = points.map((point, index) => {
           const x = (index / (points.length - 1)) * width;
-          const y = height - ((point.price - min) / range) * 38 - 7;
+          const y = plotHeight - ((point.price - min) / range) * 31 - 7;
           return [x, y];
         });
         const line = coords.map(([x, y], index) => `${index ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
-        const area = `${line} L${width},${height} L0,${height} Z`;
-        const labels = buildSparkLabels(points);
+        const area = `${line} L${width},${plotHeight} L0,${plotHeight} Z`;
         const priceLabels = buildSparkPriceLabels(points, coords);
+        const axisLabels = buildSparkAxisLabels(points, coords);
 
         spark.innerHTML = `
           <div class="spark-caption">
@@ -2732,10 +2740,14 @@
                 `,
               )
               .join("")}
+            ${axisLabels
+              .map(
+                (item) => `
+                  <text class="axis-label" x="${item.textX}" y="${item.textY}" text-anchor="${item.anchor}">${item.label}</text>
+                `,
+              )
+              .join("")}
           </svg>
-          <div class="spark-axis">
-            ${labels.map((label) => `<span>${label}</span>`).join("")}
-          </div>
         `;
         sparkLabels.innerHTML = "";
       }
@@ -2759,15 +2771,6 @@
         return combined.length >= 2 ? combined.slice(-8) : combined;
       }
 
-      function buildSparkLabels(points) {
-        const indexes = [0, Math.floor((points.length - 1) / 2), points.length - 1];
-        const labels = indexes.map((index) => formatSparkTime(points[index]));
-        return labels.map((label, index) => {
-          const isDuplicate = labels.indexOf(label) !== index;
-          return isDuplicate ? "" : label;
-        });
-      }
-
       function buildSparkPriceLabels(points, coords) {
         const indexes = [...new Set([0, Math.floor((points.length - 1) / 2), points.length - 1])];
         return indexes.map((index) => {
@@ -2783,6 +2786,27 @@
             label: formatShort(points[index].price),
           };
         });
+      }
+
+      function buildSparkAxisLabels(points, coords) {
+        const indexes = [...new Set([0, Math.floor((points.length - 1) / 2), points.length - 1])];
+        const used = new Set();
+        return indexes
+          .map((index) => {
+            const [x] = coords[index];
+            const isFirst = index === 0;
+            const isLast = index === points.length - 1;
+            const label = formatSparkTime(points[index]);
+            const duplicate = used.has(label);
+            used.add(label);
+            return {
+              textX: (isFirst ? x + 5 : isLast ? x - 5 : x).toFixed(1),
+              textY: "62",
+              anchor: isFirst ? "start" : isLast ? "end" : "middle",
+              label: duplicate ? "" : label,
+            };
+          })
+          .filter((item) => item.label);
       }
 
       function formatSparkTime(point) {
