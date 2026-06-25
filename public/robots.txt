@@ -1,0 +1,24 @@
+# robots.txt — 아데나머니 (adenamoney.co.kr)
+# 도메인 확정 후 Sitemap URL을 실제 도메인으로 교체하세요.
+
+User-agent: *
+Allow: /
+
+# 불필요한 파라미터 크롤 방지
+Disallow: /?server=
+Disallow: /api/
+
+# 네이버 봇
+User-agent: Yeti
+Allow: /
+
+# 구글 봇
+User-agent: Googlebot
+Allow: /
+
+# 빙 봇
+User-agent: Bingbot
+Allow: /
+
+# 사이트맵 위치 (도메인 확정 후 교체)
+Sitemap: https://adenamoney.co.kr/sitemap.xml

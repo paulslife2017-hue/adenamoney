@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- sitemap.xml — 아데나머니 (adenamoney.co.kr)           -->
+<!-- 도메인 확정 후 모든 adenamoney.co.kr을 실제 도메인으로 교체 -->
+<!-- 네이버 서치어드바이저 & 구글 서치콘솔에 등록 필요         -->
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
+  <!-- ── 메인 페이지 ── -->
+  <url>
+    <loc>https://adenamoney.co.kr/</loc>
+    <lastmod>2025-06-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://adenamoney.co.kr/og-image.png</image:loc>
+      <image:title>리니지 아데나 시세 — 서버별 실시간 비교 아데나머니</image:title>
+      <image:caption>오렌·데포로쥬·발라카스 등 리니지 클래식 전 서버 아데나 시세를 아이템베이·아이템매니아·바로템 3사 기준으로 비교</image:caption>
+    </image:image>
+  </url>
+</urlset>
