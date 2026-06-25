@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { ProxyAgent, fetch as undiciFetch } from "undici";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT_FILE = resolve(ROOT, "data", "market-data.js");
@@ -51,6 +52,8 @@ const fetchHeaders = {
 
 const previous = await readPrevious();
 const fetchedAt = new Date().toISOString();
+const krProxy = await findKrProxy();
+console.log("KR proxy:", krProxy || "없음 (아이템매니아 수집 불가)");
 const itemManiaListings = await collectItemMania();
 const barotemListings = await collectBarotem();
 const servers = [];
@@ -161,6 +164,9 @@ async function collectItemBay(serverName, serverId) {
 
 async function collectItemMania() {
   const listings = new Map();
+  if (!krProxy) return listings; // 프록시 없으면 스킵
+
+  const dispatcher = new ProxyAgent(`http://${krProxy}`);
 
   try {
     for (let page = 1; page <= 10; page += 1) {
@@ -184,7 +190,7 @@ async function collectItemMania() {
         pinit: String(page),
       });
 
-      const response = await fetch("https://www.itemmania.com/sell/ajax_list.php", {
+      const response = await undiciFetch("https://www.itemmania.com/sell/ajax_list.php", {
         method: "POST",
         headers: {
           ...fetchHeaders,
@@ -194,6 +200,7 @@ async function collectItemMania() {
           "x-requested-with": "XMLHttpRequest",
         },
         body: params.toString(),
+        dispatcher,
       });
 
       if (!response.ok) continue;
@@ -209,7 +216,8 @@ async function collectItemMania() {
         listings.get(server).push(price);
       }
     }
-  } catch {
+  } catch (e) {
+    console.error("아이템매니아 수집 오류:", e.message);
     return listings;
   }
 
@@ -254,6 +262,46 @@ async function fetchText(url) {
   const response = await fetch(url, { headers: fetchHeaders });
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   return response.text();
+}
+
+/* 한국 공개 프록시 자동 선택 — 아이템매니아 IP 차단 우회용 */
+async function findKrProxy() {
+  // 1순위: 환경변수로 고정 프록시 지정 가능 (ITEMMANIA_PROXY=host:port)
+  if (process.env.ITEMMANIA_PROXY) return process.env.ITEMMANIA_PROXY;
+
+  // 2순위: proxyscrape에서 KR HTTP 프록시 목록 가져와 살아있는 것 사용
+  try {
+    const res = await fetch(
+      "https://api.proxyscrape.com/v3/free-proxy-list/get?request=displayproxies&country=kr&protocol=http&timeout=5000&proxy_format=ipport&format=text",
+      { signal: AbortSignal.timeout(8000) }
+    );
+    if (!res.ok) return null;
+    const list = (await res.text()).split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+
+    for (const proxy of list.slice(0, 15)) {
+      const ok = await testProxy(proxy);
+      if (ok) {
+        console.log("사용 프록시:", proxy);
+        return proxy;
+      }
+    }
+  } catch {
+    // 목록 가져오기 실패 → null
+  }
+  return null;
+}
+
+async function testProxy(proxy) {
+  try {
+    const dispatcher = new ProxyAgent(`http://${proxy}`);
+    const res = await undiciFetch("https://www.itemmania.com/sell/money/lineageclassic", {
+      dispatcher,
+      signal: AbortSignal.timeout(6000),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
 }
 
 async function readPrevious() {
