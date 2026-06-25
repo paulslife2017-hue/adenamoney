@@ -3950,6 +3950,18 @@
           0 18px 44px rgba(0, 0, 0, 0.3),
           inset 0 1px 0 rgba(255, 255, 255, 0.035);
       }
+
+      .list {
+        align-self: start;
+        height: auto;
+        max-height: 430px;
+      }
+
+      #rows {
+        max-height: 340px;
+        flex: 0 1 auto;
+        overflow-y: auto;
+      }
     }
   </style>
   </head>
@@ -4328,26 +4340,11 @@
         }
 
         if (market === "itemMania") {
-          const params = new URLSearchParams({
-            search_game: "5913",
-            search_game_text: "리니지클래식",
-            search_server_text: serverName,
-            search_goods: "money",
-            goods_type: "1",
-            order: "price_asc",
-          });
-          return `https://www.itemmania.com/sell/money/lineageclassic?${params.toString()}`;
+          return "https://www.itemmania.com/sell/money/lineageclassic";
         }
 
         if (market === "barotem") {
-          const params = new URLSearchParams({
-            display: "1",
-            orderby: "1",
-            page: "1",
-            sell: "sell",
-            search_word: serverName,
-          });
-          return `https://www.barotem.com/product/lists/2382r902?${params.toString()}`;
+          return "https://www.barotem.com/product/lists/2382r902?display=1&orderby=1&page=1&sell=sell";
         }
 
         return "https://adenamoney.co.kr";
