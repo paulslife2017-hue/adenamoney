@@ -609,24 +609,25 @@
       }
 
       .square-ad-row {
-        display: grid;
-        grid-template-columns: repeat(3, 74px);
+        display: flex;
+        flex-direction: row;
         gap: 6px;
-        justify-content: end;
+        justify-content: flex-end;
         align-self: center;
         margin: 0;
+        margin-left: auto;
       }
 
       .square-ad {
         position: relative;
         display: flex;
-        min-width: 0;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 74px;
-        height: 74px;
-        min-height: 0;
-        padding: 8px;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        width: auto;
+        min-width: 100px;
+        height: 44px;
+        padding: 0 12px;
         overflow: hidden;
         border: 1px solid rgba(246, 199, 107, 0.2);
         border-radius: 10px;
@@ -637,6 +638,7 @@
         text-decoration: none;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
         transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+        white-space: nowrap;
       }
 
       .square-ad::after {
@@ -666,21 +668,29 @@
 
       .square-ad span {
         color: var(--yellow);
-        font-size: 9px;
+        font-size: 8.5px;
         font-weight: 900;
-        letter-spacing: 0.02em;
+        letter-spacing: 0.5px;
+        background: rgba(246,199,107,0.15);
+        border: 1px solid rgba(246,199,107,0.3);
+        border-radius: 4px;
+        padding: 2px 5px;
+        flex-shrink: 0;
       }
 
       .square-ad strong {
         display: block;
-        font-size: 11px;
-        line-height: 1.25;
+        font-size: 11.5px;
+        font-weight: 700;
+        line-height: 1.2;
       }
 
       .square-ad small {
-        color: rgba(210, 225, 255, 0.68);
+        display: block;
+        color: rgba(210, 225, 255, 0.55);
         font-size: 9px;
-        font-weight: 800;
+        font-weight: 600;
+        margin-top: 1px;
       }
 
       .market-btn {
@@ -4242,28 +4252,27 @@
       }
 
       .square-ad-row {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        justify-content: stretch;
-        gap: 6px;
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 5px;
         width: 100%;
         margin-top: 8px;
       }
 
       .square-ad {
-        aspect-ratio: 1 / 1;
-        width: auto;
-        height: auto;
-        min-height: 88px;
-        padding: 8px;
-        border-radius: 10px;
+        flex: 1;
+        min-width: 0;
+        height: 40px;
+        padding: 0 8px;
+        gap: 6px;
       }
 
       .square-ad strong {
-        font-size: 11px;
+        font-size: 10.5px;
       }
 
       .square-ad small {
-        font-size: 9px;
+        font-size: 8.5px;
       }
 
       .compare-row {
@@ -4289,8 +4298,8 @@
 
     @media (min-width: 900px) {
       .square-ad-row {
-        grid-template-columns: repeat(3, 74px);
-        justify-content: end;
+        flex-direction: row;
+        justify-content: flex-end;
       }
 
       .market-density {
@@ -4361,19 +4370,16 @@
             </div>
             <div class="square-ad-row" aria-label="광고 영역">
               <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
-                <span>AD</span>
-                <strong>광고 문의</strong>
-                <small>Telegram</small>
+                <span>광고</span>
+                <div><strong>광고 문의</strong><small>Telegram</small></div>
               </a>
               <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
-                <span>AD</span>
-                <strong>광고 문의</strong>
-                <small>Telegram</small>
+                <span>광고</span>
+                <div><strong>광고 문의</strong><small>Telegram</small></div>
               </a>
               <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
-                <span>AD</span>
-                <strong>광고 문의</strong>
-                <small>Telegram</small>
+                <span>광고</span>
+                <div><strong>광고 문의</strong><small>Telegram</small></div>
               </a>
             </div>
           </div>
