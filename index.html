@@ -161,22 +161,17 @@
         box-shadow: var(--shadow);
       }
 
+      /* seo-intro: 시각적으로 숨김, SEO 크롤러는 HTML로 읽음 */
       .seo-intro {
-        padding: 12px 16px 2px;
-      }
-
-      .seo-intro h1 {
-        margin: 0;
-        font-size: 17px;
-        line-height: 1.25;
-        letter-spacing: 0;
-      }
-
-      .seo-intro p {
-        margin: 6px 0 0;
-        color: var(--muted);
-        font-size: 12px;
-        line-height: 1.45;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        white-space: nowrap;
+        border: 0;
       }
 
       .refresh strong {
@@ -1490,11 +1485,9 @@
         .app {
           display: grid;
           grid-template-columns: 360px minmax(440px, 1fr) 330px;
-          grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+          grid-template-rows: auto minmax(0, 1fr) auto auto;
           grid-template-areas:
             "topbar topbar topbar"
-            "intro intro intro"
-            "ticker chart channels"
             "list chart channels"
             "list ad channels"
             "list footer channels";
@@ -1523,20 +1516,8 @@
           font-size: 21px;
         }
 
-        .seo-intro {
-          grid-area: intro;
-          padding: 4px 6px 0;
-        }
+        .seo-intro { display: none; }
 
-        .seo-intro h1 {
-          font-size: 24px;
-        }
-
-        .seo-intro p {
-          max-width: 760px;
-        }
-
-        .ticker,
         .list,
         .chart-panel,
         .ad-slot,
@@ -1547,11 +1528,6 @@
             radial-gradient(circle at 90% 0, rgba(72, 198, 255, 0.09), transparent 34%),
             rgba(10, 16, 31, 0.78);
           box-shadow: 0 16px 44px rgba(0, 0, 0, 0.24);
-        }
-
-        .ticker {
-          grid-area: ticker;
-          margin: 0;
         }
 
         .chart-panel {
@@ -1749,11 +1725,9 @@
 
           .app {
             grid-template-columns: 390px minmax(520px, 1fr) 360px;
-            grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+            grid-template-rows: auto minmax(0, 1fr) auto auto;
             grid-template-areas:
               "topbar topbar topbar"
-              "intro chart channels"
-              "ticker chart channels"
               "list chart channels"
               "list ad channels"
               "list footer channels";
@@ -1805,12 +1779,6 @@
             margin-top: 10px;
             color: #a9b9d0;
             font-size: 13px;
-          }
-
-          .ticker {
-            min-height: 44px;
-            border-radius: 14px;
-            background: rgba(8, 13, 25, 0.82);
           }
 
           .chart-panel {
@@ -2144,12 +2112,9 @@
 
           .app {
             grid-template-columns: 360px minmax(460px, 560px) 340px;
-            grid-template-rows: auto auto auto minmax(0, 1fr) auto auto;
+            grid-template-rows: auto minmax(0, 1fr) auto;
             grid-template-areas:
               "topbar topbar topbar"
-              "intro chart channels"
-              "ticker chart channels"
-              "list chart channels"
               "list chart channels"
               "list footer channels";
             gap: 14px;
@@ -2190,7 +2155,6 @@
             font-size: 12px;
           }
 
-          .ticker,
           .list,
           .chart-panel,
           .ad-slot,
@@ -2198,15 +2162,6 @@
           .seo-footer {
             border-color: rgba(154, 178, 218, 0.13);
             box-shadow: 0 14px 38px rgba(0, 0, 0, 0.26);
-          }
-
-          .ticker {
-            min-height: 38px;
-            border-radius: 12px;
-          }
-
-          .ticker-track {
-            animation-duration: 28s;
           }
 
           .chart-panel {
@@ -2468,11 +2423,9 @@
       .app {
         width: min(1280px, calc(100vw - 48px));
         grid-template-columns: 340px minmax(500px, 540px) 330px;
-        grid-template-rows: auto 108px auto minmax(0, 1fr) auto;
+        grid-template-rows: auto minmax(0, 1fr) auto;
         grid-template-areas:
           "topbar topbar topbar"
-          "intro chart channels"
-          "ticker chart channels"
           "list chart channels"
           "list footer channels";
         gap: 14px;
@@ -2922,7 +2875,7 @@
         <p>오렌, 데포로쥬, 발라카스 등 주요 서버의 리니지 클래식 아덴 시세와 전일 대비 흐름을 확인하세요.</p>
       </section>
 
-      <section class="ticker" aria-label="실시간 순위 흐름">
+      <section class="ticker" aria-label="실시간 순위 흐름" style="display:none" aria-hidden="true">
         <div class="ticker-track" id="tickerTrack"></div>
       </section>
 
@@ -4054,9 +4007,11 @@
          API: /api/posts  (Vercel Serverless + Neon PostgreSQL)
       ═══════════════════════════════════════════════════════════ */
       (function initBoard() {
-        // ── 설정 ──────────────────────────────────────────────────
-        const API = "/api/posts";       // Vercel 배포 후 동일 origin
-        const PAGE_SIZE = 20;
+        // ── localStorage 기반 게시판 ──────────────────────────────
+        // 백엔드 없이 브라우저에 저장. 최대 200개 유지.
+        const BOARD_KEY  = "adenamoney_board";
+        const PAGE_SIZE  = 20;
+        const MAX_POSTS  = 200;
 
         // ── 상태 ──────────────────────────────────────────────────
         let boardPage   = 1;
@@ -4077,6 +4032,39 @@
         const bfAll           = document.getElementById("bfAll");
         const bfServer        = document.getElementById("bfServer");
         const boardWriteWrap  = document.getElementById("boardWriteWrap");
+
+        // ── localStorage CRUD ──────────────────────────────────────
+        function loadAllPosts() {
+          try { return JSON.parse(localStorage.getItem(BOARD_KEY) || "[]"); }
+          catch { return []; }
+        }
+        function saveAllPosts(arr) {
+          localStorage.setItem(BOARD_KEY, JSON.stringify(arr));
+        }
+        function addPost(post) {
+          const all = loadAllPosts();
+          const newPost = {
+            id: Date.now(),
+            server:   post.server   || "",
+            nickname: post.nickname || "익명",
+            content:  post.content,
+            password: post.password,
+            created_at: new Date().toISOString(),
+          };
+          all.unshift(newPost);              // 최신 글 맨 앞
+          if (all.length > MAX_POSTS) all.length = MAX_POSTS;
+          saveAllPosts(all);
+          return newPost;
+        }
+        function removePost(id, password) {
+          const all = loadAllPosts();
+          const idx = all.findIndex(p => p.id === id);
+          if (idx === -1) return { error: "글이 없습니다." };
+          if (all[idx].password !== password) return { error: "비밀번호가 틀렸습니다." };
+          all.splice(idx, 1);
+          saveAllPosts(all);
+          return { ok: true };
+        }
 
         // ── 글자 수 카운터 ─────────────────────────────────────────
         bwContent.addEventListener("input", () => {
@@ -4101,7 +4089,7 @@
         });
 
         // ── 글 작성 ────────────────────────────────────────────────
-        boardWriteForm.addEventListener("submit", async (e) => {
+        boardWriteForm.addEventListener("submit", (e) => {
           e.preventDefault();
           const content  = bwContent.value.trim();
           const password = bwPassword.value;
@@ -4109,57 +4097,39 @@
           const server   = selectedServerName || "";
 
           if (!content) return;
+          if (content.length > 1000) {
+            alert("내용은 1000자 이하로 입력하세요.");
+            return;
+          }
           if (password.length < 4) {
             alert("비밀번호는 4자 이상 입력하세요.");
             bwPassword.focus();
             return;
           }
 
-          bwSubmit.disabled = true;
-          bwSubmit.textContent = "등록 중…";
+          addPost({ server, nickname, content, password });
 
-          try {
-            const res = await fetch(API, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ server, nickname, content, password }),
-            });
-            if (res.status === 404) throw new Error("서비스 준비 중입니다. Vercel 배포 후 이용하세요.");
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || "오류");
-
-            bwContent.value  = "";
-            bwPassword.value = "";
-            bwNickname.value = "";
-            bwCharCount.textContent = "0 / 1000";
-            boardWriteWrap.open = false;
-            boardPage  = 1;
-            boardFilter = "all";
-            bfAll.classList.add("active");
-            bfServer.classList.remove("active");
-            await loadPosts();
-          } catch (err) {
-            alert("글 등록 실패: " + err.message);
-          } finally {
-            bwSubmit.disabled = false;
-            bwSubmit.textContent = "등록";
-          }
+          bwContent.value  = "";
+          bwPassword.value = "";
+          bwNickname.value = "";
+          bwCharCount.textContent = "0 / 1000";
+          boardWriteWrap.open = false;
+          boardPage   = 1;
+          boardFilter = "all";
+          bfAll.classList.add("active");
+          bfServer.classList.remove("active");
+          loadPosts();
         });
 
         // ── 삭제 ───────────────────────────────────────────────────
-        async function deletePost(id) {
-          const password = prompt("비밀번호를 입력하세요:");
-          if (!password) return;
-
-          try {
-            const res = await fetch(`${API}?id=${id}&password=${encodeURIComponent(password)}`, {
-              method: "DELETE",
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || "오류");
-            await loadPosts();
-          } catch (err) {
-            alert("삭제 실패: " + err.message);
+        function deletePost(id) {
+          const password = prompt("삭제하려면 비밀번호를 입력하세요:");
+          if (password === null) return;  // 취소
+          const result = removePost(id, password);
+          if (result.error) {
+            alert(result.error);
+          } else {
+            loadPosts();
           }
         }
 
@@ -4234,89 +4204,57 @@
           });
         }
 
-        // ── API 호출 ───────────────────────────────────────────────
-        async function loadPosts() {
-          boardList.innerHTML = `<div class="board-loading">로딩 중…</div>`;
+        // ── 글 목록 로드 (localStorage 동기) ──────────────────────
+        function loadPosts() {
           boardPagination.innerHTML = "";
-
-          // "현재 서버" 필터 배지 업데이트
-          const filterServer = boardFilter === "server" ? (selectedServerName || "") : "";
-          if (filterServer) {
-            boardServerBadge.textContent = filterServer;
-            boardServerBadge.style.display = "inline-block";
-          } else {
-            boardServerBadge.style.display = "none";
-          }
 
           // 현재 서버 필터 버튼 표시 여부
           if (selectedServerName) {
             bfServer.style.display = "inline-block";
-            bfServer.textContent = `${selectedServerName} 서버`;
+            bfServer.textContent   = `${selectedServerName} 서버`;
           } else {
             bfServer.style.display = "none";
             if (boardFilter === "server") { boardFilter = "all"; }
           }
 
-          const params = new URLSearchParams({
-            page:  boardPage,
-            limit: PAGE_SIZE,
-          });
-          if (filterServer) params.set("server", filterServer);
-
-          try {
-            const res  = await fetch(`${API}?${params}`);
-            if (res.status === 404) {
-              // Vercel 배포 전 로컬 정적 서버 환경
-              boardList.innerHTML = `<div class="board-empty board-empty-setup">
-                <div style="font-size:28px;margin-bottom:8px">💬</div>
-                <strong>게시판 서비스 준비 중</strong><br>
-                <small style="opacity:.6">Vercel 배포 후 이용할 수 있습니다.</small>
-              </div>`;
-              return;
-            }
-            if (!res.ok) {
-              const err = await res.json().catch(() => ({}));
-              throw new Error(err.error || `HTTP ${res.status}`);
-            }
-            const data = await res.json();
-            boardTotal = data.total;
-            renderPosts(data.posts);
-            renderPagination(data.total, boardPage);
-          } catch (err) {
-            if (err.message.includes("Failed to fetch") || err.message.includes("NetworkError")) {
-              boardList.innerHTML = `<div class="board-empty board-empty-setup">
-                <div style="font-size:28px;margin-bottom:8px">💬</div>
-                <strong>게시판 서비스 준비 중</strong><br>
-                <small style="opacity:.6">Vercel 배포 후 이용할 수 있습니다.</small>
-              </div>`;
-            } else {
-              boardList.innerHTML = `<div class="board-empty">게시글을 불러오지 못했습니다.<br><small>${escapeHtml(err.message)}</small></div>`;
-            }
-          }
-        }
-
-        // ── 서버 선택 변경 시 필터 버튼 갱신 ─────────────────────
-        // renderChart() 호출 후 선택된 서버가 바뀌므로 후크를 걸어둠
-        const _origRenderChart = window.renderChartHook;
-        function updateBoardServerFilter() {
-          if (selectedServerName) {
-            bfServer.style.display = "inline-block";
-            bfServer.textContent = `${selectedServerName} 서버`;
+          // 배지
+          const filterServer = boardFilter === "server" ? (selectedServerName || "") : "";
+          if (filterServer) {
+            boardServerBadge.textContent     = filterServer;
+            boardServerBadge.style.display   = "inline-block";
           } else {
-            bfServer.style.display = "none";
+            boardServerBadge.style.display   = "none";
           }
+
+          let all = loadAllPosts();
+          if (filterServer) {
+            all = all.filter(p => p.server === filterServer);
+          }
+
+          boardTotal = all.length;
+          const offset = (boardPage - 1) * PAGE_SIZE;
+          const page   = all.slice(offset, offset + PAGE_SIZE);
+
+          renderPosts(page);
+          renderPagination(boardTotal, boardPage);
         }
 
-        // renderRows() 호출마다 서버 필터 버튼 갱신
-        // MutationObserver로 서버 목록 변경 감지
-        const listObs = new MutationObserver(() => updateBoardServerFilter());
-        const rowsEl  = document.getElementById("rows");
-        if (rowsEl) listObs.observe(rowsEl, { childList: true });
+        // ── 서버 선택 바뀔 때 필터 버튼 갱신 ─────────────────────
+        const rowsEl = document.getElementById("rows");
+        if (rowsEl) {
+          new MutationObserver(() => {
+            if (selectedServerName) {
+              bfServer.style.display = "inline-block";
+              bfServer.textContent   = `${selectedServerName} 서버`;
+            } else {
+              bfServer.style.display = "none";
+            }
+          }).observe(rowsEl, { childList: true });
+        }
 
         // ── 초기 로드 ──────────────────────────────────────────────
         loadPosts();
 
-        // 외부에서 접근할 수 있도록 노출
         window.boardReload = loadPosts;
       })();
 
