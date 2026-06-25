@@ -2312,10 +2312,10 @@
 
       <footer class="seo-footer">
         <span>DATA GUIDE</span>
-        <strong>시세는 빠르게, 판단은 신중하게</strong>
+        <strong>리니지 클래식 아데나 시세 참고표</strong>
         <p>
-          아데나머니는 공개 거래 목록을 모아 서버별 흐름을 보기 쉽게 정리합니다.
-          실제 거래 조건은 판매자, 수수료, 체결 시점에 따라 달라질 수 있습니다.
+          서버별 공개 판매가를 모아 보기 쉽게 정리한 참고용 시세입니다.
+          실제 거래가는 판매 조건과 체결 시점에 따라 달라질 수 있습니다.
         </p>
       </footer>
 
@@ -2768,7 +2768,19 @@
           ? [{ price: server.currentPrice, at: new Date().toISOString(), label: "현재" }]
           : [];
         const combined = [...base, ...history.slice(-6), ...current];
-        return combined.length >= 2 ? combined.slice(-8) : combined;
+        return buildDailySparkPoints(combined);
+      }
+
+      function buildDailySparkPoints(points) {
+        const daily = new Map();
+        points.forEach((point) => {
+          const key = formatSparkTime(point);
+          if (!key || key === "-") return;
+          daily.set(key, { ...point, dayLabel: key });
+        });
+
+        const compact = [...daily.values()].slice(-3);
+        return compact.length >= 2 ? compact : points.slice(-3);
       }
 
       function buildSparkPriceLabels(points, coords) {
