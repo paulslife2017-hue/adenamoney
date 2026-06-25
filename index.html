@@ -1216,30 +1216,22 @@
         color: #fff4cf;
       }
 
-      /* ── 차트 탭 (오늘 / 7일) ── */
-      .chart-tabs {
+      /* ── 광고 배너 슬롯 ── */
+      .ad-banner-slot {
         display: flex;
-        gap: 6px;
-        margin-bottom: 12px;
+        align-items: center;
+        justify-content: center;
+        margin: 0 16px 12px;
+        padding: 10px 14px;
+        border: 1px dashed rgba(255,209,102,0.22);
+        border-radius: 10px;
+        background: rgba(255,209,102,0.04);
       }
-
-      .chart-tab {
-        flex: 1;
-        height: 28px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: rgba(14, 21, 38, 0.6);
-        color: var(--muted);
+      .ad-banner-label {
         font-size: 11px;
-        font-weight: 900;
-        cursor: pointer;
-        transition: border-color 150ms, background 150ms, color 150ms;
-      }
-
-      .chart-tab.active {
-        border-color: rgba(92, 200, 255, 0.5);
-        background: rgba(92, 200, 255, 0.12);
-        color: var(--blue);
+        font-weight: 700;
+        color: rgba(255,209,102,0.45);
+        letter-spacing: 0.5px;
       }
 
       /* 7일 차트 SVG */
@@ -1309,33 +1301,12 @@
         stroke: none;
       }
 
-      /* ── 서버 검색 + 즐겨찾기 ── */
+      /* ── 즐겨찾기 툴바 ── */
       .list-toolbar {
         display: flex;
         gap: 7px;
         align-items: center;
         padding: 0 0 8px;
-      }
-
-      .server-search {
-        flex: 1;
-        height: 32px;
-        padding: 0 10px;
-        border: 1px solid var(--line);
-        border-radius: 9px;
-        background: rgba(14, 21, 38, 0.68);
-        color: var(--text);
-        font-size: 12px;
-        outline: none;
-        transition: border-color 150ms;
-      }
-
-      .server-search::placeholder {
-        color: var(--muted);
-      }
-
-      .server-search:focus {
-        border-color: rgba(92, 200, 255, 0.45);
       }
 
       .fav-only-btn {
@@ -2726,8 +2697,8 @@
         opacity: 0.85;
       }
 
-      .board-filter-bar { flex-shrink: 0; }
-      .board-write-wrap { flex-shrink: 0; }
+      .board-tabs-center { flex: 1; justify-content: center; }
+      .board-write-toggle { flex-shrink: 0; }
 
       /* PC: 글 목록 — 더 컴팩트한 한 줄 레이아웃 */
       .board-post {
@@ -3060,96 +3031,62 @@
       position: relative;
     }
 
-    /* 게시판 상단 강조선 제거 (및륌하뿘) */
+    /* 게시판 상단 강조선 제거 */
     .board-section::before { display: none; }
 
-    /* ── 상단 행: 제목 + 필터 + 글쓰기 ── */
+    /* ── 상단 행: 탭 가운데 + 글쓰기 오른쪽 ── */
     .board-top-row {
       display: flex;
-      flex-wrap: nowrap;
       align-items: center;
-      gap: 7px;
-      margin-bottom: 8px;
-      padding-bottom: 8px;
+      gap: 6px;
+      margin-bottom: 7px;
+      padding-bottom: 7px;
       border-bottom: 1px solid rgba(139,166,214,0.09);
     }
 
-    .board-title {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 12px;
-      font-weight: 700;
-      color: rgba(220,232,255,0.8);
-      margin: 0;
-      padding: 0;
-      border: none;
-      flex-shrink: 0;
-      white-space: nowrap;
-      letter-spacing: -0.1px;
-    }
-
-    .board-title-icon { font-size: 13px; }
-
-    .board-server-badge {
-      display: inline-flex;
-      align-items: center;
-      background: linear-gradient(135deg, var(--blue), var(--green));
-      color: #05080f;
-      font-size: 9px;
-      font-weight: 800;
-      padding: 2px 7px;
-      border-radius: 20px;
-      letter-spacing: 0.3px;
-    }
-
-    /* ── 필터 탭 ── */
-    .board-filter-bar {
+    /* ── 게시판 탭 (가운데 정렬) ── */
+    .board-tabs-center {
       display: flex;
       gap: 4px;
-      flex-shrink: 0;
+      flex: 1;
+      justify-content: center;
     }
 
-    .board-filter-btn {
+    .board-tab-btn {
       background: transparent;
       border: 1px solid rgba(120,150,200,0.15);
-      border-radius: 5px;
+      border-radius: 6px;
       color: var(--muted);
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 600;
-      padding: 2px 8px;
+      padding: 3px 12px;
       cursor: pointer;
       transition: all 130ms;
       white-space: nowrap;
     }
-    .board-filter-btn.active {
+    .board-tab-btn.active {
       background: rgba(92,200,255,0.1);
       border-color: rgba(92,200,255,0.35);
       color: var(--blue);
+      font-weight: 700;
     }
-    .board-filter-btn:hover:not(.active) {
-      background: rgba(92,200,255,0.06);
+    .board-tab-btn:hover:not(.active) {
+      background: rgba(92,200,255,0.05);
       border-color: rgba(92,200,255,0.2);
       color: var(--text);
     }
 
-    /* ── 글쓰기 버튼 (details/summary) ── */
-    .board-write-wrap {
-      position: relative;
-      border-radius: 8px;
-      overflow: visible;
-    }
-
+    /* ── 글쓰기 버튼 ── */
     .board-write-toggle {
+      flex-shrink: 0;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       padding: 3px 10px;
       font-size: 10px;
       font-weight: 700;
       color: var(--blue);
       cursor: pointer;
-      list-style: none;
       border: 1px solid rgba(92,200,255,0.25);
       border-radius: 5px;
       background: rgba(92,200,255,0.06);
@@ -3160,30 +3097,26 @@
       background: rgba(92,200,255,0.11);
       border-color: rgba(92,200,255,0.4);
     }
-    .board-write-toggle::-webkit-details-marker { display: none; }
-    .board-write-wrap[open] .board-write-toggle {
+    .board-write-toggle.open {
       background: rgba(92,200,255,0.12);
       border-color: var(--blue);
     }
 
-    /* ── 글쓰기 폼 (드롭다운) ── */
+    /* ── 글쓰기 패널 (인라인 슬라이드다운) ── */
+    .board-write-panel {
+      margin-bottom: 8px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(72,198,255,0.18);
+      background: rgba(8,13,26,0.95);
+    }
+
+    /* ── 글쓰기 폼 ── */
     .board-write-form {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 6px);
-      z-index: 200;
-      width: min(380px, 90vw);
-      padding: 13px 14px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      background: linear-gradient(170deg, rgba(10,16,30,0.99), rgba(6,10,20,0.99));
-      border: 1px solid rgba(72,198,255,0.2);
-      border-radius: 12px;
-      box-shadow:
-        0 12px 40px rgba(0,0,0,0.65),
-        0 0 0 1px rgba(255,255,255,0.03);
-      backdrop-filter: blur(20px);
+      gap: 7px;
+      padding: 10px 11px;
     }
 
     .board-write-label {
@@ -3243,22 +3176,44 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 1px;
+      padding-top: 2px;
     }
 
     .board-char-count {
-      font-size: 10.5px;
+      font-size: 10px;
       color: var(--muted);
       font-variant-numeric: tabular-nums;
-      opacity: 0.7;
+      opacity: 0.6;
+    }
+
+    .board-write-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .board-cancel-btn {
+      background: transparent;
+      border: 1px solid rgba(139,166,214,0.2);
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 12px;
+      cursor: pointer;
+      transition: all 130ms;
+    }
+    .board-cancel-btn:hover {
+      background: rgba(139,166,214,0.08);
+      color: var(--text);
     }
 
     .board-submit-btn {
       background: linear-gradient(135deg, #48c6ff 0%, #4fd6c8 100%);
       color: #05080f;
       border: none;
-      border-radius: 7px;
-      padding: 6px 18px;
+      border-radius: 6px;
+      padding: 5px 16px;
       font-size: 11.5px;
       font-weight: 800;
       cursor: pointer;
@@ -3533,25 +3488,19 @@
 
       .board-title-icon { font-size: 13px; }
 
-      .board-filter-btn {
+      .board-tab-btn {
         font-size: 10px;
-        padding: 3px 9px;
+        padding: 3px 10px;
       }
 
       .board-write-toggle {
         font-size: 10px;
-        padding: 4px 10px;
-      }
-
-      .board-write-form {
-        right: auto;
-        left: 0;
-        width: min(340px, 92vw);
+        padding: 3px 9px;
       }
 
       .board-write-row {
         flex-direction: column;
-        gap: 7px;
+        gap: 6px;
       }
 
       .board-post {
@@ -3614,10 +3563,7 @@
           <strong id="chartTitle">서버 시세</strong>
           <span>ADENA/W</span>
         </div>
-        <div class="chart-tabs">
-          <button class="chart-tab active" id="tabToday" type="button">오늘 흐름</button>
-          <button class="chart-tab" id="tab7d" type="button">7일 추이</button>
-        </div>
+
         <div class="main-price">
           <div>
             <span>현재가</span>
@@ -3628,48 +3574,21 @@
             <div class="baseline" id="baselineText">기준가 대기</div>
           </div>
         </div>
-        <section class="ad-slot" aria-label="홍보 문의">
-          <div class="ad-copy">
-            <strong>광고 문의</strong>
-            <div class="ad-products" id="promotionProducts"></div>
-          </div>
-          <a
-            id="promoTelegramLink"
-            class="ad-cta"
-            href="https://t.me/+821058947690"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-telegram-app="tg://resolve?phone=821058947690"
-          >문의하기</a>
-        </section>
+        <div class="ad-banner-slot" aria-label="광고 배너">
+          <span class="ad-banner-label">광고 배너</span>
+        </div>
 
-        <!-- 오늘 흐름 뷰 -->
-        <div id="viewToday">
-          <div class="spark" id="spark"></div>
-          <div class="spark-labels" id="sparkLabels"></div>
-          <div class="source-diff" id="sourceDiff"></div>
-          <div class="chart" id="chart"></div>
-          <div class="market-density" id="marketDensity"></div>
-          <p class="chart-note" id="chartNote">수집 데이터가 아직 없습니다.</p>
-        </div>
-        <!-- 7일 추이 뷰 -->
-        <div id="view7d" style="display:none">
-          <div class="week-chart" id="weekChart"></div>
-          <div class="source-diff" id="sourceDiff7d"></div>
-          <div class="chart" id="chart7d"></div>
-        </div>
+        <div class="spark" id="spark"></div>
+        <div class="spark-labels" id="sparkLabels"></div>
+        <div class="source-diff" id="sourceDiff"></div>
+        <div class="chart" id="chart"></div>
+        <div class="market-density" id="marketDensity"></div>
+        <p class="chart-note" id="chartNote">수집 데이터가 아직 없습니다.</p>
+
       </section>
 
       <section class="list">
         <div class="list-toolbar">
-          <input
-            type="search"
-            class="server-search"
-            id="serverSearch"
-            placeholder="서버 검색…"
-            autocomplete="off"
-            aria-label="서버 검색"
-          />
           <button class="fav-only-btn" id="favOnlyBtn" type="button">★ 즐겨찾기</button>
         </div>
         <div class="head">
@@ -3779,34 +3698,34 @@
       </footer>
 
       <!-- ══════════════════════════════════════════════════════════ -->
-      <!-- 게시판 섹션 (모바일: channels 위, PC: main 밖 독립 블록)  -->
+      <!-- 게시판 섹션                                               -->
       <!-- ══════════════════════════════════════════════════════════ -->
       <section class="board-section" id="boardSection" aria-label="커뮤니티 게시판">
-        <!-- 상단 한 줄: 제목 + 필터 + 글쓰기 버튼 -->
+        <!-- 상단: 탭 (시세/크리에이터) 가운데 + 글쓰기 버튼 오른쪽 -->
         <div class="board-top-row">
-          <h2 class="board-title">
-            <span class="board-title-icon">💬</span>
-            게시판
-            <span class="board-server-badge" id="boardServerBadge" style="display:none"></span>
-          </h2>
-          <div class="board-filter-bar">
-            <button class="board-filter-btn active" id="bfAll" data-filter="all">전체</button>
-            <button class="board-filter-btn" id="bfServer" data-filter="server" style="display:none">이 서버</button>
+          <div class="board-tabs-center">
+            <button class="board-tab-btn active" id="btBoard" data-tab="board">💬 시세톡</button>
+            <button class="board-tab-btn" id="btCreator" data-tab="creator">🎬 크리에이터</button>
           </div>
-          <details class="board-write-wrap" id="boardWriteWrap" style="margin-left:auto">
-            <summary class="board-write-toggle">✏️ 글쓰기</summary>
-            <form class="board-write-form" id="boardWriteForm" autocomplete="off">
-              <div class="board-write-row">
-                <input type="text" class="board-input" id="bwNickname" placeholder="닉네임 (선택)" maxlength="20" autocomplete="nickname">
-                <input type="password" class="board-input" id="bwPassword" placeholder="비밀번호 (4자 이상)" maxlength="30" autocomplete="new-password" required>
-              </div>
-              <textarea class="board-textarea" id="bwContent" placeholder="내용을 입력하세요 (최대 1000자)" maxlength="1000" rows="3" required></textarea>
-              <div class="board-write-footer">
-                <span class="board-char-count" id="bwCharCount">0 / 1000</span>
+          <button class="board-write-toggle" id="boardWriteToggleBtn" type="button">✏️ 글쓰기</button>
+        </div>
+
+        <!-- 글쓰기 폼 (토글) -->
+        <div class="board-write-panel" id="boardWritePanel" style="display:none">
+          <form class="board-write-form" id="boardWriteForm" autocomplete="off">
+            <div class="board-write-row">
+              <input type="text" class="board-input" id="bwNickname" placeholder="닉네임 (선택)" maxlength="20" autocomplete="nickname">
+              <input type="password" class="board-input" id="bwPassword" placeholder="비밀번호 (4자+)" maxlength="30" autocomplete="new-password" required>
+            </div>
+            <textarea class="board-textarea" id="bwContent" placeholder="내용 입력 (최대 1000자)" maxlength="1000" rows="3" required></textarea>
+            <div class="board-write-footer">
+              <span class="board-char-count" id="bwCharCount">0 / 1000</span>
+              <div class="board-write-actions">
+                <button type="button" class="board-cancel-btn" id="boardWriteCancelBtn">취소</button>
                 <button type="submit" class="board-submit-btn" id="bwSubmit">등록</button>
               </div>
-            </form>
-          </details>
+            </div>
+          </form>
         </div>
 
         <!-- 글 목록 -->
@@ -3857,21 +3776,12 @@
       const videoTitle = document.querySelector("#videoTitle");
       const videoPlayer = document.querySelector("#videoPlayer");
       const videoClose = document.querySelector("#videoClose");
-      // 신규 요소
-      const tabToday = document.querySelector("#tabToday");
-      const tab7d = document.querySelector("#tab7d");
-      const viewToday = document.querySelector("#viewToday");
-      const view7d = document.querySelector("#view7d");
-      const weekChartEl = document.querySelector("#weekChart");
-      const serverSearchEl = document.querySelector("#serverSearch");
       const favOnlyBtn = document.querySelector("#favOnlyBtn");
 
       let selectedServerName = getRankedServers()[0]?.name || "";
       let selectedChannel = "전체";
       let selectedKind = "all";
       let refreshLeft = 30;
-      let chartMode = "today"; // "today" | "7d"
-      let searchQuery = "";
       let showFavOnly = false;
 
       // 즐겨찾기 localStorage
@@ -3893,9 +3803,7 @@
       const topbarRefresh = document.querySelector("#topbarRefresh");
       const refreshCountdown = document.querySelector("#refreshCountdown");
       applySiteConfig();
-      bindPromotionContact();
-      bindChartTabs();
-      bindSearch();
+      bindFavOnly();
 
       function applySiteConfig() {
         const config = window.SITE_CONFIG || {};
@@ -3905,176 +3813,17 @@
         document.querySelector("#creatorLabel").textContent =
           config.creatorChannelsLabel || "채널 구독자순 · 콘텐츠 최신순";
 
-        const products = config.promotionProducts;
-        const productWrap = document.querySelector("#promotionProducts");
-        if (productWrap) {
-          if (products && products.length > 0) {
-            productWrap.innerHTML = products.map((product) => `<b>${escapeHtml(product)}</b>`).join("");
-          } else {
-            productWrap.innerHTML = `<b>서버 홍보</b><b>방송 홍보</b><b>거래소 배너</b>`;
-          }
-        }
       }
 
-      function bindPromotionContact() {
-        const link = document.querySelector("#promoTelegramLink");
-        if (!link) return;
-
-        // 모바일에서 tg:// 앱 딥링크를 먼저 시도하고, 실패 시 웹 URL로 폴백
-        link.addEventListener("click", (event) => {
-          const appUrl = link.dataset.telegramApp;
-          if (!appUrl) return; // 딥링크 없으면 href 기본 동작 허용
-          event.preventDefault();
-          // tg:// 딥링크 시도
-          const iframe = document.createElement("iframe");
-          iframe.style.display = "none";
-          document.body.appendChild(iframe);
-          iframe.src = appUrl;
-          // 500ms 후 앱이 열리지 않으면 웹으로 폴백
-          setTimeout(() => {
-            document.body.removeChild(iframe);
-            if (!document.hidden) {
-              window.open(link.href, "_blank", "noopener,noreferrer");
-            }
-          }, 500);
-        });
-      }
-
-      /* ── 차트 탭 전환 ── */
-      function bindChartTabs() {
-        tabToday.addEventListener("click", () => {
-          chartMode = "today";
-          tabToday.classList.add("active");
-          tab7d.classList.remove("active");
-          viewToday.style.display = "";
-          view7d.style.display = "none";
-        });
-        tab7d.addEventListener("click", () => {
-          chartMode = "7d";
-          tab7d.classList.add("active");
-          tabToday.classList.remove("active");
-          viewToday.style.display = "none";
-          view7d.style.display = "";
-          const server = servers.find(s => s.name === selectedServerName) || getRankedServers()[0];
-          if (server) render7dChart(server);
-        });
-      }
-
-      /* ── 검색 + 즐겨찾기 필터 바인딩 ── */
-      function bindSearch() {
-        serverSearchEl.addEventListener("input", () => {
-          searchQuery = serverSearchEl.value.trim();
-          renderRows();
-        });
-        favOnlyBtn.addEventListener("click", () => {
-          showFavOnly = !showFavOnly;
-          favOnlyBtn.classList.toggle("active", showFavOnly);
-          renderRows();
-        });
-      }
-
-      /* ── 7일 추이 차트 렌더 ── */
-      function render7dChart(server) {
-        const baselines = marketData.noonBaselines || {};
-        // 날짜 키 정렬 (최신 7개)
-        const dates = Object.keys(baselines).sort().slice(-7);
-        if (dates.length < 2) {
-          weekChartEl.innerHTML = `<p style="color:var(--muted);font-size:12px;text-align:center;padding:20px 0">7일 데이터가 아직 부족합니다.</p>`;
-          return;
+      /* ── 즐겨찾기 필터 바인딩 ── */
+      function bindFavOnly() {
+        if (favOnlyBtn) {
+          favOnlyBtn.addEventListener("click", () => {
+            showFavOnly = !showFavOnly;
+            favOnlyBtn.classList.toggle("active", showFavOnly);
+            renderRows();
+          });
         }
-
-        const points = dates.map(d => ({
-          date: d,
-          price: baselines[d][server.name] ?? null,
-          label: d.slice(5), // "MM-DD"
-        })).filter(p => p.price !== null);
-
-        if (points.length < 2) {
-          weekChartEl.innerHTML = `<p style="color:var(--muted);font-size:12px;text-align:center;padding:20px 0">이 서버의 데이터가 부족합니다.</p>`;
-          return;
-        }
-
-        // 현재가 포인트 추가 (오늘)
-        const lastDate = dates[dates.length - 1];
-        const todayKey = getLocalDateKey(new Date());
-        if (server.currentPrice && todayKey !== lastDate) {
-          points.push({ date: todayKey, price: server.currentPrice, label: "오늘", isCurrent: true });
-        } else if (server.currentPrice) {
-          // 마지막 포인트를 현재가로 업데이트
-          points[points.length - 1] = { ...points[points.length - 1], price: server.currentPrice, isCurrent: true };
-        }
-
-        const prices = points.map(p => p.price);
-        const minP = Math.min(...prices);
-        const maxP = Math.max(...prices);
-        const range = Math.max(maxP - minP, 1);
-        const W = 360, H = 90, PAD_T = 18, PAD_B = 20;
-        const plotH = H - PAD_T - PAD_B;
-
-        const coords = points.map((p, i) => {
-          const x = (i / (points.length - 1)) * W;
-          const y = PAD_T + plotH - ((p.price - minP) / range) * plotH;
-          return [x, y];
-        });
-
-        const linePath = coords.map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
-        const areaPath = `${linePath} L${W},${H - PAD_B} L0,${H - PAD_B} Z`;
-
-        // 가격 변동 방향 색
-        const first = points[0].price, last = points[points.length - 1].price;
-        const lineColor = last >= first ? "var(--green)" : "var(--red)";
-        const areaColor = last >= first ? "rgba(79,214,200,0.12)" : "rgba(255,109,138,0.1)";
-
-        // 라벨: 첫점, 마지막점, 최고, 최저 (중복 제거)
-        const labelIdxSet = new Set([0, points.length - 1]);
-        const maxIdx = prices.indexOf(Math.max(...prices)); labelIdxSet.add(maxIdx);
-        const minIdx = prices.indexOf(Math.min(...prices)); labelIdxSet.add(minIdx);
-
-        const priceLabels = [...labelIdxSet].map(idx => {
-          const [x, y] = coords[idx];
-          const isLeft = idx === 0;
-          const isRight = idx === points.length - 1;
-          return `
-            <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" stroke="${lineColor}" stroke-width="1.8" fill="#07111d"/>
-            <text x="${(isLeft ? x+4 : isRight ? x-4 : x).toFixed(1)}"
-                  y="${Math.max(PAD_T - 2, y - 6).toFixed(1)}"
-                  text-anchor="${isLeft ? "start" : isRight ? "end" : "middle"}"
-                  style="fill:var(--text);font-size:10px;font-weight:900">${formatShort(points[idx].price)}</text>`;
-        }).join("");
-
-        const axisLabels = points.map((p, i) => {
-          if (i !== 0 && i !== Math.floor((points.length - 1) / 2) && i !== points.length - 1) return "";
-          const [x] = coords[i];
-          const isLeft = i === 0, isRight = i === points.length - 1;
-          return `<text class="wc-axis" x="${(isLeft ? x+4 : isRight ? x-4 : x).toFixed(1)}" y="${(H - 2).toFixed(1)}"
-                  text-anchor="${isLeft ? "start" : isRight ? "end" : "middle"}">${p.label}</text>`;
-        }).join("");
-
-        // 변동 요약
-        const pctChange = (((last - first) / first) * 100).toFixed(1);
-        const sign = last >= first ? "+" : "";
-        const changeColor = last >= first ? "var(--green)" : "var(--red)";
-
-        weekChartEl.innerHTML = `
-          <div class="week-chart-caption">
-            <strong>최근 ${points.length}일 기준가 추이</strong>
-            <span style="color:${changeColor};font-weight:900">${sign}${pctChange}%</span>
-          </div>
-          <svg viewBox="0 0 ${W} ${H}" aria-hidden="true">
-            <path class="wc-area" d="${areaPath}" fill="${areaColor}"/>
-            <path class="wc-line" d="${linePath}" stroke="${lineColor}" stroke-width="2.2" fill="none"
-                  stroke-linecap="round" stroke-linejoin="round"
-                  style="filter:drop-shadow(0 0 6px ${lineColor})"/>
-            ${priceLabels}
-            ${axisLabels}
-          </svg>
-        `;
-
-        // 7일 뷰 소스 바 (오늘 기준)
-        const srcDiff7d = document.querySelector("#sourceDiff7d");
-        const chart7d = document.querySelector("#chart7d");
-        if (srcDiff7d) renderSourceDiffTo(server, srcDiff7d);
-        if (chart7d) renderMarketBarsTo(server, chart7d);
       }
 
       function getLocalDateKey(date) {
@@ -4108,8 +3857,6 @@
         marketDensity.innerHTML = "";
         chartNote.textContent = "대표가는 출처별 수집 가격에서 과도하게 튀는 값을 보정해 산정합니다.";
 
-        // 7일 탭이 열려 있으면 함께 업데이트
-        if (chartMode === "7d") render7dChart(server);
       }
 
       function renderMarketBars(server) {
@@ -4587,17 +4334,14 @@
         const fullList = getRankedServers();
         const favs = getFavs();
 
-        // 검색 필터
-        let list = searchQuery
-          ? fullList.filter(s => s.name.includes(searchQuery))
-          : fullList.slice();
+        let list = fullList.slice();
 
         // 즐겨찾기만 보기
         if (showFavOnly) {
           list = list.filter(s => favs.has(s.name));
         }
 
-        // 즐겨찾기 서버 상단 정렬 (즐겨찾기끼리 → 나머지, 각 그룹은 원래 순위 유지)
+        // 즐겨찾기 서버 상단 정렬
         list = [
           ...list.filter(s => favs.has(s.name)),
           ...list.filter(s => !favs.has(s.name)),
@@ -4606,8 +4350,6 @@
         if (!list.length) {
           const msg = showFavOnly
             ? "즐겨찾기한 서버가 없습니다."
-            : searchQuery
-            ? "검색 결과가 없습니다."
             : "수집된 서버가 없습니다.";
           rows.innerHTML = `<div class="empty">${msg}</div>`;
           return;
@@ -4841,23 +4583,73 @@
 
         // ── 상태 ──────────────────────────────────────────────────
         let boardPage   = 1;
-        let boardFilter = "all";   // "all" | "server"
         let boardTotal  = 0;
+        let activeTab   = "board"; // "board" | "creator"
 
         // ── DOM refs ──────────────────────────────────────────────
-        const boardList       = document.getElementById("boardList");
-        const boardLoading    = document.getElementById("boardLoading");
-        const boardPagination = document.getElementById("boardPagination");
-        const boardServerBadge = document.getElementById("boardServerBadge");
-        const boardWriteForm  = document.getElementById("boardWriteForm");
-        const bwNickname      = document.getElementById("bwNickname");
-        const bwPassword      = document.getElementById("bwPassword");
-        const bwContent       = document.getElementById("bwContent");
-        const bwCharCount     = document.getElementById("bwCharCount");
-        const bwSubmit        = document.getElementById("bwSubmit");
-        const bfAll           = document.getElementById("bfAll");
-        const bfServer        = document.getElementById("bfServer");
-        const boardWriteWrap  = document.getElementById("boardWriteWrap");
+        const boardList           = document.getElementById("boardList");
+        const boardLoading        = document.getElementById("boardLoading");
+        const boardPagination     = document.getElementById("boardPagination");
+        const boardWriteForm      = document.getElementById("boardWriteForm");
+        const boardWritePanel     = document.getElementById("boardWritePanel");
+        const boardWriteToggleBtn = document.getElementById("boardWriteToggleBtn");
+        const boardWriteCancelBtn = document.getElementById("boardWriteCancelBtn");
+        const bwNickname          = document.getElementById("bwNickname");
+        const bwPassword          = document.getElementById("bwPassword");
+        const bwContent           = document.getElementById("bwContent");
+        const bwCharCount         = document.getElementById("bwCharCount");
+        const bwSubmit            = document.getElementById("bwSubmit");
+        const btBoard             = document.getElementById("btBoard");
+        const btCreator           = document.getElementById("btCreator");
+        // 크리에이터 피드 섹션 (탭 전환용)
+        const channelsSection     = document.querySelector(".channels");
+
+        // ── 탭 전환 ───────────────────────────────────────────────
+        function switchTab(tab) {
+          activeTab = tab;
+          btBoard.classList.toggle("active", tab === "board");
+          btCreator.classList.toggle("active", tab === "creator");
+          // 게시판 내용 토글
+          boardList.style.display      = tab === "board" ? "" : "none";
+          boardPagination.style.display = tab === "board" ? "" : "none";
+          boardWriteToggleBtn.style.display = tab === "board" ? "" : "none";
+          // 글쓰기 패널 닫기
+          if (boardWritePanel) boardWritePanel.style.display = "none";
+          if (boardWriteToggleBtn) boardWriteToggleBtn.classList.remove("open");
+          // 크리에이터 피드: board-section 안에 inline으로 보여주기
+          const creatorInline = document.getElementById("boardCreatorInline");
+          if (tab === "creator") {
+            if (!creatorInline && channelsSection) {
+              // 크리에이터 섹션의 내용을 복제해 인라인으로 표시
+              const clone = channelsSection.cloneNode(true);
+              clone.id = "boardCreatorInline";
+              clone.style.cssText = "background:none;border:none;padding:0;box-shadow:none;overflow-y:auto;flex:1;min-height:0";
+              boardList.parentNode.insertBefore(clone, boardList);
+            }
+            if (creatorInline) creatorInline.style.display = "";
+          } else {
+            if (creatorInline) creatorInline.style.display = "none";
+          }
+        }
+
+        btBoard.addEventListener("click",   () => switchTab("board"));
+        btCreator.addEventListener("click", () => switchTab("creator"));
+
+        // ── 글쓰기 패널 토글 ──────────────────────────────────────
+        if (boardWriteToggleBtn) {
+          boardWriteToggleBtn.addEventListener("click", () => {
+            const isOpen = boardWritePanel.style.display !== "none";
+            boardWritePanel.style.display = isOpen ? "none" : "";
+            boardWriteToggleBtn.classList.toggle("open", !isOpen);
+            if (!isOpen) bwContent.focus();
+          });
+        }
+        if (boardWriteCancelBtn) {
+          boardWriteCancelBtn.addEventListener("click", () => {
+            boardWritePanel.style.display = "none";
+            boardWriteToggleBtn.classList.remove("open");
+          });
+        }
 
         // ── localStorage CRUD ──────────────────────────────────────
         function loadAllPosts() {
@@ -4897,23 +4689,6 @@
           bwCharCount.textContent = `${bwContent.value.length} / 1000`;
         });
 
-        // ── 필터 탭 ────────────────────────────────────────────────
-        bfAll.addEventListener("click", () => {
-          boardFilter = "all";
-          boardPage   = 1;
-          bfAll.classList.add("active");
-          bfServer.classList.remove("active");
-          loadPosts();
-        });
-
-        bfServer.addEventListener("click", () => {
-          boardFilter = "server";
-          boardPage   = 1;
-          bfServer.classList.add("active");
-          bfAll.classList.remove("active");
-          loadPosts();
-        });
-
         // ── 글 작성 ────────────────────────────────────────────────
         boardWriteForm.addEventListener("submit", (e) => {
           e.preventDefault();
@@ -4939,11 +4714,9 @@
           bwPassword.value = "";
           bwNickname.value = "";
           bwCharCount.textContent = "0 / 1000";
-          boardWriteWrap.open = false;
-          boardPage   = 1;
-          boardFilter = "all";
-          bfAll.classList.add("active");
-          bfServer.classList.remove("active");
+          boardWritePanel.style.display = "none";
+          boardWriteToggleBtn.classList.remove("open");
+          boardPage = 1;
           loadPosts();
         });
 
@@ -5059,52 +4832,17 @@
           });
         }
 
-        // ── 글 목록 로드 (localStorage 동기) ──────────────────────
+        // ── 글 목록 로드 ──────────────────────────────────────────
         function loadPosts() {
           boardPagination.innerHTML = "";
 
-          // 현재 서버 필터 버튼 표시 여부
-          if (selectedServerName) {
-            bfServer.style.display = "inline-block";
-            bfServer.textContent   = `${selectedServerName} 서버`;
-          } else {
-            bfServer.style.display = "none";
-            if (boardFilter === "server") { boardFilter = "all"; }
-          }
-
-          // 배지
-          const filterServer = boardFilter === "server" ? (selectedServerName || "") : "";
-          if (filterServer) {
-            boardServerBadge.textContent     = filterServer;
-            boardServerBadge.style.display   = "inline-block";
-          } else {
-            boardServerBadge.style.display   = "none";
-          }
-
-          let all = loadAllPosts();
-          if (filterServer) {
-            all = all.filter(p => p.server === filterServer);
-          }
-
+          const all = loadAllPosts();
           boardTotal = all.length;
           const offset = (boardPage - 1) * PAGE_SIZE;
           const page   = all.slice(offset, offset + PAGE_SIZE);
 
           renderPosts(page);
           renderPagination(boardTotal, boardPage);
-        }
-
-        // ── 서버 선택 바뀔 때 필터 버튼 갱신 ─────────────────────
-        const rowsEl = document.getElementById("rows");
-        if (rowsEl) {
-          new MutationObserver(() => {
-            if (selectedServerName) {
-              bfServer.style.display = "inline-block";
-              bfServer.textContent   = `${selectedServerName} 서버`;
-            } else {
-              bfServer.style.display = "none";
-            }
-          }).observe(rowsEl, { childList: true });
         }
 
         // ── 초기 로드 ──────────────────────────────────────────────
