@@ -3927,7 +3927,7 @@
       }
 
       .app {
-        grid-template-rows: 40px minmax(0, 1fr) 240px;
+        grid-template-rows: 40px 430px minmax(220px, 1fr);
         align-content: stretch;
       }
 
@@ -3939,6 +3939,8 @@
 
       .chart-panel {
         min-height: 0;
+        align-self: stretch;
+        height: 430px;
       }
 
       .board-section {
@@ -3961,6 +3963,34 @@
         max-height: 340px;
         flex: 0 1 auto;
         overflow-y: auto;
+      }
+
+      .source-diff:empty,
+      .market-density:empty,
+      .chart:empty {
+        display: none;
+      }
+
+      .chart-panel .spark {
+        min-height: 120px;
+        margin-top: 12px;
+        padding: 12px 12px 8px;
+        border: 1px solid rgba(178, 194, 224, 0.1);
+        border-radius: 14px;
+        background:
+          linear-gradient(180deg, rgba(10, 17, 30, 0.58), rgba(5, 9, 17, 0.42));
+      }
+
+      .chart-panel .spark svg {
+        height: 82px;
+      }
+
+      .chart-panel .market-row {
+        margin-top: 12px;
+      }
+
+      .chart-panel .mini-ad-row {
+        display: none;
       }
     }
   </style>
