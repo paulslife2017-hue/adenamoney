@@ -5470,13 +5470,12 @@
         // 헤더 기준 날짜 표시 업데이트
         const changeColHead = document.getElementById("changeColHead");
         if (changeColHead) {
-          // KST 오늘 날짜 기준 '어제 MM/DD比' 표시
-          const kstNow = new Date(Date.now() + 9 * 60 * 60 * 1000);
-          const yesterday = new Date(kstNow);
-          yesterday.setUTCDate(yesterday.getUTCDate() - 1);
-          const mm = String(yesterday.getUTCMonth() + 1).padStart(2, '0');
-          const dd = String(yesterday.getUTCDate()).padStart(2, '0');
-          changeColHead.textContent = `${mm}/${dd}比`;
+          // 실제 비교 기준일(baselineLabel)에서 날짜 추출 → "06/24比"
+          const bl = fullList[0]?.baselineLabel; // "2026-06-24 12:00"
+          const m = bl?.match(/(\d{4})-(\d{2})-(\d{2})/);
+          if (m) {
+            changeColHead.textContent = `${m[2]}/${m[3]}比`;
+          }
         }
 
         let list = fullList.slice();
