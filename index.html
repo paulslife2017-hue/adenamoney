@@ -386,14 +386,64 @@
         font-size: 11px;
         font-weight: 800;
         font-variant-numeric: tabular-nums;
-        min-width: 168px;
+        min-width: 148px;
         text-align: right;
+        transition: color 0.3s;
+      }
+      .topbar-refresh.loading .refresh-countdown {
+        color: #ffd76e;
+        animation: livePulse 0.9s ease-in-out infinite;
       }
 
       @keyframes livePulse {
         0%, 100% { opacity: 0.45; transform: scale(0.86); }
         50% { opacity: 1; transform: scale(1.18); }
       }
+
+      /* ── 가격 변화 flash ── */
+      @keyframes priceFlashUp {
+        0%   { background: rgba(72,214,150,0.30); color: #6eeebb; transform: scale(1.08); }
+        60%  { background: rgba(72,214,150,0.12); color: #6eeebb; }
+        100% { background: transparent; color: inherit; transform: scale(1); }
+      }
+      @keyframes priceFlashDown {
+        0%   { background: rgba(240,80,80,0.28); color: #ff8a8a; transform: scale(1.08); }
+        60%  { background: rgba(240,80,80,0.10); color: #ff8a8a; }
+        100% { background: transparent; color: inherit; transform: scale(1); }
+      }
+      @keyframes priceFlashSame {
+        0%   { background: rgba(72,198,255,0.18); }
+        100% { background: transparent; }
+      }
+      /* 새 row 진입 */
+      @keyframes rowSlideIn {
+        from { opacity: 0; transform: translateY(-8px) scaleY(0.94); }
+        to   { opacity: 1; transform: translateY(0)   scaleY(1); }
+      }
+      /* 순위 이동 위로 */
+      @keyframes rankUp {
+        0%   { color: #6eeebb; transform: translateY(4px); }
+        60%  { transform: translateY(-2px); }
+        100% { color: inherit; transform: translateY(0); }
+      }
+      /* 순위 이동 아래로 */
+      @keyframes rankDown {
+        0%   { color: #ff8a8a; transform: translateY(-4px); }
+        60%  { transform: translateY(2px); }
+        100% { color: inherit; transform: translateY(0); }
+      }
+      /* row heat bar 애니메이션 */
+      @keyframes heatPulse {
+        0%,100% { opacity: 0.7; }
+        50%     { opacity: 1; }
+      }
+
+      .price-flash-up   { animation: priceFlashUp   0.55s ease forwards; }
+      .price-flash-down { animation: priceFlashDown 0.55s ease forwards; }
+      .price-flash-same { animation: priceFlashSame 0.4s ease forwards; }
+      .row-new          { animation: rowSlideIn 0.35s cubic-bezier(0.22,1,0.36,1) forwards; }
+      .rank-up   .rank  { animation: rankUp   0.6s ease forwards; }
+      .rank-down .rank  { animation: rankDown 0.6s ease forwards; }
 
       .channels {
         display: none !important;
@@ -5386,83 +5436,170 @@
         } finally {
           isRefreshing = false;
           topbarRefresh?.classList.remove("loading");
+          refreshLeft = 30;
+          updateRefreshCountdown(); // 즉시 카운트다운 표시
         }
-
-        refreshLeft = 30;
       }
+
+      // 이전 렌더 상태 기억 (DOM diff용)
+      const _rowState = new Map(); // name → { price, rank }
 
       function renderRows() {
         const fullList = getRankedServers();
         const favs = getFavs();
 
         let list = fullList.slice();
-
-        // 즐겨찾기만 보기
-        if (showFavOnly) {
-          list = list.filter(s => favs.has(s.name));
-        }
-
-        // 즐겨찾기 서버 상단 정렬
+        if (showFavOnly) list = list.filter(s => favs.has(s.name));
         list = [
           ...list.filter(s => favs.has(s.name)),
           ...list.filter(s => !favs.has(s.name)),
         ];
 
         if (!list.length) {
-          const msg = showFavOnly
-            ? "즐겨찾기한 서버가 없습니다."
-            : "수집된 서버가 없습니다.";
+          const msg = showFavOnly ? "즐겨찾기한 서버가 없습니다." : "수집된 서버가 없습니다.";
           rows.innerHTML = `<div class="empty">${msg}</div>`;
+          _rowState.clear();
           return;
         }
 
-        rows.innerHTML = list
-          .map((server) => {
-            const realRank = fullList.findIndex(s => s.name === server.name) + 1;
-            const currentPrice = getServerPrice(server);
-            const price = currentPrice ? currentPrice.toLocaleString("ko-KR") : "수집전";
-            const active = server.name === selectedServerName ? " active" : "";
-            const heat = getHeat(server);
-            const favOn = favs.has(server.name) ? " on" : "";
-
-            return `
-              <button class="row${active}" type="button" data-server-name="${escapeAttr(server.name)}" style="--heat:${heat}%">
-                <span class="rank">${realRank}</span>
-                <span class="server">
-                  <strong>${server.name}</strong>
-                </span>
-                <span class="value">
-                  <strong>${price}</strong>
-                  <span class="row-live"><i></i>LIVE</span>
-                </span>
-                <span class="compact-change">
-                  <span class="row-change ${getChangeClass(server)}">${formatChangeCompact(server)}</span>
-                </span>
-                <button class="fav-btn${favOn}" type="button" data-fav-name="${escapeAttr(server.name)}" aria-label="즐겨찾기 토글">★</button>
-              </button>
-            `;
-          })
-          .join("");
-
-        document.querySelectorAll(".row").forEach((row) => {
-          row.addEventListener("click", (e) => {
-            if (e.target.closest(".fav-btn")) return; // fav 버튼 클릭은 무시
-            const name = row.dataset.serverName;
-            const server = fullList.find(s => s.name === name);
-            if (!server) return;
-            selectedServerName = name;
-            renderChart(server);
-            renderRows();
-          });
+        // ── 이미 렌더된 row 요소 맵 ──
+        const existingRows = new Map();
+        rows.querySelectorAll(".row[data-server-name]").forEach(el => {
+          existingRows.set(el.dataset.serverName, el);
         });
 
-        document.querySelectorAll(".fav-btn").forEach((btn) => {
-          btn.addEventListener("click", (e) => {
+        // ── 새 순서대로 DOM 재배치 + 변화 애니메이션 ──
+        list.forEach((server, idx) => {
+          const realRank   = fullList.findIndex(s => s.name === server.name) + 1;
+          const curPrice   = getServerPrice(server);
+          const priceText  = curPrice ? curPrice.toLocaleString("ko-KR") : "수집전";
+          const active     = server.name === selectedServerName ? " active" : "";
+          const heat       = getHeat(server);
+          const favOn      = favs.has(server.name) ? " on" : "";
+          const prev       = _rowState.get(server.name);
+
+          let el = existingRows.get(server.name);
+
+          if (!el) {
+            // ── 신규 row: HTML 생성 후 slide-in ──
+            el = document.createElement("button");
+            el.className = `row row-new${active}`;
+            el.type = "button";
+            el.dataset.serverName = server.name;
+            el.innerHTML = _rowInner(server, realRank, priceText, favOn);
+            _bindRowEvents(el, fullList);
+            rows.appendChild(el);
+            setTimeout(() => el.classList.remove("row-new"), 400);
+          } else {
+            // ── 기존 row: 변화된 부분만 패치 ──
+            const priceEl  = el.querySelector(".price-val");
+            const rankEl   = el.querySelector(".rank");
+            const changeEl = el.querySelector(".row-change");
+            const favEl    = el.querySelector(".fav-btn");
+
+            // active 상태
+            el.classList.toggle("active", server.name === selectedServerName);
+
+            // heat bar
+            el.style.setProperty("--heat", heat + "%");
+
+            // 가격 변화 애니메이션
+            if (priceEl && prev && curPrice != null) {
+              const prevPrice = prev.price;
+              if (prevPrice != null && curPrice !== prevPrice) {
+                const cls = curPrice > prevPrice ? "price-flash-up" : "price-flash-down";
+                priceEl.textContent = priceText;
+                priceEl.classList.remove("price-flash-up","price-flash-down","price-flash-same");
+                void priceEl.offsetWidth; // reflow
+                priceEl.classList.add(cls);
+                setTimeout(() => priceEl.classList.remove(cls), 600);
+              } else if (prevPrice == null && curPrice != null) {
+                priceEl.textContent = priceText;
+                priceEl.classList.remove("price-flash-up","price-flash-down","price-flash-same");
+                void priceEl.offsetWidth;
+                priceEl.classList.add("price-flash-same");
+                setTimeout(() => priceEl.classList.remove("price-flash-same"), 450);
+              } else {
+                priceEl.textContent = priceText;
+              }
+            } else if (priceEl) {
+              priceEl.textContent = priceText;
+            }
+
+            // 순위 변화 애니메이션
+            if (rankEl) {
+              rankEl.textContent = realRank;
+              if (prev) {
+                el.classList.remove("rank-up","rank-down");
+                if (realRank < prev.rank) {
+                  void el.offsetWidth;
+                  el.classList.add("rank-up");
+                  setTimeout(() => el.classList.remove("rank-up"), 700);
+                } else if (realRank > prev.rank) {
+                  void el.offsetWidth;
+                  el.classList.add("rank-down");
+                  setTimeout(() => el.classList.remove("rank-down"), 700);
+                }
+              }
+            }
+
+            // 등락 뱃지
+            if (changeEl) {
+              changeEl.textContent = formatChangeCompact(server);
+              changeEl.className = `row-change ${getChangeClass(server)}`;
+            }
+
+            // 즐겨찾기 상태
+            if (favEl) favEl.className = `fav-btn${favOn}`;
+          }
+
+          // 순서 보장 (이미 맞으면 불필요한 DOM 이동 없음)
+          if (rows.children[idx] !== el) rows.insertBefore(el, rows.children[idx] || null);
+
+          // 상태 저장
+          _rowState.set(server.name, { price: curPrice, rank: realRank });
+        });
+
+        // ── 사라진 서버 제거 ──
+        const nameSet = new Set(list.map(s => s.name));
+        existingRows.forEach((el, name) => {
+          if (!nameSet.has(name)) { el.remove(); _rowState.delete(name); }
+        });
+      }
+
+      function _rowInner(server, rank, priceText, favOn) {
+        return `
+          <span class="rank">${rank}</span>
+          <span class="server"><strong>${server.name}</strong></span>
+          <span class="value">
+            <strong class="price-val">${priceText}</strong>
+            <span class="row-live"><i></i>LIVE</span>
+          </span>
+          <span class="compact-change">
+            <span class="row-change ${getChangeClass(server)}">${formatChangeCompact(server)}</span>
+          </span>
+          <button class="fav-btn${favOn}" type="button" data-fav-name="${escapeAttr(server.name)}" aria-label="즐겨찾기 토글">★</button>
+        `;
+      }
+
+      function _bindRowEvents(el, fullList) {
+        el.addEventListener("click", (e) => {
+          if (e.target.closest(".fav-btn")) return;
+          const name = el.dataset.serverName;
+          const server = fullList.find(s => s.name === name);
+          if (!server) return;
+          selectedServerName = name;
+          renderChart(server);
+          renderRows();
+        });
+        const favBtn = el.querySelector(".fav-btn");
+        if (favBtn) {
+          favBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            toggleFav(btn.dataset.favName);
+            toggleFav(favBtn.dataset.favName);
             renderRows();
           });
-        });
+        }
       }
 
       function sourceCount(server) {
@@ -5585,8 +5722,21 @@
         refreshCountdown.textContent = `${today} 12시 기준 · 다음 ${hours}:${minutes}:${seconds}`;
       }
 
+      function updateRefreshCountdown() {
+        if (!refreshCountdown) return;
+        if (isRefreshing) {
+          refreshCountdown.textContent = "⏳ 시세 수집 중...";
+          return;
+        }
+        const left = Math.max(0, refreshLeft);
+        const mm = String(Math.floor(left / 60)).padStart(2, "0");
+        const ss = String(left % 60).padStart(2, "0");
+        refreshCountdown.textContent = `🔄 ${mm}:${ss} 후 갱신`;
+      }
+
       setInterval(() => {
         updateMarketClock();
+        updateRefreshCountdown();
         if (isRefreshing) return; // 갱신 중에는 카운트다운 정지
         refreshLeft -= 1;
         if (refreshLeft <= 0) {
@@ -5597,6 +5747,7 @@
       renderTicker();
       renderYoutubeVideos();
       updateMarketClock();
+      updateRefreshCountdown();
 
       // ── 서버 자동 선택: URL ?server=오렌 or postMessage ──
       (function autoSelectServer() {
