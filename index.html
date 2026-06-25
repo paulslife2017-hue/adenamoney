@@ -607,6 +607,78 @@
         gap: 6px;
         margin-top: 8px;
       }
+
+      .square-ad-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        margin: 10px 0 2px;
+      }
+
+      .square-ad {
+        position: relative;
+        display: flex;
+        min-width: 0;
+        aspect-ratio: 1 / 1;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(246, 199, 107, 0.2);
+        border-radius: 12px;
+        background:
+          radial-gradient(circle at 78% 12%, rgba(246, 199, 107, 0.18), transparent 34%),
+          linear-gradient(145deg, rgba(22, 27, 42, 0.92), rgba(8, 13, 25, 0.76));
+        color: var(--text);
+        text-decoration: none;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+      }
+
+      .square-ad::after {
+        content: "";
+        position: absolute;
+        inset: auto -20% -36% 20%;
+        height: 64%;
+        border-radius: 999px;
+        background: rgba(72, 198, 255, 0.1);
+        filter: blur(18px);
+      }
+
+      .square-ad:hover {
+        transform: translateY(-2px);
+        border-color: rgba(246, 199, 107, 0.42);
+        background:
+          radial-gradient(circle at 78% 12%, rgba(246, 199, 107, 0.24), transparent 34%),
+          linear-gradient(145deg, rgba(28, 33, 48, 0.95), rgba(10, 17, 31, 0.82));
+      }
+
+      .square-ad span,
+      .square-ad strong,
+      .square-ad small {
+        position: relative;
+        z-index: 1;
+      }
+
+      .square-ad span {
+        color: var(--yellow);
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+      }
+
+      .square-ad strong {
+        display: block;
+        font-size: 13px;
+        line-height: 1.25;
+      }
+
+      .square-ad small {
+        color: rgba(210, 225, 255, 0.68);
+        font-size: 10px;
+        font-weight: 800;
+      }
+
       .market-btn {
         padding: 8px 4px;
         border-radius: 8px;
@@ -4047,6 +4119,24 @@
     }
 
     @media (max-width: 480px) {
+      .square-ad-row {
+        gap: 6px;
+      }
+
+      .square-ad {
+        min-height: 88px;
+        padding: 8px;
+        border-radius: 10px;
+      }
+
+      .square-ad strong {
+        font-size: 11px;
+      }
+
+      .square-ad small {
+        font-size: 9px;
+      }
+
       .compare-row {
         grid-template-columns: 74px 1fr 68px;
       }
@@ -4057,6 +4147,25 @@
 
       .market-density {
         grid-template-columns: 1fr 1fr;
+      }
+
+      .density-card {
+        padding: 9px 10px;
+      }
+
+      .density-card strong {
+        font-size: 12px;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .square-ad-row {
+        grid-template-columns: repeat(3, 132px);
+        justify-content: start;
+      }
+
+      .market-density {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
       .density-card {
@@ -4122,6 +4231,24 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="square-ad-row" aria-label="광고 영역">
+          <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+            <span>AD 01</span>
+            <strong>서버 광고</strong>
+            <small>문의하기</small>
+          </a>
+          <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+            <span>AD 02</span>
+            <strong>방송 광고</strong>
+            <small>문의하기</small>
+          </a>
+          <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+            <span>AD 03</span>
+            <strong>배너 광고</strong>
+            <small>문의하기</small>
+          </a>
         </div>
 
         <!-- 스파크 차트 -->
@@ -4789,7 +4916,7 @@
 
         spark.innerHTML = `
           <div class="spark-caption">
-            <strong>최근 수집 시세 흐름</strong>
+            <strong>최근 7일 시세 흐름</strong>
             <span>선 위 숫자: 수집 가격</span>
           </div>
           <svg viewBox="0 0 ${width} ${height}" aria-hidden="true">
@@ -4817,6 +4944,13 @@
 
       function buildSparkPoints(server) {
         const currentPrice = Number.isFinite(server.currentPrice) ? server.currentPrice : null;
+        const baselinePoints = Object.entries(marketData.noonBaselines || {})
+          .map(([date, prices]) => ({
+            price: prices?.[server.name],
+            at: `${date}T12:00:00+09:00`,
+          }))
+          .filter((point) => Number.isFinite(point.price))
+          .slice(-6);
         const history = (server.history || [])
           .filter((point) => Number.isFinite(point.price))
           .filter((point) => {
@@ -4830,7 +4964,9 @@
         const current = Number.isFinite(server.currentPrice)
           ? [{ price: server.currentPrice, at: new Date().toISOString(), label: "현재" }]
           : [];
-        const combined = [...base, ...history.slice(-6), ...current];
+        const combined = baselinePoints.length
+          ? [...baselinePoints, ...history.slice(-6), ...current]
+          : [...base, ...history.slice(-18), ...current];
         return buildDailySparkPoints(combined);
       }
 
@@ -4842,8 +4978,8 @@
           daily.set(key, { ...point, dayLabel: key });
         });
 
-        const compact = [...daily.values()].slice(-3);
-        return compact.length >= 2 ? compact : points.slice(-3);
+        const compact = [...daily.values()].slice(-7);
+        return compact.length >= 2 ? compact : points.slice(-7);
       }
 
       function buildSparkPriceLabels(points, coords) {
@@ -4864,7 +5000,9 @@
       }
 
       function buildSparkAxisLabels(points, coords) {
-        const indexes = [...new Set([0, Math.floor((points.length - 1) / 2), points.length - 1])];
+        const indexes = points.length <= 7
+          ? points.map((_, index) => index)
+          : [...new Set([0, Math.floor((points.length - 1) / 2), points.length - 1])];
         const used = new Set();
         return indexes
           .map((index) => {
