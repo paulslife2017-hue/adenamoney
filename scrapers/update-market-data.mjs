@@ -61,6 +61,14 @@ const baselineDate = getKstDateKey(fetchedAt);
 const previousBaselineDate = getKstDateKey(addDays(fetchedAt, -1));
 const noonBaselines = previous.noonBaselines || {};
 
+// ── 가장 최근 baseline 날짜 찾기 (오늘/어제가 없어도 최근 데이터 사용) ──
+const sortedBaselineDates = Object.keys(noonBaselines).sort();
+// 오늘 baseline 제외, 가장 최근 날짜
+const latestBaselineDate = sortedBaselineDates
+  .filter(d => d < baselineDate)
+  .at(-1) || null;
+console.log(`baseline: today=${baselineDate}, prev=${previousBaselineDate}, latest=${latestBaselineDate}`);
+
 for (const [name, itemBayServerId] of SERVERS) {
   const itemBay = await collectItemBay(name, itemBayServerId);
   const maniaPrices = itemManiaListings.get(name) || [];
@@ -77,9 +85,15 @@ for (const [name, itemBayServerId] of SERVERS) {
     ? [...prevHistory, { at: fetchedAt, price: currentPrice }].slice(-HISTORY_LIMIT)
     : prevHistory.slice(-HISTORY_LIMIT);
   const todayBaseline = noonBaselines[baselineDate]?.[name];
-  const previousNoonPrice = noonBaselines[previousBaselineDate]?.[name] || null;
-  const change = currentPrice && previousNoonPrice ? currentPrice - previousNoonPrice : null;
-  const changeRate = currentPrice && previousNoonPrice ? Number(((change / previousNoonPrice) * 100).toFixed(2)) : null;
+  // 어제 baseline 우선, 없으면 가장 최근 날짜 baseline 사용
+  const refDate = noonBaselines[previousBaselineDate]?.[name] != null
+    ? previousBaselineDate
+    : latestBaselineDate;
+  const previousNoonPrice = refDate ? (noonBaselines[refDate]?.[name] || null) : null;
+  const change = currentPrice && previousNoonPrice ? Math.round(currentPrice - previousNoonPrice) : null;
+  const changeRate = currentPrice && previousNoonPrice
+    ? Number(((change / previousNoonPrice) * 100).toFixed(2))
+    : null;
 
   servers.push({
     name,
@@ -101,7 +115,7 @@ for (const [name, itemBayServerId] of SERVERS) {
     previousNoonPrice,
     change,
     changeRate,
-    baselineLabel: `${previousBaselineDate} 12:00`,
+    baselineLabel: refDate ? `${refDate} 12:00` : null,
     history,
   });
 

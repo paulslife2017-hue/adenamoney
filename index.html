@@ -1437,6 +1437,7 @@
         color: var(--text);
         font-variant-numeric: tabular-nums;
         letter-spacing: 0;
+        transition: color 0.4s ease;
       }
 
       .value span {
@@ -1473,14 +1474,20 @@
       }
 
       .row-change.up {
-        background: rgba(72, 214, 150, 0.14);
-        color: #6eeebb;
+        background: rgba(72, 214, 150, 0.18);
+        color: #4dd6a0;
+        font-size: 11px;
       }
 
       .row-change.down {
-        background: rgba(240, 80, 80, 0.14);
-        color: #ff8a8a;
+        background: rgba(240, 80, 80, 0.18);
+        color: #f06060;
+        font-size: 11px;
       }
+
+      /* 가격 수치 색상 등락 반영 */
+      .value strong.is-up   { color: #4dd6a0; }
+      .value strong.is-down { color: #f06060; }
 
       /* rank 배지 내부 이동 화살표 */
       .rank-arrow {
@@ -4567,7 +4574,7 @@
           <span>순위</span>
           <span>서버</span>
           <span style="text-align: right">현재가</span>
-          <span style="text-align: right">전일</span>
+          <span style="text-align: right" id="changeColHead">전일比</span>
           <span></span>
         </div>
         <div id="rows"></div>
@@ -5460,6 +5467,14 @@
         const fullList = getRankedServers();
         const favs = getFavs();
 
+        // 헤더 기준 날짜 표시 업데이트
+        const changeColHead = document.getElementById("changeColHead");
+        if (changeColHead && fullList[0]?.baselineLabel) {
+          const bl = fullList[0].baselineLabel; // "2026-06-24 12:00"
+          const m = bl.match(/(\d{4}-\d{2}-(\d{2}))/);
+          changeColHead.textContent = m ? `${m[2]}일比` : "전일比";
+        }
+
         let list = fullList.slice();
         if (showFavOnly) list = list.filter(s => favs.has(s.name));
         list = [
@@ -5521,16 +5536,20 @@
             // heat bar
             el.style.setProperty("--heat", heat + "%");
 
-            // ── 가격 flash 애니메이션 ──
+            // ── 가격 flash 애니메이션 + 등락 색상 ──
             if (priceEl) {
               const prevPrice = prev?.price;
+              // 등락 방향 색상 업데이트
+              const changeCls = getChangeClass(server);
+              priceEl.classList.toggle("is-up",   changeCls === "up");
+              priceEl.classList.toggle("is-down", changeCls === "down");
               if (prevPrice != null && curPrice != null && curPrice !== prevPrice) {
-                const cls = curPrice > prevPrice ? "price-flash-up" : "price-flash-down";
+                const flashCls = curPrice > prevPrice ? "price-flash-up" : "price-flash-down";
                 priceEl.textContent = priceText;
                 priceEl.classList.remove("price-flash-up","price-flash-down","price-flash-same");
                 void priceEl.offsetWidth;
-                priceEl.classList.add(cls);
-                setTimeout(() => priceEl.classList.remove(cls), 600);
+                priceEl.classList.add(flashCls);
+                setTimeout(() => priceEl.classList.remove(flashCls), 600);
               } else {
                 priceEl.textContent = priceText;
               }
@@ -5621,15 +5640,16 @@
       function _rowInner(server, rank, priceText, favOn, rankDir = "") {
         const arrow = rankDir === "up" ? "▲" : rankDir === "down" ? "▼" : "";
         const arrowCls = rankDir ? ` rank-arrow ${rankDir}` : " rank-arrow";
+        const changeCls = getChangeClass(server);
+        const priceColorCls = changeCls === "up" ? " is-up" : changeCls === "down" ? " is-down" : "";
         return `
           <span class="rank">${rank}<span class="${arrowCls.trim()}">${arrow}</span></span>
           <span class="server"><strong>${server.name}</strong></span>
           <span class="value">
-            <strong class="price-val">${priceText}</strong>
-            <span class="row-live"><i></i>LIVE</span>
+            <strong class="price-val${priceColorCls}">${priceText}</strong>
           </span>
           <span class="compact-change">
-            <span class="row-change ${getChangeClass(server)}">${_changeHtml(server)}</span>
+            <span class="row-change ${changeCls}">${_changeHtml(server)}</span>
           </span>
           <button class="fav-btn${favOn}" type="button" data-fav-name="${escapeAttr(server.name)}" aria-label="즐겨찾기 토글">★</button>
         `;
