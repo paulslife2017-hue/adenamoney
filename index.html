@@ -1303,7 +1303,7 @@
       .head,
       .row {
         display: grid;
-        grid-template-columns: 30px 1fr 88px 58px 26px;
+        grid-template-columns: 32px 1fr 88px 58px 26px;
         gap: 8px;
         align-items: center;
       }
@@ -1329,9 +1329,10 @@
         transition:
           border-color 180ms ease,
           background 180ms ease,
-          transform 180ms ease;
+          transform 420ms cubic-bezier(0.25, 1, 0.5, 1);
         position: relative;
         overflow: hidden;
+        will-change: transform;
       }
 
       .row::before {
@@ -1361,15 +1362,18 @@
       }
 
       .rank {
-        display: grid;
-        width: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1px;
+        width: 28px;
         height: 24px;
-        place-items: center;
         border-radius: 8px;
         background: rgba(147, 164, 189, 0.11);
         color: var(--muted);
         font-size: 11px;
         font-weight: 900;
+        position: relative;
       }
 
       .row:nth-child(-n + 3) .rank {
@@ -1456,14 +1460,18 @@
       }
 
       .row-change {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
         margin-top: 0;
-        padding: 3px 5px;
+        padding: 3px 6px;
         border-radius: 999px;
         background: rgba(147, 164, 189, 0.1);
         color: var(--muted);
         font-size: 10px;
         font-weight: 900;
+        letter-spacing: -0.02em;
+        transition: background 0.3s, color 0.3s;
       }
 
       .compact-change {
@@ -1471,14 +1479,24 @@
       }
 
       .row-change.up {
-        background: var(--soft-green);
-        color: var(--green);
+        background: rgba(72, 214, 150, 0.14);
+        color: #6eeebb;
       }
 
       .row-change.down {
-        background: var(--soft-red);
-        color: var(--red);
+        background: rgba(240, 80, 80, 0.14);
+        color: #ff8a8a;
       }
+
+      /* rank 배지 내부 이동 화살표 */
+      .rank-arrow {
+        font-size: 8px;
+        line-height: 1;
+        margin-left: 1px;
+        opacity: 0.85;
+      }
+      .rank-arrow.up { color: #6eeebb; }
+      .rank-arrow.down { color: #ff8a8a; }
 
       .empty {
         padding: 28px 10px;
@@ -1870,7 +1888,7 @@
       /* row 구조에 즐겨찾기 버튼 포함 */
       .head,
       .row {
-        grid-template-columns: 30px 1fr 88px 58px 26px;
+        grid-template-columns: 32px 1fr 88px 58px 26px;
       }
 
       .section-title {
@@ -5441,7 +5459,7 @@
         }
       }
 
-      // 이전 렌더 상태 기억 (DOM diff용)
+      // 이전 렌더 상태 기억 (DOM diff + FLIP용)
       const _rowState = new Map(); // name → { price, rank }
 
       function renderRows() {
@@ -5462,98 +5480,100 @@
           return;
         }
 
+        // ── FLIP Step 1: 기존 row들의 위치(top) 기록 ──
+        const beforePos = new Map();
+        rows.querySelectorAll(".row[data-server-name]").forEach(el => {
+          beforePos.set(el.dataset.serverName, el.getBoundingClientRect().top);
+        });
+
         // ── 이미 렌더된 row 요소 맵 ──
         const existingRows = new Map();
         rows.querySelectorAll(".row[data-server-name]").forEach(el => {
           existingRows.set(el.dataset.serverName, el);
         });
 
-        // ── 새 순서대로 DOM 재배치 + 변화 애니메이션 ──
+        // ── 각 서버 DOM 패치 (위치 변경 전) ──
         list.forEach((server, idx) => {
           const realRank   = fullList.findIndex(s => s.name === server.name) + 1;
           const curPrice   = getServerPrice(server);
           const priceText  = curPrice ? curPrice.toLocaleString("ko-KR") : "수집전";
-          const active     = server.name === selectedServerName ? " active" : "";
           const heat       = getHeat(server);
           const favOn      = favs.has(server.name) ? " on" : "";
           const prev       = _rowState.get(server.name);
+          const rankDir    = prev ? (realRank < prev.rank ? "up" : realRank > prev.rank ? "down" : "") : "";
 
           let el = existingRows.get(server.name);
 
           if (!el) {
-            // ── 신규 row: HTML 생성 후 slide-in ──
+            // ── 신규 row 생성 ──
             el = document.createElement("button");
-            el.className = `row row-new${active}`;
+            el.className = `row row-new`;
             el.type = "button";
             el.dataset.serverName = server.name;
-            el.innerHTML = _rowInner(server, realRank, priceText, favOn);
+            el.innerHTML = _rowInner(server, realRank, priceText, favOn, rankDir);
             _bindRowEvents(el, fullList);
             rows.appendChild(el);
             setTimeout(() => el.classList.remove("row-new"), 400);
           } else {
-            // ── 기존 row: 변화된 부분만 패치 ──
+            // ── 기존 row: 변화된 셀만 패치 ──
             const priceEl  = el.querySelector(".price-val");
             const rankEl   = el.querySelector(".rank");
+            const rankArrow = el.querySelector(".rank-arrow");
             const changeEl = el.querySelector(".row-change");
             const favEl    = el.querySelector(".fav-btn");
 
             // active 상태
             el.classList.toggle("active", server.name === selectedServerName);
-
             // heat bar
             el.style.setProperty("--heat", heat + "%");
 
-            // 가격 변화 애니메이션
-            if (priceEl && prev && curPrice != null) {
-              const prevPrice = prev.price;
-              if (prevPrice != null && curPrice !== prevPrice) {
+            // ── 가격 flash 애니메이션 ──
+            if (priceEl) {
+              const prevPrice = prev?.price;
+              if (prevPrice != null && curPrice != null && curPrice !== prevPrice) {
                 const cls = curPrice > prevPrice ? "price-flash-up" : "price-flash-down";
                 priceEl.textContent = priceText;
                 priceEl.classList.remove("price-flash-up","price-flash-down","price-flash-same");
-                void priceEl.offsetWidth; // reflow
+                void priceEl.offsetWidth;
                 priceEl.classList.add(cls);
                 setTimeout(() => priceEl.classList.remove(cls), 600);
-              } else if (prevPrice == null && curPrice != null) {
-                priceEl.textContent = priceText;
-                priceEl.classList.remove("price-flash-up","price-flash-down","price-flash-same");
-                void priceEl.offsetWidth;
-                priceEl.classList.add("price-flash-same");
-                setTimeout(() => priceEl.classList.remove("price-flash-same"), 450);
               } else {
                 priceEl.textContent = priceText;
               }
-            } else if (priceEl) {
-              priceEl.textContent = priceText;
             }
 
-            // 순위 변화 애니메이션
+            // ── rank 숫자 + 방향 화살표 ──
             if (rankEl) {
-              rankEl.textContent = realRank;
-              if (prev) {
-                el.classList.remove("rank-up","rank-down");
-                if (realRank < prev.rank) {
-                  void el.offsetWidth;
-                  el.classList.add("rank-up");
-                  setTimeout(() => el.classList.remove("rank-up"), 700);
-                } else if (realRank > prev.rank) {
-                  void el.offsetWidth;
-                  el.classList.add("rank-down");
-                  setTimeout(() => el.classList.remove("rank-down"), 700);
-                }
+              // textContent 직접 변경하면 rank-arrow 자식이 지워지므로, 첫 번째 텍스트 노드만 교체
+              const rankTextNode = Array.from(rankEl.childNodes).find(n => n.nodeType === Node.TEXT_NODE);
+              if (rankTextNode) rankTextNode.textContent = realRank;
+              else rankEl.prepend(document.createTextNode(realRank));
+
+              if (rankArrow) {
+                rankArrow.className = `rank-arrow${rankDir ? " " + rankDir : ""}`;
+                rankArrow.textContent = rankDir === "up" ? "▲" : rankDir === "down" ? "▼" : "";
               }
             }
 
-            // 등락 뱃지
+            // ── rank 배지 색 애니메이션 ──
+            if (rankDir) {
+              el.classList.remove("rank-up","rank-down");
+              void el.offsetWidth;
+              el.classList.add("rank-" + rankDir);
+              setTimeout(() => el.classList.remove("rank-up","rank-down"), 700);
+            }
+
+            // ── 등락 뱃지 ──
             if (changeEl) {
-              changeEl.textContent = formatChangeCompact(server);
+              changeEl.innerHTML = _changeHtml(server);
               changeEl.className = `row-change ${getChangeClass(server)}`;
             }
 
-            // 즐겨찾기 상태
+            // ── 즐겨찾기 ──
             if (favEl) favEl.className = `fav-btn${favOn}`;
           }
 
-          // 순서 보장 (이미 맞으면 불필요한 DOM 이동 없음)
+          // ── FLIP Step 2: 새 순서로 DOM 재배치 ──
           if (rows.children[idx] !== el) rows.insertBefore(el, rows.children[idx] || null);
 
           // 상태 저장
@@ -5565,18 +5585,48 @@
         existingRows.forEach((el, name) => {
           if (!nameSet.has(name)) { el.remove(); _rowState.delete(name); }
         });
+
+        // ── FLIP Step 3: 재배치 후 위치 변화분을 역방향 translate로 상쇄 → RAF에서 해제 ──
+        rows.querySelectorAll(".row[data-server-name]").forEach(el => {
+          const name = el.dataset.serverName;
+          const before = beforePos.get(name);
+          if (before == null) return; // 신규 row는 건너뜀
+          const after = el.getBoundingClientRect().top;
+          const delta = before - after;
+          if (Math.abs(delta) < 1) return; // 변화 없으면 skip
+          // 즉시 역방향 위치로 세팅 (transition 없이)
+          el.style.transition = "none";
+          el.style.transform = `translateY(${delta}px)`;
+          // RAF: transition 복구 후 원위치로 animate
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              el.style.transition = "";
+              el.style.transform = "";
+            });
+          });
+        });
       }
 
-      function _rowInner(server, rank, priceText, favOn) {
+      function _changeHtml(server) {
+        const r = server.changeRate;
+        if (!Number.isFinite(r)) return "-";
+        const sign = r > 0 ? "+" : "";
+        const arrow = r > 0 ? "▲" : r < 0 ? "▼" : "";
+        return `${arrow}${sign}${r}%`;
+      }
+
+      function _rowInner(server, rank, priceText, favOn, rankDir = "") {
+        const arrow = rankDir === "up" ? "▲" : rankDir === "down" ? "▼" : "";
+        const arrowCls = rankDir ? ` rank-arrow ${rankDir}` : " rank-arrow";
         return `
-          <span class="rank">${rank}</span>
+          <span class="rank">${rank}<span class="${arrowCls.trim()}">${arrow}</span></span>
           <span class="server"><strong>${server.name}</strong></span>
           <span class="value">
             <strong class="price-val">${priceText}</strong>
             <span class="row-live"><i></i>LIVE</span>
           </span>
           <span class="compact-change">
-            <span class="row-change ${getChangeClass(server)}">${formatChangeCompact(server)}</span>
+            <span class="row-change ${getChangeClass(server)}">${_changeHtml(server)}</span>
           </span>
           <button class="fav-btn${favOn}" type="button" data-fav-name="${escapeAttr(server.name)}" aria-label="즐겨찾기 토글">★</button>
         `;
