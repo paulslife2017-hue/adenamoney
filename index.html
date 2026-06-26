@@ -2610,7 +2610,63 @@
         /* PC: 모바일 배너 숨김 */
         .search-guide-bar { display: none !important; }
 
-        /* PC: price-ad-row — 현재가(좌) + 배너+버튼(우) 한 행 */
+        /* PC: 상단 정보바 (검색안내 + 즐겨찾기) */
+        .pc-top-bar {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 6px;
+          padding: 5px 10px;
+          border-radius: 9px;
+          background:
+            radial-gradient(circle at 0% 50%, rgba(72,198,255,0.10), transparent 55%),
+            linear-gradient(90deg, rgba(14,30,58,0.95), rgba(10,24,46,0.93));
+          border: 1px solid rgba(72,198,255,0.22);
+        }
+        .pc-top-bar__info {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          cursor: pointer;
+          flex: 1;
+        }
+        .pc-top-bar__domain {
+          font-size: 12px;
+          font-weight: 900;
+          letter-spacing: -0.3px;
+          background: linear-gradient(90deg, #7ddcff, #4fd6c8);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          white-space: nowrap;
+        }
+        .pc-top-bar__sub {
+          font-size: 10px;
+          color: rgba(160,210,255,0.55);
+          white-space: nowrap;
+        }
+        .pc-fav-btn {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          padding: 4px 10px;
+          border-radius: 6px;
+          border: 1px solid rgba(246,199,107,0.35);
+          background: rgba(246,199,107,0.08);
+          color: rgba(246,199,107,0.85);
+          font-size: 10px;
+          font-weight: 700;
+          cursor: pointer;
+          white-space: nowrap;
+          transition: background 150ms, border-color 150ms;
+          flex-shrink: 0;
+        }
+        .pc-fav-btn:hover {
+          background: rgba(246,199,107,0.15);
+          border-color: rgba(246,199,107,0.55);
+        }
+
+        /* PC: price-ad-row — 현재가(좌) + 버튼(우) 한 행 */
         .price-ad-row {
           display: flex;
           align-items: stretch;
@@ -2620,49 +2676,13 @@
           flex-shrink: 0;
         }
 
-        /* PC 배너+버튼 래퍼 (현재가 오른쪽) */
+        /* PC 버튼 래퍼 (현재가 오른쪽) */
         .pc-banner-wrap {
           display: flex;
           flex: 1;
           gap: 5px;
           align-items: stretch;
           min-width: 0;
-        }
-
-        /* 배너 텍스트 영역 */
-        .pc-banner-info {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          gap: 2px;
-          padding: 6px 12px;
-          border-radius: 9px;
-          background:
-            radial-gradient(circle at 0% 50%, rgba(72,198,255,0.14), transparent 55%),
-            linear-gradient(90deg, rgba(14,30,58,0.98), rgba(10,24,46,0.96));
-          border: 1px solid rgba(72,198,255,0.30);
-          cursor: pointer;
-          flex-shrink: 0;
-          min-width: 110px;
-          transition: border-color 150ms;
-        }
-        .pc-banner-info:hover { border-color: rgba(72,198,255,0.55); }
-        .pc-banner-domain {
-          font-size: 13px;
-          font-weight: 900;
-          letter-spacing: -0.3px;
-          background: linear-gradient(90deg, #7ddcff, #4fd6c8);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          white-space: nowrap;
-          line-height: 1.2;
-        }
-        .pc-banner-sub {
-          font-size: 9.5px;
-          color: rgba(160,210,255,0.60);
-          white-space: nowrap;
-          line-height: 1;
         }
 
         /* 버튼 7개 — flex로 남은 공간 꽉 채움 */
@@ -5366,6 +5386,18 @@
           </span>
         </div>
 
+        <!-- PC 전용: 상단 정보바 (검색안내 + 즐겨찾기 버튼) -->
+        <div class="pc-top-bar pc-only">
+          <div class="pc-top-bar__info" onclick="addBookmark()">
+            <span class="pc-top-bar__domain">오늘아데나.kr</span>
+            <span class="pc-top-bar__sub">주소창에 검색하세요</span>
+          </div>
+          <button class="pc-fav-btn" type="button" onclick="addBookmark()" title="즐겨찾기 추가">
+            <svg viewBox="0 0 24 24" fill="none" width="13" height="13"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/></svg>
+            즐겨찾기 추가
+          </button>
+        </div>
+
         <div class="chart-head">
           <strong id="chartTitle">서버 시세</strong>
         </div>
@@ -5385,12 +5417,8 @@
               </div>
             </div>
           </div>
-          <!-- PC 전용: 배너+버튼7개 (현재가 옆) -->
+          <!-- PC 전용: 버튼7개 (현재가 옆) -->
           <div class="pc-banner-wrap pc-only">
-            <div class="pc-banner-info" onclick="addBookmark()">
-              <span class="pc-banner-domain">오늘아데나.kr</span>
-              <span class="pc-banner-sub">주소창에 검색하세요</span>
-            </div>
             <div class="pc-banner-btns">
               <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener"><strong>광고문의</strong></a>
               <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener"><strong>광고문의</strong></a>
