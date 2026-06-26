@@ -7388,14 +7388,11 @@
         } catch { return false; }
       }
 
-      /* 터치 기반 실제 모바일 기기 여부 판별
-         — 창 너비가 아니라 터치 지원 + UA로 판단해서
-           PC에서 창 줄여도 팝업이 뜨도록 함 */
+      /* 실제 모바일 기기 여부 판별
+         — UA 기반. maxTouchPoints는 headless/일부 환경서 0으로 잘못 나오므로 제외
+           PC에서 창 줄여도 팝업이 뜨고, 실제 폰은 같은탭 이동 */
       function _isTouchDevice() {
-        return (
-          navigator.maxTouchPoints > 0 &&
-          /android|iphone|ipad|ipod|mobile/i.test(navigator.userAgent)
-        );
+        return /android|iphone|ipad|ipod|mobile/i.test(navigator.userAgent);
       }
 
       /* 차단 사이트 버튼 클릭 핸들러 — 모바일/PC 분기 */
