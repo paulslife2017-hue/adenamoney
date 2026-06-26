@@ -1,8 +1,6 @@
-export default function handler() {
-  return new Response(JSON.stringify({ ok: true, at: new Date().toISOString() }), {
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "no-store",
-    },
-  });
+export default function handler(req, res) {
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.setHeader("Cache-Control", "no-store");
+  res.end(JSON.stringify({ ok: true, at: new Date().toISOString() }));
 }

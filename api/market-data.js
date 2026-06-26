@@ -1,21 +1,21 @@
-import { json, optionsResponse, readLatestMarketData, readStaticMarketData } from "./_market-store.js";
+import { readLatestMarketData, readStaticMarketData, sendJson, sendOptions } from "./_market-store.js";
 
-export default async function handler(req) {
-  if (req.method === "OPTIONS") return optionsResponse();
-  if (req.method !== "GET") return json({ error: "Method not allowed" }, 405);
+export default async function handler(req, res) {
+  if (req.method === "OPTIONS") return sendOptions(res);
+  if (req.method !== "GET") return sendJson(res, { error: "Method not allowed" }, 405);
 
   try {
     const data = await withTimeout(readLatestMarketData(), 3000);
-    if (data) return json({ ...data, delivery: "db" });
+    if (data) return sendJson(res, { ...data, delivery: "db" });
   } catch (error) {
     console.warn("market db read failed", error.message);
   }
 
   try {
     const data = await readStaticMarketData();
-    return json({ ...data, delivery: "static" });
+    return sendJson(res, { ...data, delivery: "static" });
   } catch (error) {
-    return json({ error: "market data unavailable", detail: error.message }, 503);
+    return sendJson(res, { error: "market data unavailable", detail: error.message }, 503);
   }
 }
 

@@ -1,25 +1,28 @@
 import { neon } from "@neondatabase/serverless";
 import { readFile } from "node:fs/promises";
 
-const CORS = {
+export const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
-export function json(data, status = 200) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "no-store",
-      ...CORS,
-    },
-  });
+export function sendJson(res, data, status = 200) {
+  res.statusCode = status;
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.setHeader("Cache-Control", "no-store");
+  for (const [key, value] of Object.entries(CORS)) {
+    res.setHeader(key, value);
+  }
+  res.end(JSON.stringify(data));
 }
 
-export function optionsResponse() {
-  return new Response(null, { status: 204, headers: CORS });
+export function sendOptions(res) {
+  res.statusCode = 204;
+  for (const [key, value] of Object.entries(CORS)) {
+    res.setHeader(key, value);
+  }
+  res.end();
 }
 
 export function getSql() {

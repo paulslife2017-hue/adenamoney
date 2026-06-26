@@ -1,27 +1,27 @@
-import { json, optionsResponse, readLatestMarketData, saveMarketData } from "../_market-store.js";
+import { readLatestMarketData, saveMarketData, sendJson, sendOptions } from "../_market-store.js";
 import { runMarketUpdate } from "../../scrapers/update-market-data.mjs";
 
 export const config = {
   maxDuration: 60,
 };
 
-export default async function handler(req) {
-  if (req.method === "OPTIONS") return optionsResponse();
+export default async function handler(req, res) {
+  if (req.method === "OPTIONS") return sendOptions(res);
   if (req.method !== "GET" && req.method !== "POST") {
-    return json({ error: "Method not allowed" }, 405);
+    return sendJson(res, { error: "Method not allowed" }, 405);
   }
 
   const expected = process.env.CRON_SECRET;
-  const actual = req.headers.get("authorization");
+  const actual = req.headers.authorization;
   if (!expected || actual !== `Bearer ${expected}`) {
-    return json({ error: "Unauthorized" }, 401);
+    return sendJson(res, { error: "Unauthorized" }, 401);
   }
 
   const previousData = await readLatestMarketData().catch(() => null);
   const data = await runMarketUpdate({ previousData });
   await saveMarketData(data, "vercel-cron");
 
-  return json({
+  return sendJson(res, {
     ok: true,
     fetchedAt: data.fetchedAt,
     servers: data.servers?.length || 0,
