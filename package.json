@@ -5,6 +5,7 @@
   "description": "리니지 클래식 아데나 시세 사이트",
   "type": "module",
   "scripts": {
+    "collect": "node scrapers/update-market-data.mjs",
     "seo": "node scripts/generate-seo-pages.mjs"
   },
   "dependencies": {

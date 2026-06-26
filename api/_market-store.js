@@ -8,7 +8,7 @@ const STATIC_MARKET_DATA_PATH = join(__dirname, "..", "data", "market-data.js");
 
 export const CORS = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
@@ -67,6 +67,53 @@ export async function saveMarketData(data, source = "cron") {
   await sql`
     INSERT INTO market_snapshots (source, fetched_at, data)
     VALUES (${source}, ${data.fetchedAt || new Date().toISOString()}, ${JSON.stringify(data)}::jsonb)
+  `;
+  await pruneOldMarketData(sql);
+}
+
+export async function readMarketStatus() {
+  const sql = getSql();
+  await ensureMarketTable(sql);
+  const rows = await sql`
+    SELECT
+      COUNT(*)::int AS snapshot_count,
+      MAX(fetched_at) AS latest_fetched_at,
+      MIN(fetched_at) AS oldest_fetched_at
+    FROM market_snapshots
+  `;
+  const latestRows = await sql`
+    SELECT source, fetched_at, data->'servers' AS servers
+    FROM market_snapshots
+    ORDER BY fetched_at DESC, id DESC
+    LIMIT 1
+  `;
+
+  const latest = latestRows[0] || null;
+  const fetchedAt = latest?.fetched_at ? new Date(latest.fetched_at).toISOString() : null;
+  const ageSeconds = fetchedAt ? Math.max(0, Math.round((Date.now() - new Date(fetchedAt).getTime()) / 1000)) : null;
+
+  return {
+    ok: true,
+    delivery: "db",
+    snapshotCount: rows[0]?.snapshot_count || 0,
+    latestFetchedAt: fetchedAt,
+    oldestFetchedAt: rows[0]?.oldest_fetched_at ? new Date(rows[0].oldest_fetched_at).toISOString() : null,
+    latestSource: latest?.source || null,
+    latestServerCount: Array.isArray(latest?.servers) ? latest.servers.length : 0,
+    ageSeconds,
+    stale: ageSeconds == null ? true : ageSeconds > 20 * 60,
+  };
+}
+
+async function pruneOldMarketData(sql) {
+  await sql`
+    DELETE FROM market_snapshots
+    WHERE id NOT IN (
+      SELECT id
+      FROM market_snapshots
+      ORDER BY fetched_at DESC, id DESC
+      LIMIT 1008
+    )
   `;
 }
 

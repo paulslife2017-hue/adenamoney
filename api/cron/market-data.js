@@ -17,13 +17,30 @@ export default async function handler(req, res) {
     return sendJson(res, { error: "Unauthorized" }, 401);
   }
 
-  const previousData = await readLatestMarketData().catch(() => null);
-  const data = await runMarketUpdate({ previousData });
-  await saveMarketData(data, "vercel-cron");
+  try {
+    const startedAt = Date.now();
+    const previousData = await readLatestMarketData().catch(() => null);
+    const data = await runMarketUpdate({ previousData });
+    await saveMarketData(data, "vercel-cron");
 
-  return sendJson(res, {
-    ok: true,
-    fetchedAt: data.fetchedAt,
-    servers: data.servers?.length || 0,
-  });
+    return sendJson(res, {
+      ok: true,
+      fetchedAt: data.fetchedAt,
+      servers: data.servers?.length || 0,
+      source: "vercel-cron",
+      durationMs: Date.now() - startedAt,
+    });
+  } catch (error) {
+    console.error("market cron failed", error);
+    return sendJson(
+      res,
+      {
+        ok: false,
+        error: "market cron failed",
+        detail: error.message,
+        missingDatabaseUrl: !process.env.DATABASE_URL,
+      },
+      500,
+    );
+  }
 }
