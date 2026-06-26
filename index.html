@@ -2576,28 +2576,45 @@
         .chart-panel {
           grid-area: chart;
           align-self: stretch;
-          overflow: auto;
+          overflow: hidden; /* 스크롤 없이 한 화면에 표시 */
           margin: 0;
           min-height: 0;
-          padding: 14px;
+          padding: 10px 14px 10px;
           border-radius: 12px;
           scrollbar-width: thin;
+          display: flex;
+          flex-direction: column;
         }
 
+        /* PC: 배너 컴팩트 */
+        .search-guide-bar {
+          padding: 10px 14px;
+          margin-bottom: 8px;
+          border-radius: 10px;
+          flex-shrink: 0;
+        }
+        .search-guide-bar__domain { font-size: 16px; margin-bottom: 1px; }
+        .search-guide-bar__sub.pc-only { font-size: 11px; }
+        .search-guide-bar__badge { font-size: 11px; padding: 6px 11px; }
+
         .chart-head {
-          margin-bottom: 6px;
+          margin-bottom: 4px;
+          flex-shrink: 0;
         }
         .chart-head strong {
-          font-size: 15px;
+          font-size: 14px;
         }
 
         /* 현재가 영역 컴팩트 */
+        .price-ad-row {
+          flex-shrink: 0;
+        }
         .main-price {
           display: flex;
           align-items: center;
           gap: 10px;
-          margin-bottom: 8px;
-          padding-bottom: 8px;
+          margin-bottom: 6px;
+          padding-bottom: 6px;
           flex-wrap: wrap;
         }
         .main-price > div:first-child {
@@ -2609,42 +2626,78 @@
           font-size: 11px;
         }
         .main-price strong {
-          font-size: 28px;
+          font-size: 26px;
           margin-top: 0;
         }
         .change-pill {
           margin-top: 0;
           font-size: 11px;
-          padding: 4px 8px;
+          padding: 3px 8px;
           min-width: 70px;
         }
         .baseline {
           font-size: 10px;
-          margin-top: 2px;
+          margin-top: 1px;
         }
 
-        .spark,
-        .spark svg {
-          height: auto;
+        /* PC: spark-labels / chart(빈 div) / market-density / chart-note → 숨김 */
+        .spark-labels,
+        .chart,
+        .market-density,
+        .chart-note,
+        .mobile-ad-banners {
+          display: none !important;
         }
 
+        /* 그래프 flex로 남은 공간 채움 */
+        .spark {
+          flex: 1 1 0;
+          min-height: 0;
+          margin-top: 4px;
+          padding: 6px 4px 4px;
+          overflow: hidden;
+        }
         .spark svg {
-          height: 140px;
+          display: block;
+          width: 100%;
+          height: 100%;
+          min-height: 60px;
+          max-height: none;
         }
 
         .spark-axis span,
         .spark-caption span,
         .spark-caption strong {
-          font-size: 11px;
+          font-size: 10px;
         }
 
+        /* 거래소 카드 컴팩트 */
+        .market-row {
+          flex-shrink: 0;
+          margin-top: 6px;
+          gap: 5px;
+        }
+        .market-btn {
+          min-height: 52px;
+          padding: 8px 10px;
+        }
+        .market-btn .mkt-name { font-size: 12px; }
+        .market-btn .mkt-min  { font-size: 17px; }
+        .market-btn .mkt-meta { font-size: 10px; }
+        .market-btn .mkt-time { font-size: 9px; }
+
+        /* 하단 통계 4칸 컴팩트 */
         .source-diff {
-          gap: 8px;
+          gap: 5px;
+          flex-shrink: 0;
+          margin-top: 5px;
         }
-
         .diff-card {
-          padding: 10px;
+          padding: 7px 8px;
         }
+        .diff-card span { font-size: 9px; }
+        .diff-card strong { font-size: 13px; }
+        .diff-card small { font-size: 9px; }
 
         .ad-slot {
           grid-area: ad;
@@ -4681,9 +4734,10 @@
       }
 
       .chart-panel .spark {
-        min-height: 200px;
-        margin-top: 12px;
-        padding: 12px 12px 8px;
+        /* PC 한 화면: flex:1이 이미 적용됨 — min-height 강제 제거 */
+        min-height: 0;
+        margin-top: 6px;
+        padding: 6px 8px 4px;
         border: 1px solid rgba(178, 194, 224, 0.1);
         border-radius: 14px;
         background:
@@ -4691,11 +4745,14 @@
       }
 
       .chart-panel .spark svg {
-        height: 190px;
+        /* height: 100% — 부모 flex:1이 높이 결정 */
+        height: 100%;
+        min-height: 60px;
+        max-height: none;
       }
 
       .chart-panel .market-row {
-        margin-top: 12px;
+        margin-top: 8px;
       }
 
       .chart-panel .mini-ad-row {
