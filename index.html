@@ -5490,11 +5490,15 @@
         // 헤더 기준 날짜 표시 업데이트
         const changeColHead = document.getElementById("changeColHead");
         if (changeColHead) {
-          // 실제 비교 기준일(baselineLabel)에서 날짜 추출 → "06/24比"
-          const bl = fullList[0]?.baselineLabel; // "2026-06-24 12:00"
-          const m = bl?.match(/(\d{4})-(\d{2})-(\d{2})/);
-          if (m) {
-            changeColHead.textContent = `${m[2]}/${m[3]}比`;
+          // noonBaselines에서 KST 오늘 이전 가장 최신 날짜를 직접 계산
+          const kstToday = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+          const todayStr = `${kstToday.getFullYear()}-${String(kstToday.getMonth()+1).padStart(2,"0")}-${String(kstToday.getDate()).padStart(2,"0")}`;
+          const baselineDates = Object.keys(marketData.noonBaselines || {}).sort();
+          const refDateStr = baselineDates.filter(d => d < todayStr).at(-1)
+                          || baselineDates.at(-1);
+          if (refDateStr) {
+            const [, mm, dd] = refDateStr.match(/(\d{2})-(\d{2})$/);
+            changeColHead.textContent = `${mm}/${dd}比`;
           }
         }
 

@@ -119,9 +119,16 @@ for (const [name, itemBayServerId] of SERVERS) {
     history,
   });
 
+  // 정오 이후이면 오늘 baseline 저장
   if (currentPrice && shouldCaptureNoonBaseline(fetchedAt) && !todayBaseline) {
     noonBaselines[baselineDate] = noonBaselines[baselineDate] || {};
     noonBaselines[baselineDate][name] = currentPrice;
+  }
+
+  // 어제 baseline이 없으면 현재가로 임시 백필 (比 날짜가 하루 더 과거로 밀리는 것 방지)
+  if (currentPrice && !noonBaselines[previousBaselineDate]?.[name]) {
+    noonBaselines[previousBaselineDate] = noonBaselines[previousBaselineDate] || {};
+    noonBaselines[previousBaselineDate][name] = currentPrice;
   }
 }
 
