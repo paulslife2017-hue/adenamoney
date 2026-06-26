@@ -5440,7 +5440,7 @@
           <strong id="brandName">오늘아데나</strong>
           <span id="brandTagline">리니지 클래식 아데나</span>
         </div>
-        <span class="topbar-clock" id="topbarClock">00:00:00 KST</span>
+        <span class="topbar-clock" id="topbarClock"></span>
         <div class="topbar-refresh" id="topbarRefresh">
           <span class="refresh-countdown" id="refreshCountdown">오늘 12시 기준</span>
           <div class="refresh-indicator"></div>
@@ -6978,8 +6978,8 @@
 
       const topbarClock = document.getElementById("topbarClock");
 
-      setInterval(() => {
-        // KST 실시간 시계 업데이트
+      // KST 시계 업데이트 함수
+      function tickClock() {
         if (topbarClock) {
           const kst = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
           const hh = String(kst.getHours()).padStart(2, "0");
@@ -6987,6 +6987,11 @@
           const ss = String(kst.getSeconds()).padStart(2, "0");
           topbarClock.textContent = `${hh}:${mi}:${ss} KST`;
         }
+      }
+      tickClock(); // 페이지 로드 즉시 현재 시간 표시 (1초 딜레이 없음)
+
+      setInterval(() => {
+        tickClock();
         updateMarketClock();
         updateRefreshCountdown();
         if (isRefreshing) return; // 갱신 중에는 카운트다운 정지
