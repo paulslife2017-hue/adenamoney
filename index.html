@@ -613,6 +613,14 @@
         flex: 1;
         min-width: 0;
       }
+      /* PC 한 줄 인라인 구조 */
+      .search-guide-bar__inline {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+        min-width: 0;
+      }
       .search-guide-bar__domain {
         display: block;
         font-size: 20px;
@@ -624,7 +632,7 @@
         background-clip: text;
         filter: drop-shadow(0 0 8px rgba(72,198,255,0.55));
         line-height: 1.2;
-        margin-bottom: 3px;
+        white-space: nowrap;
       }
       .search-guide-bar__sub {
         display: block;
@@ -632,11 +640,24 @@
         font-weight: 500;
         color: rgba(160, 210, 255, 0.65);
         line-height: 1.3;
+        white-space: nowrap;
       }
-      /* PC: mobile-only 숨김 */
-      .search-guide-bar__sub.mobile-only { display: none; }
-      .search-guide-bar__sub.pc-only { display: block; }
-      .search-guide-bar__badge.pc-only { display: flex; }
+      /* PC 즐겨찾기 영역: 버튼 + 저장 안내 한 줄 */
+      .search-guide-bar__bookmark-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+      .search-guide-bar__save-hint {
+        font-size: 11px;
+        font-weight: 500;
+        color: rgba(160, 210, 255, 0.55);
+        white-space: nowrap;
+      }
+      /* pc-only / mobile-only 기본 */
+      .pc-only { display: flex; }
+      .mobile-only { display: none; }
       .search-guide-bar__badge {
         display: flex;
         align-items: center;
@@ -1046,12 +1067,12 @@
           margin-bottom: 10px;
         }
         .search-guide-bar__icon { display: none; }
-        .search-guide-bar__domain { font-size: 16px; margin-bottom: 2px; }
         /* 모바일: PC 전용 요소 숨김 */
-        .search-guide-bar__sub.pc-only { display: none; }
-        .search-guide-bar__badge.pc-only { display: none; }
+        .pc-only { display: none !important; }
         /* 모바일: 모바일 전용 요소 표시 */
-        .search-guide-bar__sub.mobile-only { display: block; font-size: 11.5px; color: rgba(160,210,255,0.70); }
+        .mobile-only { display: flex !important; }
+        .search-guide-bar__text .search-guide-bar__domain { font-size: 16px; margin-bottom: 2px; }
+        .search-guide-bar__text .search-guide-bar__sub { font-size: 11.5px; color: rgba(160,210,255,0.70); }
       }
 
       .square-ad strong {
@@ -2593,9 +2614,11 @@
           border-radius: 10px;
           flex-shrink: 0;
         }
-        .search-guide-bar__domain { font-size: 16px; margin-bottom: 1px; }
-        .search-guide-bar__sub.pc-only { font-size: 11px; }
-        .search-guide-bar__badge { font-size: 11px; padding: 6px 11px; }
+        /* PC: 도메인 한 줄 인라인 크기 조정 */
+        .search-guide-bar__inline .search-guide-bar__domain { font-size: 15px; }
+        .search-guide-bar__inline .search-guide-bar__sub { font-size: 11px; }
+        .search-guide-bar__badge { font-size: 11px; padding: 5px 10px; }
+        .search-guide-bar__save-hint { font-size: 10px; }
 
         .chart-head {
           margin-bottom: 4px;
@@ -5265,16 +5288,22 @@
         <!-- 주소창 검색 유도 배너 -->
         <div class="search-guide-bar" role="complementary" aria-label="사이트 주소 안내" onclick="addBookmark()" id="searchGuideBar">
           <span class="search-guide-bar__icon">🔖</span>
-          <span class="search-guide-bar__text">
+          <!-- PC: 도메인 + 검색안내 한 줄 -->
+          <span class="search-guide-bar__inline pc-only">
             <span class="search-guide-bar__domain">오늘아데나.kr</span>
-            <!-- PC: 검색 안내 + 즐겨찾기 안내 -->
-            <span class="search-guide-bar__sub pc-only">주소창에 검색하세요&nbsp;&nbsp;·&nbsp;&nbsp;즐겨찾기로 저장하세요</span>
-            <!-- 모바일: 검색 안내만 -->
-            <span class="search-guide-bar__sub mobile-only">주소창에 검색하세요</span>
+            <span class="search-guide-bar__sub">주소창에 검색하세요</span>
           </span>
-          <!-- 즐겨찾기 버튼: PC 전용 -->
-          <span class="search-guide-bar__badge pc-only" id="bookmarkBadge">
-            <span class="search-guide-bar__badge-icon">⭐</span>즐겨찾기 추가
+          <!-- 모바일: 기존 2줄 구조 -->
+          <span class="search-guide-bar__text mobile-only">
+            <span class="search-guide-bar__domain">오늘아데나.kr</span>
+            <span class="search-guide-bar__sub">주소창에 검색하세요</span>
+          </span>
+          <!-- PC 전용: 즐겨찾기 버튼 + 저장 안내 한 줄 -->
+          <span class="search-guide-bar__bookmark-wrap pc-only">
+            <span class="search-guide-bar__badge" id="bookmarkBadge">
+              <span class="search-guide-bar__badge-icon">⭐</span>즐겨찾기 추가
+            </span>
+            <span class="search-guide-bar__save-hint">즐겨찾기로 저장하세요</span>
           </span>
         </div>
 
