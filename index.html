@@ -2201,7 +2201,7 @@
 
       @media (min-width: 900px) {
         body {
-          padding: 16px;
+          padding: 10px;
           overflow: hidden;
           background:
             radial-gradient(circle at 18% -120px, rgba(72, 198, 255, 0.22), transparent 32%),
@@ -2217,11 +2217,11 @@
             "topbar  topbar"
             "list    chart";
           gap: 8px;
-          max-width: 1280px;
+          max-width: 100%;
           width: 100%;
-          height: calc(100dvh - 24px);
+          height: calc(100dvh - 20px);
           min-height: 620px;
-          max-height: 940px;
+          max-height: none;
           padding: 0 12px 12px;
           border: 1px solid rgba(139, 166, 214, 0.13);
           border-radius: 16px;
@@ -2496,16 +2496,16 @@
           }
 
           .app {
-            grid-template-columns: 340px minmax(640px, 1fr);
+            grid-template-columns: 360px minmax(640px, 1fr);
             grid-template-rows: auto minmax(0, 1fr);
             grid-template-areas:
               "topbar  topbar"
               "list    chart";
             gap: 10px;
-            max-width: 1180px;
-            height: calc(100dvh - 28px);
+            max-width: 100%;
+            height: calc(100dvh - 56px);
             min-height: 600px;
-            max-height: 1000px;
+            max-height: none;
             padding: 0 18px 18px;
             border-color: rgba(154, 178, 218, 0.18);
             border-radius: 22px;
@@ -2873,17 +2873,17 @@
           }
 
           .app {
-            grid-template-columns: 340px minmax(640px, 1fr);
+            grid-template-columns: 360px minmax(640px, 1fr);
             grid-template-rows: auto minmax(0, 1fr);
             grid-template-areas:
               "topbar  topbar"
               "list    chart";
             gap: 10px;
             justify-content: center;
-            max-width: 1180px;
-            height: calc(100dvh - 24px);
+            max-width: 100%;
+            height: calc(100dvh - 20px);
             min-height: 620px;
-            max-height: 1000px;
+            max-height: none;
             padding: 0 14px 14px;
             border-radius: 16px;
             background:
@@ -3174,9 +3174,9 @@
       }
 
       .app {
-        width: min(1180px, calc(100vw - 24px));
+        width: calc(100vw - 24px);
         height: calc(100dvh - 24px);
-        max-width: 1180px;
+        max-width: 100%;
         margin: 0;
       }
 
@@ -3361,8 +3361,8 @@
       }
 
       .app {
-        width: min(1180px, calc(100vw - 24px));
-        max-width: 1180px;
+        width: calc(100vw - 24px);
+        max-width: 100%;
         height: calc(100dvh - 24px);
         min-height: 620px;
         max-height: none;
