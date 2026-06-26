@@ -5455,20 +5455,12 @@
         topbarRefresh?.classList.add("loading");
 
         try {
-          await new Promise((resolve, reject) => {
-            const oldScript = document.querySelector("script[data-market-reload]");
-            if (oldScript) oldScript.remove();
-
-            const script = document.createElement("script");
-            script.src = `data/market-data.js?t=${Date.now()}`;
-            script.dataset.marketReload = "true";
-            script.onload = resolve;
-            script.onerror = reject;
-            document.body.appendChild(script);
+          const response = await fetch(`/api/market-data?t=${Date.now()}`, {
+            cache: "no-store",
           });
-
-          marketData = window.MARKET_DATA || { servers: [] };
-          servers = marketData.servers || [];
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const nextData = await response.json();
+          applyMarketData(nextData);
           if (!servers.some((server) => server.name === selectedServerName)) {
             selectedServerName = getRankedServers()[0]?.name || "";
           }
@@ -5488,6 +5480,13 @@
 
       // 이전 렌더 상태 기억 (DOM diff + FLIP용)
       const _rowState = new Map(); // name → { price, rank }
+
+      function applyMarketData(nextData) {
+        if (!nextData?.servers?.length) return;
+        marketData = nextData;
+        window.MARKET_DATA = nextData;
+        servers = nextData.servers || [];
+      }
 
       function renderRows() {
         const fullList = getRankedServers();
@@ -5885,6 +5884,7 @@
 
       renderChart(servers.find(s => s.name === selectedServerName) || getRankedServers()[0]);
       renderRows();
+      reloadMarketData();
 
       // iframe postMessage 수신 (서버별 페이지 → index.html)
       window.addEventListener("message", (e) => {

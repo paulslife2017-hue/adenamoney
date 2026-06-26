@@ -50,120 +50,124 @@ const fetchHeaders = {
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36",
 };
 
-const previous = await readPrevious();
-const fetchedAt = new Date().toISOString();
-const krProxy = await findKrProxy();
-console.log("KR proxy:", krProxy || "없음 (아이템매니아 수집 불가)");
-const itemManiaListings = await collectItemMania();
-const barotemListings = await collectBarotem();
-const servers = [];
-const baselineDate = getKstDateKey(fetchedAt);
-const previousBaselineDate = getKstDateKey(addDays(fetchedAt, -1));
-const noonBaselines = previous.noonBaselines || {};
+let krProxy = null;
 
-// ── 가장 최근 baseline 날짜 찾기 (오늘/어제가 없어도 최근 데이터 사용) ──
-const sortedBaselineDates = Object.keys(noonBaselines).sort();
-// 오늘 baseline 제외, 가장 최근 날짜
-const latestBaselineDate = sortedBaselineDates
-  .filter(d => d < baselineDate)
-  .at(-1) || null;
-console.log(`baseline: today=${baselineDate}, prev=${previousBaselineDate}, latest=${latestBaselineDate}`);
-
-for (const [name, itemBayServerId] of SERVERS) {
-  const itemBay = await collectItemBay(name, itemBayServerId);
-  const maniaPrices = itemManiaListings.get(name) || [];
-  const itemMania = summarize(maniaPrices);
-  const barotem = summarize(barotemListings.get(name) || []);
-  const verifiedPrices = verifySourcePrices({ itemBay, itemMania, barotem });
-  const excludedPrices = getSourcePrices({ itemBay, itemMania, barotem }).filter(
-    (source) => !verifiedPrices.some((verified) => verified.key === source.key),
-  );
-  const currentPrice = marketPrice(verifiedPrices.map((source) => source.price));
-  const lowestPrice = lowest(verifiedPrices.map((source) => source.price));
-  const prevHistory = previous.servers?.find((server) => server.name === name)?.history || [];
-  const history = currentPrice
-    ? [...prevHistory, { at: fetchedAt, price: currentPrice }].slice(-HISTORY_LIMIT)
-    : prevHistory.slice(-HISTORY_LIMIT);
-  // 어제 baseline 우선, 없으면 가장 최근 날짜 baseline 사용
-  const refDate = noonBaselines[previousBaselineDate]?.[name] != null
-    ? previousBaselineDate
-    : latestBaselineDate;
-  const previousNoonPrice = refDate ? (noonBaselines[refDate]?.[name] || null) : null;
-  const change = currentPrice && previousNoonPrice ? Math.round(currentPrice - previousNoonPrice) : null;
-  const changeRate = currentPrice && previousNoonPrice
-    ? Number(((change / previousNoonPrice) * 100).toFixed(2))
-    : null;
-
-  servers.push({
+export async function runMarketUpdate(options = {}) {
+  const previous = options.previousData || await readPrevious();
+  const fetchedAt = new Date().toISOString();
+  krProxy = await findKrProxy();
+  console.log("KR proxy:", krProxy || "없음 (아이템매니아 수집 불가)");
+  const itemManiaListings = await collectItemMania();
+  const barotemListings = await collectBarotem();
+  const itemBayResults = await mapLimit(SERVERS, 5, async ([name, itemBayServerId]) => [
     name,
-    itemBayServerId,
-    currentPrice,
-    lowestPrice,
-    itemBay,
-    itemMania: {
-      ...itemMania,
-      note: "판매목록 1만당 단가 기준",
-    },
-    barotem: {
-      ...barotem,
-      status: barotem.count ? "ok" : "empty",
-    },
-    verifiedSources: verifiedPrices,
-    excludedSources: excludedPrices,
-    verificationStatus: verifiedPrices.length >= 2 ? "verified" : "limited",
-    previousNoonPrice,
-    change,
-    changeRate,
-    baselineLabel: refDate || null,
-    history,
-  });
+    await collectItemBay(name, itemBayServerId),
+  ]);
+  const itemBayByServer = new Map(itemBayResults);
+  const servers = [];
+  const baselineDate = getKstDateKey(fetchedAt);
+  const previousBaselineDate = getKstDateKey(addDays(fetchedAt, -1));
+  const noonBaselines = previous.noonBaselines || {};
 
-  // ── baseline 저장 전략 ──
-  // 1) 오늘 날짜 baseline: 매 실행마다 현재가로 갱신 (그래프용 당일 데이터)
-  if (currentPrice) {
-    noonBaselines[baselineDate] = noonBaselines[baselineDate] || {};
-    noonBaselines[baselineDate][name] = currentPrice;
+  // ── 가장 최근 baseline 날짜 찾기 (오늘/어제가 없어도 최근 데이터 사용) ──
+  const sortedBaselineDates = Object.keys(noonBaselines).sort();
+  const latestBaselineDate = sortedBaselineDates
+    .filter(d => d < baselineDate)
+    .at(-1) || null;
+  console.log(`baseline: today=${baselineDate}, prev=${previousBaselineDate}, latest=${latestBaselineDate}`);
+
+  for (const [name, itemBayServerId] of SERVERS) {
+    const itemBay = itemBayByServer.get(name) || summarize([]);
+    const maniaPrices = itemManiaListings.get(name) || [];
+    const itemMania = summarize(maniaPrices);
+    const barotem = summarize(barotemListings.get(name) || []);
+    const verifiedPrices = verifySourcePrices({ itemBay, itemMania, barotem });
+    const excludedPrices = getSourcePrices({ itemBay, itemMania, barotem }).filter(
+      (source) => !verifiedPrices.some((verified) => verified.key === source.key),
+    );
+    const currentPrice = marketPrice(verifiedPrices.map((source) => source.price));
+    const lowestPrice = lowest(verifiedPrices.map((source) => source.price));
+    const prevHistory = previous.servers?.find((server) => server.name === name)?.history || [];
+    const history = currentPrice
+      ? [...prevHistory, { at: fetchedAt, price: currentPrice }].slice(-HISTORY_LIMIT)
+      : prevHistory.slice(-HISTORY_LIMIT);
+    const refDate = noonBaselines[previousBaselineDate]?.[name] != null
+      ? previousBaselineDate
+      : latestBaselineDate;
+    const previousNoonPrice = refDate ? (noonBaselines[refDate]?.[name] || null) : null;
+    const change = currentPrice && previousNoonPrice ? Math.round(currentPrice - previousNoonPrice) : null;
+    const changeRate = currentPrice && previousNoonPrice
+      ? Number(((change / previousNoonPrice) * 100).toFixed(2))
+      : null;
+
+    servers.push({
+      name,
+      itemBayServerId,
+      currentPrice,
+      lowestPrice,
+      itemBay,
+      itemMania: {
+        ...itemMania,
+        note: "판매목록 1만당 단가 기준",
+      },
+      barotem: {
+        ...barotem,
+        status: barotem.count ? "ok" : "empty",
+      },
+      verifiedSources: verifiedPrices,
+      excludedSources: excludedPrices,
+      verificationStatus: verifiedPrices.length >= 2 ? "verified" : "limited",
+      previousNoonPrice,
+      change,
+      changeRate,
+      baselineLabel: refDate || null,
+      history,
+    });
+
+    if (currentPrice) {
+      noonBaselines[baselineDate] = noonBaselines[baselineDate] || {};
+      noonBaselines[baselineDate][name] = currentPrice;
+    }
+    if (currentPrice && !noonBaselines[previousBaselineDate]?.[name]) {
+      noonBaselines[previousBaselineDate] = noonBaselines[previousBaselineDate] || {};
+      noonBaselines[previousBaselineDate][name] = currentPrice;
+    }
   }
-  // 2) 어제 날짜 baseline: 없을 때만 저장 (자정 날짜 바뀐 직후 최초 1회만 고정)
-  //    → 이후 덮어쓰지 않아서 "어제 자정 직후 첫 수집가"가 비교기준으로 유지됨
-  if (currentPrice && !noonBaselines[previousBaselineDate]?.[name]) {
-    noonBaselines[previousBaselineDate] = noonBaselines[previousBaselineDate] || {};
-    noonBaselines[previousBaselineDate][name] = currentPrice;
+
+  const BASELINE_KEEP_DAYS = 21;
+  const baselineDates = Object.keys(noonBaselines).sort();
+  const latestBaseline = baselineDates[baselineDates.length - 1] || getKstDateKey(fetchedAt);
+  const cutoffDate = addDays(latestBaseline, -BASELINE_KEEP_DAYS).slice(0, 10);
+  for (const date of Object.keys(noonBaselines)) {
+    if (date < cutoffDate) delete noonBaselines[date];
   }
+
+  return {
+    game: "리니지클래식",
+    unit: "아이템베이: 1만개 기준 / 아이템매니아: 거래완료 총액",
+    fetchedAt,
+    noonBaselines,
+    sources: {
+      itemBay: "server page",
+      itemMania: "completed trades",
+      barotem: barotemListings.size ? "productTable API" : "empty",
+    },
+    servers,
+  };
 }
 
-// noonBaselines 21일치만 유지 (최신 날짜 기준 — 역산 백필 데이터 보존)
-const BASELINE_KEEP_DAYS = 21;
-const baselineDates = Object.keys(noonBaselines).sort();
-const latestBaseline = baselineDates[baselineDates.length - 1] || getKstDateKey(fetchedAt);
-const cutoffDate = addDays(latestBaseline, -BASELINE_KEEP_DAYS).slice(0, 10);
-for (const date of Object.keys(noonBaselines)) {
-  if (date < cutoffDate) delete noonBaselines[date];
+if (isDirectRun()) {
+  const data = await runMarketUpdate();
+  await mkdir(dirname(OUT_FILE), { recursive: true });
+  await writeFile(
+    OUT_FILE,
+    `window.MARKET_DATA = ${JSON.stringify(data, null, 2)};\n`,
+    "utf8",
+  );
+
+  console.log(`Updated ${OUT_FILE}`);
+  console.log(`Fetched ${data.servers.length} servers at ${data.fetchedAt}`);
 }
-
-const data = {
-  game: "리니지클래식",
-  unit: "아이템베이: 1만개 기준 / 아이템매니아: 거래완료 총액",
-  fetchedAt,
-  noonBaselines,
-  sources: {
-    itemBay: "server page",
-    itemMania: "completed trades",
-    barotem: barotemListings.size ? "productTable API" : "empty",
-  },
-  servers,
-};
-
-await mkdir(dirname(OUT_FILE), { recursive: true });
-await writeFile(
-  OUT_FILE,
-  `window.MARKET_DATA = ${JSON.stringify(data, null, 2)};\n`,
-  "utf8",
-);
-
-console.log(`Updated ${OUT_FILE}`);
-console.log(`Fetched ${servers.length} servers at ${fetchedAt}`);
-process.exit(0);
 
 async function collectItemBay(serverName, serverId) {
   const url = `https://www.itembay.com/item/sell/game-3828/server-${serverId}/type-3`;
@@ -447,5 +451,22 @@ function addDays(value, days) {
   date.setUTCDate(date.getUTCDate() + days);
   return date.toISOString();
 }
+async function mapLimit(items, limit, mapper) {
+  const results = [];
+  let index = 0;
 
+  async function worker() {
+    while (index < items.length) {
+      const currentIndex = index;
+      index += 1;
+      results[currentIndex] = await mapper(items[currentIndex], currentIndex);
+    }
+  }
 
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
+  return results;
+}
+
+function isDirectRun() {
+  return process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1]);
+}

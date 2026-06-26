@@ -2,6 +2,11 @@
   "version": 2,
   "framework": null,
   "outputDirectory": ".",
+  "functions": {
+    "api/cron/market-data.js": {
+      "maxDuration": 60
+    }
+  },
   "routes": [
     {
       "src": "/api/(.*)",
@@ -18,8 +23,14 @@
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" },
         { "key": "Access-Control-Allow-Methods", "value": "GET, POST, DELETE, OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }
       ]
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/market-data",
+      "schedule": "*/10 * * * *"
     }
   ]
 }
