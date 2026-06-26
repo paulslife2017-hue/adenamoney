@@ -7420,31 +7420,22 @@
       }
 
       function openSiteModal(url) {
-        const overlay = document.getElementById('siteModalOverlay');
-        const frame   = document.getElementById('siteModalFrame');
-        const title   = document.getElementById('siteModalTitle');
-        if (!overlay || !frame) return;
-
-        const label = SITE_LABELS[url] || url;
-        title.textContent = label;
-
-        if (isBlocked(url)) {
-          /* ── 차단 사이트: 모달 안 열고 바로 이동 ── */
-          if (_isTouchDevice()) {
-            /* 모바일: 같은 탭 이동 → 뒤로가기로 복귀 */
-            location.href = url;
-          } else {
-            /* PC: 새 탭으로 열기 → 탭 닫으면 원래 사이트 그대로 */
-            window.open(url, '_blank', 'noopener,noreferrer');
-          }
-          return; /* 모달 열지 않음 */
+        /* 모바일: 같은 탭 이동 → 뒤로가기로 복귀 */
+        if (_isTouchDevice()) {
+          location.href = url;
+          return;
         }
 
-        /* ── 일반 iframe 모드 ── */
-        frame.style.display = '';
-        frame.src = url;
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
+        /* PC: 화면 중앙 팝업 새 창 — 모든 사이트 동일 */
+        const w = 1080, h = 720;
+        const left = Math.round((screen.width  - w) / 2);
+        const top  = Math.round((screen.height - h) / 2);
+        window.open(
+          url,
+          'sitePopup',
+          `width=${w},height=${h},left=${left},top=${top},` +
+          `scrollbars=yes,resizable=yes,toolbar=yes,menubar=no,location=yes`
+        );
       }
 
       function closeSiteModal() {
