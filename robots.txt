@@ -2,4 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /admin.html
 Disallow: /api/
-Sitemap: https://오늘아덴.kr/sitemap.xml
+
+Sitemap: https://xn--910by1bssg76c75a.kr/sitemap.xml
