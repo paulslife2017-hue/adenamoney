@@ -2,6 +2,7 @@
   "version": 2,
   "framework": null,
   "outputDirectory": ".",
+  "cleanUrls": true,
   "functions": {
     "api/cron/market-data.js": {
       "maxDuration": 60

@@ -4,6 +4,9 @@
   "private": true,
   "description": "리니지 클래식 아데나 시세 사이트",
   "type": "module",
+  "scripts": {
+    "seo": "node scripts/generate-seo-pages.mjs"
+  },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",
     "undici": "^7.28.0"

@@ -77,17 +77,22 @@ export async function runMarketUpdate(options = {}) {
   console.log(`baseline: today=${baselineDate}, prev=${previousBaselineDate}, latest=${latestBaselineDate}`);
 
   for (const [name, itemBayServerId] of SERVERS) {
-    const itemBay = itemBayByServer.get(name) || summarize([]);
+    const previousServer = previous.servers?.find((server) => server.name === name) || {};
+    const itemBay = withPreviousSource(
+      itemBayByServer.get(name) || summarize([]),
+      previousServer.itemBay,
+      "itemBay",
+    );
     const maniaPrices = itemManiaListings.get(name) || [];
-    const itemMania = summarize(maniaPrices);
-    const barotem = summarize(barotemListings.get(name) || []);
+    const itemMania = withPreviousSource(summarize(maniaPrices), previousServer.itemMania, "itemMania");
+    const barotem = withPreviousSource(summarize(barotemListings.get(name) || []), previousServer.barotem, "barotem");
     const verifiedPrices = verifySourcePrices({ itemBay, itemMania, barotem });
     const excludedPrices = getSourcePrices({ itemBay, itemMania, barotem }).filter(
       (source) => !verifiedPrices.some((verified) => verified.key === source.key),
     );
     const currentPrice = marketPrice(verifiedPrices.map((source) => source.price));
     const lowestPrice = lowest(verifiedPrices.map((source) => source.price));
-    const prevHistory = previous.servers?.find((server) => server.name === name)?.history || [];
+    const prevHistory = previousServer.history || [];
     const history = currentPrice
       ? [...prevHistory, { at: fetchedAt, price: currentPrice }].slice(-HISTORY_LIMIT)
       : prevHistory.slice(-HISTORY_LIMIT);
@@ -112,7 +117,7 @@ export async function runMarketUpdate(options = {}) {
       },
       barotem: {
         ...barotem,
-        status: barotem.count ? "ok" : "empty",
+        status: barotem.status || (barotem.count ? "ok" : "empty"),
       },
       verifiedSources: verifiedPrices,
       excludedSources: excludedPrices,
@@ -414,6 +419,27 @@ function getSourcePrices(sources) {
     { key: "barotem", label: "바로템", price: sources.barotem.min },
     { key: "itemMania", label: "아이템매니아", price: sources.itemMania.min },
   ].filter((source) => Number.isFinite(source.price));
+}
+
+function withPreviousSource(current, previousSource, key) {
+  if (hasFreshSourceValue(current)) return current;
+  if (!hasFreshSourceValue(previousSource)) return current;
+
+  return {
+    ...previousSource,
+    status: `fallback:${key}`,
+    stale: true,
+    fallback: true,
+  };
+}
+
+function hasFreshSourceValue(source) {
+  return Boolean(
+    source &&
+      source.count > 0 &&
+      Number.isFinite(source.min) &&
+      Number.isFinite(source.avg),
+  );
 }
 
 function normalize(html) {
