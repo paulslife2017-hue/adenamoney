@@ -781,14 +781,145 @@
         display: block;
       }
 
-      /* ── 모바일 전용 공식홈페이지 배너 ── */
-      .official-banner-mobile {
-        display: none; /* 기본 숨김 — 모바일에서만 표시 */
+      /* ── 모바일 사이트 버튼 그룹 (기본 숨김) ── */
+      .site-btns-mobile {
+        display: none;
       }
 
-      /* PC 전용 배너는 기본 표시 */
-      .official-banner-pc {
+      /* ── PC 사이트 버튼 (square-ad 기반, 기본 표시) ── */
+      .site-btn-pc {
         display: flex;
+        font-family: inherit;
+        cursor: pointer;
+      }
+
+      /* ── 인벤 square-ad 변형 ── */
+      .square-ad--inven {
+        border-color: rgba(120, 220, 140, 0.30);
+        background:
+          radial-gradient(circle at 78% 12%, rgba(80, 200, 100, 0.16), transparent 34%),
+          linear-gradient(145deg, rgba(14, 30, 20, 0.95), rgba(8, 18, 14, 0.82));
+      }
+      .square-ad--inven:hover {
+        border-color: rgba(120, 220, 140, 0.50);
+      }
+      .square-ad--inven::after {
+        background: rgba(80, 200, 100, 0.10);
+      }
+      .square-ad--inven strong {
+        color: #7dffaa;
+        font-size: 11.5px;
+      }
+      .square-ad--inven small {
+        font-size: 9px;
+        color: #5cdd88;
+        opacity: 0.85;
+        position: relative;
+        z-index: 1;
+        display: block;
+      }
+
+      /* ── PC 버튼 안 SVG 아이콘 ── */
+      .sq-icon {
+        width: 18px;
+        height: 18px;
+        margin-bottom: 3px;
+        position: relative;
+        z-index: 1;
+        flex-shrink: 0;
+      }
+      .square-ad--official .sq-icon { color: #7dd8ff; }
+      .square-ad--inven    .sq-icon { color: #7dffaa; }
+
+      /* ── 사이트 팝업 모달 ── */
+      .site-modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9000;
+        background: rgba(0, 0, 0, 0.62);
+        backdrop-filter: blur(3px);
+        align-items: center;
+        justify-content: center;
+      }
+      .site-modal-overlay.open {
+        display: flex;
+      }
+      .site-modal {
+        display: flex;
+        flex-direction: column;
+        width: 700px;
+        max-width: 92vw;
+        height: 560px;
+        max-height: 85vh;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(72, 198, 255, 0.20);
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.72);
+        background: #0a0f1e;
+        animation: modalIn 220ms cubic-bezier(.22,.68,0,1.2) both;
+      }
+      @keyframes modalIn {
+        from { opacity: 0; transform: scale(.93) translateY(12px); }
+        to   { opacity: 1; transform: scale(1) translateY(0); }
+      }
+      .site-modal-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px;
+        background: rgba(255,255,255,0.04);
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        flex-shrink: 0;
+      }
+      .site-modal-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: rgba(200,218,255,0.80);
+      }
+      .site-modal-close {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255,255,255,0.08);
+        color: rgba(200,218,255,0.80);
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 140ms;
+        font-family: inherit;
+      }
+      .site-modal-close:hover {
+        background: rgba(255,255,255,0.16);
+      }
+      .site-modal-frame {
+        flex: 1;
+        width: 100%;
+        border: none;
+        background: #fff;
+      }
+
+      /* 모바일에서 모달 크기 오버라이드 */
+      @media (max-width: 480px) {
+        .site-modal {
+          width: 100%;
+          max-width: 100%;
+          height: 80vh;
+          max-height: 80vh;
+          border-radius: 16px 16px 0 0;
+          align-self: flex-end;
+          margin-bottom: 0;
+        }
+        .site-modal-overlay {
+          align-items: flex-end;
+        }
+        @keyframes modalIn {
+          from { opacity: 0; transform: translateY(40px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
       }
 
       .square-ad strong {
@@ -4576,48 +4707,66 @@
         font-size: 10px;
       }
 
-      /* 모바일: PC 배너 숨기고, 모바일 배너 표시 */
-      .official-banner-pc {
+      /* 모바일: PC 사이트버튼 숨기고, 모바일 버튼 그룹 표시 */
+      .site-btn-pc {
         display: none !important;
       }
 
-      .official-banner-mobile {
+      .site-btns-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        flex-shrink: 0;
+        margin-left: auto;
+      }
+
+      /* 모바일 사이트 버튼 공통 */
+      .site-btn {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         gap: 3px;
-        flex-shrink: 0;
-        width: 76px;
-        min-height: 66px;
-        padding: 8px 6px;
-        border: 1px solid rgba(92, 200, 255, 0.35);
+        width: 62px;
+        min-height: 52px;
+        padding: 7px 5px;
         border-radius: 10px;
+        border: 1px solid rgba(92, 200, 255, 0.30);
         background:
-          radial-gradient(circle at 78% 12%, rgba(92, 200, 255, 0.18), transparent 34%),
+          radial-gradient(circle at 78% 12%, rgba(92, 200, 255, 0.14), transparent 34%),
           linear-gradient(145deg, rgba(16, 26, 48, 0.95), rgba(8, 13, 28, 0.82));
-        text-decoration: none;
+        cursor: pointer;
+        font-family: inherit;
         transition: transform 140ms ease, border-color 140ms ease;
-        margin-left: auto;
       }
-
-      .official-banner-mobile:hover {
-        transform: translateY(-2px);
-        border-color: rgba(92, 200, 255, 0.55);
+      .site-btn svg {
+        width: 18px;
+        height: 18px;
+        color: #7dd8ff;
+        flex-shrink: 0;
       }
-
-      .official-banner-mobile .ob-icon {
-        font-size: 18px;
-        line-height: 1;
-      }
-
-      .official-banner-mobile .ob-text {
-        font-size: 10px;
+      .site-btn span {
+        font-size: 9.5px;
         font-weight: 700;
         color: #7dd8ff;
         text-align: center;
-        line-height: 1.35;
+        line-height: 1.2;
         white-space: nowrap;
+      }
+      .site-btn:active {
+        transform: scale(.95);
+      }
+
+      /* 인벤 버튼 색상 */
+      .site-btn--inven {
+        border-color: rgba(120, 220, 140, 0.30);
+        background:
+          radial-gradient(circle at 78% 12%, rgba(80, 200, 100, 0.14), transparent 34%),
+          linear-gradient(145deg, rgba(14, 30, 20, 0.95), rgba(8, 18, 14, 0.82));
+      }
+      .site-btn--inven svg,
+      .site-btn--inven span {
+        color: #7dffaa;
       }
 
       .square-ad-row {
@@ -4839,13 +4988,25 @@
                 <div class="baseline" id="baselineText">기준가 대기</div>
               </div>
             </div>
-            <!-- 모바일 전용: 현재가 오른쪽 공식 배너 -->
-            <a class="official-banner-mobile" href="https://lineageclassic.plaync.com/ko-kr/index" target="_blank" rel="noopener">
-              <span class="ob-icon">🏰</span>
-              <span class="ob-text">리니지<br>공식사이트</span>
-            </a>
+            <!-- 모바일 전용: 현재가 오른쪽 공식·인벤 버튼 -->
+            <div class="site-btns-mobile">
+              <button class="site-btn site-btn--official" type="button" onclick="openSiteModal('https://lineageclassic.plaync.com/ko-kr/index')">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 10.5L12 3l9 7.5V21H15v-6H9v6H3V10.5z" fill="currentColor"/>
+                </svg>
+                <span>공식사이트</span>
+              </button>
+              <button class="site-btn site-btn--inven" type="button" onclick="openSiteModal('https://lineageclassic.inven.co.kr/')">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="2" width="20" height="20" rx="5" fill="currentColor" opacity=".15"/>
+                  <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  <text x="12" y="17" text-anchor="middle" font-size="13" font-weight="900" fill="currentColor" font-family="sans-serif">i</text>
+                </svg>
+                <span>인벤</span>
+              </button>
+            </div>
           </div>
-          <!-- 광고 슬롯 3개 + 공식 배너(PC) — main-price 밖, 우측 끝 -->
+          <!-- 광고 슬롯 3개 + 공식·인벤 버튼(PC) -->
           <div class="square-ad-row" aria-label="광고 영역">
             <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
               <strong>광고문의</strong>
@@ -4856,12 +5017,35 @@
             <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
               <strong>광고문의</strong>
             </a>
-            <!-- PC 전용: 맨 오른쪽 공식 배너 -->
-            <a class="square-ad square-ad--official official-banner-pc" href="https://lineageclassic.plaync.com/ko-kr/index" target="_blank" rel="noopener">
-              <span class="official-icon">🏰</span>
+            <!-- PC 전용: 공식사이트 버튼 -->
+            <button class="square-ad square-ad--official site-btn-pc" type="button" onclick="openSiteModal('https://lineageclassic.plaync.com/ko-kr/index')">
+              <svg class="sq-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 10.5L12 3l9 7.5V21H15v-6H9v6H3V10.5z" fill="currentColor"/>
+              </svg>
               <strong>리니지 공식</strong>
               <small>공식홈페이지</small>
-            </a>
+            </button>
+            <!-- PC 전용: 인벤 버튼 -->
+            <button class="square-ad square-ad--inven site-btn-pc" type="button" onclick="openSiteModal('https://lineageclassic.inven.co.kr/')">
+              <svg class="sq-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="20" rx="5" fill="currentColor" opacity=".12"/>
+                <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <text x="12" y="17" text-anchor="middle" font-size="14" font-weight="900" fill="currentColor" font-family="sans-serif">i</text>
+              </svg>
+              <strong>리니지 인벤</strong>
+              <small>공략·커뮤니티</small>
+            </button>
+          </div>
+        </div>
+
+        <!-- ── 사이트 팝업 모달 ── -->
+        <div class="site-modal-overlay" id="siteModalOverlay" onclick="closeSiteModal()">
+          <div class="site-modal" id="siteModal" onclick="event.stopPropagation()">
+            <div class="site-modal-bar">
+              <span class="site-modal-title" id="siteModalTitle"></span>
+              <button class="site-modal-close" type="button" onclick="closeSiteModal()" aria-label="닫기">✕</button>
+            </div>
+            <iframe class="site-modal-frame" id="siteModalFrame" src="" title="외부 사이트"></iframe>
           </div>
         </div>
 
@@ -6587,6 +6771,51 @@
             `scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=yes`
           );
         });
+      });
+
+      /* ── 사이트 팝업 모달 ── */
+      const SITE_LABELS = {
+        'https://lineageclassic.plaync.com/ko-kr/index': '리니지 클래식 공식홈페이지',
+        'https://lineageclassic.inven.co.kr/':           '리니지 클래식 인벤',
+      };
+
+      function openSiteModal(url) {
+        const overlay = document.getElementById('siteModalOverlay');
+        const frame   = document.getElementById('siteModalFrame');
+        const title   = document.getElementById('siteModalTitle');
+        if (!overlay || !frame) return;
+        title.textContent = SITE_LABELS[url] || url;
+        frame.src = url;
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+
+        /* iframe 로드 후 X-Frame-Options 차단 감지 → 새 탭 폴백 */
+        frame.onload = () => {
+          try {
+            /* 같은 origin이면 접근 가능, 차단된 경우 contentDocument가 null */
+            if (!frame.contentDocument && frame.src) {
+              closeSiteModal();
+              window.open(url, '_blank', 'noopener');
+            }
+          } catch(e) {
+            /* cross-origin 오류 = 정상 로드된 것이므로 무시 */
+          }
+        };
+      }
+
+      function closeSiteModal() {
+        const overlay = document.getElementById('siteModalOverlay');
+        const frame   = document.getElementById('siteModalFrame');
+        if (!overlay) return;
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+        /* 살짝 딜레이 후 src 초기화 — 애니메이션이 끝난 뒤 iframe 언로드 */
+        setTimeout(() => { if (frame) frame.src = ''; }, 260);
+      }
+
+      /* ESC 키로 닫기 */
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeSiteModal();
       });
 
     </script>
