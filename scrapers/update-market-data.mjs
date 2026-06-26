@@ -84,7 +84,6 @@ for (const [name, itemBayServerId] of SERVERS) {
   const history = currentPrice
     ? [...prevHistory, { at: fetchedAt, price: currentPrice }].slice(-HISTORY_LIMIT)
     : prevHistory.slice(-HISTORY_LIMIT);
-  const todayBaseline = noonBaselines[baselineDate]?.[name];
   // 어제 baseline 우선, 없으면 가장 최근 날짜 baseline 사용
   const refDate = noonBaselines[previousBaselineDate]?.[name] != null
     ? previousBaselineDate
@@ -115,20 +114,22 @@ for (const [name, itemBayServerId] of SERVERS) {
     previousNoonPrice,
     change,
     changeRate,
-    baselineLabel: refDate ? `${refDate} 12:00` : null,
+    baselineLabel: refDate || null,
     history,
   });
 
-  // 정오 이후이면 오늘 baseline 저장
-  if (currentPrice && shouldCaptureNoonBaseline(fetchedAt) && !todayBaseline) {
-    noonBaselines[baselineDate] = noonBaselines[baselineDate] || {};
-    noonBaselines[baselineDate][name] = currentPrice;
-  }
-
-  // 어제 baseline이 없으면 현재가로 임시 백필 (比 날짜가 하루 더 과거로 밀리는 것 방지)
-  if (currentPrice && !noonBaselines[previousBaselineDate]?.[name]) {
+  // ── baseline 저장 전략 ──
+  // 매 실행마다 어제 날짜 baseline = 현재 수집가로 갱신
+  // → KST 자정에 날짜가 바뀌면 previousBaselineDate가 어제로 고정되어
+  //   "어제 마지막 수집가"가 비교 기준이 됨
+  if (currentPrice) {
     noonBaselines[previousBaselineDate] = noonBaselines[previousBaselineDate] || {};
     noonBaselines[previousBaselineDate][name] = currentPrice;
+  }
+  // 오늘 날짜 baseline도 갱신 (그래프용 당일 데이터)
+  if (currentPrice) {
+    noonBaselines[baselineDate] = noonBaselines[baselineDate] || {};
+    noonBaselines[baselineDate][name] = currentPrice;
   }
 }
 
