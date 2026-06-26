@@ -1,5 +1,10 @@
 import { neon } from "@neondatabase/serverless";
 import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const STATIC_MARKET_DATA_PATH = join(__dirname, "..", "data", "market-data.js");
 
 export const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -66,7 +71,7 @@ export async function saveMarketData(data, source = "cron") {
 }
 
 export async function readStaticMarketData() {
-  const js = await readFile("data/market-data.js", "utf8");
+  const js = await readFile(STATIC_MARKET_DATA_PATH, "utf8");
   const jsonText = js.replace(/^window\.MARKET_DATA\s*=\s*/, "").replace(/;\s*$/, "");
   return JSON.parse(jsonText);
 }
