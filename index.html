@@ -5338,12 +5338,13 @@
       function buildSparkPoints(server) {
         const currentPrice = Number.isFinite(server.currentPrice) ? server.currentPrice : null;
         const baselinePoints = Object.entries(marketData.noonBaselines || {})
+          .sort(([a], [b]) => a.localeCompare(b))
           .map(([date, prices]) => ({
             price: prices?.[server.name],
             at: `${date}T12:00:00+09:00`,
           }))
           .filter((point) => Number.isFinite(point.price))
-          .slice(-14);
+          .slice(-15);
         const history = (server.history || [])
           .filter((point) => Number.isFinite(point.price))
           .filter((point) => {
@@ -5371,8 +5372,8 @@
           daily.set(key, { ...point, dayLabel: key });
         });
 
-        const compact = [...daily.values()].slice(-14);
-        return compact.length >= 2 ? compact : points.slice(-14);
+        const compact = [...daily.values()].slice(-15);
+        return compact.length >= 2 ? compact : points.slice(-15);
       }
 
       function buildSparkPriceLabels(points, coords) {
@@ -5397,10 +5398,10 @@
         let indexes;
         if (points.length <= 7) {
           indexes = points.map((_, i) => i);
-        } else if (points.length <= 14) {
-          // 7~14개: 첫/중간/끝 + 균등 간격으로 총 5개
-          const step = Math.floor((points.length - 1) / 4);
-          indexes = [...new Set([0, step, step*2, step*3, points.length - 1])];
+        } else if (points.length <= 16) {
+          // 8~16개: 균등 간격으로 총 6개
+          const step = Math.floor((points.length - 1) / 5);
+          indexes = [...new Set([0, step, step*2, step*3, step*4, points.length - 1])];
         } else {
           indexes = [...new Set([0, Math.floor((points.length - 1) / 2), points.length - 1])];
         }

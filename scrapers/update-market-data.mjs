@@ -125,9 +125,11 @@ for (const [name, itemBayServerId] of SERVERS) {
   }
 }
 
-// noonBaselines 14일치만 유지
-const BASELINE_KEEP_DAYS = 14;
-const cutoffDate = getKstDateKey(addDays(fetchedAt, -BASELINE_KEEP_DAYS));
+// noonBaselines 21일치만 유지 (최신 날짜 기준 — 역산 백필 데이터 보존)
+const BASELINE_KEEP_DAYS = 21;
+const baselineDates = Object.keys(noonBaselines).sort();
+const latestBaseline = baselineDates[baselineDates.length - 1] || getKstDateKey(fetchedAt);
+const cutoffDate = addDays(latestBaseline, -BASELINE_KEEP_DAYS).slice(0, 10);
 for (const date of Object.keys(noonBaselines)) {
   if (date < cutoffDate) delete noonBaselines[date];
 }
