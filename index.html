@@ -4803,6 +4803,18 @@
         color: rgba(255, 130, 90, 0.95);
       }
 
+      /* 나무위키 버튼 색상 */
+      .site-btn--namu {
+        border-color: rgba(100, 200, 120, 0.30);
+        background:
+          radial-gradient(circle at 78% 12%, rgba(100, 200, 120, 0.14), transparent 34%),
+          linear-gradient(145deg, rgba(10, 26, 14, 0.95), rgba(6, 16, 8, 0.82));
+      }
+      .site-btn--namu svg,
+      .site-btn--namu span {
+        color: rgba(120, 220, 140, 0.95);
+      }
+
       /* 광고문의 버튼 색상 */
       .site-btn--ad {
         border-color: rgba(246, 199, 107, 0.25);
@@ -4819,52 +4831,49 @@
         display: none !important; /* 모바일: 광고버튼이 site-btns-mobile로 이동 */
       }
 
-      /* ── 모바일 하단 광고 배너 4개 ── */
+      /* ── 모바일 하단 광고 배너 (가로 2개) ── */
       .mobile-ad-banners {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         gap: 6px;
         margin-top: 8px;
         margin-bottom: 2px;
       }
       .mobile-ad-banner {
+        flex: 1;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 10px;
-        padding: 11px 14px;
+        justify-content: center;
+        gap: 5px;
+        padding: 14px 8px;
         border-radius: 10px;
         border: 1px solid rgba(246, 199, 107, 0.20);
         background:
-          radial-gradient(circle at 90% 50%, rgba(246, 199, 107, 0.08), transparent 50%),
-          linear-gradient(135deg, rgba(22, 18, 8, 0.96), rgba(14, 11, 4, 0.90));
+          radial-gradient(circle at 80% 20%, rgba(246, 199, 107, 0.08), transparent 50%),
+          linear-gradient(145deg, rgba(22, 18, 8, 0.96), rgba(14, 11, 4, 0.90));
         text-decoration: none;
         transition: border-color 140ms, transform 140ms;
       }
       .mobile-ad-banner:active {
-        transform: scale(.98);
+        transform: scale(.97);
         border-color: rgba(246, 199, 107, 0.45);
       }
       .mobile-ad-banner__label {
         font-size: 9px;
         font-weight: 900;
-        color: rgba(246, 199, 107, 0.60);
+        color: rgba(246, 199, 107, 0.55);
         letter-spacing: 0.5px;
-        flex-shrink: 0;
-        border: 1px solid rgba(246, 199, 107, 0.30);
-        padding: 2px 5px;
+        border: 1px solid rgba(246, 199, 107, 0.25);
+        padding: 2px 6px;
         border-radius: 4px;
       }
       .mobile-ad-banner__text {
-        flex: 1;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
-        color: rgba(246, 199, 107, 0.85);
+        color: rgba(246, 199, 107, 0.75);
         letter-spacing: -0.2px;
-      }
-      .mobile-ad-banner__sub {
-        font-size: 10px;
-        color: rgba(246, 199, 107, 0.40);
-        flex-shrink: 0;
+        text-align: center;
       }
 
       .square-ad {
@@ -5112,12 +5121,12 @@
                 </svg>
                 <span>리니지<br>클래식갤</span>
               </button>
-              <a class="site-btn site-btn--ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+              <button class="site-btn site-btn--namu" type="button" onclick="openSiteModal('https://namu.wiki/w/%EB%A6%AC%EB%8B%88%EC%A7%80%20%ED%81%B4%EB%9E%98%EC%8B%9D')">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M21.05 2.84L2.27 10.14c-.78.32-.77 1.41.02 1.71l4.56 1.65 1.97 6.17c.24.74 1.18.95 1.7.38l2.33-2.6 4.74 3.46c.65.47 1.57.12 1.73-.67l3.14-16.2c.19-.97-.8-1.75-1.41-1.2z" fill="currentColor"/>
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/>
                 </svg>
-                <span>광고<br>문의</span>
-              </a>
+                <span>나무<br>위키</span>
+              </button>
           </div>
 
           <!-- 광고 슬롯 3개 + 공식·인벤 버튼(PC) -->
@@ -5152,27 +5161,15 @@
           </div>
         </div>
 
-        <!-- 모바일 전용: 하단 광고 배너 4개 (향후 유료 광고 자리) -->
+        <!-- 모바일 전용: 하단 광고 배너 2개 가로 (유료 광고 자리) -->
         <div class="mobile-ad-banners">
           <a class="mobile-ad-banner" href="https://t.me/+821058947690" target="_blank" rel="noopener">
             <span class="mobile-ad-banner__label">AD</span>
-            <span class="mobile-ad-banner__text">여기 광고문의</span>
-            <span class="mobile-ad-banner__sub">t.me 문의</span>
+            <span class="mobile-ad-banner__text">광고문의</span>
           </a>
           <a class="mobile-ad-banner" href="https://t.me/+821058947690" target="_blank" rel="noopener">
             <span class="mobile-ad-banner__label">AD</span>
-            <span class="mobile-ad-banner__text">여기 광고문의</span>
-            <span class="mobile-ad-banner__sub">t.me 문의</span>
-          </a>
-          <a class="mobile-ad-banner" href="https://t.me/+821058947690" target="_blank" rel="noopener">
-            <span class="mobile-ad-banner__label">AD</span>
-            <span class="mobile-ad-banner__text">여기 광고문의</span>
-            <span class="mobile-ad-banner__sub">t.me 문의</span>
-          </a>
-          <a class="mobile-ad-banner" href="https://t.me/+821058947690" target="_blank" rel="noopener">
-            <span class="mobile-ad-banner__label">AD</span>
-            <span class="mobile-ad-banner__text">여기 광고문의</span>
-            <span class="mobile-ad-banner__sub">t.me 문의</span>
+            <span class="mobile-ad-banner__text">광고문의</span>
           </a>
         </div>
 
@@ -6916,6 +6913,7 @@
         'https://lineageclassic.plaync.com/ko-kr/index':                      '리니지 클래식 공식홈페이지',
         'https://lineageclassic.inven.co.kr/':                                '리니지 클래식 인벤',
         'https://gall.dcinside.com/mgallery/board/lists/?id=lineage2classic': '리니지 클래식 갤러리 (디시인사이드)',
+        'https://namu.wiki/w/%EB%A6%AC%EB%8B%88%EC%A7%80%20%ED%81%B4%EB%9E%98%EC%8B%9D':          '리니지 클래식 — 나무위키',
       };
 
       function openSiteModal(url) {
