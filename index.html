@@ -6800,6 +6800,16 @@
         `;
       }
 
+      /* 모바일에서 서버 클릭 시 chart-panel로 부드럽게 스크롤 */
+      function scrollToChartOnMobile() {
+        if (window.innerWidth > 899) return;
+        const chartPanel = document.querySelector('.chart-panel');
+        if (!chartPanel) return;
+        setTimeout(() => {
+          chartPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 80); // renderChart 완료 후 살짝 딜레이
+      }
+
       function _bindRowEvents(el, fullList) {
         el.addEventListener("click", (e) => {
           if (e.target.closest(".fav-btn")) return;
@@ -6809,6 +6819,7 @@
           selectedServerName = name;
           renderChart(server);
           renderRows();
+          scrollToChartOnMobile();
         });
         const favBtn = el.querySelector(".fav-btn");
         if (favBtn) {
