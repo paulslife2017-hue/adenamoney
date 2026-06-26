@@ -590,34 +590,73 @@
       .search-guide-bar {
         display: flex;
         align-items: center;
-        gap: 8px;
-        padding: 8px 12px;
-        margin-bottom: 12px;
-        border-radius: 8px;
-        background: linear-gradient(90deg, rgba(72,198,255,0.08), rgba(79,214,200,0.06));
-        border: 1px solid rgba(72, 198, 255, 0.18);
-        font-size: 12px;
-        color: rgba(180, 220, 255, 0.80);
-        cursor: default;
+        gap: 10px;
+        padding: 13px 16px;
+        margin-bottom: 14px;
+        border-radius: 12px;
+        background:
+          radial-gradient(circle at 0% 50%, rgba(72,198,255,0.13), transparent 55%),
+          linear-gradient(90deg, rgba(72,198,255,0.10), rgba(79,214,200,0.07));
+        border: 1px solid rgba(72, 198, 255, 0.30);
+        box-shadow: 0 2px 16px rgba(72,198,255,0.08), inset 0 1px 0 rgba(255,255,255,0.05);
+        font-size: 13.5px;
+        color: rgba(180, 220, 255, 0.85);
+        cursor: pointer;
         user-select: none;
+        transition: border-color 150ms, box-shadow 150ms, background 150ms;
       }
-      .search-guide-bar__icon { font-size: 13px; flex-shrink: 0; }
-      .search-guide-bar__text { flex: 1; }
-      .search-guide-bar__text strong {
-        color: #7dd8ff;
-        font-weight: 800;
-        letter-spacing: 0.2px;
+      .search-guide-bar:hover {
+        border-color: rgba(72, 198, 255, 0.55);
+        box-shadow: 0 4px 24px rgba(72,198,255,0.16), inset 0 1px 0 rgba(255,255,255,0.08);
+        background:
+          radial-gradient(circle at 0% 50%, rgba(72,198,255,0.18), transparent 55%),
+          linear-gradient(90deg, rgba(72,198,255,0.14), rgba(79,214,200,0.10));
+      }
+      .search-guide-bar__icon { font-size: 18px; flex-shrink: 0; }
+      .search-guide-bar__text { flex: 1; line-height: 1.4; }
+      .search-guide-bar__label {
+        display: block;
+        font-size: 10px;
+        color: rgba(72,198,255,0.60);
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        margin-bottom: 1px;
+      }
+      .search-guide-bar__domain {
+        font-size: 17px;
+        font-weight: 900;
+        color: #48c6ff;
+        letter-spacing: -0.3px;
+        text-shadow: 0 0 18px rgba(72,198,255,0.55), 0 0 6px rgba(72,198,255,0.30);
+      }
+      .search-guide-bar__sub {
+        font-size: 11px;
+        color: rgba(160,210,255,0.60);
+        margin-left: 4px;
+        font-weight: 400;
       }
       .search-guide-bar__badge {
-        font-size: 10px;
-        font-weight: 700;
-        color: rgba(72, 198, 255, 0.70);
-        border: 1px solid rgba(72, 198, 255, 0.25);
-        padding: 2px 7px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        font-weight: 800;
+        color: rgba(72, 198, 255, 0.90);
+        background: rgba(72,198,255,0.10);
+        border: 1px solid rgba(72, 198, 255, 0.35);
+        padding: 6px 12px;
         border-radius: 20px;
         flex-shrink: 0;
         white-space: nowrap;
+        transition: background 150ms, border-color 150ms, color 150ms;
       }
+      .search-guide-bar:hover .search-guide-bar__badge {
+        background: rgba(72,198,255,0.18);
+        border-color: rgba(72,198,255,0.60);
+        color: #48c6ff;
+      }
+      .search-guide-bar__badge-icon { font-size: 13px; }
 
       .chart-panel {
         margin: 0 16px 12px;
@@ -716,11 +755,12 @@
       .square-ad-row {
         display: flex;
         flex-direction: row;
-        gap: 5px;
+        gap: 4px;
         justify-content: flex-end;
         align-items: stretch;
         margin-left: auto;
         flex-shrink: 0;
+        overflow: visible;
       }
 
       .square-ad {
@@ -730,9 +770,10 @@
         align-items: center;
         justify-content: center;
         gap: 0;
-        width: 96px;
+        width: auto;
+        min-width: 72px;
         min-height: 58px;
-        padding: 10px 8px;
+        padding: 10px 10px;
         overflow: hidden;
         border: 1px solid rgba(246, 199, 107, 0.28);
         border-radius: 10px;
@@ -765,6 +806,10 @@
           linear-gradient(145deg, rgba(28, 33, 48, 0.95), rgba(10, 17, 31, 0.82));
       }
 
+      .square-ad strong,
+      .square-ad small {
+        white-space: nowrap;
+      }
       .square-ad span,
       .square-ad strong,
       .square-ad small {
@@ -778,6 +823,12 @@
       }
       .square-ad--official span {
         display: block;
+      }
+
+      /* 광고문의 슬롯: 더 좁게 */
+      .square-ad-row > a.square-ad:not([class*="square-ad--"]) {
+        width: 64px;
+        padding: 10px 4px;
       }
 
       /* 공식사이트 박스 */
@@ -795,7 +846,8 @@
       }
       .square-ad--official strong {
         color: #7dd8ff;
-        font-size: 11.5px;
+        font-size: 10.5px;
+        white-space: nowrap;
       }
       .square-ad--official small {
         font-size: 9px;
@@ -846,7 +898,8 @@
       }
       .square-ad--inven strong {
         color: #7dffaa;
-        font-size: 11.5px;
+        font-size: 10.5px;
+        white-space: nowrap;
       }
       .square-ad--inven small {
         font-size: 9px;
@@ -878,8 +931,8 @@
       }
       .square-ad--dc:hover { border-color: rgba(255, 100, 60, 0.50); }
       .square-ad--dc::after { background: rgba(255, 80, 40, 0.10); }
-      .square-ad--dc strong { color: rgba(255, 130, 90, 0.95); font-size: 11px; }
-      .square-ad--dc small  { font-size: 9px; color: rgba(255, 130, 90, 0.65); opacity: 0.85; position: relative; z-index: 1; display: block; }
+      .square-ad--dc strong { color: rgba(255, 130, 90, 0.95); font-size: 10.5px; white-space: nowrap; }
+      .square-ad--dc small  { font-size: 9px; color: rgba(255, 130, 90, 0.65); opacity: 0.85; position: relative; z-index: 1; display: block; white-space: nowrap; }
       .square-ad--dc .sq-icon { color: rgba(255, 130, 90, 0.95); }
 
       /* PC 전용: 나무위키 버튼 */
@@ -891,8 +944,8 @@
       }
       .square-ad--namu:hover { border-color: rgba(100, 200, 120, 0.50); }
       .square-ad--namu::after { background: rgba(80, 180, 100, 0.10); }
-      .square-ad--namu strong { color: rgba(120, 220, 140, 0.95); font-size: 11.5px; }
-      .square-ad--namu small  { font-size: 9px; color: rgba(120, 220, 140, 0.65); opacity: 0.85; position: relative; z-index: 1; display: block; }
+      .square-ad--namu strong { color: rgba(120, 220, 140, 0.95); font-size: 10.5px; white-space: nowrap; }
+      .square-ad--namu small  { font-size: 9px; color: rgba(120, 220, 140, 0.65); opacity: 0.85; position: relative; z-index: 1; display: block; white-space: nowrap; }
       .square-ad--namu .sq-icon { color: rgba(120, 220, 140, 0.95); }
 
       /* ── 사이트 팝업 모달 ── */
@@ -5138,15 +5191,19 @@
       <section class="chart-panel" aria-label="거래소 비교">
 
         <!-- 주소창 검색 유도 배너 -->
-        <div class="search-guide-bar" role="complementary" aria-label="사이트 주소 안내">
-          <span class="search-guide-bar__icon">🔍</span>
-          <span class="search-guide-bar__text">주소창에 <strong>오늘아덴.kr</strong> 을 검색하세요</span>
-          <span class="search-guide-bar__badge">즐겨찾기 추가</span>
+        <div class="search-guide-bar" role="complementary" aria-label="사이트 주소 안내" onclick="addBookmark()" id="searchGuideBar">
+          <span class="search-guide-bar__icon">🔖</span>
+          <span class="search-guide-bar__text">
+            <span class="search-guide-bar__label">북마크 &amp; 즐겨찾기</span>
+            <span class="search-guide-bar__domain">오늘아덴.kr</span><span class="search-guide-bar__sub">을 저장하세요</span>
+          </span>
+          <span class="search-guide-bar__badge" id="bookmarkBadge">
+            <span class="search-guide-bar__badge-icon">⭐</span>즐겨찾기 추가
+          </span>
         </div>
 
         <div class="chart-head">
           <strong id="chartTitle">서버 시세</strong>
-          <span>ADENA/W</span>
         </div>
 
         <!-- 현재가(좌) + 광고 슬롯 3개(우) -->
@@ -5212,8 +5269,8 @@
               <svg class="sq-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M3 10.5L12 3l9 7.5V21H15v-6H9v6H3V10.5z" fill="currentColor"/>
               </svg>
-              <strong>리니지 공식</strong>
-              <small>공식홈페이지</small>
+              <strong>공식홈페이지</strong>
+              <small>리니지 클래식</small>
             </button>
             <!-- PC 전용: 인벤 버튼 -->
             <button class="square-ad square-ad--inven site-btn-pc" type="button" onclick="openSiteModal('https://lineageclassic.inven.co.kr/')">
@@ -5222,7 +5279,7 @@
                 <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
                 <text x="12" y="17" text-anchor="middle" font-size="14" font-weight="900" fill="currentColor" font-family="sans-serif">i</text>
               </svg>
-              <strong>리니지 인벤</strong>
+              <strong>인벤</strong>
               <small>공략·커뮤니티</small>
             </button>
             <!-- PC 전용: 디씨 갤러리 버튼 -->
@@ -5232,7 +5289,7 @@
                 <rect x="2" y="3" width="20" height="18" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
                 <text x="12" y="16" text-anchor="middle" font-size="11" font-weight="900" fill="currentColor" font-family="sans-serif">DC</text>
               </svg>
-              <strong>리니지 클래식갤</strong>
+              <strong>클래식갤</strong>
               <small>디시인사이드</small>
             </button>
             <!-- PC 전용: 나무위키 버튼 -->
@@ -5241,7 +5298,7 @@
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/>
               </svg>
               <strong>나무위키</strong>
-              <small>리니지 클래식</small>
+              <small>정보위키</small>
             </button>
           </div>
         </div>
@@ -7041,6 +7098,44 @@
       /* ESC 키로 모바일 모달 닫기 */
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeSiteModal();
+      });
+
+      /* ── 즐겨찾기 추가 기능 ── */
+      function addBookmark() {
+        const badge = document.getElementById('bookmarkBadge');
+
+        // 크롬/엣지 등 PWA 설치 지원
+        if (window._deferredInstallPrompt) {
+          window._deferredInstallPrompt.prompt();
+          window._deferredInstallPrompt.userChoice.then((result) => {
+            if (result.outcome === 'accepted') {
+              if (badge) { badge.innerHTML = '<span class="search-guide-bar__badge-icon">✅</span>추가 완료!'; }
+            }
+            window._deferredInstallPrompt = null;
+          });
+          return;
+        }
+
+        // Safari iOS: 홈 화면 추가 안내
+        const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+        if (isIOS) {
+          alert('📲 Safari 하단의 "공유" 버튼 → "홈 화면에 추가"를 눌러 즐겨찾기 하세요!');
+          return;
+        }
+
+        // Ctrl+D / Cmd+D 안내 (PC / Android Chrome)
+        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+        const key   = isMac ? '⌘+D' : 'Ctrl+D';
+        alert(`🔖 "${key}" 키를 눌러 즐겨찾기에 추가하세요!\n\n오늘아덴.kr → 아데나 시세 실시간 확인`);
+      }
+
+      /* beforeinstallprompt 캐싱 (크롬/엣지 PWA) */
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        window._deferredInstallPrompt = e;
+        // 배지 텍스트를 "앱 설치"로 업데이트
+        const badge = document.getElementById('bookmarkBadge');
+        if (badge) { badge.innerHTML = '<span class="search-guide-bar__badge-icon">📲</span>앱 설치'; }
       });
 
     </script>
