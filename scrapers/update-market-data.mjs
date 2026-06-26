@@ -119,17 +119,16 @@ for (const [name, itemBayServerId] of SERVERS) {
   });
 
   // ── baseline 저장 전략 ──
-  // 매 실행마다 어제 날짜 baseline = 현재 수집가로 갱신
-  // → KST 자정에 날짜가 바뀌면 previousBaselineDate가 어제로 고정되어
-  //   "어제 마지막 수집가"가 비교 기준이 됨
-  if (currentPrice) {
-    noonBaselines[previousBaselineDate] = noonBaselines[previousBaselineDate] || {};
-    noonBaselines[previousBaselineDate][name] = currentPrice;
-  }
-  // 오늘 날짜 baseline도 갱신 (그래프용 당일 데이터)
+  // 1) 오늘 날짜 baseline: 매 실행마다 현재가로 갱신 (그래프용 당일 데이터)
   if (currentPrice) {
     noonBaselines[baselineDate] = noonBaselines[baselineDate] || {};
     noonBaselines[baselineDate][name] = currentPrice;
+  }
+  // 2) 어제 날짜 baseline: 없을 때만 저장 (자정 날짜 바뀐 직후 최초 1회만 고정)
+  //    → 이후 덮어쓰지 않아서 "어제 자정 직후 첫 수집가"가 비교기준으로 유지됨
+  if (currentPrice && !noonBaselines[previousBaselineDate]?.[name]) {
+    noonBaselines[previousBaselineDate] = noonBaselines[previousBaselineDate] || {};
+    noonBaselines[previousBaselineDate][name] = currentPrice;
   }
 }
 
