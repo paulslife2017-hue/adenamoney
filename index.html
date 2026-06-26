@@ -5235,12 +5235,12 @@
         const maxP = Math.max(...prices);
         const range = Math.max(maxP - minP, 1);
 
-        // SVG 좌표계 — H를 키워서 풍성하게
-        const W = 360, H = 140;
+        // SVG 좌표계 — W를 넓게 잡아 PC에서 꽉 채움
+        const W = 900, H = 140;
         const padTop = 22;   // 가격 레이블 위 여백
         const padBot = 20;   // 날짜 레이블 아래 여백
-        const padL   = 2;
-        const padR   = 2;
+        const padL   = 4;
+        const padR   = 4;
         const plotW  = W - padL - padR;
         const plotTop = padTop;
         const plotBot = H - padBot;
@@ -5292,7 +5292,7 @@
               <span style="color:rgba(140,180,220,0.45);font-size:9px">· 참고용</span>
             </span>
           </div>
-          <svg viewBox="0 0 ${W} ${H}" aria-hidden="true" style="--spark-len:${pathLen}">
+          <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true" style="--spark-len:${pathLen}; width:100%; display:block;">
             <defs>
               <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%"   stop-color="rgba(72,214,180,0.30)"/>
