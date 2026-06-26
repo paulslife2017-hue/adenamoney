@@ -19,7 +19,7 @@
     :root{color-scheme:dark;--bg:#050914;--panel:#0b1324;--line:#1a2b46;--text:#f5f8ff;--muted:#98a8bf;--accent:#44d7cf;--gold:#f4c967}
     *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 30% -10%,#14304f 0,#050914 38%,#03060d 100%);color:var(--text);font-family:Arial,"Noto Sans KR",sans-serif;line-height:1.58}
     .wrap{width:min(960px,calc(100% - 32px));margin:0 auto;padding:42px 0}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:22px}
-    .brand{font-weight:900;letter-spacing:-.03em;color:#fff;text-decoration:none}.home{color:var(--accent);text-decoration:none;font-weight:800}
+    .brand{font-weight:900;letter-spacing:-.03em;color:#fff;text-decoration:none}.home{color:var(--accent);text-decoration:none;font-weight:800}.official-link{color:#7dd8ff;text-decoration:none;font-weight:700;font-size:13px;border:1px solid rgba(92,200,255,0.3);border-radius:8px;padding:5px 10px;white-space:nowrap;transition:background 0.15s}.official-link:hover{background:rgba(92,200,255,0.1)}
     .hero,.card{border:1px solid var(--line);background:rgba(11,19,36,.86);border-radius:18px;box-shadow:0 18px 48px rgba(0,0,0,.28)}
     .hero{padding:28px}.eyebrow{color:var(--accent);font-size:13px;font-weight:800;margin:0 0 6px}h1{margin:0;font-size:clamp(30px,5vw,54px);letter-spacing:-.05em}
     .lead{margin:10px 0 0;color:#c8d4e5}.price{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end;margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}
@@ -36,6 +36,7 @@
   <main class="wrap">
     <nav class="top" aria-label="상단 메뉴">
       <a class="brand" href="/">오늘아덴</a>
+      <a class="official-link" href="https://lineageclassic.plaync.com/ko-kr/index" target="_blank" rel="noopener">🏰 리니지 공식</a>
       <a class="home" href="/?server=%EB%B0%9C%EB%9D%BC%EC%B9%B4%EC%8A%A4">실시간 화면 보기</a>
     </nav>
     <section class="hero">

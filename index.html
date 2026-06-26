@@ -735,9 +735,46 @@
         z-index: 1;
       }
 
-      /* '광고' 뱃지 span — 이제 숨김 처리 (HTML에서도 제거했지만 혹시 모를 대비) */
+      /* '광고' 뱃지 span — 기본 숨김, 공식사이트에서만 표시 */
       .square-ad span {
         display: none;
+      }
+      .square-ad--official span {
+        display: block;
+      }
+
+      /* 공식사이트 박스 */
+      .square-ad--official {
+        border-color: rgba(92, 200, 255, 0.35);
+        background:
+          radial-gradient(circle at 78% 12%, rgba(92, 200, 255, 0.18), transparent 34%),
+          linear-gradient(145deg, rgba(16, 26, 48, 0.95), rgba(8, 13, 28, 0.82));
+      }
+      .square-ad--official:hover {
+        border-color: rgba(92, 200, 255, 0.55);
+      }
+      .square-ad--official::after {
+        background: rgba(92, 200, 255, 0.12);
+      }
+      .square-ad--official strong {
+        color: #7dd8ff;
+        font-size: 11.5px;
+      }
+      .square-ad--official small {
+        font-size: 9px;
+        color: #5cc8ff;
+        opacity: 0.85;
+        position: relative;
+        z-index: 1;
+        display: block;
+      }
+      .official-icon {
+        font-size: 13px;
+        line-height: 1;
+        margin-bottom: 2px;
+        position: relative;
+        z-index: 1;
+        display: block;
       }
 
       .square-ad strong {
