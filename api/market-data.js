@@ -5,7 +5,7 @@ export default async function handler(req) {
   if (req.method !== "GET") return json({ error: "Method not allowed" }, 405);
 
   try {
-    const data = await readLatestMarketData();
+    const data = await withTimeout(readLatestMarketData(), 3000);
     if (data) return json({ ...data, delivery: "db" });
   } catch (error) {
     console.warn("market db read failed", error.message);
@@ -17,4 +17,13 @@ export default async function handler(req) {
   } catch (error) {
     return json({ error: "market data unavailable", detail: error.message }, 503);
   }
+}
+
+function withTimeout(promise, ms) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => {
+      setTimeout(() => reject(new Error(`timeout after ${ms}ms`)), ms);
+    }),
+  ]);
 }
