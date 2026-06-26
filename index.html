@@ -621,16 +621,24 @@
         line-height: 1.3;
       }
       .search-guide-bar__domain {
-        display: inline;
+        display: block;
         font-size: 17px;
         font-weight: 900;
-        color: #fff;
         letter-spacing: -0.3px;
         text-shadow: 0 0 20px rgba(72,198,255,0.80), 0 0 8px rgba(72,198,255,0.50);
         background: linear-gradient(90deg, #7ddcff, #4fd6c8);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        line-height: 1.2;
+        margin-bottom: 2px;
+      }
+      .search-guide-bar__sub {
+        display: block;
+        font-size: 11.5px;
+        font-weight: 500;
+        color: rgba(160, 210, 255, 0.70);
+        line-height: 1.3;
       }
       .search-guide-bar__badge {
         display: flex;
@@ -1032,6 +1040,35 @@
         @keyframes modalIn {
           from { opacity: 0; transform: translateY(40px); }
           to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 모바일: 검색유도 배너 레이아웃 조정 */
+        .search-guide-bar {
+          padding: 11px 12px;
+          gap: 8px;
+          margin-bottom: 10px;
+        }
+        .search-guide-bar__icon {
+          display: none; /* 모바일에서 아이콘 숨겨서 공간 확보 */
+        }
+        .search-guide-bar__text {
+          font-size: 12px;
+          line-height: 1.3;
+        }
+        .search-guide-bar__domain {
+          font-size: 15px;
+          margin-bottom: 1px;
+        }
+        .search-guide-bar__sub {
+          font-size: 11px;
+        }
+        .search-guide-bar__badge {
+          font-size: 10.5px;
+          padding: 5px 9px;
+          gap: 4px;
+        }
+        .search-guide-bar__badge-icon {
+          font-size: 11px;
         }
       }
 
@@ -5190,10 +5227,11 @@
         <div class="search-guide-bar" role="complementary" aria-label="사이트 주소 안내" onclick="addBookmark()" id="searchGuideBar">
           <span class="search-guide-bar__icon">🔖</span>
           <span class="search-guide-bar__text">
-            주소창에&nbsp;<span class="search-guide-bar__domain">오늘아덴.kr</span>&nbsp;을 검색 · 즐겨찾기 하세요
+            <span class="search-guide-bar__domain">오늘아덴.kr</span>
+            <span class="search-guide-bar__sub">을 주소창·즐겨찾기에 저장하세요</span>
           </span>
           <span class="search-guide-bar__badge" id="bookmarkBadge">
-            <span class="search-guide-bar__badge-icon">⭐</span>즐겨찾기 추가
+            <span class="search-guide-bar__badge-icon">⭐</span>즐겨찾기
           </span>
         </div>
 
