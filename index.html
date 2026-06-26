@@ -2607,18 +2607,72 @@
           flex-direction: column;
         }
 
-        /* PC: 배너 컴팩트 */
-        .search-guide-bar {
-          padding: 10px 14px;
+        /* PC: 모바일 배너 숨김 (mobile-only가 이미 처리하지만 명시적으로) */
+        .search-guide-bar { display: none !important; }
+
+        /* PC: 배너+버튼 통합 행 */
+        .pc-banner-row {
+          display: flex;
+          align-items: stretch;
+          gap: 5px;
           margin-bottom: 8px;
-          border-radius: 10px;
           flex-shrink: 0;
+          min-height: 0;
         }
-        /* PC: 도메인 한 줄 인라인 크기 조정 */
-        .search-guide-bar__inline .search-guide-bar__domain { font-size: 15px; }
-        .search-guide-bar__inline .search-guide-bar__sub { font-size: 11px; }
-        .search-guide-bar__badge { font-size: 11px; padding: 5px 10px; }
-        .search-guide-bar__save-hint { font-size: 10px; }
+
+        /* 좌: 배너 텍스트 영역 */
+        .pc-banner-info {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 2px;
+          padding: 8px 14px;
+          border-radius: 10px;
+          background:
+            radial-gradient(circle at 0% 50%, rgba(72,198,255,0.14), transparent 55%),
+            linear-gradient(90deg, rgba(14,30,58,0.98), rgba(10,24,46,0.96));
+          border: 1px solid rgba(72,198,255,0.30);
+          cursor: pointer;
+          flex-shrink: 0;
+          min-width: 130px;
+          transition: border-color 150ms;
+        }
+        .pc-banner-info:hover { border-color: rgba(72,198,255,0.55); }
+        .pc-banner-domain {
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: -0.3px;
+          background: linear-gradient(90deg, #7ddcff, #4fd6c8);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          white-space: nowrap;
+          line-height: 1.2;
+        }
+        .pc-banner-sub {
+          font-size: 10px;
+          color: rgba(160,210,255,0.60);
+          white-space: nowrap;
+          line-height: 1;
+        }
+
+        /* 우: 버튼 7개 컨테이너 — flex로 꽉 채움 */
+        .pc-banner-btns {
+          display: flex;
+          flex: 1;
+          gap: 5px;
+          align-items: stretch;
+        }
+        .pc-banner-btns .square-ad {
+          flex: 1;
+          min-width: 0;
+          width: auto;
+          min-height: 0;
+          padding: 6px 4px;
+        }
+        .pc-banner-btns .square-ad strong { font-size: 10px; }
+        .pc-banner-btns .square-ad small  { font-size: 8.5px; }
+        .pc-banner-btns .sq-icon { width: 13px; height: 13px; margin-bottom: 1px; }
 
         .chart-head {
           margin-bottom: 4px;
@@ -2631,14 +2685,16 @@
         /* 현재가 영역 컴팩트 */
         .price-ad-row {
           flex-shrink: 0;
+          gap: 0;
         }
         .main-price {
           display: flex;
           align-items: center;
           gap: 10px;
-          margin-bottom: 6px;
-          padding-bottom: 6px;
-          flex-wrap: wrap;
+          margin-bottom: 4px;
+          padding-bottom: 4px;
+          flex-wrap: nowrap;
+          width: 100%;
         }
         .main-price > div:first-child {
           display: flex;
@@ -2663,12 +2719,16 @@
           margin-top: 1px;
         }
 
-        /* PC: spark-labels / chart(빈 div) / market-density / chart-note → 숨김 */
+        /* PC: 숨길 요소들 */
         .spark-labels,
         .chart,
         .market-density,
         .chart-note,
-        .mobile-ad-banners {
+        .mobile-ad-banners,
+        .site-btns-mobile,
+        #squareAdRowSrc,          /* 원본 square-ad-row (pc-banner-btns에 복제됨) */
+        .chart-head               /* "서버 시세" 레이블 — PC에서 불필요 */
+        {
           display: none !important;
         }
 
@@ -5285,26 +5345,66 @@
 
       <section class="chart-panel" aria-label="거래소 비교">
 
-        <!-- 주소창 검색 유도 배너 -->
-        <div class="search-guide-bar" role="complementary" aria-label="사이트 주소 안내" onclick="addBookmark()" id="searchGuideBar">
+        <!-- 주소창 검색 유도 배너 (모바일 전용) -->
+        <div class="search-guide-bar mobile-only" role="complementary" aria-label="사이트 주소 안내" onclick="addBookmark()" id="searchGuideBar">
           <span class="search-guide-bar__icon">🔖</span>
-          <!-- PC: 도메인 + 검색안내 한 줄 -->
-          <span class="search-guide-bar__inline pc-only">
+          <span class="search-guide-bar__text">
             <span class="search-guide-bar__domain">오늘아데나.kr</span>
             <span class="search-guide-bar__sub">주소창에 검색하세요</span>
           </span>
-          <!-- 모바일: 기존 2줄 구조 -->
-          <span class="search-guide-bar__text mobile-only">
-            <span class="search-guide-bar__domain">오늘아데나.kr</span>
-            <span class="search-guide-bar__sub">주소창에 검색하세요</span>
-          </span>
-          <!-- PC 전용: 즐겨찾기 버튼 + 저장 안내 한 줄 -->
-          <span class="search-guide-bar__bookmark-wrap pc-only">
-            <span class="search-guide-bar__badge" id="bookmarkBadge">
-              <span class="search-guide-bar__badge-icon">⭐</span>즐겨찾기 추가
-            </span>
-            <span class="search-guide-bar__save-hint">즐겨찾기로 저장하세요</span>
-          </span>
+        </div>
+
+        <!-- PC 전용: 배너+버튼 통합 행 -->
+        <div class="pc-banner-row pc-only" id="searchGuideBar">
+          <!-- 좌: 배너 텍스트 -->
+          <div class="pc-banner-info" onclick="addBookmark()">
+            <span class="pc-banner-domain">오늘아데나.kr</span>
+            <span class="pc-banner-sub">주소창에 검색하세요</span>
+          </div>
+          <!-- 우: 버튼 7개 (배너와 한 행) -->
+          <div class="pc-banner-btns">
+            <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+              <strong>광고문의</strong>
+            </a>
+            <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+              <strong>광고문의</strong>
+            </a>
+            <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+              <strong>광고문의</strong>
+            </a>
+            <button class="square-ad square-ad--official" type="button" onclick="openSiteModal('https://lineageclassic.plaync.com/ko-kr/index')">
+              <svg class="sq-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 10.5L12 3l9 7.5V21H15v-6H9v6H3V10.5z" fill="currentColor"/>
+              </svg>
+              <strong>공식홈</strong>
+              <small>리니지클래식</small>
+            </button>
+            <button class="square-ad square-ad--inven" type="button" onclick="openSiteModal('https://lineageclassic.inven.co.kr/')">
+              <svg class="sq-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="20" rx="5" fill="currentColor" opacity=".12"/>
+                <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <text x="12" y="17" text-anchor="middle" font-size="14" font-weight="900" fill="currentColor" font-family="sans-serif">i</text>
+              </svg>
+              <strong>인벤</strong>
+              <small>공략·커뮤니티</small>
+            </button>
+            <button class="square-ad square-ad--dc" type="button" onclick="openSiteModal('https://gall.dcinside.com/mgallery/board/lists/?id=lineage2classic')">
+              <svg class="sq-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="3" width="20" height="18" rx="3" fill="currentColor" opacity=".15"/>
+                <rect x="2" y="3" width="20" height="18" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <text x="12" y="16" text-anchor="middle" font-size="11" font-weight="900" fill="currentColor" font-family="sans-serif">DC</text>
+              </svg>
+              <strong>클래식갤</strong>
+              <small>디시인사이드</small>
+            </button>
+            <button class="square-ad square-ad--namu" type="button" onclick="openSiteModal('https://namu.wiki/w/%EB%A6%AC%EB%8B%88%EC%A7%80%20%ED%81%B4%EB%9E%98%EC%8B%9D')">
+              <svg class="sq-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/>
+              </svg>
+              <strong>나무위키</strong>
+              <small>리니지위키</small>
+            </button>
+          </div>
         </div>
 
         <div class="chart-head">
@@ -5358,8 +5458,8 @@
               </button>
           </div>
 
-          <!-- 광고 슬롯 3개 + 공식·인벤 버튼(PC) -->
-          <div class="square-ad-row" aria-label="광고 영역">
+          <!-- 광고 슬롯 3개 + 공식·인벤 버튼(PC) — JS로 pc-banner-btns에 복사됨 -->
+          <div class="square-ad-row" aria-label="광고 영역" id="squareAdRowSrc">
             <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
               <strong>광고문의</strong>
             </a>
