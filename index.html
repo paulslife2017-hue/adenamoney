@@ -2607,39 +2607,48 @@
           flex-direction: column;
         }
 
-        /* PC: 모바일 배너 숨김 (mobile-only가 이미 처리하지만 명시적으로) */
+        /* PC: 모바일 배너 숨김 */
         .search-guide-bar { display: none !important; }
 
-        /* PC: 배너+버튼 통합 행 */
-        .pc-banner-row {
+        /* PC: price-ad-row — 현재가(좌) + 배너+버튼(우) 한 행 */
+        .price-ad-row {
           display: flex;
           align-items: stretch;
-          gap: 5px;
-          margin-bottom: 8px;
+          gap: 8px;
+        }
+        .main-price {
           flex-shrink: 0;
-          min-height: 0;
         }
 
-        /* 좌: 배너 텍스트 영역 */
+        /* PC 배너+버튼 래퍼 (현재가 오른쪽) */
+        .pc-banner-wrap {
+          display: flex;
+          flex: 1;
+          gap: 5px;
+          align-items: stretch;
+          min-width: 0;
+        }
+
+        /* 배너 텍스트 영역 */
         .pc-banner-info {
           display: flex;
           flex-direction: column;
           justify-content: center;
           gap: 2px;
-          padding: 8px 14px;
-          border-radius: 10px;
+          padding: 6px 12px;
+          border-radius: 9px;
           background:
             radial-gradient(circle at 0% 50%, rgba(72,198,255,0.14), transparent 55%),
             linear-gradient(90deg, rgba(14,30,58,0.98), rgba(10,24,46,0.96));
           border: 1px solid rgba(72,198,255,0.30);
           cursor: pointer;
           flex-shrink: 0;
-          min-width: 130px;
+          min-width: 110px;
           transition: border-color 150ms;
         }
         .pc-banner-info:hover { border-color: rgba(72,198,255,0.55); }
         .pc-banner-domain {
-          font-size: 14px;
+          font-size: 13px;
           font-weight: 900;
           letter-spacing: -0.3px;
           background: linear-gradient(90deg, #7ddcff, #4fd6c8);
@@ -2650,29 +2659,30 @@
           line-height: 1.2;
         }
         .pc-banner-sub {
-          font-size: 10px;
+          font-size: 9.5px;
           color: rgba(160,210,255,0.60);
           white-space: nowrap;
           line-height: 1;
         }
 
-        /* 우: 버튼 7개 컨테이너 — flex로 꽉 채움 */
+        /* 버튼 7개 — flex로 남은 공간 꽉 채움 */
         .pc-banner-btns {
           display: flex;
           flex: 1;
-          gap: 5px;
+          gap: 4px;
           align-items: stretch;
+          min-width: 0;
         }
         .pc-banner-btns .square-ad {
           flex: 1;
           min-width: 0;
           width: auto;
           min-height: 0;
-          padding: 6px 4px;
+          padding: 5px 3px;
         }
-        .pc-banner-btns .square-ad strong { font-size: 10px; }
-        .pc-banner-btns .square-ad small  { font-size: 8.5px; }
-        .pc-banner-btns .sq-icon { width: 13px; height: 13px; margin-bottom: 1px; }
+        .pc-banner-btns .square-ad strong { font-size: 9.5px; }
+        .pc-banner-btns .square-ad small  { font-size: 8px; }
+        .pc-banner-btns .sq-icon { width: 12px; height: 12px; margin-bottom: 1px; }
 
         .chart-head {
           margin-bottom: 4px;
@@ -2726,8 +2736,8 @@
         .chart-note,
         .mobile-ad-banners,
         .site-btns-mobile,
-        #squareAdRowSrc,          /* 원본 square-ad-row (pc-banner-btns에 복제됨) */
-        .chart-head               /* "서버 시세" 레이블 — PC에서 불필요 */
+        #squareAdRowSrc,
+        .chart-head
         {
           display: none !important;
         }
@@ -2737,8 +2747,8 @@
           flex: 1 1 0;
           min-height: 0;
           margin-top: 4px;
-          padding: 6px 4px 4px;
-          overflow: hidden;
+          padding: 6px 4px 18px; /* 하단 날짜 레이블 잘림 방지 */
+          overflow: visible;     /* 날짜 텍스트 잘림 방지 */
         }
         .spark svg {
           display: block;
@@ -2746,6 +2756,7 @@
           height: 100%;
           min-height: 60px;
           max-height: none;
+          overflow: visible;     /* SVG 내 텍스트 잘림 방지 */
         }
 
         .spark-axis span,
@@ -4817,21 +4828,21 @@
       }
 
       .chart-panel .spark {
-        /* PC 한 화면: flex:1이 이미 적용됨 — min-height 강제 제거 */
         min-height: 0;
         margin-top: 6px;
-        padding: 6px 8px 4px;
+        padding: 6px 8px 18px; /* 날짜 레이블 잘림 방지 */
         border: 1px solid rgba(178, 194, 224, 0.1);
         border-radius: 14px;
+        overflow: visible;     /* 날짜 잘림 방지 */
         background:
           linear-gradient(180deg, rgba(10, 17, 30, 0.58), rgba(5, 9, 17, 0.42));
       }
 
       .chart-panel .spark svg {
-        /* height: 100% — 부모 flex:1이 높이 결정 */
         height: 100%;
         min-height: 60px;
         max-height: none;
+        overflow: visible;     /* SVG 텍스트 잘림 방지 */
       }
 
       .chart-panel .market-row {
@@ -5354,59 +5365,6 @@
           </span>
         </div>
 
-        <!-- PC 전용: 배너+버튼 통합 행 -->
-        <div class="pc-banner-row pc-only" id="searchGuideBar">
-          <!-- 좌: 배너 텍스트 -->
-          <div class="pc-banner-info" onclick="addBookmark()">
-            <span class="pc-banner-domain">오늘아데나.kr</span>
-            <span class="pc-banner-sub">주소창에 검색하세요</span>
-          </div>
-          <!-- 우: 버튼 7개 (배너와 한 행) -->
-          <div class="pc-banner-btns">
-            <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
-              <strong>광고문의</strong>
-            </a>
-            <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
-              <strong>광고문의</strong>
-            </a>
-            <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
-              <strong>광고문의</strong>
-            </a>
-            <button class="square-ad square-ad--official" type="button" onclick="openSiteModal('https://lineageclassic.plaync.com/ko-kr/index')">
-              <svg class="sq-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 10.5L12 3l9 7.5V21H15v-6H9v6H3V10.5z" fill="currentColor"/>
-              </svg>
-              <strong>공식홈</strong>
-              <small>리니지클래식</small>
-            </button>
-            <button class="square-ad square-ad--inven" type="button" onclick="openSiteModal('https://lineageclassic.inven.co.kr/')">
-              <svg class="sq-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="2" width="20" height="20" rx="5" fill="currentColor" opacity=".12"/>
-                <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                <text x="12" y="17" text-anchor="middle" font-size="14" font-weight="900" fill="currentColor" font-family="sans-serif">i</text>
-              </svg>
-              <strong>인벤</strong>
-              <small>공략·커뮤니티</small>
-            </button>
-            <button class="square-ad square-ad--dc" type="button" onclick="openSiteModal('https://gall.dcinside.com/mgallery/board/lists/?id=lineage2classic')">
-              <svg class="sq-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="3" width="20" height="18" rx="3" fill="currentColor" opacity=".15"/>
-                <rect x="2" y="3" width="20" height="18" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                <text x="12" y="16" text-anchor="middle" font-size="11" font-weight="900" fill="currentColor" font-family="sans-serif">DC</text>
-              </svg>
-              <strong>클래식갤</strong>
-              <small>디시인사이드</small>
-            </button>
-            <button class="square-ad square-ad--namu" type="button" onclick="openSiteModal('https://namu.wiki/w/%EB%A6%AC%EB%8B%88%EC%A7%80%20%ED%81%B4%EB%9E%98%EC%8B%9D')">
-              <svg class="sq-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/>
-              </svg>
-              <strong>나무위키</strong>
-              <small>리니지위키</small>
-            </button>
-          </div>
-        </div>
-
         <div class="chart-head">
           <strong id="chartTitle">서버 시세</strong>
         </div>
@@ -5426,6 +5384,35 @@
               </div>
             </div>
           </div>
+          <!-- PC 전용: 배너+버튼7개 (현재가 옆) -->
+          <div class="pc-banner-wrap pc-only">
+            <div class="pc-banner-info" onclick="addBookmark()">
+              <span class="pc-banner-domain">오늘아데나.kr</span>
+              <span class="pc-banner-sub">주소창에 검색하세요</span>
+            </div>
+            <div class="pc-banner-btns">
+              <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener"><strong>광고문의</strong></a>
+              <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener"><strong>광고문의</strong></a>
+              <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener"><strong>광고문의</strong></a>
+              <button class="square-ad square-ad--official" type="button" onclick="openSiteModal('https://lineageclassic.plaync.com/ko-kr/index')">
+                <svg class="sq-icon" viewBox="0 0 24 24" fill="none"><path d="M3 10.5L12 3l9 7.5V21H15v-6H9v6H3V10.5z" fill="currentColor"/></svg>
+                <strong>공식홈</strong><small>리니지클래식</small>
+              </button>
+              <button class="square-ad square-ad--inven" type="button" onclick="openSiteModal('https://lineageclassic.inven.co.kr/')">
+                <svg class="sq-icon" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" fill="currentColor" opacity=".12"/><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5" fill="none"/><text x="12" y="17" text-anchor="middle" font-size="14" font-weight="900" fill="currentColor" font-family="sans-serif">i</text></svg>
+                <strong>인벤</strong><small>공략·커뮤니티</small>
+              </button>
+              <button class="square-ad square-ad--dc" type="button" onclick="openSiteModal('https://gall.dcinside.com/mgallery/board/lists/?id=lineage2classic')">
+                <svg class="sq-icon" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="18" rx="3" fill="currentColor" opacity=".15"/><rect x="2" y="3" width="20" height="18" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/><text x="12" y="16" text-anchor="middle" font-size="11" font-weight="900" fill="currentColor" font-family="sans-serif">DC</text></svg>
+                <strong>클래식갤</strong><small>디시인사이드</small>
+              </button>
+              <button class="square-ad square-ad--namu" type="button" onclick="openSiteModal('https://namu.wiki/w/%EB%A6%AC%EB%8B%88%EC%A7%80%20%ED%81%B4%EB%9E%98%EC%8B%9D')">
+                <svg class="sq-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/></svg>
+                <strong>나무위키</strong><small>리니지위키</small>
+              </button>
+            </div>
+          </div>
+
           <!-- 모바일 전용: 2×2 사이트 버튼 그리드 -->
           <div class="site-btns-mobile">
               <button class="site-btn site-btn--official" type="button" onclick="openSiteModal('https://lineageclassic.plaync.com/ko-kr/index')">
