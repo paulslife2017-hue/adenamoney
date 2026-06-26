@@ -4526,8 +4526,12 @@
       }
 
       .channels   { order: 6; }
-      .seo-footer { order: 7; }
+      .seo-footer { order: 7; display: none !important; }
       .video-modal { order: 8; }
+
+      /* 선서 서버 순위 / 최저 출처 / 수집물량 / 출처 차이 4칸 숨김 */
+      #sourceDiff, .source-diff,
+      #marketDensity, .market-density { display: none !important; }
 
       /* ── 모바일 게시판 세부 스타일 ── */
       .board-top-row {
@@ -5349,6 +5353,16 @@
         font-size: 12px;
       }
     }
+
+    /* ── 모바일 전용 숨김 ── */
+    @media (max-width: 899px) {
+      /* 선서 서버 순위 / 최저 출처 / 수집물량 / 출처 차이 4칸 */
+      #sourceDiff, .source-diff,
+      #marketDensity, .market-density { display: none !important; }
+      /* 맨 하단 SEO 텍스트 블록 */
+      footer.seo-footer,
+      .seo-footer { display: none !important; }
+    }
   </style>
   </head>
   <body>
@@ -6035,6 +6049,8 @@
       }
 
       function renderSourceDiff(server) {
+        // 모바일(899px 이하)에서는 source-diff 숨김
+        if (window.innerWidth <= 899) { sourceDiff.innerHTML = ""; marketDensity.innerHTML = ""; return; }
         renderSourceDiffTo(server, sourceDiff);
       }
 
