@@ -163,6 +163,7 @@ await writeFile(
 
 console.log(`Updated ${OUT_FILE}`);
 console.log(`Fetched ${servers.length} servers at ${fetchedAt}`);
+process.exit(0);
 
 async function collectItemBay(serverName, serverId) {
   const url = `https://www.itembay.com/item/sell/game-3828/server-${serverId}/type-3`;
@@ -288,8 +289,11 @@ async function collectBarotem() {
   return listings;
 }
 
-async function fetchText(url) {
-  const response = await fetch(url, { headers: fetchHeaders });
+async function fetchText(url, timeoutMs = 10000) {
+  const response = await fetch(url, {
+    headers: fetchHeaders,
+    signal: AbortSignal.timeout(timeoutMs),
+  });
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   return response.text();
 }
@@ -444,8 +448,4 @@ function addDays(value, days) {
   return date.toISOString();
 }
 
-function shouldCaptureNoonBaseline(value) {
-  const date = new Date(value);
-  const kstHour = new Date(date.getTime() + 9 * 60 * 60 * 1000).getUTCHours();
-  return kstHour >= 12;
-}
+
