@@ -1040,52 +1040,86 @@
         border: none;
         background: #fff;
       }
-      /* iframe 차단 안내 오버레이 */
+      /* 스크린샷 미리보기 오버레이 (X-Frame-Options 차단 사이트) */
       .site-modal-blocked {
         display: none;
         flex: 1;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-        padding: 32px 24px;
-        background: linear-gradient(160deg, rgba(14,22,42,0.98), rgba(8,13,26,0.98));
-        text-align: center;
+        align-items: stretch;
+        background: #050a18;
+        overflow: hidden;
+        position: relative;
       }
       .site-modal-blocked.show { display: flex; }
-      .site-modal-blocked__icon {
-        font-size: 44px;
-        line-height: 1;
+      .site-modal-blocked__screenshot {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        position: relative;
       }
-      .site-modal-blocked__title {
-        font-size: 15px;
-        font-weight: 800;
-        color: rgba(200,218,255,0.90);
+      .site-modal-blocked__screenshot img {
+        width: 100%;
+        display: block;
       }
-      .site-modal-blocked__desc {
+      .site-modal-blocked__loading {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: #050a18;
+        z-index: 1;
+      }
+      .site-modal-blocked__loading .spinner {
+        width: 36px; height: 36px;
+        border: 3px solid rgba(72,198,255,0.15);
+        border-top-color: rgba(72,198,255,0.8);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      .site-modal-blocked__loading span {
         font-size: 12px;
-        color: rgba(160,190,255,0.55);
-        line-height: 1.6;
+        color: rgba(120,170,255,0.6);
+      }
+      .site-modal-blocked__bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 8px 14px;
+        background: rgba(8,15,35,0.95);
+        border-top: 1px solid rgba(255,255,255,0.06);
+        flex-shrink: 0;
+      }
+      .site-modal-blocked__notice {
+        font-size: 11px;
+        color: rgba(140,170,220,0.55);
+        line-height: 1.4;
       }
       .site-modal-blocked__btn {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        padding: 10px 22px;
-        border-radius: 10px;
-        border: 1px solid rgba(72,198,255,0.40);
+        gap: 5px;
+        padding: 7px 14px;
+        border-radius: 8px;
+        border: 1px solid rgba(72,198,255,0.35);
         background: rgba(72,198,255,0.10);
         color: rgba(120,210,255,0.95);
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
         cursor: pointer;
         text-decoration: none;
+        white-space: nowrap;
         transition: background 150ms, border-color 150ms;
         font-family: inherit;
+        flex-shrink: 0;
       }
       .site-modal-blocked__btn:hover {
-        background: rgba(72,198,255,0.20);
-        border-color: rgba(72,198,255,0.65);
+        background: rgba(72,198,255,0.22);
+        border-color: rgba(72,198,255,0.6);
       }
 
       /* 모바일에서 모달 크기 오버라이드 */
@@ -5612,14 +5646,26 @@
               <button class="site-modal-close" type="button" onclick="closeSiteModal()" aria-label="닫기">✕</button>
             </div>
             <iframe class="site-modal-frame" id="siteModalFrame" src="" title="외부 사이트"></iframe>
-            <!-- iframe 차단 시 안내 -->
+            <!-- 스크린샷 미리보기 (X-Frame-Options 차단 사이트용) -->
             <div class="site-modal-blocked" id="siteModalBlocked">
-              <div class="site-modal-blocked__icon">🔒</div>
-              <div class="site-modal-blocked__title" id="siteModalBlockedTitle">미리보기를 지원하지 않는 사이트입니다</div>
-              <div class="site-modal-blocked__desc">해당 사이트는 보안 정책상<br>내부 미리보기가 차단되어 있습니다.</div>
-              <a class="site-modal-blocked__btn" id="siteModalBlockedLink" href="#" target="_blank" rel="noopener">
-                🌐 새 탭에서 열기
-              </a>
+              <!-- 스크린샷 이미지 영역 -->
+              <div class="site-modal-blocked__screenshot" id="siteModalScreenshot">
+                <!-- 로딩 스피너 -->
+                <div class="site-modal-blocked__loading" id="siteModalLoading">
+                  <div class="spinner"></div>
+                  <span>미리보기 불러오는 중…</span>
+                </div>
+                <img id="siteModalScreenshotImg" src="" alt="사이트 미리보기" style="display:none;"
+                     onload="this.style.display='block'; document.getElementById('siteModalLoading').style.display='none';"
+                     onerror="document.getElementById('siteModalLoading').innerHTML='<span style=\'color:rgba(255,100,100,0.7)\'>미리보기를 불러올 수 없습니다.</span>';">
+              </div>
+              <!-- 하단 바 -->
+              <div class="site-modal-blocked__bar">
+                <span class="site-modal-blocked__notice">📸 스크린샷 미리보기 · 실시간 반영 안될 수 있음</span>
+                <a class="site-modal-blocked__btn" id="siteModalBlockedLink" href="#" target="_blank" rel="noopener">
+                  🌐 사이트 열기
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -7369,40 +7415,58 @@
         'https://namu.wiki/w/%EB%A6%AC%EB%8B%88%EC%A7%80%20%ED%81%B4%EB%9E%98%EC%8B%9D':          '리니지 클래식 — 나무위키',
       };
 
-      /* iframe을 차단하는 사이트 목록 (X-Frame-Options: SAMEORIGIN 등) */
-      const IFRAME_BLOCKED = [
+      /* X-Frame-Options로 iframe이 차단되는 도메인 목록 → 스크린샷 미리보기로 대체 */
+      const SCREENSHOT_HOSTS = [
         'lineageclassic.plaync.com',
         'namu.wiki',
       ];
 
-      function isIframeBlocked(url) {
+      function needsScreenshot(url) {
         try {
           const host = new URL(url).hostname;
-          return IFRAME_BLOCKED.some(b => host.includes(b));
+          return SCREENSHOT_HOSTS.some(b => host === b || host.endsWith('.' + b));
         } catch { return false; }
       }
 
+      /* microlink.io 스크린샷 URL 생성 (무료 50회/일, API키 불필요)
+         2560×1600 고해상도 PNG, 캐시 적용으로 빠름 */
+      function toScreenshotUrl(url) {
+        return 'https://api.microlink.io/?url=' + encodeURIComponent(url) + '&screenshot=true&meta=false&embed=screenshot.url';
+      }
+
       function openSiteModal(url) {
-        const overlay  = document.getElementById('siteModalOverlay');
-        const frame    = document.getElementById('siteModalFrame');
-        const title    = document.getElementById('siteModalTitle');
-        const blocked  = document.getElementById('siteModalBlocked');
-        const blockedTitle = document.getElementById('siteModalBlockedTitle');
-        const blockedLink  = document.getElementById('siteModalBlockedLink');
+        const overlay       = document.getElementById('siteModalOverlay');
+        const frame         = document.getElementById('siteModalFrame');
+        const title         = document.getElementById('siteModalTitle');
+        const blocked       = document.getElementById('siteModalBlocked');
+        const blockedLink   = document.getElementById('siteModalBlockedLink');
+        const shotImg       = document.getElementById('siteModalScreenshotImg');
+        const loadingEl     = document.getElementById('siteModalLoading');
         if (!overlay || !frame) return;
 
         const label = SITE_LABELS[url] || url;
         title.textContent = label;
 
-        if (isIframeBlocked(url)) {
-          /* ── iframe 차단 사이트: 안내 오버레이 표시 ── */
+        if (needsScreenshot(url)) {
+          /* ── 스크린샷 미리보기 모드 ── */
           frame.src = '';
           frame.style.display = 'none';
           blocked.classList.add('show');
-          blockedTitle.textContent = `${label} — 미리보기 불가`;
           blockedLink.href = url;
+
+          /* 로딩 스피너 리셋 후 스크린샷 로드 */
+          if (loadingEl) {
+            loadingEl.style.display = 'flex';
+            loadingEl.innerHTML = '<div class="spinner"></div><span>미리보기 불러오는 중…</span>';
+          }
+          if (shotImg) {
+            shotImg.style.display = 'none';
+            shotImg.src = '';
+            /* 약간 딜레이 후 src 설정 — 브라우저 캐시 활용 */
+            setTimeout(() => { shotImg.src = toScreenshotUrl(url); }, 50);
+          }
         } else {
-          /* ── iframe 가능 사이트: iframe으로 표시 ── */
+          /* ── 일반 iframe 모드 ── */
           frame.style.display = '';
           blocked.classList.remove('show');
           frame.src = url;
@@ -7413,15 +7477,17 @@
       }
 
       function closeSiteModal() {
-        const overlay = document.getElementById('siteModalOverlay');
-        const frame   = document.getElementById('siteModalFrame');
-        const blocked = document.getElementById('siteModalBlocked');
+        const overlay  = document.getElementById('siteModalOverlay');
+        const frame    = document.getElementById('siteModalFrame');
+        const blocked  = document.getElementById('siteModalBlocked');
+        const shotImg  = document.getElementById('siteModalScreenshotImg');
         if (!overlay) return;
         overlay.classList.remove('open');
         document.body.style.overflow = '';
         setTimeout(() => {
-          if (frame) { frame.src = ''; frame.style.display = ''; }
+          if (frame)   { frame.src = ''; frame.style.display = ''; }
           if (blocked) blocked.classList.remove('show');
+          if (shotImg) { shotImg.src = ''; shotImg.style.display = 'none'; }
         }, 260);
       }
 
