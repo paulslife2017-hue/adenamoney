@@ -4651,44 +4651,58 @@
         padding-bottom: 8px;
       }
 
-      /* 모바일: main-price = 현재가좌측그룹 + 공식배너(우) 나란히 */
-      .main-price {
+      /* 모바일: price-ad-row = 현재가(좌, 세로) + 버튼4개(우) */
+      .price-ad-row {
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items: stretch;
         gap: 10px;
-        padding: 12px;
-        border-radius: 12px;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
       }
 
-      /* 좌측 그룹: 현재가 + 변동률 */
-      .price-left {
+      .main-price {
         flex: 1;
         min-width: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px 12px;
+        border-radius: 12px;
+        gap: 0;
+      }
+
+      /* 현재가 레이블+숫자 세로 */
+      .price-left {
+        display: flex;
+        flex-direction: column;
       }
 
       .main-price span {
-        font-size: 14px;
+        font-size: 13px;
       }
 
       .main-price strong {
-        margin-top: 3px;
-        font-size: 40px;
+        margin-top: 2px;
+        font-size: 38px;
         display: block;
+        line-height: 1;
       }
 
+      /* 등락률: 숫자 바로 아래 */
       .change-right {
         align-items: flex-start;
-        gap: 6px;
+        gap: 4px;
+        margin-top: 6px;
       }
 
       .change-pill {
         width: auto;
-        justify-content: center;
-        margin-top: 4px;
+        justify-content: flex-start;
+        margin-top: 0;
         min-width: 0;
-        padding: 6px 10px;
-        font-size: 15px;
+        padding: 5px 10px;
+        font-size: 14px;
       }
 
       /* 모바일: 기준 텍스트 완전 숨김 */
@@ -4713,11 +4727,13 @@
       }
 
       .site-btns-mobile {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 6px;
         flex-shrink: 0;
-        margin-left: auto;
+        width: 148px;
+        align-self: stretch;
       }
 
       /* 모바일 사이트 버튼 공통 */
@@ -4726,10 +4742,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 3px;
-        width: 62px;
-        min-height: 52px;
-        padding: 7px 5px;
+        gap: 5px;
+        padding: 10px 6px;
         border-radius: 10px;
         border: 1px solid rgba(92, 200, 255, 0.30);
         background:
@@ -4737,21 +4751,23 @@
           linear-gradient(145deg, rgba(16, 26, 48, 0.95), rgba(8, 13, 28, 0.82));
         cursor: pointer;
         font-family: inherit;
+        text-decoration: none;
         transition: transform 140ms ease, border-color 140ms ease;
+        min-height: 0;
+        flex: 1;
       }
       .site-btn svg {
-        width: 18px;
-        height: 18px;
+        width: 22px;
+        height: 22px;
         color: #7dd8ff;
         flex-shrink: 0;
       }
       .site-btn span {
-        font-size: 9.5px;
+        font-size: 10px;
         font-weight: 700;
         color: #7dd8ff;
         text-align: center;
-        line-height: 1.2;
-        white-space: nowrap;
+        line-height: 1.25;
       }
       .site-btn:active {
         transform: scale(.95);
@@ -4769,12 +4785,20 @@
         color: #7dffaa;
       }
 
+      /* 광고문의 버튼 색상 */
+      .site-btn--ad {
+        border-color: rgba(246, 199, 107, 0.25);
+        background:
+          radial-gradient(circle at 78% 12%, rgba(246, 199, 107, 0.12), transparent 34%),
+          linear-gradient(145deg, rgba(30, 24, 12, 0.95), rgba(18, 14, 6, 0.82));
+      }
+      .site-btn--ad svg,
+      .site-btn--ad span {
+        color: rgba(246, 199, 107, 0.85);
+      }
+
       .square-ad-row {
-        flex-direction: row;
-        justify-content: flex-end;
-        gap: 5px;
-        width: 100%;
-        margin-top: 8px;
+        display: none !important; /* 모바일: 광고버튼이 site-btns-mobile로 이동 */
       }
 
       .square-ad {
@@ -4988,13 +5012,14 @@
                 <div class="baseline" id="baselineText">기준가 대기</div>
               </div>
             </div>
-            <!-- 모바일 전용: 현재가 오른쪽 공식·인벤 버튼 -->
-            <div class="site-btns-mobile">
+          </div>
+          <!-- 모바일 전용: 2×2 사이트 버튼 그리드 -->
+          <div class="site-btns-mobile">
               <button class="site-btn site-btn--official" type="button" onclick="openSiteModal('https://lineageclassic.plaync.com/ko-kr/index')">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3 10.5L12 3l9 7.5V21H15v-6H9v6H3V10.5z" fill="currentColor"/>
                 </svg>
-                <span>공식사이트</span>
+                <span>리니지<br>공식사이트</span>
               </button>
               <button class="site-btn site-btn--inven" type="button" onclick="openSiteModal('https://lineageclassic.inven.co.kr/')">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -5002,9 +5027,20 @@
                   <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
                   <text x="12" y="17" text-anchor="middle" font-size="13" font-weight="900" fill="currentColor" font-family="sans-serif">i</text>
                 </svg>
-                <span>인벤</span>
+                <span>리니지<br>인벤</span>
               </button>
-            </div>
+              <a class="site-btn site-btn--ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                </svg>
+                <span>광고<br>문의</span>
+              </a>
+              <a class="site-btn site-btn--ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                </svg>
+                <span>광고<br>문의</span>
+              </a>
           </div>
           <!-- 광고 슬롯 3개 + 공식·인벤 버튼(PC) -->
           <div class="square-ad-row" aria-label="광고 영역">
@@ -6780,7 +6816,7 @@
       };
 
       function openSiteModal(url) {
-        const isMobile = window.innerWidth <= 480;
+        const isMobile = window.innerWidth < 768;
 
         if (isMobile) {
           /* ── 모바일: 화면 하단 80% iframe 시트 ── */
