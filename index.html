@@ -271,7 +271,7 @@
       }
 
       .topbar-clock {
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 800;
         font-variant-numeric: tabular-nums;
         color: rgba(180, 200, 255, 0.55);
@@ -289,7 +289,7 @@
 
       .brand strong {
         display: inline;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 1.1;
         letter-spacing: 0;
       }
@@ -298,7 +298,7 @@
         display: inline;
         margin-top: 0;
         color: var(--muted);
-        font-size: 10px;
+        font-size: 13px;
       }
 
       .refresh {
@@ -1031,20 +1031,20 @@
       }
 
       .spark-caption strong {
-        font-size: 11px;
+        font-size: 14px;
       }
 
       .spark-caption span,
       .spark-axis span {
         color: var(--muted);
-        font-size: 10px;
+        font-size: 13px;
         font-weight: 800;
       }
 
       .spark svg {
         display: block;
         width: 100%;
-        height: 140px;
+        height: 190px;
         overflow: visible;
       }
 
@@ -1111,7 +1111,7 @@
 
       .spark text {
         fill: var(--text);
-        font-size: 11px;
+        font-size: 13px;
         font-weight: 900;
         paint-order: stroke;
         stroke: rgba(6, 9, 19, 0.9);
@@ -1121,7 +1121,7 @@
 
       .spark text.axis-label {
         fill: var(--muted);
-        font-size: 8.5px;
+        font-size: 12px;
         font-weight: 800;
         stroke: none;
       }
@@ -1132,12 +1132,12 @@
         padding: 0 2px;
         margin-bottom: 10px;
         color: var(--muted);
-        font-size: 10px;
+        font-size: 13px;
       }
 
       .main-price span {
         color: var(--muted);
-        font-size: 11px;
+        font-size: 14px;
       }
 
       .main-price strong {
@@ -1366,7 +1366,7 @@
       .head {
         padding: 6px 4px;
         color: var(--muted);
-        font-size: 11px;
+        font-size: 13px;
         font-weight: 800;
       }
 
@@ -1487,7 +1487,7 @@
 
       .value strong {
         display: block;
-        font-size: 15px;
+        font-size: 17px;
         color: var(--text);
         font-variant-numeric: tabular-nums;
         letter-spacing: 0;
@@ -1501,7 +1501,7 @@
         gap: 4px;
         margin-top: 4px;
         color: var(--muted);
-        font-size: 10px;
+        font-size: 12px;
       }
 
       .row-live {
@@ -1513,11 +1513,11 @@
         align-items: center;
         gap: 2px;
         margin-top: 0;
-        padding: 3px 6px;
+        padding: 3px 7px;
         border-radius: 999px;
         background: rgba(147, 164, 189, 0.1);
         color: var(--muted);
-        font-size: 10px;
+        font-size: 13px;
         font-weight: 900;
         letter-spacing: -0.02em;
         transition: background 0.3s, color 0.3s;
@@ -2352,7 +2352,7 @@
         }
 
         .spark svg {
-          height: 100px;
+          height: 140px;
         }
 
         .spark-axis span,
@@ -2672,11 +2672,11 @@
           }
 
           .spark {
-            min-height: 150px;
+            min-height: 200px;
           }
 
           .spark svg {
-            height: 140px;
+            height: 190px;
           }
 
           .source-diff {
@@ -3018,12 +3018,12 @@
           }
 
           .spark {
-            min-height: 130px;
+            min-height: 170px;
             margin-bottom: 6px;
           }
 
           .spark svg {
-            height: 120px;
+            height: 160px;
           }
 
           .source-diff {
@@ -3511,11 +3511,11 @@
       }
 
       .spark {
-        min-height: 130px;
+        min-height: 165px;
         margin-bottom: 6px;
       }
 
-      .spark svg { height: 118px; }
+      .spark svg { height: 155px; }
 
       .source-diff { gap: 6px; margin-bottom: 8px; }
       .diff-card { min-height: 52px; padding: 8px; border-radius: 10px; }
@@ -4404,7 +4404,7 @@
       }
 
       .chart-panel .spark {
-        min-height: 150px;
+        min-height: 200px;
         margin-top: 12px;
         padding: 12px 12px 8px;
         border: 1px solid rgba(178, 194, 224, 0.1);
@@ -4414,7 +4414,7 @@
       }
 
       .chart-panel .spark svg {
-        height: 140px;
+        height: 190px;
       }
 
       .chart-panel .market-row {
@@ -4448,16 +4448,32 @@
       }
 
       .topbar {
-        padding: 9px 12px;
+        padding: 8px 10px;
+        gap: 6px;
+      }
+
+      .brand {
+        flex-shrink: 0;
+        gap: 4px;
       }
 
       .brand strong {
-        font-size: 16px;
+        font-size: 15px;
       }
 
-      .brand span,
+      .brand span {
+        font-size: 11px;
+      }
+
       .topbar-clock {
-        font-size: 10.5px;
+        font-size: 12px;
+        flex: 1;
+        text-align: center;
+        min-width: 0;
+      }
+
+      .topbar-refresh {
+        flex-shrink: 0;
       }
 
       .ticker {
@@ -4477,11 +4493,11 @@
       }
 
       .chart-head strong {
-        font-size: 14px;
+        font-size: 16px;
       }
 
       .chart-head span {
-        font-size: 10px;
+        font-size: 13px;
       }
 
       .price-ad-row {
@@ -4499,12 +4515,12 @@
       }
 
       .main-price span {
-        font-size: 10px;
+        font-size: 14px;
       }
 
       .main-price strong {
         margin-top: 3px;
-        font-size: 36px;
+        font-size: 40px;
       }
 
       .change-right {
@@ -4517,12 +4533,13 @@
         justify-content: center;
         margin-top: 0;
         min-width: 0;
-        padding: 7px 8px;
+        padding: 8px 10px;
+        font-size: 16px;
       }
 
       .baseline {
         text-align: center;
-        font-size: 11px;
+        font-size: 14px;
       }
 
       .mini-ad-row {
@@ -4557,7 +4574,7 @@
       }
 
       .spark {
-        min-height: 124px;
+        min-height: 165px;
         margin-top: 8px;
         padding: 8px 8px 2px;
       }
@@ -4568,11 +4585,11 @@
 
       .spark-title,
       .spark-trust {
-        font-size: 10px;
+        font-size: 13px;
       }
 
       .spark svg {
-        height: 112px;
+        height: 155px;
       }
 
       .market-row {
@@ -4751,11 +4768,7 @@
             <div class="change-right">
               <div class="change-pill" id="mainChange">기준 대기</div>
               <div class="baseline" id="baselineText">기준가 대기</div>
-              <div class="mini-ad-row">
-                <button class="mini-ad-btn" type="button" data-market="itemBay" data-url="https://www.itembay.com">아이템베이</button>
-                <button class="mini-ad-btn" type="button" data-market="itemMania" data-url="https://www.itemmania.com">아이템매니아</button>
-                <button class="mini-ad-btn" type="button" data-market="barotem" data-url="https://www.barotem.com">바로템</button>
-              </div>
+
             </div>
           </div>
           <!-- 광고 슬롯 3개 — main-price 밖, 우측 끝 -->
@@ -5547,7 +5560,7 @@
 
         spark.innerHTML = `
           <div class="spark-header">
-            <span class="spark-title">2주 정오 시세</span>
+            <span class="spark-title">10일 정오 시세</span>
             <span class="spark-trust">
               <span class="spark-trust-dot" style="background:${trustColor}"></span>
               ${fetchedLabel ? `<span style="color:${trustColor}">${fetchedLabel}</span>` : ""}
@@ -5614,7 +5627,7 @@
               : `${date}T00:00:00+09:00`,
           }))
           .filter((point) => Number.isFinite(point.price))
-          .slice(-15);
+          .slice(-10);
         const history = (server.history || [])
           .filter((point) => Number.isFinite(point.price))
           .filter((point) => {
@@ -5642,8 +5655,8 @@
           daily.set(key, { ...point, dayLabel: key });
         });
 
-        const compact = [...daily.values()].slice(-15);
-        return compact.length >= 2 ? compact : points.slice(-15);
+        const compact = [...daily.values()].slice(-10);
+        return compact.length >= 2 ? compact : points.slice(-10);
       }
 
       function buildSparkPriceLabels(points, coords) {
