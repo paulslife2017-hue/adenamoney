@@ -635,6 +635,10 @@
         flex-shrink: 0;
         min-width: 0;
       }
+      /* PC: price-left는 grid 투명 래퍼 */
+      .price-left {
+        display: contents;
+      }
       /* 우측: 변동률 + 기준가 + 미니배너 3개 */
       .change-right {
         display: flex;
@@ -775,6 +779,16 @@
         position: relative;
         z-index: 1;
         display: block;
+      }
+
+      /* ── 모바일 전용 공식홈페이지 배너 ── */
+      .official-banner-mobile {
+        display: none; /* 기본 숨김 — 모바일에서만 표시 */
+      }
+
+      /* PC 전용 배너는 기본 표시 */
+      .official-banner-pc {
+        display: flex;
       }
 
       .square-ad strong {
@@ -4506,12 +4520,20 @@
         padding-bottom: 8px;
       }
 
+      /* 모바일: main-price = 현재가좌측그룹 + 공식배너(우) 나란히 */
       .main-price {
-        grid-template-columns: 1fr;
-        align-items: stretch;
-        gap: 8px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
         padding: 12px;
         border-radius: 12px;
+      }
+
+      /* 좌측 그룹: 현재가 + 변동률 */
+      .price-left {
+        flex: 1;
+        min-width: 0;
       }
 
       .main-price span {
@@ -4521,25 +4543,26 @@
       .main-price strong {
         margin-top: 3px;
         font-size: 40px;
+        display: block;
       }
 
       .change-right {
-        align-items: stretch;
+        align-items: flex-start;
         gap: 6px;
       }
 
       .change-pill {
-        width: 100%;
+        width: auto;
         justify-content: center;
-        margin-top: 0;
+        margin-top: 4px;
         min-width: 0;
-        padding: 8px 10px;
-        font-size: 16px;
+        padding: 6px 10px;
+        font-size: 15px;
       }
 
+      /* 모바일: 기준 텍스트 완전 숨김 */
       .baseline {
-        text-align: center;
-        font-size: 14px;
+        display: none !important;
       }
 
       .mini-ad-row {
@@ -4551,6 +4574,50 @@
         min-height: 30px;
         padding: 5px 2px;
         font-size: 10px;
+      }
+
+      /* 모바일: PC 배너 숨기고, 모바일 배너 표시 */
+      .official-banner-pc {
+        display: none !important;
+      }
+
+      .official-banner-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        flex-shrink: 0;
+        width: 76px;
+        min-height: 66px;
+        padding: 8px 6px;
+        border: 1px solid rgba(92, 200, 255, 0.35);
+        border-radius: 10px;
+        background:
+          radial-gradient(circle at 78% 12%, rgba(92, 200, 255, 0.18), transparent 34%),
+          linear-gradient(145deg, rgba(16, 26, 48, 0.95), rgba(8, 13, 28, 0.82));
+        text-decoration: none;
+        transition: transform 140ms ease, border-color 140ms ease;
+        margin-left: auto;
+      }
+
+      .official-banner-mobile:hover {
+        transform: translateY(-2px);
+        border-color: rgba(92, 200, 255, 0.55);
+      }
+
+      .official-banner-mobile .ob-icon {
+        font-size: 18px;
+        line-height: 1;
+      }
+
+      .official-banner-mobile .ob-text {
+        font-size: 10px;
+        font-weight: 700;
+        color: #7dd8ff;
+        text-align: center;
+        line-height: 1.35;
+        white-space: nowrap;
       }
 
       .square-ad-row {
@@ -4761,17 +4828,24 @@
         <!-- 현재가(좌) + 광고 슬롯 3개(우) -->
         <div class="price-ad-row">
           <div class="main-price">
-            <div>
-              <span>현재가</span>
-              <strong id="mainPrice">-</strong>
+            <!-- 좌: 현재가 숫자 + 변동률 -->
+            <div class="price-left">
+              <div>
+                <span>현재가</span>
+                <strong id="mainPrice">-</strong>
+              </div>
+              <div class="change-right">
+                <div class="change-pill" id="mainChange">기준 대기</div>
+                <div class="baseline" id="baselineText">기준가 대기</div>
+              </div>
             </div>
-            <div class="change-right">
-              <div class="change-pill" id="mainChange">기준 대기</div>
-              <div class="baseline" id="baselineText">기준가 대기</div>
-
-            </div>
+            <!-- 모바일 전용: 현재가 오른쪽 공식 배너 -->
+            <a class="official-banner-mobile" href="https://lineageclassic.plaync.com/ko-kr/index" target="_blank" rel="noopener">
+              <span class="ob-icon">🏰</span>
+              <span class="ob-text">리니지<br>공식사이트</span>
+            </a>
           </div>
-          <!-- 광고 슬롯 3개 — main-price 밖, 우측 끝 -->
+          <!-- 광고 슬롯 3개 + 공식 배너(PC) — main-price 밖, 우측 끝 -->
           <div class="square-ad-row" aria-label="광고 영역">
             <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
               <strong>광고문의</strong>
@@ -4781,6 +4855,12 @@
             </a>
             <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
               <strong>광고문의</strong>
+            </a>
+            <!-- PC 전용: 맨 오른쪽 공식 배너 -->
+            <a class="square-ad square-ad--official official-banner-pc" href="https://lineageclassic.plaync.com/ko-kr/index" target="_blank" rel="noopener">
+              <span class="official-icon">🏰</span>
+              <strong>리니지 공식</strong>
+              <small>공식홈페이지</small>
             </a>
           </div>
         </div>
