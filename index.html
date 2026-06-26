@@ -6780,27 +6780,31 @@
       };
 
       function openSiteModal(url) {
-        const overlay = document.getElementById('siteModalOverlay');
-        const frame   = document.getElementById('siteModalFrame');
-        const title   = document.getElementById('siteModalTitle');
-        if (!overlay || !frame) return;
-        title.textContent = SITE_LABELS[url] || url;
-        frame.src = url;
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
+        const isMobile = window.innerWidth <= 480;
 
-        /* iframe 로드 후 X-Frame-Options 차단 감지 → 새 탭 폴백 */
-        frame.onload = () => {
-          try {
-            /* 같은 origin이면 접근 가능, 차단된 경우 contentDocument가 null */
-            if (!frame.contentDocument && frame.src) {
-              closeSiteModal();
-              window.open(url, '_blank', 'noopener');
-            }
-          } catch(e) {
-            /* cross-origin 오류 = 정상 로드된 것이므로 무시 */
-          }
-        };
+        if (isMobile) {
+          /* ── 모바일: 화면 하단 80% iframe 시트 ── */
+          const overlay = document.getElementById('siteModalOverlay');
+          const frame   = document.getElementById('siteModalFrame');
+          const title   = document.getElementById('siteModalTitle');
+          if (!overlay || !frame) return;
+          title.textContent = SITE_LABELS[url] || url;
+          frame.src = url;
+          overlay.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        } else {
+          /* ── PC: 작은 새 창으로 열기 ── */
+          const w    = 860;
+          const h    = 620;
+          const left = Math.round((screen.width  - w) / 2);
+          const top  = Math.round((screen.height - h) / 2);
+          window.open(
+            url,
+            'lineagePopup',
+            `width=${w},height=${h},left=${left},top=${top},` +
+            `scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=yes`
+          );
+        }
       }
 
       function closeSiteModal() {
@@ -6809,11 +6813,10 @@
         if (!overlay) return;
         overlay.classList.remove('open');
         document.body.style.overflow = '';
-        /* 살짝 딜레이 후 src 초기화 — 애니메이션이 끝난 뒤 iframe 언로드 */
         setTimeout(() => { if (frame) frame.src = ''; }, 260);
       }
 
-      /* ESC 키로 닫기 */
+      /* ESC 키로 모바일 모달 닫기 */
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeSiteModal();
       });
