@@ -5337,11 +5337,17 @@
 
       function buildSparkPoints(server) {
         const currentPrice = Number.isFinite(server.currentPrice) ? server.currentPrice : null;
+        // 오늘 KST 날짜 계산
+        const _kstNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+        const _todayKey = `${_kstNow.getFullYear()}-${String(_kstNow.getMonth()+1).padStart(2,"0")}-${String(_kstNow.getDate()).padStart(2,"0")}`;
         const baselinePoints = Object.entries(marketData.noonBaselines || {})
           .sort(([a], [b]) => a.localeCompare(b))
           .map(([date, prices]) => ({
             price: prices?.[server.name],
-            at: `${date}T12:00:00+09:00`,
+            // 오늘 날짜는 실제 현재 시각, 과거 날짜는 해당일 자정(00:00)으로 찍기
+            at: date === _todayKey
+              ? new Date().toISOString()
+              : `${date}T00:00:00+09:00`,
           }))
           .filter((point) => Number.isFinite(point.price))
           .slice(-15);
