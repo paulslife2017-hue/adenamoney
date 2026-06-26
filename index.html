@@ -786,6 +786,11 @@
         display: none;
       }
 
+      /* PC에서 모바일 전용 요소 숨김 */
+      .mobile-ad-banners {
+        display: none;
+      }
+
       /* ── PC 사이트 버튼 (square-ad 기반, 기본 표시) ── */
       .site-btn-pc {
         display: flex;
@@ -4814,6 +4819,54 @@
         display: none !important; /* 모바일: 광고버튼이 site-btns-mobile로 이동 */
       }
 
+      /* ── 모바일 하단 광고 배너 4개 ── */
+      .mobile-ad-banners {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 8px;
+        margin-bottom: 2px;
+      }
+      .mobile-ad-banner {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 14px;
+        border-radius: 10px;
+        border: 1px solid rgba(246, 199, 107, 0.20);
+        background:
+          radial-gradient(circle at 90% 50%, rgba(246, 199, 107, 0.08), transparent 50%),
+          linear-gradient(135deg, rgba(22, 18, 8, 0.96), rgba(14, 11, 4, 0.90));
+        text-decoration: none;
+        transition: border-color 140ms, transform 140ms;
+      }
+      .mobile-ad-banner:active {
+        transform: scale(.98);
+        border-color: rgba(246, 199, 107, 0.45);
+      }
+      .mobile-ad-banner__label {
+        font-size: 9px;
+        font-weight: 900;
+        color: rgba(246, 199, 107, 0.60);
+        letter-spacing: 0.5px;
+        flex-shrink: 0;
+        border: 1px solid rgba(246, 199, 107, 0.30);
+        padding: 2px 5px;
+        border-radius: 4px;
+      }
+      .mobile-ad-banner__text {
+        flex: 1;
+        font-size: 13px;
+        font-weight: 700;
+        color: rgba(246, 199, 107, 0.85);
+        letter-spacing: -0.2px;
+      }
+      .mobile-ad-banner__sub {
+        font-size: 10px;
+        color: rgba(246, 199, 107, 0.40);
+        flex-shrink: 0;
+      }
+
       .square-ad {
         flex: 1;
         min-width: 0;
@@ -5057,15 +5110,16 @@
                   <rect x="2" y="3" width="20" height="18" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
                   <text x="12" y="16" text-anchor="middle" font-size="11" font-weight="900" fill="currentColor" font-family="sans-serif">DC</text>
                 </svg>
-                <span>디씨<br>갤러리</span>
+                <span>리니지<br>클래식갤</span>
               </button>
               <a class="site-btn site-btn--ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                  <path d="M21.05 2.84L2.27 10.14c-.78.32-.77 1.41.02 1.71l4.56 1.65 1.97 6.17c.24.74 1.18.95 1.7.38l2.33-2.6 4.74 3.46c.65.47 1.57.12 1.73-.67l3.14-16.2c.19-.97-.8-1.75-1.41-1.2z" fill="currentColor"/>
                 </svg>
                 <span>광고<br>문의</span>
               </a>
           </div>
+
           <!-- 광고 슬롯 3개 + 공식·인벤 버튼(PC) -->
           <div class="square-ad-row" aria-label="광고 영역">
             <a class="square-ad" href="https://t.me/+821058947690" target="_blank" rel="noopener">
@@ -5096,6 +5150,30 @@
               <small>공략·커뮤니티</small>
             </button>
           </div>
+        </div>
+
+        <!-- 모바일 전용: 하단 광고 배너 4개 (향후 유료 광고 자리) -->
+        <div class="mobile-ad-banners">
+          <a class="mobile-ad-banner" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+            <span class="mobile-ad-banner__label">AD</span>
+            <span class="mobile-ad-banner__text">여기 광고문의</span>
+            <span class="mobile-ad-banner__sub">t.me 문의</span>
+          </a>
+          <a class="mobile-ad-banner" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+            <span class="mobile-ad-banner__label">AD</span>
+            <span class="mobile-ad-banner__text">여기 광고문의</span>
+            <span class="mobile-ad-banner__sub">t.me 문의</span>
+          </a>
+          <a class="mobile-ad-banner" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+            <span class="mobile-ad-banner__label">AD</span>
+            <span class="mobile-ad-banner__text">여기 광고문의</span>
+            <span class="mobile-ad-banner__sub">t.me 문의</span>
+          </a>
+          <a class="mobile-ad-banner" href="https://t.me/+821058947690" target="_blank" rel="noopener">
+            <span class="mobile-ad-banner__label">AD</span>
+            <span class="mobile-ad-banner__text">여기 광고문의</span>
+            <span class="mobile-ad-banner__sub">t.me 문의</span>
+          </a>
         </div>
 
         <!-- ── 사이트 팝업 모달 ── -->
@@ -6837,7 +6915,7 @@
       const SITE_LABELS = {
         'https://lineageclassic.plaync.com/ko-kr/index':                      '리니지 클래식 공식홈페이지',
         'https://lineageclassic.inven.co.kr/':                                '리니지 클래식 인벤',
-        'https://gall.dcinside.com/mgallery/board/lists/?id=lineage2classic': '리니지2 클래식 갤러리 (디시인사이드)',
+        'https://gall.dcinside.com/mgallery/board/lists/?id=lineage2classic': '리니지 클래식 갤러리 (디시인사이드)',
       };
 
       function openSiteModal(url) {
