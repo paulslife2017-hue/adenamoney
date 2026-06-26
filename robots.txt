@@ -2,5 +2,42 @@ User-agent: *
 Allow: /
 Disallow: /admin.html
 Disallow: /api/
+Disallow: /mobile-preview.html
+Disallow: /scrapers/
+Disallow: /scripts/
+Disallow: /data/
+Crawl-delay: 1
 
+# 구글봇 전용 — 크롤 속도 제한 없음
+User-agent: Googlebot
+Allow: /
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /mobile-preview.html
+Disallow: /scrapers/
+Disallow: /scripts/
+Disallow: /data/
+
+# 네이버봇 전용
+User-agent: Yeti
+Allow: /
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /mobile-preview.html
+Disallow: /scrapers/
+Disallow: /scripts/
+Disallow: /data/
+
+# 빙봇
+User-agent: Bingbot
+Allow: /
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /mobile-preview.html
+
+# 이미지 크롤러 허용
+User-agent: Googlebot-Image
+Allow: /
+
+# Sitemap 위치 (퓨니코드 + 한글 도메인 두 가지)
 Sitemap: https://xn--910by1bssg76c75a.kr/sitemap.xml
