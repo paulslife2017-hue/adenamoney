@@ -1,7 +1,7 @@
 window.MARKET_DATA = {
   "game": "리니지클래식",
   "unit": "아이템베이: 1만개 기준 / 아이템매니아: 거래완료 총액",
-  "fetchedAt": "2026-06-27T10:07:01.831Z",
+  "fetchedAt": "2026-06-27T11:53:41.162Z",
   "noonBaselines": {
     "2026-06-06": {
       "오렌": 2272,
@@ -655,34 +655,34 @@ window.MARKET_DATA = {
       "아인하사드": 657
     },
     "2026-06-27": {
-      "오렌": 1979,
-      "데포로쥬": 1550,
-      "조우": 1249,
-      "발라카스": 1220,
-      "이실로테": 1230,
-      "질리언": 1171,
-      "오웬": 1100,
-      "켄라우헬": 980,
-      "어레인": 999,
-      "크리스터": 1045,
-      "하딘": 956,
+      "오렌": 1895,
+      "데포로쥬": 1510,
+      "조우": 1250,
+      "발라카스": 1200,
+      "이실로테": 1200,
+      "질리언": 1148,
+      "오웬": 1080,
+      "켄라우헬": 985,
+      "어레인": 998,
+      "크리스터": 1015,
+      "하딘": 970,
       "파아그리오": 890,
-      "케레니스": 878,
+      "케레니스": 870,
       "린델": 900,
-      "세바스찬": 910,
-      "로엔그린": 740,
-      "군터": 890,
-      "하이네": 820,
-      "아스테어": 840,
-      "듀크데필": 850,
-      "캐스톨": 825,
-      "마프르": 860,
-      "발센": 849,
-      "에바": 845,
-      "가드리아": 847,
-      "사이하": 805,
-      "아툰": 770,
-      "데컨": 830,
+      "세바스찬": 900,
+      "로엔그린": 770,
+      "군터": 895,
+      "하이네": 800,
+      "아스테어": 810,
+      "듀크데필": 840,
+      "캐스톨": 865,
+      "마프르": 870,
+      "발센": 850,
+      "에바": 890,
+      "가드리아": 850,
+      "사이하": 790,
+      "아툰": 765,
+      "데컨": 820,
       "아인하사드": 669
     }
   },
@@ -695,58 +695,54 @@ window.MARKET_DATA = {
     {
       "name": "오렌",
       "itemBayServerId": 16303,
-      "currentPrice": 1979,
-      "lowestPrice": 1958,
+      "currentPrice": 1895,
+      "lowestPrice": 1890,
       "itemBay": {
-        "count": 20,
-        "min": 2000,
-        "avg": 2178,
-        "max": 2330,
+        "count": 21,
+        "min": 1890,
+        "avg": 2273,
+        "max": 4000,
         "url": "https://www.itembay.com/item/sell/game-3828/server-16303/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 3,
-        "min": 2150,
-        "avg": 2150,
+        "count": 5,
+        "min": 2080,
+        "avg": 2118,
         "max": 2150,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 18,
-        "min": 1958,
-        "avg": 2107,
-        "max": 2600,
+        "count": 29,
+        "min": 1900,
+        "avg": 2108,
+        "max": 3300,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 2000
+          "price": 1890
         },
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 1958
+          "price": 1900
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 2150
+          "price": 2080
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 2117,
-      "change": -138,
-      "changeRate": -6.52,
+      "change": -222,
+      "changeRate": -10.49,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 2100
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 2100
@@ -2086,64 +2082,64 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 1979
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 1895
         }
       ]
     },
     {
       "name": "데포로쥬",
       "itemBayServerId": 15943,
-      "currentPrice": 1550,
-      "lowestPrice": 1500,
+      "currentPrice": 1510,
+      "lowestPrice": 1035,
       "itemBay": {
         "count": 59,
-        "min": 1550,
-        "avg": 1783,
+        "min": 1540,
+        "avg": 1792,
         "max": 2786,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15943/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 13,
-        "min": 1570,
-        "avg": 1585,
-        "max": 1650,
+        "count": 14,
+        "min": 1510,
+        "avg": 1636,
+        "max": 2600,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 15,
-        "min": 1500,
-        "avg": 1572,
-        "max": 1621,
+        "count": 23,
+        "min": 1035,
+        "avg": 1489,
+        "max": 1602,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 1550
+          "price": 1540
         },
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 1500
+          "price": 1035
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 1570
+          "price": 1510
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 1460,
-      "change": 90,
-      "changeRate": 6.16,
+      "change": 50,
+      "changeRate": 3.42,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 1540
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 1518
@@ -3483,41 +3479,45 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 1550
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 1510
         }
       ]
     },
     {
       "name": "조우",
       "itemBayServerId": 15947,
-      "currentPrice": 1249,
-      "lowestPrice": 1247,
+      "currentPrice": 1250,
+      "lowestPrice": 1200,
       "itemBay": {
         "count": 59,
-        "min": 1247,
-        "avg": 1439,
+        "min": 1200,
+        "avg": 1447,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15947/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 27,
+        "count": 23,
         "min": 1280,
-        "avg": 1326,
-        "max": 1550,
+        "avg": 1324,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 11,
+        "count": 8,
         "min": 1250,
-        "avg": 1349,
-        "max": 1500,
+        "avg": 1302,
+        "max": 1378,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 1247
+          "price": 1200
         },
         {
           "key": "barotem",
@@ -3533,14 +3533,10 @@ window.MARKET_DATA = {
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 1262,
-      "change": -13,
-      "changeRate": -1.03,
+      "change": -12,
+      "changeRate": -0.95,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 1200
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 1225
@@ -4880,64 +4876,64 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 1249
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 1250
         }
       ]
     },
     {
       "name": "발라카스",
       "itemBayServerId": 16185,
-      "currentPrice": 1220,
-      "lowestPrice": 1180,
+      "currentPrice": 1200,
+      "lowestPrice": 1170,
       "itemBay": {
-        "count": 56,
-        "min": 1220,
-        "avg": 1410,
-        "max": 1600,
+        "count": 29,
+        "min": 1200,
+        "avg": 1296,
+        "max": 2000,
         "url": "https://www.itembay.com/item/sell/game-3828/server-16185/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 18,
-        "min": 1240,
-        "avg": 1246,
-        "max": 1290,
+        "count": 15,
+        "min": 1200,
+        "avg": 1239,
+        "max": 1500,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 9,
-        "min": 1180,
-        "avg": 1224,
-        "max": 1298,
+        "count": 10,
+        "min": 1170,
+        "avg": 1225,
+        "max": 1253,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 1220
+          "price": 1200
         },
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 1180
+          "price": 1170
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 1240
+          "price": 1200
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 1230,
-      "change": -10,
-      "changeRate": -0.81,
+      "change": -30,
+      "changeRate": -2.44,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 1210
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 1225
@@ -6277,33 +6273,37 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 1220
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 1200
         }
       ]
     },
     {
       "name": "이실로테",
       "itemBayServerId": 15946,
-      "currentPrice": 1230,
-      "lowestPrice": 1189,
+      "currentPrice": 1200,
+      "lowestPrice": 1150,
       "itemBay": {
         "count": 59,
         "min": 1230,
-        "avg": 1430,
+        "avg": 1441,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15946/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 15,
-        "min": 1250,
-        "avg": 1367,
-        "max": 1710,
+        "count": 12,
+        "min": 1200,
+        "avg": 1246,
+        "max": 1250,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 6,
-        "min": 1189,
-        "avg": 1213,
+        "count": 14,
+        "min": 1150,
+        "avg": 1219,
         "max": 1265,
         "status": "ok"
       },
@@ -6316,25 +6316,21 @@ window.MARKET_DATA = {
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 1189
+          "price": 1150
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 1250
+          "price": 1200
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 1155,
-      "change": 75,
-      "changeRate": 6.49,
+      "change": 45,
+      "changeRate": 3.9,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 1174
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 1174
@@ -7674,64 +7670,64 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 1230
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 1200
         }
       ]
     },
     {
       "name": "질리언",
       "itemBayServerId": 15945,
-      "currentPrice": 1171,
-      "lowestPrice": 1169,
+      "currentPrice": 1148,
+      "lowestPrice": 1145,
       "itemBay": {
-        "count": 60,
-        "min": 1172,
-        "avg": 1430,
+        "count": 62,
+        "min": 1164,
+        "avg": 1424,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15945/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 42,
-        "min": 1200,
-        "avg": 1248,
-        "max": 1580,
+        "count": 43,
+        "min": 1150,
+        "avg": 1193,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 15,
-        "min": 1169,
-        "avg": 1225,
-        "max": 1292,
+        "count": 7,
+        "min": 1145,
+        "avg": 1202,
+        "max": 1300,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 1172
+          "price": 1164
         },
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 1169
+          "price": 1145
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 1200
+          "price": 1150
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 1200,
-      "change": -29,
-      "changeRate": -2.42,
+      "change": -52,
+      "changeRate": -4.33,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 1185
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 1168
@@ -9071,33 +9067,37 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 1171
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 1148
         }
       ]
     },
     {
       "name": "오웬",
       "itemBayServerId": 15950,
-      "currentPrice": 1100,
-      "lowestPrice": 1000,
+      "currentPrice": 1080,
+      "lowestPrice": 1080,
       "itemBay": {
         "count": 56,
-        "min": 1160,
-        "avg": 1364,
+        "min": 1150,
+        "avg": 1381,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15950/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 7,
-        "min": 1100,
-        "avg": 1200,
-        "max": 1470,
+        "count": 5,
+        "min": 1080,
+        "avg": 1462,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 10,
-        "min": 1000,
-        "avg": 1146,
+        "count": 12,
+        "min": 1080,
+        "avg": 1182,
         "max": 1278,
         "status": "ok"
       },
@@ -9105,30 +9105,26 @@ window.MARKET_DATA = {
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 1160
+          "price": 1150
         },
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 1000
+          "price": 1080
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 1100
+          "price": 1080
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 1050,
-      "change": 50,
-      "changeRate": 4.76,
+      "change": 30,
+      "changeRate": 2.86,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 1029
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 1025
@@ -10468,33 +10464,37 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 1100
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 1080
         }
       ]
     },
     {
       "name": "켄라우헬",
       "itemBayServerId": 15944,
-      "currentPrice": 980,
-      "lowestPrice": 950,
+      "currentPrice": 985,
+      "lowestPrice": 970,
       "itemBay": {
         "count": 59,
         "min": 1000,
-        "avg": 1180,
+        "avg": 1192,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15944/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 75,
-        "min": 950,
-        "avg": 1021,
-        "max": 1290,
+        "count": 77,
+        "min": 970,
+        "avg": 1015,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 11,
-        "min": 980,
-        "avg": 1053,
+        "count": 13,
+        "min": 1030,
+        "avg": 1088,
         "max": 1145,
         "status": "ok"
       },
@@ -10507,25 +10507,21 @@ window.MARKET_DATA = {
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 980
+          "price": 1030
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 950
+          "price": 970
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 1000,
-      "change": -20,
-      "changeRate": -2,
+      "change": -15,
+      "changeRate": -1.5,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 1050
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 1000
@@ -11865,34 +11861,38 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 980
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 985
         }
       ]
     },
     {
       "name": "어레인",
       "itemBayServerId": 15989,
-      "currentPrice": 999,
+      "currentPrice": 998,
       "lowestPrice": 900,
       "itemBay": {
         "count": 57,
         "min": 900,
-        "avg": 1196,
+        "avg": 1225,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15989/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 19,
-        "min": 1000,
-        "avg": 1071,
-        "max": 1343,
+        "count": 22,
+        "min": 1020,
+        "avg": 1151,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 7,
-        "min": 999,
-        "avg": 1023,
-        "max": 1047,
+        "count": 5,
+        "min": 998,
+        "avg": 1014,
+        "max": 1070,
         "status": "ok"
       },
       "verifiedSources": [
@@ -11904,25 +11904,21 @@ window.MARKET_DATA = {
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 999
+          "price": 998
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 1000
+          "price": 1020
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 1030,
-      "change": -31,
-      "changeRate": -3.01,
+      "change": -32,
+      "changeRate": -3.11,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 1030
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 1005
@@ -13262,64 +13258,64 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 999
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 998
         }
       ]
     },
     {
       "name": "크리스터",
       "itemBayServerId": 15951,
-      "currentPrice": 1045,
-      "lowestPrice": 1040,
+      "currentPrice": 1015,
+      "lowestPrice": 1000,
       "itemBay": {
-        "count": 60,
-        "min": 1040,
-        "avg": 1216,
+        "count": 39,
+        "min": 1000,
+        "avg": 1177,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15951/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 21,
-        "min": 1070,
-        "avg": 1167,
-        "max": 1350,
+        "count": 14,
+        "min": 1060,
+        "avg": 1222,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 13,
-        "min": 1050,
-        "avg": 1118,
-        "max": 1198,
+        "count": 2,
+        "min": 1030,
+        "avg": 1050,
+        "max": 1070,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 1040
+          "price": 1000
         },
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 1050
+          "price": 1030
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 1070
+          "price": 1060
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 950,
-      "change": 95,
-      "changeRate": 10,
+      "change": 65,
+      "changeRate": 6.84,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 990
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 970
@@ -14659,46 +14655,50 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 1045
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 1015
         }
       ]
     },
     {
       "name": "하딘",
       "itemBayServerId": 15948,
-      "currentPrice": 956,
-      "lowestPrice": 950,
+      "currentPrice": 970,
+      "lowestPrice": 970,
       "itemBay": {
         "count": 58,
-        "min": 961,
-        "avg": 1168,
+        "min": 970,
+        "avg": 1170,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15948/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 15,
+        "count": 17,
         "min": 980,
-        "avg": 1008,
-        "max": 1100,
+        "avg": 1155,
+        "max": 1970,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 14,
-        "min": 950,
-        "avg": 1664,
-        "max": 10407,
+        "count": 11,
+        "min": 970,
+        "avg": 1009,
+        "max": 1050,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 961
+          "price": 970
         },
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 950
+          "price": 970
         },
         {
           "key": "itemMania",
@@ -14709,14 +14709,10 @@ window.MARKET_DATA = {
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 980,
-      "change": -24,
-      "changeRate": -2.45,
+      "change": -10,
+      "changeRate": -1.02,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 980
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 1006
@@ -16056,6 +16052,10 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 956
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 970
         }
       ]
     },
@@ -16063,44 +16063,44 @@ window.MARKET_DATA = {
       "name": "파아그리오",
       "itemBayServerId": 15994,
       "currentPrice": 890,
-      "lowestPrice": 840,
+      "lowestPrice": 860,
       "itemBay": {
         "count": 59,
-        "min": 890,
-        "avg": 1092,
+        "min": 900,
+        "avg": 1091,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15994/type-3",
         "status": "ok"
       },
       "itemMania": {
         "count": 20,
-        "min": 910,
-        "avg": 925,
-        "max": 1180,
+        "min": 890,
+        "avg": 1016,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 6,
-        "min": 840,
-        "avg": 863,
-        "max": 890,
+        "count": 9,
+        "min": 860,
+        "avg": 918,
+        "max": 952,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 890
+          "price": 900
         },
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 840
+          "price": 860
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 910
+          "price": 890
         }
       ],
       "excludedSources": [],
@@ -16110,10 +16110,6 @@ window.MARKET_DATA = {
       "changeRate": 4.71,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 922
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 870
@@ -17453,33 +17449,37 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 890
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 890
         }
       ]
     },
     {
       "name": "케레니스",
       "itemBayServerId": 15949,
-      "currentPrice": 878,
+      "currentPrice": 870,
       "lowestPrice": 870,
       "itemBay": {
-        "count": 60,
+        "count": 58,
         "min": 870,
-        "avg": 1029,
+        "avg": 1064,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15949/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 20,
+        "count": 16,
         "min": 880,
-        "avg": 930,
-        "max": 1030,
+        "avg": 976,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 15,
-        "min": 878,
-        "avg": 899,
+        "count": 9,
+        "min": 870,
+        "avg": 883,
         "max": 912,
         "status": "ok"
       },
@@ -17492,7 +17492,7 @@ window.MARKET_DATA = {
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 878
+          "price": 870
         },
         {
           "key": "itemMania",
@@ -17503,14 +17503,10 @@ window.MARKET_DATA = {
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 900,
-      "change": -22,
-      "changeRate": -2.44,
+      "change": -30,
+      "changeRate": -3.33,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 860
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 860
@@ -18850,6 +18846,10 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 878
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 870
         }
       ]
     },
@@ -18857,34 +18857,34 @@ window.MARKET_DATA = {
       "name": "린델",
       "itemBayServerId": 15998,
       "currentPrice": 900,
-      "lowestPrice": 900,
+      "lowestPrice": 827,
       "itemBay": {
-        "count": 59,
-        "min": 920,
-        "avg": 1116,
+        "count": 60,
+        "min": 900,
+        "avg": 1093,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15998/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 23,
-        "min": 900,
-        "avg": 968,
-        "max": 1204,
+        "count": 22,
+        "min": 827,
+        "avg": 1020,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 7,
+        "count": 2,
         "min": 900,
-        "avg": 929,
-        "max": 946,
+        "avg": 915,
+        "max": 929,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 920
+          "price": 900
         },
         {
           "key": "barotem",
@@ -18894,7 +18894,7 @@ window.MARKET_DATA = {
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 900
+          "price": 827
         }
       ],
       "excludedSources": [],
@@ -18904,10 +18904,6 @@ window.MARKET_DATA = {
       "changeRate": 0.9,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 895
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 895
@@ -20247,33 +20243,37 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 900
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 900
         }
       ]
     },
     {
       "name": "세바스찬",
       "itemBayServerId": 15991,
-      "currentPrice": 910,
-      "lowestPrice": 855,
+      "currentPrice": 900,
+      "lowestPrice": 889,
       "itemBay": {
-        "count": 53,
+        "count": 58,
         "min": 910,
-        "avg": 1049,
+        "avg": 1061,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15991/type-3",
         "status": "ok"
       },
       "itemMania": {
         "count": 17,
-        "min": 910,
-        "avg": 977,
-        "max": 1187,
+        "min": 900,
+        "avg": 1053,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 5,
-        "min": 855,
-        "avg": 912,
+        "count": 12,
+        "min": 889,
+        "avg": 926,
         "max": 1000,
         "status": "ok"
       },
@@ -20286,25 +20286,21 @@ window.MARKET_DATA = {
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 855
+          "price": 889
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 910
+          "price": 900
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 900,
-      "change": 10,
-      "changeRate": 1.11,
+      "change": 0,
+      "changeRate": 0,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 950
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 913
@@ -21644,46 +21640,50 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 910
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 900
         }
       ]
     },
     {
       "name": "로엔그린",
       "itemBayServerId": 16091,
-      "currentPrice": 740,
-      "lowestPrice": 700,
+      "currentPrice": 770,
+      "lowestPrice": 755,
       "itemBay": {
-        "count": 61,
-        "min": 700,
-        "avg": 910,
+        "count": 60,
+        "min": 770,
+        "avg": 922,
         "max": 1400,
         "url": "https://www.itembay.com/item/sell/game-3828/server-16091/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 23,
+        "count": 21,
         "min": 770,
-        "avg": 811,
-        "max": 1080,
+        "avg": 850,
+        "max": 1400,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 11,
-        "min": 740,
-        "avg": 787,
-        "max": 850,
+        "count": 7,
+        "min": 755,
+        "avg": 819,
+        "max": 950,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 700
+          "price": 770
         },
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 740
+          "price": 755
         },
         {
           "key": "itemMania",
@@ -21694,14 +21694,10 @@ window.MARKET_DATA = {
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 770,
-      "change": -30,
-      "changeRate": -3.9,
+      "change": 0,
+      "changeRate": 0,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 780
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 765
@@ -23041,41 +23037,45 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 740
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 770
         }
       ]
     },
     {
       "name": "군터",
       "itemBayServerId": 15985,
-      "currentPrice": 890,
-      "lowestPrice": 840,
+      "currentPrice": 895,
+      "lowestPrice": 890,
       "itemBay": {
-        "count": 57,
-        "min": 840,
-        "avg": 1118,
+        "count": 60,
+        "min": 910,
+        "avg": 1084,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15985/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 3,
+        "count": 20,
         "min": 900,
-        "avg": 980,
-        "max": 1120,
+        "avg": 1027,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 8,
+        "count": 9,
         "min": 890,
-        "avg": 895,
-        "max": 900,
+        "avg": 926,
+        "max": 967,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 840
+          "price": 910
         },
         {
           "key": "barotem",
@@ -23091,14 +23091,10 @@ window.MARKET_DATA = {
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 890,
-      "change": 0,
-      "changeRate": 0,
+      "change": 5,
+      "changeRate": 0.56,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 900
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 890
@@ -24438,46 +24434,50 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 890
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 895
         }
       ]
     },
     {
       "name": "하이네",
       "itemBayServerId": 16090,
-      "currentPrice": 820,
-      "lowestPrice": 810,
+      "currentPrice": 800,
+      "lowestPrice": 800,
       "itemBay": {
         "count": 58,
-        "min": 830,
-        "avg": 964,
+        "min": 800,
+        "avg": 991,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-16090/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 22,
+        "count": 17,
         "min": 860,
-        "avg": 881,
-        "max": 990,
+        "avg": 940,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 10,
-        "min": 810,
-        "avg": 838,
-        "max": 880,
+        "count": 13,
+        "min": 800,
+        "avg": 869,
+        "max": 1048,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 830
+          "price": 800
         },
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 810
+          "price": 800
         },
         {
           "key": "itemMania",
@@ -24488,14 +24488,10 @@ window.MARKET_DATA = {
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 830,
-      "change": -10,
-      "changeRate": -1.2,
+      "change": -30,
+      "changeRate": -3.61,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 810
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 810
@@ -25835,34 +25831,38 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 820
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 800
         }
       ]
     },
     {
       "name": "아스테어",
       "itemBayServerId": 15986,
-      "currentPrice": 840,
-      "lowestPrice": 800,
+      "currentPrice": 810,
+      "lowestPrice": 810,
       "itemBay": {
         "count": 58,
         "min": 840,
-        "avg": 967,
+        "avg": 984,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15986/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 20,
-        "min": 840,
-        "avg": 864,
-        "max": 989,
+        "count": 19,
+        "min": 810,
+        "avg": 908,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
         "count": 9,
-        "min": 800,
-        "avg": 878,
-        "max": 956,
+        "min": 810,
+        "avg": 876,
+        "max": 901,
         "status": "ok"
       },
       "verifiedSources": [
@@ -25874,25 +25874,21 @@ window.MARKET_DATA = {
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 800
+          "price": 810
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 840
+          "price": 810
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 805,
-      "change": 35,
-      "changeRate": 4.35,
+      "change": 5,
+      "changeRate": 0.62,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 830
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 815
@@ -27232,34 +27228,38 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 840
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 810
         }
       ]
     },
     {
       "name": "듀크데필",
       "itemBayServerId": 15987,
-      "currentPrice": 850,
+      "currentPrice": 840,
       "lowestPrice": 826,
       "itemBay": {
-        "count": 56,
+        "count": 58,
         "min": 850,
-        "avg": 980,
+        "avg": 1001,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15987/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 17,
-        "min": 850,
-        "avg": 892,
-        "max": 1263,
+        "count": 23,
+        "min": 840,
+        "avg": 913,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 8,
+        "count": 13,
         "min": 826,
-        "avg": 859,
-        "max": 910,
+        "avg": 855,
+        "max": 893,
         "status": "ok"
       },
       "verifiedSources": [
@@ -27276,20 +27276,16 @@ window.MARKET_DATA = {
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 850
+          "price": 840
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 870,
-      "change": -20,
-      "changeRate": -2.3,
+      "change": -30,
+      "changeRate": -3.45,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 868
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 856
@@ -28629,33 +28625,37 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 850
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 840
         }
       ]
     },
     {
       "name": "캐스톨",
       "itemBayServerId": 15990,
-      "currentPrice": 825,
-      "lowestPrice": 800,
+      "currentPrice": 865,
+      "lowestPrice": 850,
       "itemBay": {
         "count": 59,
-        "min": 800,
-        "avg": 1033,
+        "min": 910,
+        "avg": 1049,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15990/type-3",
         "status": "ok"
       },
       "itemMania": {
         "count": 18,
-        "min": 930,
-        "avg": 947,
-        "max": 1090,
+        "min": 880,
+        "avg": 1034,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 12,
+        "count": 11,
         "min": 850,
-        "avg": 910,
+        "avg": 918,
         "max": 982,
         "status": "ok"
       },
@@ -28663,7 +28663,7 @@ window.MARKET_DATA = {
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 800
+          "price": 910
         },
         {
           "key": "barotem",
@@ -28673,20 +28673,16 @@ window.MARKET_DATA = {
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 930
+          "price": 880
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 850,
-      "change": -25,
-      "changeRate": -2.94,
+      "change": 15,
+      "changeRate": 1.76,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 880
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 860
@@ -30026,64 +30022,64 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 825
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 865
         }
       ]
     },
     {
       "name": "마프르",
       "itemBayServerId": 15997,
-      "currentPrice": 860,
-      "lowestPrice": 840,
+      "currentPrice": 870,
+      "lowestPrice": 870,
       "itemBay": {
         "count": 59,
-        "min": 880,
-        "avg": 1063,
+        "min": 900,
+        "avg": 1061,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15997/type-3",
         "status": "ok"
       },
       "itemMania": {
         "count": 22,
-        "min": 920,
-        "avg": 951,
-        "max": 1150,
+        "min": 870,
+        "avg": 966,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 11,
-        "min": 840,
-        "avg": 866,
-        "max": 880,
+        "count": 8,
+        "min": 870,
+        "avg": 901,
+        "max": 940,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 880
+          "price": 900
         },
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 840
+          "price": 870
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 920
+          "price": 870
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 902,
-      "change": -42,
-      "changeRate": -4.66,
+      "change": -32,
+      "changeRate": -3.55,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 910
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 894
@@ -31423,33 +31419,37 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 860
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 870
         }
       ]
     },
     {
       "name": "발센",
       "itemBayServerId": 15988,
-      "currentPrice": 849,
-      "lowestPrice": 848,
+      "currentPrice": 850,
+      "lowestPrice": 811,
       "itemBay": {
-        "count": 53,
+        "count": 58,
         "min": 850,
-        "avg": 999,
+        "avg": 1022,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15988/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 20,
-        "min": 880,
-        "avg": 911,
-        "max": 1190,
+        "count": 22,
+        "min": 870,
+        "avg": 987,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
         "count": 7,
-        "min": 848,
-        "avg": 875,
+        "min": 811,
+        "avg": 843,
         "max": 894,
         "status": "ok"
       },
@@ -31462,25 +31462,21 @@ window.MARKET_DATA = {
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 848
+          "price": 811
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 880
+          "price": 870
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 843,
-      "change": 6,
-      "changeRate": 0.71,
+      "change": 7,
+      "changeRate": 0.83,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 898
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 849
@@ -32820,34 +32816,38 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 849
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 850
         }
       ]
     },
     {
       "name": "에바",
       "itemBayServerId": 15995,
-      "currentPrice": 845,
-      "lowestPrice": 840,
+      "currentPrice": 890,
+      "lowestPrice": 850,
       "itemBay": {
         "count": 59,
         "min": 850,
-        "avg": 1051,
+        "avg": 1050,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15995/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 22,
-        "min": 840,
-        "avg": 890,
-        "max": 1184,
+        "count": 21,
+        "min": 890,
+        "avg": 974,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 12,
+        "count": 8,
         "min": 890,
-        "avg": 930,
-        "max": 1050,
+        "avg": 948,
+        "max": 1000,
         "status": "ok"
       },
       "verifiedSources": [
@@ -32864,20 +32864,16 @@ window.MARKET_DATA = {
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 840
+          "price": 890
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 800,
-      "change": 45,
-      "changeRate": 5.63,
+      "change": 90,
+      "changeRate": 11.25,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 825
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 840
@@ -34217,46 +34213,50 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 845
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 890
         }
       ]
     },
     {
       "name": "가드리아",
       "itemBayServerId": 15984,
-      "currentPrice": 847,
-      "lowestPrice": 810,
+      "currentPrice": 850,
+      "lowestPrice": 849,
       "itemBay": {
-        "count": 59,
-        "min": 810,
-        "avg": 1031,
+        "count": 36,
+        "min": 850,
+        "avg": 974,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15984/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 19,
+        "count": 16,
         "min": 850,
-        "avg": 900,
-        "max": 1180,
+        "avg": 943,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
         "count": 16,
-        "min": 847,
-        "avg": 902,
-        "max": 993,
+        "min": 849,
+        "avg": 930,
+        "max": 1384,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 810
+          "price": 850
         },
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 847
+          "price": 849
         },
         {
           "key": "itemMania",
@@ -34267,14 +34267,10 @@ window.MARKET_DATA = {
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 850,
-      "change": -3,
-      "changeRate": -0.35,
+      "change": 0,
+      "changeRate": 0,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 850
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 825
@@ -35614,64 +35610,64 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 847
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 850
         }
       ]
     },
     {
       "name": "사이하",
       "itemBayServerId": 15996,
-      "currentPrice": 805,
-      "lowestPrice": 800,
+      "currentPrice": 790,
+      "lowestPrice": 790,
       "itemBay": {
         "count": 58,
-        "min": 810,
-        "avg": 1010,
+        "min": 800,
+        "avg": 983,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15996/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 16,
-        "min": 830,
-        "avg": 830,
-        "max": 830,
+        "count": 23,
+        "min": 790,
+        "avg": 906,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 10,
-        "min": 800,
-        "avg": 824,
-        "max": 839,
+        "count": 13,
+        "min": 790,
+        "avg": 881,
+        "max": 950,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 810
+          "price": 800
         },
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 800
+          "price": 790
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 830
+          "price": 790
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 820,
-      "change": -15,
-      "changeRate": -1.83,
+      "change": -30,
+      "changeRate": -3.66,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 850
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 839
@@ -37011,34 +37007,38 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 805
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 790
         }
       ]
     },
     {
       "name": "아툰",
       "itemBayServerId": 15983,
-      "currentPrice": 770,
-      "lowestPrice": 750,
+      "currentPrice": 765,
+      "lowestPrice": 760,
       "itemBay": {
-        "count": 56,
+        "count": 57,
         "min": 770,
-        "avg": 895,
+        "avg": 903,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15983/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 24,
+        "count": 16,
         "min": 780,
-        "avg": 827,
-        "max": 1040,
+        "avg": 868,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 7,
-        "min": 750,
-        "avg": 760,
-        "max": 780,
+        "count": 14,
+        "min": 760,
+        "avg": 791,
+        "max": 817,
         "status": "ok"
       },
       "verifiedSources": [
@@ -37050,7 +37050,7 @@ window.MARKET_DATA = {
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 750
+          "price": 760
         },
         {
           "key": "itemMania",
@@ -37061,14 +37061,10 @@ window.MARKET_DATA = {
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 760,
-      "change": 10,
-      "changeRate": 1.32,
+      "change": 5,
+      "changeRate": 0.66,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 780
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 765
@@ -38408,34 +38404,38 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 770
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 765
         }
       ]
     },
     {
       "name": "데컨",
       "itemBayServerId": 15992,
-      "currentPrice": 830,
-      "lowestPrice": 800,
+      "currentPrice": 820,
+      "lowestPrice": 820,
       "itemBay": {
         "count": 59,
         "min": 830,
-        "avg": 1026,
+        "avg": 1040,
         "max": 1900,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15992/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 22,
-        "min": 840,
-        "avg": 915,
-        "max": 1447,
+        "count": 20,
+        "min": 820,
+        "avg": 907,
+        "max": 1900,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 10,
-        "min": 800,
-        "avg": 824,
-        "max": 842,
+        "count": 3,
+        "min": 820,
+        "avg": 826,
+        "max": 839,
         "status": "ok"
       },
       "verifiedSources": [
@@ -38447,25 +38447,21 @@ window.MARKET_DATA = {
         {
           "key": "barotem",
           "label": "바로템",
-          "price": 800
+          "price": 820
         },
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 840
+          "price": 820
         }
       ],
       "excludedSources": [],
       "verificationStatus": "verified",
       "previousNoonPrice": 800,
-      "change": 30,
-      "changeRate": 3.75,
+      "change": 20,
+      "changeRate": 2.5,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 840
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 849
@@ -39805,6 +39801,10 @@ window.MARKET_DATA = {
         {
           "at": "2026-06-27T10:07:01.831Z",
           "price": 830
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
+          "price": 820
         }
       ]
     },
@@ -39815,31 +39815,31 @@ window.MARKET_DATA = {
       "lowestPrice": 667,
       "itemBay": {
         "count": 59,
-        "min": 690,
-        "avg": 816,
+        "min": 670,
+        "avg": 824,
         "max": 1400,
         "url": "https://www.itembay.com/item/sell/game-3828/server-15952/type-3",
         "status": "ok"
       },
       "itemMania": {
-        "count": 17,
-        "min": 670,
-        "avg": 721,
-        "max": 950,
+        "count": 20,
+        "min": 690,
+        "avg": 1536,
+        "max": 16700,
         "note": "판매목록 1만당 단가 기준"
       },
       "barotem": {
-        "count": 6,
+        "count": 3,
         "min": 667,
-        "avg": 690,
-        "max": 710,
+        "avg": 682,
+        "max": 700,
         "status": "ok"
       },
       "verifiedSources": [
         {
           "key": "itemBay",
           "label": "아이템베이",
-          "price": 690
+          "price": 670
         },
         {
           "key": "barotem",
@@ -39849,7 +39849,7 @@ window.MARKET_DATA = {
         {
           "key": "itemMania",
           "label": "아이템매니아",
-          "price": 670
+          "price": 690
         }
       ],
       "excludedSources": [],
@@ -39859,10 +39859,6 @@ window.MARKET_DATA = {
       "changeRate": 1.83,
       "baselineLabel": "2026-06-26",
       "history": [
-        {
-          "at": "2026-06-26T02:49:28.806Z",
-          "price": 710
-        },
         {
           "at": "2026-06-26T02:51:07.359Z",
           "price": 685
@@ -41201,6 +41197,10 @@ window.MARKET_DATA = {
         },
         {
           "at": "2026-06-27T10:07:01.831Z",
+          "price": 669
+        },
+        {
+          "at": "2026-06-27T11:53:41.162Z",
           "price": 669
         }
       ]
