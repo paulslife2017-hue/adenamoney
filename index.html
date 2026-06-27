@@ -2750,6 +2750,7 @@
           display: flex;
           align-items: stretch;
           gap: 8px;
+          min-height: 58px;        /* ← 버튼 최소 높이 보장 */
         }
         .main-price {
           flex-shrink: 0;
@@ -2757,7 +2758,7 @@
 
         /* PC 버튼 래퍼 (현재가 오른쪽) */
         .pc-banner-wrap {
-          display: flex;
+          display: flex !important; /* ← pc-only 표시 강제 */
           flex: 1;
           gap: 5px;
           align-items: stretch;
@@ -2773,11 +2774,12 @@
           min-width: 0;
         }
         .pc-banner-btns .square-ad {
-          flex: 1;
+          flex: 1 1 0;             /* ← 균등 분배, 축소 허용 */
           min-width: 0;
           width: auto;
-          min-height: 0;
+          min-height: 52px;        /* ← 높이 보장 (0으로 사라지지 않게) */
           padding: 5px 3px;
+          flex-shrink: 1;          /* ← 기본값 override */
         }
         .pc-banner-btns .square-ad strong { font-size: 9.5px; }
         .pc-banner-btns .square-ad small  { font-size: 8px; }
