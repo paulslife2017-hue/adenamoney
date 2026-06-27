@@ -347,6 +347,10 @@
         letter-spacing: 0.04em;
         flex: 1;
         text-align: center;
+        white-space: nowrap;   /* ← 줄바꿈 방지 */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
       }
 
       .brand {
@@ -4997,13 +5001,18 @@
 
       .brand span {
         font-size: 11px;
+        display: none;         /* ← 모바일: 태그라인 숨김 (공간 확보) */
       }
 
       .topbar-clock {
-        font-size: 12px;
+        font-size: 10px;       /* ← 모바일: 작게 */
         flex: 1;
         text-align: center;
         min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        letter-spacing: -0.02em;
       }
 
       .topbar-refresh {
@@ -6997,7 +7006,11 @@
           const hh   = String(kst.getHours()).padStart(2, "0");
           const mi   = String(kst.getMinutes()).padStart(2, "0");
           const ss   = String(kst.getSeconds()).padStart(2, "0");
-          topbarClock.textContent = `${yyyy}년 ${mo}월 ${dd}일 (${dow}) ${hh}:${mi}:${ss}`;
+          // 모바일(480px 이하)은 짧게, PC는 풀 형식
+          const isMobile = window.innerWidth <= 480;
+          topbarClock.textContent = isMobile
+            ? `${mo}/${dd}(${dow}) ${hh}:${mi}:${ss}`
+            : `${yyyy}년 ${mo}월 ${dd}일 (${dow}) ${hh}:${mi}:${ss}`;
         }
       }
       tickClock(); // 페이지 로드 즉시 현재 시간 표시 (1초 딜레이 없음)
