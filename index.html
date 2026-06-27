@@ -6985,14 +6985,17 @@
 
       const topbarClock = document.getElementById("topbarClock");
 
-      // KST 시계 업데이트 함수
+      // 시계 업데이트 함수 (날짜 + 시간)
       function tickClock() {
         if (topbarClock) {
           const kst = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
-          const hh = String(kst.getHours()).padStart(2, "0");
-          const mi = String(kst.getMinutes()).padStart(2, "0");
-          const ss = String(kst.getSeconds()).padStart(2, "0");
-          topbarClock.textContent = `${hh}:${mi}:${ss} KST`;
+          const yyyy = kst.getFullYear();
+          const mo   = String(kst.getMonth() + 1).padStart(2, "0");
+          const dd   = String(kst.getDate()).padStart(2, "0");
+          const hh   = String(kst.getHours()).padStart(2, "0");
+          const mi   = String(kst.getMinutes()).padStart(2, "0");
+          const ss   = String(kst.getSeconds()).padStart(2, "0");
+          topbarClock.textContent = `${yyyy}.${mo}.${dd} ${hh}:${mi}:${ss}`;
         }
       }
       tickClock(); // 페이지 로드 즉시 현재 시간 표시 (1초 딜레이 없음)
