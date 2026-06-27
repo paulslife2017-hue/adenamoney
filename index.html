@@ -331,10 +331,12 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 8px;                        /* ← 요소 간 간격 확보 */
         padding: 7px 16px 6px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         background: rgba(6, 9, 19, 0.78);
         backdrop-filter: blur(20px);
+        overflow: visible;               /* ← 브랜드명 잘림 방지 */
       }
 
       .topbar-clock {
@@ -348,10 +350,11 @@
       }
 
       .brand {
-        min-width: 0;
+        flex-shrink: 0;          /* ← 브랜드명 절대 줄어들지 않음 */
         display: flex;
         align-items: baseline;
         gap: 8px;
+        white-space: nowrap;     /* ← 줄바꿈 없이 한 줄 유지 */
       }
 
       .brand strong {
@@ -359,6 +362,7 @@
         font-size: 16px;
         line-height: 1.1;
         letter-spacing: 0;
+        white-space: nowrap;
       }
 
       .brand span {
@@ -366,6 +370,7 @@
         margin-top: 0;
         color: var(--muted);
         font-size: 13px;
+        white-space: nowrap;
       }
 
       .refresh {
@@ -2644,8 +2649,8 @@
 
         .topbar {
           grid-area: topbar;
-          margin: 0 -14px;
-          padding: 7px 18px 6px;
+          margin: 0 -12px;             /* ← .app padding과 일치 */
+          padding: 7px 14px 6px;       /* ← 브랜드명 잊리지 않도록 */
           border-radius: 16px 16px 0 0;
         }
 
@@ -3082,8 +3087,8 @@
           }
 
           .topbar {
-            margin: 0 -22px;
-            padding: 7px 26px 6px;
+            margin: 0 -18px;           /* ← .app padding(18px)과 일치 */
+            padding: 7px 22px 6px;
             border-bottom-color: rgba(154, 178, 218, 0.13);
             background:
               linear-gradient(90deg, rgba(8, 13, 25, 0.96), rgba(14, 23, 43, 0.9)),
@@ -3456,8 +3461,8 @@
           }
 
           .topbar {
-            margin: 0 -14px;
-            padding: 7px 18px 6px;
+            margin: 0 -14px;           /* ← .app padding(14px)과 일치 */
+            padding: 7px 16px 6px;
             border-radius: 16px 16px 0 0;
           }
 
@@ -3955,7 +3960,7 @@
       }
 
       .topbar {
-        margin: 0 -14px;
+        margin: 0 -16px;           /* ← .app padding(16px)과 일치 */
         padding: 7px 18px 6px;
       }
 
