@@ -4,8 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
-const brand = "오늘아덴";
-const domain = "https://오늘아덴.kr";
+const brand = "오늘아데나";
+const domain = "https://오늘아데나.kr";
 const today = new Intl.DateTimeFormat("en-CA", {
   timeZone: "Asia/Seoul",
   year: "numeric",
@@ -87,7 +87,7 @@ const renderServerPage = (server, allServers) => {
   const current = formatPrice(server.currentPrice);
   const change = formatChange(server);
   const sourceRows = getSourceRows(server);
-  const description = `${server.name} 아데나 시세 ${current}원. 리니지 클래식 ${server.name} 서버 아덴 가격과 전일 12시 대비 흐름을 오늘아덴에서 확인하세요.`;
+  const description = `${server.name} 아데나 시세 ${current}원. 리니지 클래식 ${server.name} 서버 아덴 가격과 전일 12시 대비 흐름을 오늘아데나에서 확인하세요.`;
   const topLinks = allServers
     .filter((item) => item.name !== server.name)
     .slice(0, 8)
@@ -151,7 +151,7 @@ const renderServerPage = (server, allServers) => {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(server.name)} 아데나 시세 | 리니지 클래식 ${escapeHtml(server.name)} 서버 아덴 가격 - ${brand}</title>
   <meta name="description" content="${escapeHtml(description)}">
-  <meta name="keywords" content="리니지 클래식 아데나 시세, ${escapeHtml(server.name)} 아데나, ${escapeHtml(server.name)} 아덴 시세, 리니지 클래식 ${escapeHtml(server.name)}, 아데나 시세, 오늘아덴">
+  <meta name="keywords" content="리니지 클래식 아데나 시세, ${escapeHtml(server.name)} 아데나, ${escapeHtml(server.name)} 아덴 시세, 리니지 클래식 ${escapeHtml(server.name)}, 아데나 시세, 오늘아데나">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="${url}">
   <meta property="og:type" content="website">
